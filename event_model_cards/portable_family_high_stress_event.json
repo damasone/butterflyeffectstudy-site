@@ -1,0 +1,16 @@
+{
+  "card_key": "portable_family_high_stress_event",
+  "label": "Portable family high stress event",
+  "kind": "portable_event_binary",
+  "tier": "accepted",
+  "role": "portable_event_binary_reference",
+  "blocking_flags": [],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/portable-binary-family-models-event/high_stress_event/summary.json",
+  "calibration_summary_path": null,
+  "metrics": {
+    "auroc": 0.7185154217762914,
+    "average_precision": 0.5106120172629425,
+    "brier": 0.340127547181479,
+    "balanced_accuracy": 0.6770113340765515
+  }
+}

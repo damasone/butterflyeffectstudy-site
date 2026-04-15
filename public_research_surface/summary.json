@@ -1,0 +1,391 @@
+{
+  "generated_on": "2026-03-27",
+  "title": "Butterfly Effect",
+  "tagline": "The flap of a butterfly\u2019s wings can be felt on the other side of the world.",
+  "subtitle": "A research system for detecting subtle sleep and physiological patterns that may precede future changes in stress, symptoms, and health burden.",
+  "lede": "Butterfly Effect explores how small changes in sleep and overnight physiology may precede later changes in stress, symptoms, and daily burden. The public surface is designed to explain that idea clearly without blurring the very different layers of evidence underneath it.",
+  "hero_note": "Nightly within-cohort interpretation, portable event stress, and daily temporal gains already hold. Night transport is still the main bottleneck, though the portable stress D+1 family has now improved under a governed blended contract and remains research-only. Not diagnostic.",
+  "meta_description": "Butterfly Effect is a research-grade sleep interpretation surface built around nightly routes, daily challenge layers, portable event stress, governance, and evidence-linked reporting.",
+  "narrative_blocks": [
+    {
+      "title": "What it watches",
+      "body": "Longitudinal sleep timing, continuity, nocturnal cardiovascular load, movement, and repeated self-report signals."
+    },
+    {
+      "title": "What it builds",
+      "body": "Nightly interpretation routes, event stress models, daily challenge layers, and portable research families with explicit governance."
+    },
+    {
+      "title": "What it returns",
+      "body": "A readable interpretation surface for institutions, participants, and professionals: signal, limits, validation posture, and evidence links kept visible at the same time."
+    }
+  ],
+  "hero_panels": [
+    {
+      "label": "Visible cards",
+      "value": 40,
+      "detail": "night, event, daily, and family surfaces exposed without flattening them into one false product claim"
+    },
+    {
+      "label": "Accepted units",
+      "value": 15,
+      "detail": "cards or families with signals the current evidence can defend inside their intended scope"
+    },
+    {
+      "label": "Experimental units",
+      "value": 18,
+      "detail": "research layers that remain useful but still fall below deployment or transport thresholds"
+    },
+    {
+      "label": "Main bottleneck",
+      "value": "Night transport",
+      "detail": "cross-cohort nightly portability still limits the strongest public claim the project can make"
+    }
+  ],
+  "principles": [
+    {
+      "title": "Subtle signal, delayed effect",
+      "body": "The project starts from a simple premise: small variations in sleep and physiology can accumulate into visible changes in stress, symptoms, and day-to-day burden."
+    },
+    {
+      "title": "Interpretation before diagnosis",
+      "body": "The surface is built to organize and explain signal, not to pretend that current models already justify diagnostic language or universal clinical claims."
+    },
+    {
+      "title": "Evidence before expansion",
+      "body": "Where signal is strong, the site says so. Where transport fails or outcome equivalence is weak, those limits stay visible instead of being hidden behind presentation."
+    }
+  ],
+  "workstreams": [
+    {
+      "title": "Nightly operational routes",
+      "body": "12 nightly route cards are already materialized, tiered, and governed. This is the operational spine of the project: cohort-matched interpretation, held-out metrics, interval calibration, and deployment status."
+    },
+    {
+      "title": "Portable event stress",
+      "body": "6 event cards keep acute physiological stress separate from nightly sleep claims. This is currently the cleanest open portable layer in the project and should be communicated as its own stack."
+    },
+    {
+      "title": "Daily and non-stress layers",
+      "body": "8 daily challenge cards and 11 non-stress daily cards show where temporal memory helps within cohort, especially for anxiety and depression, without pretending those signals already transport cleanly across cohorts."
+    },
+    {
+      "title": "Governance, evidence, and support",
+      "body": "3 non-stress family cards sit on top of support cohorts, transport probes, route cards, and evidence-linked reporting. The landing is only the visible layer of a deeper validation stack."
+    }
+  ],
+  "evidence_blocks": [
+    {
+      "title": "Open cohorts",
+      "body": "The surface rests on open nightly, daily, and event cohorts, plus support cohorts used to keep anxiety, depression, and physical pain anchors scientifically legible."
+    },
+    {
+      "title": "Governance",
+      "body": "Every layer preserves its own accepted, experimental, or support status. Nothing rises to the top level just because it looks good in one cohort or one benchmark."
+    },
+    {
+      "title": "Evidence linkage",
+      "body": "The public surface sits on top of evidence-linked reporting, route cards, support cards, and transport probes rather than free-form interpretation."
+    }
+  ],
+  "highlights": [
+    {
+      "layer_label": "Night Layer",
+      "label": "Novartis D0 fatigue contextual interpretation",
+      "metric_label": "Held-out R\u00b2",
+      "metric_value": "0.4350",
+      "html_link": "../night_route_cards/index.html"
+    },
+    {
+      "layer_label": "Event Layer",
+      "label": "Portable family stress event",
+      "metric_label": "R\u00b2",
+      "metric_value": "0.3164",
+      "html_link": "../event_model_cards/index.html"
+    },
+    {
+      "layer_label": "Daily Challenge Layer",
+      "label": "Boston anxiety D0 temporal",
+      "metric_label": "R\u00b2",
+      "metric_value": "0.1685",
+      "html_link": "../daily_challenge_cards/index.html"
+    },
+    {
+      "layer_label": "Non-Stress Daily Layer",
+      "label": "Novartis depression D0 temporal",
+      "metric_label": "R\u00b2",
+      "metric_value": "0.3454",
+      "html_link": "../nonstress_daily_cards/index.html"
+    },
+    {
+      "layer_label": "Non-Stress Portable Families",
+      "label": "Anxiety",
+      "metric_label": "Portable mean R\u00b2",
+      "metric_value": "0.0202",
+      "html_link": "../nonstress_family_cards/index.html"
+    }
+  ],
+  "layers": [
+    {
+      "layer_key": "night",
+      "label": "Night Layer",
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/reports/night_route_cards/summary.json",
+      "html_path": "/Users/damasomengodperez/neural-echo-planning/reports/night_route_cards/index.html",
+      "html_link": "../night_route_cards/index.html",
+      "card_count": 12,
+      "accepted_count": 4,
+      "experimental_count": 7,
+      "support_count": 1,
+      "key_message": "Nightly routes are the core operational layer. They carry held-out signal, interval calibration, governance, and deployment status.",
+      "best_card": {
+        "route_key": "novartis_fatigue_d0_contextual",
+        "label": "Novartis D0 fatigue contextual interpretation",
+        "cohort_name": "novartis",
+        "target_name": "fatigue_d0",
+        "target_horizon": "same_day",
+        "intended_use": "same_day_interpretation",
+        "tier": "accepted",
+        "deployment_recommendation": "deploy_only_within_matched_cohort",
+        "transportability_status": "negative_open_transport",
+        "auto_promotion_eligible": false,
+        "blocking_flags": [
+          "transport_not_negative",
+          "portable_family_loco_floor"
+        ],
+        "robustness_flags": [],
+        "summary_path": "reports/route_cards/novartis_fatigue_d0_contextual.json",
+        "metrics": {
+          "heldout_r2": 0.43497296803729135,
+          "heldout_mae": 1.7972111302738107,
+          "heldout_rmse": 2.279112004229441,
+          "coverage_pct": 80.21179401993356,
+          "interval_width": 5.112254592353422,
+          "transport_r2": -0.11063673008782438
+        }
+      }
+    },
+    {
+      "layer_key": "event",
+      "label": "Event Layer",
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/reports/event_model_cards/summary.json",
+      "html_path": "/Users/damasomengodperez/neural-echo-planning/reports/event_model_cards/index.html",
+      "html_link": "../event_model_cards/index.html",
+      "card_count": 6,
+      "accepted_count": 3,
+      "experimental_count": 2,
+      "support_count": 1,
+      "key_message": "Event models remain separate from nightly interpretation. They are portable for acute physiological stress, not for next-day sleep claims.",
+      "best_card": {
+        "card_key": "portable_family_stress_event",
+        "label": "Portable family stress event",
+        "kind": "portable_event_regression",
+        "tier": "accepted",
+        "role": "portable_event_reference",
+        "blocking_flags": [],
+        "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/portable-family-models-event/stress_event/summary.json",
+        "calibration_summary_path": null,
+        "metrics": {
+          "mae": 0.6774730187595547,
+          "rmse": 0.8181522169280948,
+          "r2": 0.3163911834904391
+        }
+      }
+    },
+    {
+      "layer_key": "daily",
+      "label": "Daily Challenge Layer",
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/reports/daily_challenge_cards/summary.json",
+      "html_path": "/Users/damasomengodperez/neural-echo-planning/reports/daily_challenge_cards/index.html",
+      "html_link": "../daily_challenge_cards/index.html",
+      "card_count": 8,
+      "accepted_count": 2,
+      "experimental_count": 4,
+      "support_count": 2,
+      "key_message": "Daily challenge cohorts show where temporal memory helps within cohort, even when transport still fails across cohorts.",
+      "best_card": {
+        "card_key": "boston_anxiety_d0_temporal",
+        "label": "Boston anxiety D0 temporal",
+        "kind": "cohort_temporal_regression",
+        "tier": "accepted_challenge",
+        "role": "daily_temporal_challenge",
+        "blocking_flags": [],
+        "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/temporal-boston-covid-anxiety-d0/summary.json",
+        "metrics": {
+          "mae": 1.3178118422777234,
+          "rmse": 1.66726039882161,
+          "r2": 0.16848718102805915,
+          "rows": 20112,
+          "participants": 925,
+          "feature_count": 91,
+          "best_model": "extra_trees"
+        },
+        "note": null
+      }
+    },
+    {
+      "layer_key": "nonstress_daily",
+      "label": "Non-Stress Daily Layer",
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/reports/nonstress_daily_cards/summary.json",
+      "html_path": "/Users/damasomengodperez/neural-echo-planning/reports/nonstress_daily_cards/index.html",
+      "html_link": "../nonstress_daily_cards/index.html",
+      "card_count": 11,
+      "accepted_count": 6,
+      "experimental_count": 4,
+      "support_count": 1,
+      "key_message": "This layer keeps anxiety, depression, and somatic support visible without overstating clinical portability.",
+      "best_card": {
+        "card_key": "novartis_depression_d0_temporal",
+        "label": "Novartis depression D0 temporal",
+        "kind": "regression_support",
+        "tier": "accepted_challenge",
+        "role": "daily_temporal_depression",
+        "blocking_flags": [],
+        "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/temporal-novartis-depression-d0-compact/summary.json",
+        "metrics": {
+          "mae": 1.2722481378678963,
+          "rmse": 1.6984520423660392,
+          "r2": 0.345356325797858,
+          "rows": 4818,
+          "participants": 196,
+          "feature_count": 292,
+          "best_model": "hist_gbm"
+        },
+        "note": "Novartis daily wearable depression benchmark with temporal memory over shared domains."
+      }
+    },
+    {
+      "layer_key": "nonstress_family",
+      "label": "Non-Stress Portable Families",
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/reports/nonstress_family_cards/summary.json",
+      "html_path": "/Users/damasomengodperez/neural-echo-planning/reports/nonstress_family_cards/index.html",
+      "html_link": "../nonstress_family_cards/index.html",
+      "card_count": 3,
+      "accepted_count": 0,
+      "experimental_count": 1,
+      "support_count": 2,
+      "key_message": "Portable non-stress families remain research references. Anxiety is closest to usable; depression and somatic burden are still below transport readiness.",
+      "best_card": {
+        "family_key": "anxiety",
+        "label": "Anxiety",
+        "status": "experimental",
+        "note": "Closest non-stress family to usable portable reference, but still below the route signal floor.",
+        "metrics": {
+          "portable_mean_r2": 0.020202053343458887,
+          "route_replay_r2": -0.046568820009684986,
+          "coverage_pct": 79.86798679867987,
+          "rows": 303,
+          "participants": 103,
+          "feature_count": 10
+        },
+        "cohorts": [
+          "hrv_diary",
+          "ifh_affect",
+          "panicsym24"
+        ],
+        "targets": [
+          "anxiety_phase",
+          "gad7_score",
+          "gad7_total"
+        ],
+        "paths": [
+          "/Users/damasomengodperez/neural-echo-planning/artifacts/portable-family-models-stable/anxiety/summary.json",
+          "/Users/damasomengodperez/neural-echo-planning/reports/route_cards/anxiety_family_portable_experimental.json"
+        ],
+        "chips": [
+          "closest_non_stress_family",
+          "route_present"
+        ]
+      }
+    }
+  ],
+  "claims": {
+    "can_defend": [
+      "Nightly sleep routes are usable within cohort on selected stress, fatigue, and pain-like targets when governance marks them accepted.",
+      "Portable event stress is real and reproducible across open challenge cohorts.",
+      "Daily temporal memory improves anxiety and depression within cohort.",
+      "Anxiety is the strongest non-stress portable family, but it remains research-only."
+    ],
+    "cannot_defend": [
+      "Universal nightly cross-cohort clinical prediction.",
+      "Portable depression as a stable cross-cohort family.",
+      "Clinical physical pain prediction from the current somatic-burden proxy family.",
+      "Any diagnostic or treatment claim."
+    ],
+    "current_bottlenecks": [
+      "Nightly cross-cohort transport remains the main bottleneck.",
+      "Non-stress families are limited more by transport and outcome equivalence than by infrastructure.",
+      "Event and nightly layers must stay separated in communication and governance."
+    ]
+  },
+  "open_views": [
+    {
+      "label": "Night Layer",
+      "path": "/Users/damasomengodperez/neural-echo-planning/reports/night_route_cards/index.html",
+      "link": "../night_route_cards/index.html"
+    },
+    {
+      "label": "Event Layer",
+      "path": "/Users/damasomengodperez/neural-echo-planning/reports/event_model_cards/index.html",
+      "link": "../event_model_cards/index.html"
+    },
+    {
+      "label": "Daily Challenge Layer",
+      "path": "/Users/damasomengodperez/neural-echo-planning/reports/daily_challenge_cards/index.html",
+      "link": "../daily_challenge_cards/index.html"
+    },
+    {
+      "label": "Non-Stress Daily Layer",
+      "path": "/Users/damasomengodperez/neural-echo-planning/reports/nonstress_daily_cards/index.html",
+      "link": "../nonstress_daily_cards/index.html"
+    },
+    {
+      "label": "Non-Stress Family Layer",
+      "path": "/Users/damasomengodperez/neural-echo-planning/reports/nonstress_family_cards/index.html",
+      "link": "../nonstress_family_cards/index.html"
+    }
+  ],
+  "public_pages": [
+    {
+      "slug": "index",
+      "label": "Overview",
+      "title": "Overview",
+      "description": "The public entry point. Scope, positioning, and the current shape of the project without collapsing all layers into one surface."
+    },
+    {
+      "slug": "system",
+      "label": "System",
+      "title": "System",
+      "description": "How the project is structured across night, event, daily, and portable-family layers, and why those boundaries matter."
+    },
+    {
+      "slug": "built",
+      "label": "Built",
+      "title": "Built",
+      "description": "What is already implemented: nightly routes, event stress, daily challenge layers, governance, evidence, and support."
+    },
+    {
+      "slug": "validation",
+      "label": "Validation",
+      "title": "Validation",
+      "description": "What the current evidence can support, what it cannot, and where transport still fails across cohorts."
+    },
+    {
+      "slug": "evidence",
+      "label": "Evidence",
+      "title": "Evidence",
+      "description": "The open cohorts, support cohorts, and evidence-linked reporting stack underneath the public surface."
+    },
+    {
+      "slug": "participant",
+      "label": "Participant",
+      "title": "Participant Return",
+      "description": "A participant-facing research-return layer and a professional companion built on approved nightly stress routes, not on a separate consumer stack."
+    },
+    {
+      "slug": "views",
+      "label": "Views",
+      "title": "Views",
+      "description": "Direct access to the live dashboards and layer-specific surfaces already materialized in the repo."
+    }
+  ]
+}

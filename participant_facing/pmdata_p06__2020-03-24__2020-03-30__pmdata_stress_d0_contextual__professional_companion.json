@@ -1,0 +1,191 @@
+{
+  "report_kind": "professional_companion_summary",
+  "source_report_kind": "weekly_stress_same_day_report",
+  "participant_id": "pmdata_p06",
+  "route_key": "pmdata_stress_d0_contextual",
+  "route_label": "PMData D0 contextual interpretation",
+  "focus_label": "same-day stress burden",
+  "window": {
+    "date_from": "2020-03-24",
+    "date_to": "2020-03-30"
+  },
+  "operational_readout": {
+    "window_quality_label": "moderate confidence",
+    "window_shift_label": "clearly shifted",
+    "usable_nights": 7,
+    "matched_day_reports": 7,
+    "mean_observed_burden": 2.5,
+    "mean_predicted_burden": 4.933214285714284
+  },
+  "dominant_domains": [
+    {
+      "domain_name": "sleep_continuity",
+      "domain_label": "Sleep continuity",
+      "count": 7,
+      "mean_aggregate_score": 0.03827094529818239,
+      "supporting_features": [
+        "awakening_count__mean_w14",
+        "awakening_count__std_w14",
+        "awakening_count__std_w7",
+        "awakening_count__z_w7",
+        "time_in_bed_min__mean_w14"
+      ],
+      "mean_observed_target": 2.5
+    },
+    {
+      "domain_name": "autonomic_activation",
+      "domain_label": "Autonomic activation",
+      "count": 4,
+      "mean_aggregate_score": 0.015766944860681566,
+      "supporting_features": [
+        "heart_rate_mean_bpm",
+        "heart_rate_mean_bpm__mean_w14"
+      ],
+      "mean_observed_target": 2.5
+    },
+    {
+      "domain_name": "sleep_architecture",
+      "domain_label": "Sleep architecture",
+      "count": 2,
+      "mean_aggregate_score": 0.0177097241571641,
+      "supporting_features": [
+        "n3_min"
+      ],
+      "mean_observed_target": 2.5
+    }
+  ],
+  "shift_vs_baseline": [
+    {
+      "feature_name": "conf_alcohol_units__std_w7",
+      "display_name": "7-night variability of Alcohol units",
+      "count": 2,
+      "direction_label": "lower than usual",
+      "mean_abs_delta_zscore": 9.30769736938646
+    },
+    {
+      "feature_name": "conf_alcohol_units__std_w14",
+      "display_name": "14-night variability of Alcohol units",
+      "count": 1,
+      "direction_label": "lower than usual",
+      "mean_abs_delta_zscore": 8.142235554232249
+    },
+    {
+      "feature_name": "awakening_count__z_w7",
+      "display_name": "Awakening count z-score vs 7-night reference",
+      "count": 1,
+      "direction_label": "higher than usual",
+      "mean_abs_delta_zscore": 5.645943990432936
+    },
+    {
+      "feature_name": "sleep_score_overall__z_w7",
+      "display_name": "Sleep score overall z-score vs 7-night reference",
+      "count": 1,
+      "direction_label": "lower than usual",
+      "mean_abs_delta_zscore": 4.1874157942292385
+    }
+  ],
+  "observed_links_with_next_day_burden": [],
+  "review_nights": [
+    {
+      "label": "Most shifted night",
+      "target_date_local": "2020-03-28",
+      "observed_target": 2.5,
+      "quality_status": "pass",
+      "reason": "largest baseline-relative deviation across the main drivers in this window"
+    },
+    {
+      "label": "Most stable night",
+      "target_date_local": "2020-03-26",
+      "observed_target": 2.5,
+      "quality_status": "pass",
+      "reason": "closest to the recent participant reference across the main drivers"
+    },
+    {
+      "label": "Highest burden follow-up",
+      "target_date_local": "2020-03-24",
+      "observed_target": 2.5,
+      "quality_status": "pass",
+      "reason": "night linked to the highest observed burden inside the weekly window"
+    },
+    {
+      "label": "Night with the weakest signal",
+      "target_date_local": "2020-03-24",
+      "observed_target": 2.5,
+      "quality_status": "pass",
+      "reason": "night most constrained by missingness or signal quality"
+    }
+  ],
+  "audience_contract": {
+    "audience_key": "professional_companion",
+    "contract_version": "professional_companion_v1",
+    "reader_label": "professional",
+    "cadence": "weekly",
+    "interpretation_scope": "companion review of the same participant-facing weekly payload with more explicit operational structure",
+    "allowed_claims": [
+      "weekly operational readout",
+      "dominant night domains and baseline shifts",
+      "review-night selection",
+      "confidence and caveat framing tied to the same governed payload"
+    ],
+    "disallowed_claims": [
+      "diagnosis from the companion surface alone",
+      "clinical decision without external assessment",
+      "claim expansion beyond the approved route and weekly burden frame"
+    ],
+    "escalation_guidance": [
+      "escalate to institutional workflow for cohort-level validation or pilot work",
+      "keep route governance and route-card audit visible when using the companion in professional settings"
+    ]
+  },
+  "route_audit": {
+    "route_key": "pmdata_stress_d0_contextual",
+    "route_card_path": "/Users/damasomengodperez/neural-echo-planning/reports/route_cards/pmdata_stress_d0_contextual.json",
+    "approved": true,
+    "status": "approved_now",
+    "reasons": [],
+    "checks": {
+      "accepted_tier": true,
+      "stress_target": true,
+      "supported_intended_use": true,
+      "auto_promotion_eligible": true,
+      "blocking_passed": true,
+      "review_passed": true,
+      "transport_not_negative": true,
+      "robustness_flags_absent": true,
+      "deployable_within_cohort": true
+    },
+    "route_tier": "accepted",
+    "target_name": "stress_d0",
+    "intended_use": "same_day_interpretation",
+    "transportability_status": "weak_open_transport",
+    "auto_promotion_eligible": true,
+    "deployment_recommendation": "deploy_within_cohort_and_monitor"
+  },
+  "governance_snapshot": {
+    "route_kind": "cohort",
+    "route_tier": "accepted",
+    "route_status": "approved_now",
+    "target_name": "stress_d0",
+    "intended_use": "same_day_interpretation",
+    "transportability_status": "weak_open_transport",
+    "deployment_recommendation": "deploy_within_cohort_and_monitor",
+    "route_card_path": "/Users/damasomengodperez/neural-echo-planning/reports/route_cards/pmdata_stress_d0_contextual.json"
+  },
+  "confidence_and_limits": {
+    "window_quality_label": "moderate confidence",
+    "reasons": [],
+    "usable_nights": 7,
+    "matched_day_reports": 7,
+    "window_reports": 7,
+    "participant_relative_reference": true,
+    "important_caveats": []
+  },
+  "takeaway": "The weekly readout remains moderate confidence across 7 usable nights. The dominant domain is Sleep continuity, but no repeated in-window night-to-day link reached the current reporting threshold.",
+  "research_footnote": {
+    "route_label": "PMData D0 contextual interpretation",
+    "route_kind": "cohort",
+    "intended_use": "same_day_interpretation",
+    "generated_from": "/Users/damasomengodperez/neural-echo-planning/data/temporal_pmdata_stress.csv",
+    "weekly_row_count": 7
+  }
+}

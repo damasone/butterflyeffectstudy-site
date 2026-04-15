@@ -1,0 +1,21 @@
+{
+  "card_key": "resilient_gad7_exact_watch",
+  "label": "RESILIENT GAD-7 exact-night + ScanWatch",
+  "kind": "regression_support",
+  "tier": "support_only",
+  "role": "same_instrument_sparse_anxiety_support",
+  "blocking_flags": [
+    "negative_signal"
+  ],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-resilient-gad7-exact-watch/summary.json",
+  "metrics": {
+    "mae": 2.88882124997043,
+    "rmse": 4.196544101911625,
+    "r2": -0.030612504840137333,
+    "rows": 61,
+    "participants": 61,
+    "feature_count": 24,
+    "best_model": "random_forest"
+  },
+  "note": "Same-instrument sparse support for anxiety in an older-adult cohort with exact-night alignment."
+}

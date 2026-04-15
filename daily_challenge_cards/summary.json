@@ -1,0 +1,172 @@
+{
+  "cards": [
+    {
+      "card_key": "anxiety_daily_temporal_challenge",
+      "label": "Anxiety daily temporal challenge layer",
+      "kind": "daily_temporal_layer",
+      "tier": "experimental_research_challenge",
+      "role": "daily_temporal_challenge_layer",
+      "blocking_flags": [
+        "cross_cohort_transport_not_stable",
+        "portable_family_signal_floor"
+      ],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/daily-temporal-anxiety-challenge/summary.json",
+      "metrics": {
+        "boston_static_r2": 0.015817963225515208,
+        "boston_temporal_r2": 0.16848718102805915,
+        "boston_temporal_gain": 0.15266921780254394,
+        "ssaqs_static_r2": -0.02489314114744401,
+        "ssaqs_temporal_r2": 0.021365828121080455,
+        "ssaqs_temporal_gain": 0.046258969268524464,
+        "stable_portable_family_mean_r2": 0.020202053343458887,
+        "boston_shared_domain_probe_mean_r2": 0.01893098497370682,
+        "boston_shared_domain_probe_min_holdout_r2": -0.04673070298600357
+      },
+      "note": "Daily temporal research layer for anxiety. Use for within-cohort temporal challenge tracking, not as a deployed portable clinical family."
+    },
+    {
+      "card_key": "boston_stress_d0_daily",
+      "label": "Boston stress D0 daily",
+      "kind": "cohort_daily_regression",
+      "tier": "experimental_challenge",
+      "role": "daily_selfreport_challenge",
+      "blocking_flags": [
+        "signal_floor"
+      ],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-boston-covid-stress-d0-clean/summary.json",
+      "metrics": {
+        "mae": 2.1310310960222347,
+        "rmse": 2.5298736453196584,
+        "r2": 0.02440179919855101,
+        "rows": 46622,
+        "participants": 1097,
+        "feature_count": 9,
+        "best_model": "hist_gbm"
+      },
+      "note": null
+    },
+    {
+      "card_key": "boston_anxiety_d0_daily",
+      "label": "Boston anxiety D0 daily",
+      "kind": "cohort_daily_regression",
+      "tier": "experimental_challenge",
+      "role": "daily_selfreport_challenge",
+      "blocking_flags": [
+        "signal_floor"
+      ],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-boston-covid-anxiety-d0-clean/summary.json",
+      "metrics": {
+        "mae": 1.48792923339649,
+        "rmse": 1.9293502049802804,
+        "r2": 0.015817963225515208,
+        "rows": 20112,
+        "participants": 925,
+        "feature_count": 9,
+        "best_model": "hist_gbm"
+      },
+      "note": null
+    },
+    {
+      "card_key": "boston_anxiety_d0_temporal",
+      "label": "Boston anxiety D0 temporal",
+      "kind": "cohort_temporal_regression",
+      "tier": "accepted_challenge",
+      "role": "daily_temporal_challenge",
+      "blocking_flags": [],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/temporal-boston-covid-anxiety-d0/summary.json",
+      "metrics": {
+        "mae": 1.3178118422777234,
+        "rmse": 1.66726039882161,
+        "r2": 0.16848718102805915,
+        "rows": 20112,
+        "participants": 925,
+        "feature_count": 91,
+        "best_model": "extra_trees"
+      },
+      "note": null
+    },
+    {
+      "card_key": "boston_depression_d0_daily",
+      "label": "Boston depression D0 daily",
+      "kind": "cohort_daily_regression",
+      "tier": "accepted_challenge",
+      "role": "daily_selfreport_challenge",
+      "blocking_flags": [],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-boston-covid-depression-d0-clean/summary.json",
+      "metrics": {
+        "mae": 1.4433047758903872,
+        "rmse": 1.8281851397785571,
+        "r2": 0.12371218850267929,
+        "rows": 20071,
+        "participants": 924,
+        "feature_count": 9,
+        "best_model": "hist_gbm"
+      },
+      "note": null
+    },
+    {
+      "card_key": "ssaqs_stress_d0_daily",
+      "label": "SSAQS stress D0 daily",
+      "kind": "cohort_daily_regression",
+      "tier": "support_only",
+      "role": "daily_selfreport_challenge",
+      "blocking_flags": [
+        "negative_signal"
+      ],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-ssaqs-stress-d0-clean/summary.json",
+      "metrics": {
+        "mae": 2.080082968083871,
+        "rmse": 2.5547369659571393,
+        "r2": -0.042129642274827184,
+        "rows": 1484,
+        "participants": 31,
+        "feature_count": 15,
+        "best_model": "elasticnet"
+      },
+      "note": null
+    },
+    {
+      "card_key": "ssaqs_anxiety_d0_daily",
+      "label": "SSAQS anxiety D0 daily",
+      "kind": "cohort_daily_regression",
+      "tier": "support_only",
+      "role": "daily_selfreport_challenge",
+      "blocking_flags": [
+        "negative_signal"
+      ],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-ssaqs-anxiety-d0-clean/summary.json",
+      "metrics": {
+        "mae": 2.335190120638686,
+        "rmse": 2.7876527369029414,
+        "r2": -0.02489314114744401,
+        "rows": 1484,
+        "participants": 31,
+        "feature_count": 15,
+        "best_model": "elasticnet"
+      },
+      "note": null
+    },
+    {
+      "card_key": "ssaqs_anxiety_d0_temporal",
+      "label": "SSAQS anxiety D0 temporal",
+      "kind": "cohort_temporal_regression",
+      "tier": "experimental_challenge",
+      "role": "daily_temporal_challenge",
+      "blocking_flags": [
+        "signal_floor"
+      ],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/temporal-ssaqs-anxiety-d0/summary.json",
+      "metrics": {
+        "mae": 2.28643841991342,
+        "rmse": 2.7616890800818417,
+        "r2": 0.021365828121080455,
+        "rows": 1484,
+        "participants": 31,
+        "feature_count": 147,
+        "best_model": "extra_trees"
+      },
+      "note": null
+    }
+  ],
+  "card_count": 8
+}

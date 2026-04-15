@@ -1,0 +1,19 @@
+{
+  "card_key": "novartis_depression_d0_temporal",
+  "label": "Novartis depression D0 temporal",
+  "kind": "regression_support",
+  "tier": "accepted_challenge",
+  "role": "daily_temporal_depression",
+  "blocking_flags": [],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/temporal-novartis-depression-d0-compact/summary.json",
+  "metrics": {
+    "mae": 1.2722481378678963,
+    "rmse": 1.6984520423660392,
+    "r2": 0.345356325797858,
+    "rows": 4818,
+    "participants": 196,
+    "feature_count": 292,
+    "best_model": "hist_gbm"
+  },
+  "note": "Novartis daily wearable depression benchmark with temporal memory over shared domains."
+}

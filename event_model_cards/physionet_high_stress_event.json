@@ -1,0 +1,22 @@
+{
+  "card_key": "physionet_high_stress_event",
+  "label": "PhysioNet high stress event",
+  "kind": "cohort_event_binary",
+  "tier": "experimental_support",
+  "role": "event_challenge_binary_support",
+  "blocking_flags": [
+    "binary_auroc_floor",
+    "binary_calibration_gap"
+  ],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-physionet-stress-task-highstress-noleak/summary.json",
+  "calibration_summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/binary-calibration-physionet-stress-task-highstress-logistic-noleak/summary.json",
+  "metrics": {
+    "auroc": 0.6356807511737088,
+    "average_precision": 0.28329690666301643,
+    "balanced_accuracy": 0.6225352112676057,
+    "brier": 0.18040251362712315,
+    "prevalence": 0.1744186046511628,
+    "raw_calibration_ece": 0.22404369663817192,
+    "calibrated_ece": 0.2142667916415813
+  }
+}

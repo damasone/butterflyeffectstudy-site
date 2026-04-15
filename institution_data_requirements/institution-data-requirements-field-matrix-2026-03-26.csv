@@ -1,0 +1,65 @@
+entity,field,level,type,notes
+participant,participant_uid,required,string,pseudonymized internal ID
+participant,source_dataset,required,string,source cohort or institution name
+participant,source_subject_id,required,string,source-side pseudonymized ID
+participant,sex_at_birth,recommended,string,allowed female/male/intersex/unknown
+participant,age_at_baseline_years,recommended,number,baseline age in years
+night_sleep,night_uid,required,string,one row per participant-night
+night_sleep,participant_uid,required,string,foreign key to participant
+night_sleep,sleep_date_local,required,date,local night anchor date
+night_sleep,total_sleep_time_min,minimum_signal,number,minimum useful duration signal
+night_sleep,sleep_efficiency_pct,minimum_signal,number,continuity metric option
+night_sleep,wake_after_sleep_onset_min,minimum_signal,number,continuity metric option
+night_sleep,awakening_count,minimum_signal,integer,continuity metric option
+night_sleep,heart_rate_mean_bpm,minimum_signal,number,nocturnal cardiovascular signal option
+night_sleep,hrv_rmssd_ms,minimum_signal,number,nocturnal cardiovascular signal option
+night_sleep,movement_index,minimum_signal,number,movement or fragmentation signal option
+night_sleep,sleep_onset_ts,high_value,datetime,helps timing and regularity
+night_sleep,sleep_offset_ts,high_value,datetime,helps timing and regularity
+night_sleep,time_in_bed_min,high_value,number,additional continuity context
+night_sleep,rem_min,high_value,number,stage summary
+night_sleep,n1_min,high_value,number,stage summary
+night_sleep,n2_min,high_value,number,stage summary
+night_sleep,n3_min,high_value,number,stage summary
+night_sleep,rem_pct,high_value,number,stage ratio
+night_sleep,deep_sleep_onset_min,high_value,number,architecture summary
+night_sleep,ahi_events_per_hour,high_value,number,respiratory summary
+night_sleep,apnea_index_per_hour,high_value,number,respiratory summary
+night_sleep,spo2_mean_pct,high_value,number,oxygenation summary
+night_sleep,spo2_min_pct,high_value,number,oxygenation summary
+night_sleep,resp_rate_mean_bpm,high_value,number,respiratory summary
+night_sleep,signal_quality_score_0_1,high_value,number,quality trace summary
+night_sleep,device_modality,high_value,string,psg actigraphy wearable other
+day_emotion,emotion_uid,required,string,one row per participant-day emotion report
+day_emotion,participant_uid,required,string,foreign key to participant
+day_emotion,report_date_local,required,date,local report date
+day_emotion,stress_0_10,outcome,number,core stress outcome
+day_emotion,anxiety_score,outcome,number,core anxiety outcome
+day_emotion,depression_score,outcome,number,core depression outcome
+day_emotion,mood_valence_0_10,optional,number,affective context
+day_emotion,positive_affect_0_10,optional,number,affective context
+day_emotion,negative_affect_0_10,optional,number,affective context
+day_emotion,major_stressor_flag,optional,boolean,acute context
+day_symptoms,symptom_uid,required,string,one row per participant-day symptom report
+day_symptoms,participant_uid,required,string,foreign key to participant
+day_symptoms,report_date_local,required,date,local report date
+day_symptoms,fatigue_0_10,outcome,number,core fatigue outcome
+day_symptoms,pain_0_10,outcome,number,core pain outcome
+day_symptoms,muscle_tension_0_10,outcome,number,somatic burden proxy
+day_symptoms,perceived_rest_quality_0_10,outcome,number,rest quality outcome
+day_symptoms,migraine_flag,optional,boolean,episodic symptom label
+day_confounders,confounder_uid,required_if_present,string,one row per participant-day confounder bundle
+day_confounders,participant_uid,required_if_present,string,foreign key to participant
+day_confounders,report_date_local,required_if_present,date,local report date
+day_confounders,caffeine_mg,high_value,number,important behavioral confounder
+day_confounders,alcohol_units,high_value,number,important behavioral confounder
+day_confounders,exercise_minutes,high_value,number,important behavioral confounder
+day_confounders,nap_minutes,high_value,number,important behavioral confounder
+day_confounders,acute_illness_flag,high_value,boolean,acute health confounder
+day_confounders,medication_change_flag,high_value,boolean,treatment confounder
+day_confounders,menstrual_cycle_phase,high_value,string,sex-specific confounder when relevant
+sidecar,night_ibi.csv,tier_2,file,beat-to-beat intervals or derivable HRV
+sidecar,night_hr_epoch.csv,tier_2,file,minute-level or epoch HR time series
+sidecar,night_motion_epoch.csv,tier_2,file,raw or epoch movement signal
+sidecar,night_resp_epoch.csv,tier_2,file,respiration or SpO2 sidecar
+sidecar,psg_manifest.csv,tier_3,file,PSG subset manifest and linkage

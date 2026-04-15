@@ -1,0 +1,24 @@
+{
+  "card_key": "anxiety_daily_temporal_challenge",
+  "label": "Anxiety daily temporal challenge layer",
+  "kind": "daily_temporal_layer",
+  "tier": "experimental_research_challenge",
+  "role": "daily_temporal_challenge_layer",
+  "blocking_flags": [
+    "cross_cohort_transport_not_stable",
+    "portable_family_signal_floor"
+  ],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/daily-temporal-anxiety-challenge/summary.json",
+  "metrics": {
+    "boston_static_r2": 0.015817963225515208,
+    "boston_temporal_r2": 0.16848718102805915,
+    "boston_temporal_gain": 0.15266921780254394,
+    "ssaqs_static_r2": -0.02489314114744401,
+    "ssaqs_temporal_r2": 0.021365828121080455,
+    "ssaqs_temporal_gain": 0.046258969268524464,
+    "stable_portable_family_mean_r2": 0.020202053343458887,
+    "boston_shared_domain_probe_mean_r2": 0.01893098497370682,
+    "boston_shared_domain_probe_min_holdout_r2": -0.04673070298600357
+  },
+  "note": "Daily temporal research layer for anxiety. Use for within-cohort temporal challenge tracking, not as a deployed portable clinical family."
+}

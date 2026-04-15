@@ -1,0 +1,404 @@
+{
+  "generated_on": "2026-03-27",
+  "scope": "participant_return_routes",
+  "rule_summary": {
+    "route_tier": "accepted",
+    "target_name": [
+      "stress_d0",
+      "stress_d1"
+    ],
+    "intended_use": [
+      "same_day_interpretation",
+      "next_day_forecasting"
+    ],
+    "auto_promotion_eligible": true,
+    "blocking_passed": true,
+    "review_passed": true,
+    "transportability_status": [
+      "positive_open_transport",
+      "weak_open_transport"
+    ],
+    "robustness_flags_absent": true,
+    "deployment_recommendation_prefix": "deploy_within_cohort"
+  },
+  "counts": {
+    "route_cards_scanned": 12,
+    "approved_now": 2,
+    "audited_not_approved": 0,
+    "withheld": 10
+  },
+  "approved_now": [
+    {
+      "route_key": "lifesnaps_stress_d1_contextual",
+      "route_label": "LifeSnaps D+1 contextual forecasting",
+      "target_name": "stress_d1",
+      "intended_use": "next_day_forecasting",
+      "route_tier": "accepted",
+      "transportability_status": "weak_open_transport",
+      "auto_promotion_eligible": true,
+      "deployment_recommendation": "deploy_within_cohort_and_monitor",
+      "policy_registered": true,
+      "policy_status_label": "phase_1_primary",
+      "policy_focus_label": "next-day stress burden",
+      "checks": {
+        "accepted_tier": true,
+        "stress_target": true,
+        "supported_intended_use": true,
+        "auto_promotion_eligible": true,
+        "blocking_passed": true,
+        "review_passed": true,
+        "transport_not_negative": true,
+        "robustness_flags_absent": true,
+        "deployable_within_cohort": true
+      },
+      "reasons": []
+    },
+    {
+      "route_key": "pmdata_stress_d0_contextual",
+      "route_label": "PMData D0 contextual interpretation",
+      "target_name": "stress_d0",
+      "intended_use": "same_day_interpretation",
+      "route_tier": "accepted",
+      "transportability_status": "weak_open_transport",
+      "auto_promotion_eligible": true,
+      "deployment_recommendation": "deploy_within_cohort_and_monitor",
+      "policy_registered": true,
+      "policy_status_label": "phase_1_secondary",
+      "policy_focus_label": "same-day stress burden",
+      "checks": {
+        "accepted_tier": true,
+        "stress_target": true,
+        "supported_intended_use": true,
+        "auto_promotion_eligible": true,
+        "blocking_passed": true,
+        "review_passed": true,
+        "transport_not_negative": true,
+        "robustness_flags_absent": true,
+        "deployable_within_cohort": true
+      },
+      "reasons": []
+    }
+  ],
+  "audited_not_approved": [],
+  "withheld": [
+    {
+      "route_key": "anxiety_family_portable_experimental",
+      "route_label": "Portable family anxiety experimental route",
+      "target_name": "anxiety_portable_index",
+      "intended_use": "cross_cohort_portable_reference",
+      "route_tier": "experimental",
+      "transportability_status": "weak_open_transport",
+      "auto_promotion_eligible": false,
+      "deployment_recommendation": "research_only_portable_family_reference",
+      "policy_registered": false,
+      "policy_status_label": null,
+      "policy_focus_label": null,
+      "checks": {
+        "accepted_tier": false,
+        "stress_target": false,
+        "supported_intended_use": false,
+        "auto_promotion_eligible": false,
+        "blocking_passed": false,
+        "review_passed": true,
+        "transport_not_negative": true,
+        "robustness_flags_absent": true,
+        "deployable_within_cohort": false
+      },
+      "reasons": [
+        "route tier is not accepted",
+        "target is outside the current stress/burden participant-return scope",
+        "intended use is outside the current participant-return frame",
+        "route is not auto-promotion eligible under current governance",
+        "blocking promotion gates do not all pass",
+        "deployment recommendation is not deploy_within_cohort"
+      ]
+    },
+    {
+      "route_key": "ecsmp_fatigue_d0_contextual",
+      "route_label": "ECSMP D0 exploratory interpretation",
+      "target_name": "fatigue_d0",
+      "intended_use": "same_day_interpretation",
+      "route_tier": "support_only",
+      "transportability_status": "not_tested",
+      "auto_promotion_eligible": false,
+      "deployment_recommendation": "insufficient_information",
+      "policy_registered": false,
+      "policy_status_label": null,
+      "policy_focus_label": null,
+      "checks": {
+        "accepted_tier": false,
+        "stress_target": false,
+        "supported_intended_use": true,
+        "auto_promotion_eligible": false,
+        "blocking_passed": false,
+        "review_passed": false,
+        "transport_not_negative": false,
+        "robustness_flags_absent": true,
+        "deployable_within_cohort": false
+      },
+      "reasons": [
+        "route tier is not accepted",
+        "target is outside the current stress/burden participant-return scope",
+        "route is not auto-promotion eligible under current governance",
+        "blocking promotion gates do not all pass",
+        "review gates do not all pass",
+        "open transport status is negative or unsupported",
+        "deployment recommendation is not deploy_within_cohort"
+      ]
+    },
+    {
+      "route_key": "lifesnaps_stress_d0_contextual",
+      "route_label": "LifeSnaps D0 contextual interpretation",
+      "target_name": "stress_d0",
+      "intended_use": "same_day_interpretation",
+      "route_tier": "experimental",
+      "transportability_status": "negative_open_transport",
+      "auto_promotion_eligible": false,
+      "deployment_recommendation": "use_as_exploratory_within_cohort",
+      "policy_registered": false,
+      "policy_status_label": null,
+      "policy_focus_label": null,
+      "checks": {
+        "accepted_tier": false,
+        "stress_target": true,
+        "supported_intended_use": true,
+        "auto_promotion_eligible": false,
+        "blocking_passed": false,
+        "review_passed": false,
+        "transport_not_negative": false,
+        "robustness_flags_absent": false,
+        "deployable_within_cohort": false
+      },
+      "reasons": [
+        "route tier is not accepted",
+        "route is not auto-promotion eligible under current governance",
+        "blocking promotion gates do not all pass",
+        "review gates do not all pass",
+        "open transport status is negative or unsupported",
+        "route still carries robustness flags",
+        "deployment recommendation is not deploy_within_cohort"
+      ]
+    },
+    {
+      "route_key": "novartis_fatigue_d0_contextual",
+      "route_label": "Novartis D0 fatigue contextual interpretation",
+      "target_name": "fatigue_d0",
+      "intended_use": "same_day_interpretation",
+      "route_tier": "accepted",
+      "transportability_status": "negative_open_transport",
+      "auto_promotion_eligible": false,
+      "deployment_recommendation": "deploy_only_within_matched_cohort",
+      "policy_registered": false,
+      "policy_status_label": null,
+      "policy_focus_label": null,
+      "checks": {
+        "accepted_tier": true,
+        "stress_target": false,
+        "supported_intended_use": true,
+        "auto_promotion_eligible": false,
+        "blocking_passed": true,
+        "review_passed": false,
+        "transport_not_negative": false,
+        "robustness_flags_absent": true,
+        "deployable_within_cohort": false
+      },
+      "reasons": [
+        "target is outside the current stress/burden participant-return scope",
+        "route is not auto-promotion eligible under current governance",
+        "review gates do not all pass",
+        "open transport status is negative or unsupported",
+        "deployment recommendation is not deploy_within_cohort"
+      ]
+    },
+    {
+      "route_key": "novartis_pain_d0_contextual",
+      "route_label": "Novartis D0 pain contextual interpretation",
+      "target_name": "pain_d0",
+      "intended_use": "same_day_interpretation",
+      "route_tier": "accepted",
+      "transportability_status": "not_tested",
+      "auto_promotion_eligible": false,
+      "deployment_recommendation": "deploy_within_cohort_and_monitor",
+      "policy_registered": false,
+      "policy_status_label": null,
+      "policy_focus_label": null,
+      "checks": {
+        "accepted_tier": true,
+        "stress_target": false,
+        "supported_intended_use": true,
+        "auto_promotion_eligible": false,
+        "blocking_passed": true,
+        "review_passed": false,
+        "transport_not_negative": false,
+        "robustness_flags_absent": true,
+        "deployable_within_cohort": true
+      },
+      "reasons": [
+        "target is outside the current stress/burden participant-return scope",
+        "route is not auto-promotion eligible under current governance",
+        "review gates do not all pass",
+        "open transport status is negative or unsupported"
+      ]
+    },
+    {
+      "route_key": "pmdata_fatigue_d0_contextual",
+      "route_label": "PMData D0 contextual interpretation",
+      "target_name": "fatigue_d0",
+      "intended_use": "same_day_interpretation",
+      "route_tier": "experimental",
+      "transportability_status": "negative_open_transport",
+      "auto_promotion_eligible": false,
+      "deployment_recommendation": "use_as_exploratory_within_cohort",
+      "policy_registered": false,
+      "policy_status_label": null,
+      "policy_focus_label": null,
+      "checks": {
+        "accepted_tier": false,
+        "stress_target": false,
+        "supported_intended_use": true,
+        "auto_promotion_eligible": false,
+        "blocking_passed": false,
+        "review_passed": false,
+        "transport_not_negative": false,
+        "robustness_flags_absent": true,
+        "deployable_within_cohort": false
+      },
+      "reasons": [
+        "route tier is not accepted",
+        "target is outside the current stress/burden participant-return scope",
+        "route is not auto-promotion eligible under current governance",
+        "blocking promotion gates do not all pass",
+        "review gates do not all pass",
+        "open transport status is negative or unsupported",
+        "deployment recommendation is not deploy_within_cohort"
+      ]
+    },
+    {
+      "route_key": "pmdata_fatigue_d1_sleep_forward",
+      "route_label": "PMData D+1 sleep-forward forecasting",
+      "target_name": "fatigue_d1",
+      "intended_use": "next_day_forecasting",
+      "route_tier": "experimental",
+      "transportability_status": "not_tested",
+      "auto_promotion_eligible": false,
+      "deployment_recommendation": "research_only_do_not_operationalize",
+      "policy_registered": false,
+      "policy_status_label": null,
+      "policy_focus_label": null,
+      "checks": {
+        "accepted_tier": false,
+        "stress_target": false,
+        "supported_intended_use": true,
+        "auto_promotion_eligible": false,
+        "blocking_passed": false,
+        "review_passed": false,
+        "transport_not_negative": false,
+        "robustness_flags_absent": true,
+        "deployable_within_cohort": false
+      },
+      "reasons": [
+        "route tier is not accepted",
+        "target is outside the current stress/burden participant-return scope",
+        "route is not auto-promotion eligible under current governance",
+        "blocking promotion gates do not all pass",
+        "review gates do not all pass",
+        "open transport status is negative or unsupported",
+        "deployment recommendation is not deploy_within_cohort"
+      ]
+    },
+    {
+      "route_key": "pmdata_stress_d1_sleep_forward",
+      "route_label": "PMData D+1 sleep-forward forecasting",
+      "target_name": "stress_d1",
+      "intended_use": "next_day_forecasting",
+      "route_tier": "experimental",
+      "transportability_status": "weak_open_transport",
+      "auto_promotion_eligible": false,
+      "deployment_recommendation": "research_only_do_not_operationalize",
+      "policy_registered": false,
+      "policy_status_label": null,
+      "policy_focus_label": null,
+      "checks": {
+        "accepted_tier": false,
+        "stress_target": true,
+        "supported_intended_use": true,
+        "auto_promotion_eligible": false,
+        "blocking_passed": false,
+        "review_passed": true,
+        "transport_not_negative": true,
+        "robustness_flags_absent": true,
+        "deployable_within_cohort": false
+      },
+      "reasons": [
+        "route tier is not accepted",
+        "route is not auto-promotion eligible under current governance",
+        "blocking promotion gates do not all pass",
+        "deployment recommendation is not deploy_within_cohort"
+      ]
+    },
+    {
+      "route_key": "stress_d0_family_portable_experimental",
+      "route_label": "Portable family stress D0 experimental route",
+      "target_name": "stress_d0_portable_index",
+      "intended_use": "cross_cohort_portable_reference",
+      "route_tier": "experimental",
+      "transportability_status": "positive_open_transport",
+      "auto_promotion_eligible": false,
+      "deployment_recommendation": "research_only_portable_family_reference",
+      "policy_registered": false,
+      "policy_status_label": null,
+      "policy_focus_label": null,
+      "checks": {
+        "accepted_tier": false,
+        "stress_target": false,
+        "supported_intended_use": false,
+        "auto_promotion_eligible": false,
+        "blocking_passed": false,
+        "review_passed": true,
+        "transport_not_negative": true,
+        "robustness_flags_absent": true,
+        "deployable_within_cohort": false
+      },
+      "reasons": [
+        "route tier is not accepted",
+        "target is outside the current stress/burden participant-return scope",
+        "intended use is outside the current participant-return frame",
+        "route is not auto-promotion eligible under current governance",
+        "blocking promotion gates do not all pass",
+        "deployment recommendation is not deploy_within_cohort"
+      ]
+    },
+    {
+      "route_key": "stress_d1_family_portable_experimental",
+      "route_label": "Portable family stress D+1 experimental route",
+      "target_name": "stress_d1_portable_index",
+      "intended_use": "cross_cohort_portable_reference",
+      "route_tier": "experimental",
+      "transportability_status": "positive_open_transport",
+      "auto_promotion_eligible": false,
+      "deployment_recommendation": "research_only_portable_family_reference",
+      "policy_registered": false,
+      "policy_status_label": null,
+      "policy_focus_label": null,
+      "checks": {
+        "accepted_tier": false,
+        "stress_target": false,
+        "supported_intended_use": false,
+        "auto_promotion_eligible": false,
+        "blocking_passed": false,
+        "review_passed": true,
+        "transport_not_negative": true,
+        "robustness_flags_absent": true,
+        "deployable_within_cohort": false
+      },
+      "reasons": [
+        "route tier is not accepted",
+        "target is outside the current stress/burden participant-return scope",
+        "intended use is outside the current participant-return frame",
+        "route is not auto-promotion eligible under current governance",
+        "blocking promotion gates do not all pass",
+        "deployment recommendation is not deploy_within_cohort"
+      ]
+    }
+  ]
+}

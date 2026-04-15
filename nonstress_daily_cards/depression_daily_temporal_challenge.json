@@ -1,0 +1,23 @@
+{
+  "card_key": "depression_daily_temporal_challenge",
+  "label": "Depression daily temporal challenge layer",
+  "kind": "daily_temporal_layer",
+  "tier": "experimental_research_challenge",
+  "role": "daily_temporal_depression_challenge_layer",
+  "blocking_flags": [
+    "cross_cohort_transport_negative",
+    "portable_family_signal_floor"
+  ],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/daily-temporal-depression-challenge/summary.json",
+  "metrics": {
+    "boston_static_r2": 0.12371218850267929,
+    "boston_temporal_r2": 0.15561109764561276,
+    "boston_temporal_gain": 0.031898909142933474,
+    "novartis_static_r2": 0.0005951358231699455,
+    "novartis_temporal_r2": 0.345356325797858,
+    "novartis_temporal_gain": 0.3447611899746881,
+    "portable_probe_mean_r2": -0.045981253053233806,
+    "portable_probe_min_holdout_r2": -0.10272933283316643
+  },
+  "note": "Research layer for daily depression modeling using temporal domains in open daily cohorts. This layer is separate from the clinical portable depression family because cross-cohort transport remains negative."
+}

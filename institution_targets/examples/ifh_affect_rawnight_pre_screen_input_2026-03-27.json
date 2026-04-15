@@ -1,0 +1,18 @@
+{
+  "candidate_key": "ifh_affect_2024_rawnight_bundle",
+  "institution_or_group": "Local internal benchmark",
+  "participant_night_rows": true,
+  "repeated_stress_or_burden": true,
+  "stress_or_burden_endpoint_name": "stress_0_10",
+  "best_aligned_outcome_rate_estimate": 0.6439012096774194,
+  "participant_count": 21,
+  "median_nights_per_participant": 172.0,
+  "raw_signal_granularity": "nightly_summary",
+  "raw_night_fraction_estimate": 0.4347278225806452,
+  "mean_raw_coverage_estimate": 0.5053565335335646,
+  "linkage_mode": "sleep_date_local",
+  "psg_subset_available": false,
+  "confounders_available": true,
+  "data_transfer_constraints": "not applicable",
+  "notes": "First real internal benchmark used to define the next external target."
+}

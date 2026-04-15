@@ -1,0 +1,21 @@
+{
+  "card_key": "episono_general_physical_pain_actigraphy",
+  "label": "EPISONO general physical pain actigraphy subset",
+  "kind": "binary_support",
+  "tier": "accepted_support",
+  "role": "general_physical_pain_actigraphy_support",
+  "blocking_flags": [],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-episono-general-physical-pain-actigraphy-subset/summary.json",
+  "metrics": {
+    "auroc": 0.7550348202522116,
+    "average_precision": 0.4507238576571873,
+    "balanced_accuracy": 0.7049689440993789,
+    "brier": 0.20024393211534747,
+    "prevalence": 0.21813031161473087,
+    "rows": 353,
+    "participants": 353,
+    "feature_count": 6,
+    "best_model": "logistic"
+  },
+  "note": "Actigraphy-supported open pain anchor subset."
+}

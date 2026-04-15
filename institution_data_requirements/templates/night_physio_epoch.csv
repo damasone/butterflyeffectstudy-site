@@ -1,0 +1,1 @@
+participant_uid,sleep_date_local,epoch_start_utc,epoch_end_utc,epoch_index,epoch_minutes,hr_coverage_frac,ibi_coverage_frac,physio_epoch_coverage_frac,hr_mean,hr_std,hr_min,hr_max,ibi_count,ibi_mean_ms,ibi_std_ms,ibi_rmssd_ms,ibi_sdnn_ms,ibi_pnn50,ibi_hr_mean_bpm,hr_ibi_mean_gap_bpm

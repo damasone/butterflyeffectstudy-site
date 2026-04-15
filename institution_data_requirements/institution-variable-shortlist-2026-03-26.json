@@ -1,0 +1,46 @@
+{
+  "date": "2026-03-26",
+  "purpose": "Field-level shortlist for first institutional data exchange after initial interest.",
+  "send_order": [
+    "participant.csv",
+    "night_sleep.csv",
+    "one repeated outcome table",
+    "day_confounders.csv",
+    "raw sidecars after join validation"
+  ],
+  "priority_focus": {
+    "current_main_unlock": "cross_cohort_nightly_stress_transport",
+    "highest_value_table": "night_sleep",
+    "highest_value_repeated_outcome": "stress_0_10"
+  },
+  "tables": {
+    "participant": {
+      "must": ["participant_uid", "source_dataset", "source_subject_id", "sex_at_birth", "age_at_baseline_years"],
+      "recommended": ["cohort_type", "timezone_name", "device_family", "shift_work_flag", "baseline_sleep_disorder_flag"]
+    },
+    "night_sleep": {
+      "must": ["night_uid", "participant_uid", "sleep_date_local", "total_sleep_time_min", "sleep_onset_ts_or_sleep_midpoint_local", "sleep_offset_ts", "one_continuity_metric", "one_cardiovascular_metric", "one_movement_metric", "device_modality"],
+      "recommended": ["time_in_bed_min", "sleep_latency_min", "rem_min", "n3_min_or_deep_min", "spo2_mean_pct", "resp_rate_mean_bpm", "signal_quality_score_0_1"],
+      "high_value_sidecars": ["night_physio_epoch.csv", "night_ibi.csv", "night_hr_epoch.csv", "raw_hr_epoch.csv", "raw_ibi_epoch.csv", "night_motion_epoch.csv", "night_resp_epoch.csv", "psg_manifest.csv"]
+    },
+    "day_emotion": {
+      "must": ["emotion_uid", "participant_uid", "report_date_local", "stress_0_10_or_anxiety_score_or_depression_score"],
+      "recommended": ["gad7_total", "phq9_total", "mood_valence_0_10", "major_stressor_flag"]
+    },
+    "day_symptoms": {
+      "must": ["symptom_uid", "participant_uid", "report_date_local", "fatigue_0_10_or_pain_0_10_or_muscle_tension_0_10_or_perceived_rest_quality_0_10"],
+      "recommended": ["migraine_flag", "somatic_burden_score"]
+    },
+    "day_confounders": {
+      "must_if_present": ["confounder_uid", "participant_uid", "report_date_local", "caffeine_mg", "alcohol_units", "exercise_minutes", "nap_minutes"],
+      "recommended": ["acute_illness_flag", "medication_change_flag", "menstrual_cycle_phase", "travel_flag"]
+    }
+  },
+  "normalization_rules": [
+    "Local dates are acceptable if night-to-next-day linkage is explicit.",
+    "sleep_midpoint_local can substitute for sleep_onset_ts in a first pilot if sleep_offset_ts or total_sleep_time_min are also present.",
+    "heart_rate_mean_bpm is acceptable when raw IBI is not shareable.",
+    "fragmentation_index is acceptable when raw accelerometry is not shareable.",
+    "gad7_total and phq9_total are preferred over free-text questionnaire dumps."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "card_key": "physionet_stress_event_regression",
+  "label": "PhysioNet event stress regression",
+  "kind": "cohort_event_regression",
+  "tier": "accepted_support",
+  "role": "event_challenge_support",
+  "blocking_flags": [],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-physionet-stress-task-noleak/summary.json",
+  "calibration_summary_path": null,
+  "metrics": {
+    "mae": 1.1129330783754956,
+    "rmse": 1.4411619894463485,
+    "r2": 0.4800704870205328
+  }
+}

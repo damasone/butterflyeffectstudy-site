@@ -1,0 +1,21 @@
+{
+  "card_key": "ssaqs_anxiety_d0_daily",
+  "label": "SSAQS anxiety D0 daily",
+  "kind": "cohort_daily_regression",
+  "tier": "support_only",
+  "role": "daily_selfreport_challenge",
+  "blocking_flags": [
+    "negative_signal"
+  ],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-ssaqs-anxiety-d0-clean/summary.json",
+  "metrics": {
+    "mae": 2.335190120638686,
+    "rmse": 2.7876527369029414,
+    "r2": -0.02489314114744401,
+    "rows": 1484,
+    "participants": 31,
+    "feature_count": 15,
+    "best_model": "elasticnet"
+  },
+  "note": null
+}

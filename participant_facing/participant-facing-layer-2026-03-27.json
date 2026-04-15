@@ -1,0 +1,109 @@
+{
+  "updated": "2026-03-27",
+  "layer_name": "participant_facing_research_return",
+  "positioning": {
+    "is": [
+      "longitudinal personal insight",
+      "participant research return",
+      "pattern-based interpretation over time"
+    ],
+    "is_not": [
+      "daily sleep coaching app",
+      "diagnostic product",
+      "consumer wellness score",
+      "public disease-risk predictor"
+    ]
+  },
+  "primary_use_case": {
+    "focus": "stress_next_day_burden",
+    "reason": [
+      "strongest operational stack in the project",
+      "nightly stress routes are already the most defendable",
+      "longitudinal interpretation is easier to explain than weaker non-stress families"
+    ]
+  },
+  "delivery": {
+    "primary": "weekly_report",
+    "secondary": "monthly_summary",
+    "optional": "end_of_study_return"
+  },
+  "eligibility_thresholds": {
+    "min_usable_history_nights": 14,
+    "min_matched_day_reports_current_window": 4,
+    "require_quality_below_fail_threshold": true,
+    "require_participant_facing_eligible_route": true
+  },
+  "tone": {
+    "target": [
+      "clear",
+      "calm",
+      "serious",
+      "plain_language_first",
+      "non_prescriptive"
+    ],
+    "avoid": [
+      "sleep_score",
+      "disease_risk_claim",
+      "causal_overclaim",
+      "generic wellness copy"
+    ]
+  },
+  "weekly_report_structure": [
+    {
+      "section": "report_header",
+      "purpose": "identify the participant, window, focus, route, and quality frame"
+    },
+    {
+      "section": "week_at_a_glance",
+      "purpose": "compact orientation without using a generic score"
+    },
+    {
+      "section": "shift_vs_baseline",
+      "purpose": "show what moved relative to the participant's own reference"
+    },
+    {
+      "section": "dominant_night_domains",
+      "purpose": "present the main interpretive domains in plain language"
+    },
+    {
+      "section": "observed_links_with_next_day_burden",
+      "purpose": "show the strongest repeated night-to-day links with caution"
+    },
+    {
+      "section": "nights_worth_reviewing",
+      "purpose": "make the report concrete with a small set of notable nights"
+    },
+    {
+      "section": "confidence_and_limits",
+      "purpose": "show confidence, density, and important constraints"
+    },
+    {
+      "section": "what_this_does_not_mean",
+      "purpose": "explicit anti-overclaim block"
+    },
+    {
+      "section": "what_to_keep_tracking",
+      "purpose": "suggest monitoring priorities without giving treatment advice"
+    },
+    {
+      "section": "research_footnote",
+      "purpose": "state route type, provenance, and sharing context"
+    }
+  ],
+  "engine_mapping": {
+    "quality": "signal quality and confidence gate",
+    "prediction": "burden estimate and interval context",
+    "top_drivers": "participant-facing reasons",
+    "domain_findings": "dominant night domains",
+    "feature_baselines": "baseline-relative shifts",
+    "caveats": "explicit limits",
+    "narrative_summary": "internal narrative substrate",
+    "provenance": "audit trail"
+  },
+  "next_build_order": [
+    "weekly participant stress report over an already deployed nightly stress route",
+    "route eligibility policy for participant-facing use",
+    "participant-safe rendering layer from existing report JSON",
+    "monthly summary and professional companion outputs"
+  ]
+}

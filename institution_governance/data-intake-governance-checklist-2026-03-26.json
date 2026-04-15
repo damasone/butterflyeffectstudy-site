@@ -1,0 +1,75 @@
+{
+  "date": "2026-03-26",
+  "purpose": "Operational governance and intake checklist for first institutional pilots.",
+  "stages": [
+    {
+      "name": "before_transfer",
+      "checks": [
+        "named counterpart identified",
+        "research scope documented",
+        "cohort description supplied",
+        "transfer path defined",
+        "legal basis or DUA path identified"
+      ]
+    },
+    {
+      "name": "file_receipt",
+      "checks": [
+        "files match manifest",
+        "delivery integrity checked",
+        "source system and export date logged",
+        "raw delivery preserved read-only"
+      ]
+    },
+    {
+      "name": "identity_and_linkage_audit",
+      "checks": [
+        "stable participant_uid across tables",
+        "explicit participant-night linkage",
+        "local date logic documented",
+        "no fabricated joins required"
+      ]
+    },
+    {
+      "name": "schema_and_unit_audit",
+      "checks": [
+        "field names mapped",
+        "units normalized",
+        "device modality documented",
+        "score semantics documented"
+      ]
+    },
+    {
+      "name": "quality_and_feasibility_audit",
+      "checks": [
+        "participant count summarized",
+        "median nights summarized",
+        "endpoint density summarized",
+        "missingness summarized"
+      ]
+    },
+    {
+      "name": "governance_handling",
+      "checks": [
+        "approved storage path",
+        "no direct identifiers in analytical tables",
+        "access scope limited",
+        "provenance logged",
+        "raw and transformed outputs separated"
+      ]
+    }
+  ],
+  "decision_outcomes": [
+    "accept_for_pilot",
+    "accept_with_limits",
+    "hold_pending_clarification",
+    "reject_for_current_scope"
+  ],
+  "hard_stop_red_flags": [
+    "fabricated join required",
+    "direct identifiers without justification",
+    "no date linkage logic",
+    "missing unit definitions for core physiology",
+    "only aggregate exports available"
+  ]
+}

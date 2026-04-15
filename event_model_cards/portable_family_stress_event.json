@@ -1,0 +1,15 @@
+{
+  "card_key": "portable_family_stress_event",
+  "label": "Portable family stress event",
+  "kind": "portable_event_regression",
+  "tier": "accepted",
+  "role": "portable_event_reference",
+  "blocking_flags": [],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/portable-family-models-event/stress_event/summary.json",
+  "calibration_summary_path": null,
+  "metrics": {
+    "mae": 0.6774730187595547,
+    "rmse": 0.8181522169280948,
+    "r2": 0.3163911834904391
+  }
+}

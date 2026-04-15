@@ -1,0 +1,18 @@
+{
+  "candidate_key": "hrv_sleep_diary_2025_rawnight_bundle",
+  "institution_or_group": "Internal Reference",
+  "participant_night_rows": true,
+  "repeated_stress_or_burden": true,
+  "stress_or_burden_endpoint_name": "anxiety_score",
+  "best_aligned_outcome_rate_estimate": 0.1071,
+  "participant_count": 49,
+  "median_nights_per_participant": 28,
+  "raw_signal_granularity": "epoch",
+  "raw_night_fraction_estimate": 0.7908,
+  "mean_raw_coverage_estimate": 0.8313,
+  "linkage_mode": "sleep_date_local",
+  "psg_subset_available": false,
+  "confounders_available": true,
+  "data_transfer_constraints": "none",
+  "notes": "HRV Sleep Diary 2025 internal raw benchmark"
+}

@@ -1,0 +1,19 @@
+{
+  "card_key": "boston_depression_d0_temporal",
+  "label": "Boston depression D0 temporal",
+  "kind": "regression_support",
+  "tier": "accepted_challenge",
+  "role": "daily_temporal_depression",
+  "blocking_flags": [],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/temporal-boston-covid-depression-d0-compact/summary.json",
+  "metrics": {
+    "mae": 1.3647546861655286,
+    "rmse": 1.730844423913983,
+    "r2": 0.15561109764561276,
+    "rows": 20071,
+    "participants": 924,
+    "feature_count": 241,
+    "best_model": "hist_gbm"
+  },
+  "note": "Boston daily depression benchmark with temporal memory over shared domains."
+}

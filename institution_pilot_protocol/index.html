@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Butterfly Effect — Institution Pilot Protocol</title>
+  <meta name="description" content="Default institutional pilot protocol for Butterfly Effect.">
+  <link rel="stylesheet" href="../shared/surface_enhancer.css">
+  <script src="../shared/surface_enhancer.js" defer></script>
+  <style>
+    :root {
+      --bg: #151210;
+      --bg-deep: #1b1714;
+      --panel: rgba(27, 23, 20, 0.88);
+      --panel-strong: rgba(31, 26, 23, 0.96);
+      --ink: #f4ede7;
+      --muted: #b8ada1;
+      --line: #342c26;
+      --accent: #c39a79;
+      --accent-soft: #eadbce;
+      --ok: #9dcab1;
+      --warn: #d1a178;
+      --sans: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+      --radius: 20px;
+      --shadow: 0 18px 42px rgba(0,0,0,0.22);
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:var(--sans); color:var(--ink); background:radial-gradient(circle at top left, rgba(195,154,121,0.07), transparent 28%), linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%); }
+    a { color:var(--accent-soft); text-decoration:none; border-bottom:1px solid rgba(234,219,206,0.22); }
+    a:hover { border-bottom-color: rgba(234,219,206,0.48); }
+    .wrap { width:min(1160px, calc(100vw - 40px)); margin:0 auto; }
+    .topbar { position:sticky; top:0; z-index:10; backdrop-filter:blur(14px); background:rgba(21,18,16,0.82); border-bottom:1px solid rgba(74,64,56,0.72); }
+    .topbar-inner { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:18px 0; }
+    .brand { font-size:0.92rem; text-transform:uppercase; letter-spacing:0.18em; }
+    .nav { display:flex; flex-wrap:wrap; gap:18px; }
+    .nav a { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--muted); border:0; }
+    .hero { padding:72px 0 40px; }
+    .eyebrow { margin:0 0 12px; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.19em; color:var(--accent); }
+    h1 { margin:0; font-size:clamp(2.5rem,5vw,4.4rem); line-height:0.98; letter-spacing:-0.045em; font-weight:550; max-width:14ch; }
+    .subtitle { margin:18px 0 0; max-width:64rem; color:var(--muted); font-size:1.06rem; line-height:1.8; }
+    .hero-grid, .grid-3, .grid-2 { display:grid; gap:18px; }
+    .hero-grid { grid-template-columns:1.35fr 0.95fr; margin-top:32px; }
+    .grid-3 { grid-template-columns:repeat(3, minmax(0,1fr)); }
+    .grid-2 { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .panel, .card { background:var(--panel); border:1px solid rgba(74,64,56,0.78); border-radius:var(--radius); box-shadow:var(--shadow); }
+    .hero-card, .card { padding:24px; }
+    h2 { margin:0; font-size:1.3rem; letter-spacing:-0.02em; font-weight:550; }
+    h3 { margin:0 0 10px; font-size:1rem; font-weight:550; }
+    p, li { color:var(--muted); line-height:1.72; font-size:0.96rem; }
+    ul.clean { margin:0; padding-left:18px; }
+    .badge-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+    .badge { display:inline-flex; align-items:center; min-height:34px; padding:0 12px; border-radius:999px; border:1px solid rgba(74,64,56,0.78); background:rgba(255,255,255,0.02); font-size:0.8rem; color:var(--ink); }
+    .badge.ok { color:var(--ok); }
+    .badge.warn { color:var(--warn); }
+    .section { padding:16px 0 10px; }
+    .section-head { display:flex; align-items:end; justify-content:space-between; gap:16px; margin-bottom:18px; }
+    .section-note { max-width:44rem; }
+    .quick-links { margin-top:18px; padding:18px 20px; background:rgba(255,255,255,0.02); border:1px solid rgba(74,64,56,0.58); border-radius:18px; }
+    .quick-link-list { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+    .quick-link-list a { display:inline-flex; align-items:center; min-height:36px; padding:0 12px; border-radius:999px; border:1px solid rgba(74,64,56,0.74); background:rgba(255,255,255,0.02); }
+    .footer { padding:34px 0 56px; color:var(--muted); font-size:0.9rem; }
+    @media (max-width:1040px) {
+      .hero-grid, .grid-3, .grid-2 { grid-template-columns:1fr; }
+      .section-head, .topbar-inner { align-items:flex-start; flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">Butterfly Effect</div>
+      <nav class="nav">
+        <a href="#frame">Frame</a>
+        <a href="#phases">Phases</a>
+        <a href="#success">Success</a>
+        <a href="#downloads">Downloads</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Institution pilot protocol</p>
+      <h1>The default protocol for a first serious institutional pilot.</h1>
+      <p class="subtitle">This protocol turns a collaboration conversation into a narrow, falsifiable, operational pilot: one cohort, one endpoint family, one benchmark path, and one explicit decision gate.</p>
+      <div class="hero-grid">
+        <article class="panel hero-card">
+          <h2>Default first frame</h2>
+          <p>The first pilot should usually be one institution, one cohort, one endpoint family, and retrospective harmonization first. The default endpoint family should be <code>stress</code>, because that is where the current stack is strongest within cohort and where nightly transport is still the main unresolved scientific question.</p>
+          <div class="badge-row">
+            <span class="badge ok">One cohort</span>
+            <span class="badge ok">One endpoint family</span>
+            <span class="badge ok">Retrospective first</span>
+            <span class="badge warn">Prospective continuation only if feasibility is positive</span>
+          </div>
+        </article>
+        <article class="panel hero-card" id="downloads">
+          <h2>Downloads</h2>
+          <div class="quick-link-list">
+            <a href="institution-pilot-protocol-2026-03-26.md">Markdown protocol</a>
+            <a href="institution-pilot-protocol-2026-03-26.json">JSON summary</a>
+            <a href="../institution_one_pager/index.html">Institutional one-pager</a>
+            <a href="../institution_data_requirements/variable-shortlist.html">Variable shortlist</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="frame">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Pilot frame</p>
+          <h2>The first pilot should answer a narrow question well</h2>
+        </div>
+        <p class="section-note">The objective is not to prove universal generalization in one step. It is to decide whether one real institutional cohort strengthens the current stack in a defensible way.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card"><h3>Primary question</h3><ul class="clean"><li>Can the cohort be harmonized without breaking participant-night linkage?</li><li>Does it support valid nightly within-cohort interpretation?</li><li>Does it improve the transport question or only confirm within-cohort signal?</li></ul></article>
+        <article class="card"><h3>Recommended minimum</h3><ul class="clean"><li>`>= 40` participants</li><li>median `>= 20` nights</li><li>repeated endpoint on `>= 30%` of nights or `>= 3` times/week</li><li>stable participant-night linkage</li></ul></article>
+        <article class="card"><h3>Preferred</h3><ul class="clean"><li>`>= 75` participants</li><li>median `>= 45` nights</li><li>HR / HRV or IBI-derived physiology</li><li>at least one raw or semi-raw sidecar</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section" id="phases">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Pilot phases</p>
+          <h2>The protocol is intentionally four-step</h2>
+        </div>
+        <p class="section-note">Each phase has a different job. Intake should not collapse directly into modeling.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card"><h3>Phase 0 — Pre-screen</h3><ul class="clean"><li>fit / no-fit memo</li><li>first field map</li><li>date linkage and device lineage check</li></ul></article>
+        <article class="card"><h3>Phase 1 — Intake and harmonization</h3><ul class="clean"><li>schema mapping</li><li>field and join audit</li><li>canonicalized draft tables</li></ul></article>
+        <article class="card"><h3>Phase 2 — Feasibility benchmark</h3><ul class="clean"><li>within-cohort benchmark</li><li>subgroup robustness review</li><li>calibration summary where applicable</li></ul></article>
+        <article class="card"><h3>Phase 3 — Decision gate</h3><ul class="clean"><li>stop / continue / redesign</li><li>route-level, family-level, or protocol recommendation</li><li>prospective continuation only if justified</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section" id="success">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Success criteria</p>
+          <h2>A first pilot succeeds by reducing uncertainty, not by proving everything</h2>
+        </div>
+        <p class="section-note">A strong first pilot returns a clean harmonization path, a defensible benchmark, explicit subgroup review, and a clear continuation decision.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card"><h3>Success</h3><ul class="clean"><li>clean canonical harmonization</li><li>defensible benchmark for at least one endpoint family</li><li>explicit subgroup and quality review</li><li>clear decision on continuation or redesign</li></ul></article>
+        <article class="card"><h3>Stop criteria</h3><ul class="clean"><li>no stable participant-night linkage</li><li>endpoint too sparse</li><li>units or lineage cannot be reconstructed</li><li>only aggregate analysis possible, with no nightly structure</li></ul></article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p><strong>Current recommendation:</strong> use this protocol to keep the first institutional pilot narrow, falsifiable, and operational.</p>
+      <p><a href="../institution_one_pager/index.html">Institutional one-pager</a> · <a href="../institution_data_requirements/index.html">Data requirements pack</a> · <a href="../institution_governance/index.html">Data intake + governance checklist</a></p>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,115 @@
+{
+  "date": "2026-03-27",
+  "updated": "2026-03-28",
+  "current_execution_lane": "raw_nightly_stress",
+  "direct_fit_reading": "direct fit now means both dense repeated burden and raw nightly support that beats the IFH raw anchor; strong raw alone is not enough",
+  "primary_wave": [
+    {
+      "order": 1,
+      "name": "Brigham and Women's Hospital",
+      "route": {
+        "preferred": "sleepmatters@partners.org",
+        "backup": "617-732-4013",
+        "source_urls": [
+          "https://www.brighamandwomens.org/initiatives/sleep-matters/contact-us",
+          "https://www.brighamandwomens.org/medicine/sleep-and-circadian-disorders/sleep-medicine-contact-and-locations"
+        ]
+      },
+      "subject": "Raw nightly stress collaboration around participant-night sleep and physiology",
+      "exact_ask": "one cohort with participant-night rows, repeated stress or closely related burden, raw or epoch cardiovascular sidecars, and enough metadata to estimate raw night fraction plus mean raw coverage before transfer"
+    },
+    {
+      "order": 2,
+      "name": "Northwestern Center for Circadian & Sleep Medicine",
+      "route": {
+        "preferred": "nick.cekosh@northwestern.edu",
+        "secondary": "sleeplab@northwestern.edu",
+        "source_urls": [
+          "https://www.feinberg.northwestern.edu/sites/sleep/about/contact.html"
+        ]
+      },
+      "subject": "Potential collaboration on participant-night sleep, repeated stress, and wearable physiology",
+      "exact_ask": "one sleep or circadian cohort with participant-night structure, repeated burden, nightly wearable or physiological signal, and enough detail to complete the dual-frontier pre-screen"
+    },
+    {
+      "order": 3,
+      "name": "Scripps Digital Trials Center",
+      "route": {
+        "preferred": "dtc@scripps.edu",
+        "source_urls": [
+          "https://digitaltrials.scripps.edu/",
+          "https://www.scripps.edu/science-and-medicine/translational-institute/translational-research/digital-medicine/index.html"
+        ]
+      },
+      "subject": "Feasibility review for a raw nightly stress cohort using remote wearable data",
+      "exact_ask": "one remote cohort export with nightly sleep, HR or HRV-related signal, repeated burden, defensible linkage, and enough facts to estimate raw night fraction plus mean raw coverage"
+    },
+    {
+      "order": 4,
+      "name": "Stanford Center for Sleep and Circadian Sciences",
+      "route": {
+        "preferred": "https://med.stanford.edu/cscs/contact.html",
+        "type": "official_contact_form",
+        "source_urls": [
+          "https://med.stanford.edu/cscs.html",
+          "https://med.stanford.edu/cscs/contact.html"
+        ]
+      },
+      "subject": "Participant-night sleep and physiology cohort fit for a targeted transport study",
+      "exact_ask": "one CSCS-linked cohort with participant-night sleep rows or recoverable timestamps, repeated burden, cardiovascular sidecar, and enough metadata to estimate raw-support quality before transfer"
+    },
+    {
+      "order": 5,
+      "name": "Hospital Clínic Barcelona — Unit of Sleep",
+      "route": {
+        "preferred": "https://www.clinicbarcelona.org/en/unit/sleep/write-us",
+        "secondary": "+34 93 227 54 14",
+        "source_urls": [
+          "https://www.clinicbarcelona.org/en/unit/sleep/write-us",
+          "https://www.clinicbarcelona.org/en/unit/sleep/research"
+        ]
+      },
+      "subject": "Research collaboration on participant-night sleep, repeated stress, and physiology-rich nightly interpretation",
+      "exact_ask": "one sleep-unit cohort with participant-night sleep, repeated burden, cardiovascular or biomarker-linked nightly signal, and enough detail to estimate raw-support quality before transfer"
+    }
+  ],
+  "reserve": {
+    "name": "Duke Population Research Institute",
+    "route": {
+      "preferred": "contactdupri@duke.edu",
+      "source_urls": [
+        "https://dupri.duke.edu/research/assessing-stress-well-being-connectedness-across-three-generations-using-mobile"
+      ]
+    },
+    "reason": "good stress-plus-wearable bridge, but less clearly sleep-first than the primary five"
+  },
+  "first_attachment": "reports/institution_one_pager/index.html",
+  "first_positive_reply_step": "request the factual pre-screen fields before asking for a full bundle",
+  "first_positive_reply_fields": [
+    "candidate cohort name",
+    "participant-night rows exist",
+    "burden endpoint name and frequency",
+    "best aligned burden rate estimate",
+    "participant count",
+    "median nights per participant",
+    "raw signal granularity",
+    "raw night fraction estimate",
+    "mean raw coverage estimate",
+    "linkage mode",
+    "PSG or richer physiology subset exists"
+  ],
+  "pre_screen_assets": [
+    "reports/institution_targets/raw-nightly-pre-screen-benchmark-2026-03-27.md",
+    "reports/institution_targets/templates/raw_nightly_candidate_pre_screen_template.json",
+    "training/pre_screen_raw_nightly_candidate.py"
+  ],
+  "follow_on_bundle": [
+    "reports/institution_targets/raw-nightly-pre-screen-benchmark-2026-03-27.md",
+    "reports/institution_targets/templates/raw_nightly_candidate_pre_screen_template.json",
+    "reports/institution_data_requirements/index.html",
+    "reports/institution_data_requirements/variable-shortlist.html",
+    "reports/institution_pilot_protocol/index.html",
+    "reports/institution_governance/index.html",
+    "reports/institution_targets/raw-nightly-stress-target-shortlist-2026-03-27.md"
+  ]
+}

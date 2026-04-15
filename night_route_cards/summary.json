@@ -1,0 +1,312 @@
+{
+  "cards": [
+    {
+      "route_key": "anxiety_family_portable_experimental",
+      "label": "Portable family anxiety experimental route",
+      "cohort_name": "portable_family_anxiety",
+      "target_name": "anxiety_portable_index",
+      "target_horizon": "portable_windowed",
+      "intended_use": "cross_cohort_portable_reference",
+      "tier": "experimental",
+      "deployment_recommendation": "research_only_portable_family_reference",
+      "transportability_status": "weak_open_transport",
+      "auto_promotion_eligible": false,
+      "blocking_flags": [
+        "heldout_signal_floor"
+      ],
+      "robustness_flags": [],
+      "summary_path": "reports/route_cards/anxiety_family_portable_experimental.json",
+      "metrics": {
+        "heldout_r2": -0.046568820009684986,
+        "heldout_mae": 0.8591099959875221,
+        "heldout_rmse": 1.0179424111828903,
+        "coverage_pct": 79.86798679867987,
+        "interval_width": 2.550071629317086,
+        "transport_r2": 0.020202053343458887
+      }
+    },
+    {
+      "route_key": "ecsmp_fatigue_d0_contextual",
+      "label": "ECSMP D0 exploratory interpretation",
+      "cohort_name": "ecsmp",
+      "target_name": "fatigue_d0",
+      "target_horizon": "same_day",
+      "intended_use": "same_day_interpretation",
+      "tier": "support_only",
+      "deployment_recommendation": "insufficient_information",
+      "transportability_status": "not_tested",
+      "auto_promotion_eligible": false,
+      "blocking_flags": [
+        "heldout_signal_floor",
+        "calibrated_coverage_band",
+        "transport_not_negative"
+      ],
+      "robustness_flags": [],
+      "summary_path": "reports/route_cards/ecsmp_fatigue_d0_contextual.json",
+      "metrics": {
+        "heldout_r2": null,
+        "heldout_mae": null,
+        "heldout_rmse": null,
+        "coverage_pct": null,
+        "interval_width": null,
+        "transport_r2": null
+      }
+    },
+    {
+      "route_key": "lifesnaps_stress_d0_contextual",
+      "label": "LifeSnaps D0 contextual interpretation",
+      "cohort_name": "lifesnaps",
+      "target_name": "stress_d0",
+      "target_horizon": "same_day",
+      "intended_use": "same_day_interpretation",
+      "tier": "experimental",
+      "deployment_recommendation": "use_as_exploratory_within_cohort",
+      "transportability_status": "negative_open_transport",
+      "auto_promotion_eligible": false,
+      "blocking_flags": [
+        "heldout_signal_floor",
+        "robustness_blockers_absent",
+        "transport_not_negative"
+      ],
+      "robustness_flags": [
+        "quality_status:mae_gap"
+      ],
+      "summary_path": "reports/route_cards/lifesnaps_stress_d0_contextual.json",
+      "metrics": {
+        "heldout_r2": 0.16731106834287113,
+        "heldout_mae": 1.7386178734782307,
+        "heldout_rmse": 2.4768162898121573,
+        "coverage_pct": 79.97787610619469,
+        "interval_width": 4.691957269018529,
+        "transport_r2": -0.011185749757368413
+      }
+    },
+    {
+      "route_key": "lifesnaps_stress_d1_contextual",
+      "label": "LifeSnaps D+1 contextual forecasting",
+      "cohort_name": "lifesnaps",
+      "target_name": "stress_d1",
+      "target_horizon": "next_day",
+      "intended_use": "next_day_forecasting",
+      "tier": "accepted",
+      "deployment_recommendation": "deploy_within_cohort_and_monitor",
+      "transportability_status": "weak_open_transport",
+      "auto_promotion_eligible": true,
+      "blocking_flags": [],
+      "robustness_flags": [],
+      "summary_path": "reports/route_cards/lifesnaps_stress_d1_contextual.json",
+      "metrics": {
+        "heldout_r2": 0.34608187609640784,
+        "heldout_mae": 1.017553992085356,
+        "heldout_rmse": 1.8626560512827448,
+        "coverage_pct": 80.0,
+        "interval_width": 2.3328622514088804,
+        "transport_r2": 0.010270664234608318
+      }
+    },
+    {
+      "route_key": "novartis_fatigue_d0_contextual",
+      "label": "Novartis D0 fatigue contextual interpretation",
+      "cohort_name": "novartis",
+      "target_name": "fatigue_d0",
+      "target_horizon": "same_day",
+      "intended_use": "same_day_interpretation",
+      "tier": "accepted",
+      "deployment_recommendation": "deploy_only_within_matched_cohort",
+      "transportability_status": "negative_open_transport",
+      "auto_promotion_eligible": false,
+      "blocking_flags": [
+        "transport_not_negative",
+        "portable_family_loco_floor"
+      ],
+      "robustness_flags": [],
+      "summary_path": "reports/route_cards/novartis_fatigue_d0_contextual.json",
+      "metrics": {
+        "heldout_r2": 0.43497296803729135,
+        "heldout_mae": 1.7972111302738107,
+        "heldout_rmse": 2.279112004229441,
+        "coverage_pct": 80.21179401993356,
+        "interval_width": 5.112254592353422,
+        "transport_r2": -0.11063673008782438
+      }
+    },
+    {
+      "route_key": "novartis_pain_d0_contextual",
+      "label": "Novartis D0 pain contextual interpretation",
+      "cohort_name": "novartis",
+      "target_name": "pain_d0",
+      "target_horizon": "same_day",
+      "intended_use": "same_day_interpretation",
+      "tier": "accepted",
+      "deployment_recommendation": "deploy_within_cohort_and_monitor",
+      "transportability_status": "not_tested",
+      "auto_promotion_eligible": false,
+      "blocking_flags": [
+        "transport_not_negative",
+        "portable_family_loco_floor"
+      ],
+      "robustness_flags": [],
+      "summary_path": "reports/route_cards/novartis_pain_d0_contextual.json",
+      "metrics": {
+        "heldout_r2": 0.3705144470068543,
+        "heldout_mae": 1.487848976805973,
+        "heldout_rmse": 1.8079488326551352,
+        "coverage_pct": 81.32392612575224,
+        "interval_width": 3.8932845160377663,
+        "transport_r2": null
+      }
+    },
+    {
+      "route_key": "pmdata_fatigue_d0_contextual",
+      "label": "PMData D0 contextual interpretation",
+      "cohort_name": "pmdata",
+      "target_name": "fatigue_d0",
+      "target_horizon": "same_day",
+      "intended_use": "same_day_interpretation",
+      "tier": "experimental",
+      "deployment_recommendation": "use_as_exploratory_within_cohort",
+      "transportability_status": "negative_open_transport",
+      "auto_promotion_eligible": false,
+      "blocking_flags": [
+        "heldout_signal_floor",
+        "transport_not_negative",
+        "portable_family_loco_floor"
+      ],
+      "robustness_flags": [],
+      "summary_path": "reports/route_cards/pmdata_fatigue_d0_contextual.json",
+      "metrics": {
+        "heldout_r2": 0.10522297191647056,
+        "heldout_mae": 1.1346423736741513,
+        "heldout_rmse": 1.384727763732634,
+        "coverage_pct": 80.26315789473685,
+        "interval_width": 3.390425578556965,
+        "transport_r2": -0.06627776289765963
+      }
+    },
+    {
+      "route_key": "pmdata_fatigue_d1_sleep_forward",
+      "label": "PMData D+1 sleep-forward forecasting",
+      "cohort_name": "pmdata",
+      "target_name": "fatigue_d1",
+      "target_horizon": "next_day",
+      "intended_use": "next_day_forecasting",
+      "tier": "experimental",
+      "deployment_recommendation": "research_only_do_not_operationalize",
+      "transportability_status": "not_tested",
+      "auto_promotion_eligible": false,
+      "blocking_flags": [
+        "heldout_signal_floor",
+        "transport_not_negative"
+      ],
+      "robustness_flags": [],
+      "summary_path": "reports/route_cards/pmdata_fatigue_d1_sleep_forward.json",
+      "metrics": {
+        "heldout_r2": 0.02714347811865714,
+        "heldout_mae": 1.179515503875969,
+        "heldout_rmse": 1.4521611793172724,
+        "coverage_pct": 80.06644518272425,
+        "interval_width": 3.4009262211562765,
+        "transport_r2": null
+      }
+    },
+    {
+      "route_key": "pmdata_stress_d0_contextual",
+      "label": "PMData D0 contextual interpretation",
+      "cohort_name": "pmdata",
+      "target_name": "stress_d0",
+      "target_horizon": "same_day",
+      "intended_use": "same_day_interpretation",
+      "tier": "accepted",
+      "deployment_recommendation": "deploy_within_cohort_and_monitor",
+      "transportability_status": "weak_open_transport",
+      "auto_promotion_eligible": true,
+      "blocking_flags": [],
+      "robustness_flags": [],
+      "summary_path": "reports/route_cards/pmdata_stress_d0_contextual.json",
+      "metrics": {
+        "heldout_r2": 0.23781128432849274,
+        "heldout_mae": 1.0968092105263159,
+        "heldout_rmse": 1.4368983644371727,
+        "coverage_pct": 80.26315789473685,
+        "interval_width": 3.920139974532161,
+        "transport_r2": 0.009934467312126327
+      }
+    },
+    {
+      "route_key": "pmdata_stress_d1_sleep_forward",
+      "label": "PMData D+1 sleep-forward forecasting",
+      "cohort_name": "pmdata",
+      "target_name": "stress_d1",
+      "target_horizon": "next_day",
+      "intended_use": "next_day_forecasting",
+      "tier": "experimental",
+      "deployment_recommendation": "research_only_do_not_operationalize",
+      "transportability_status": "weak_open_transport",
+      "auto_promotion_eligible": false,
+      "blocking_flags": [
+        "heldout_signal_floor"
+      ],
+      "robustness_flags": [],
+      "summary_path": "reports/route_cards/pmdata_stress_d1_sleep_forward.json",
+      "metrics": {
+        "heldout_r2": 0.06605787917232131,
+        "heldout_mae": 1.1660825027685493,
+        "heldout_rmse": 1.5509485399786376,
+        "coverage_pct": 80.39867109634552,
+        "interval_width": 4.4821218508233285,
+        "transport_r2": 0.005557450529031449
+      }
+    },
+    {
+      "route_key": "stress_d0_family_portable_experimental",
+      "label": "Portable family stress D0 experimental route",
+      "cohort_name": "portable_family_stress_d0",
+      "target_name": "stress_d0_portable_index",
+      "target_horizon": "portable_windowed",
+      "intended_use": "cross_cohort_portable_reference",
+      "tier": "experimental",
+      "deployment_recommendation": "research_only_portable_family_reference",
+      "transportability_status": "positive_open_transport",
+      "auto_promotion_eligible": false,
+      "blocking_flags": [
+        "heldout_signal_floor"
+      ],
+      "robustness_flags": [],
+      "summary_path": "reports/route_cards/stress_d0_family_portable_experimental.json",
+      "metrics": {
+        "heldout_r2": 0.060287316200568486,
+        "heldout_mae": 0.187514112219866,
+        "heldout_rmse": 0.23390285955876697,
+        "coverage_pct": 79.96357012750455,
+        "interval_width": 0.6665652966867067,
+        "transport_r2": 0.07351838469101118
+      }
+    },
+    {
+      "route_key": "stress_d1_family_portable_experimental",
+      "label": "Portable family stress D+1 experimental route",
+      "cohort_name": "portable_family_stress_d1",
+      "target_name": "stress_d1_portable_index",
+      "target_horizon": "next_day",
+      "intended_use": "cross_cohort_portable_reference",
+      "tier": "experimental",
+      "deployment_recommendation": "research_only_portable_family_reference",
+      "transportability_status": "positive_open_transport",
+      "auto_promotion_eligible": false,
+      "blocking_flags": [
+        "heldout_signal_floor"
+      ],
+      "robustness_flags": [],
+      "summary_path": "reports/route_cards/stress_d1_family_portable_experimental.json",
+      "metrics": {
+        "heldout_r2": 0.029104528483662184,
+        "heldout_mae": 0.1794531431092863,
+        "heldout_rmse": 0.22957234282035774,
+        "coverage_pct": 80.03901170351105,
+        "interval_width": 0.6763654143093721,
+        "transport_r2": 0.06848213671254766
+      }
+    }
+  ],
+  "card_count": 12
+}

@@ -1,0 +1,379 @@
+{
+  "candidate_count": 3,
+  "decision_counts": {
+    "direct_fit_for_raw_nightly_stress": 1,
+    "fit_with_limits": 1,
+    "reject_for_current_scope": 1
+  },
+  "ranked_candidates": [
+    {
+      "input_path": "/Users/damasomengodperez/neural-echo-planning/reports/institution_targets/examples/direct_fit_rawnight_pre_screen_input_2026-03-28.json",
+      "candidate_key": "direct_fit_example",
+      "institution_or_group": "Example Sleep Lab",
+      "decision": "direct_fit_for_raw_nightly_stress",
+      "decision_priority": 4,
+      "ranking_tuple": [
+        4,
+        1,
+        1,
+        0.38,
+        1,
+        0.68,
+        0.74,
+        1,
+        1,
+        0,
+        0
+      ],
+      "result": {
+        "candidate_key": "direct_fit_example",
+        "decision": "direct_fit_for_raw_nightly_stress",
+        "recommended_next_step": "request the exact bundle contract and move to linkage review",
+        "checks": {
+          "participant_night_rows": true,
+          "repeated_stress_or_burden": true,
+          "linkage_mode_preferred": true,
+          "raw_signal_usable": true,
+          "participant_count_min": true,
+          "participant_count_preferred": true,
+          "median_nights_min": true,
+          "median_nights_preferred": true,
+          "aligned_burden_rate_min": true,
+          "aligned_burden_rate_preferred": true,
+          "raw_night_fraction_min": true,
+          "raw_night_fraction_preferred": true,
+          "raw_signal_preferred": true,
+          "mean_raw_coverage_known": true,
+          "beats_ifh_raw_night_fraction": true,
+          "beats_ifh_mean_raw_coverage": true,
+          "beats_ifh_raw_support": true,
+          "approaches_hrv_raw_night_fraction": false,
+          "approaches_hrv_mean_raw_coverage": false
+        },
+        "hard_failures": [],
+        "soft_failures": [],
+        "missing_clarifications": [],
+        "benchmark": {
+          "preferred": {
+            "participant_count": 40,
+            "median_nights_per_participant": 20.0,
+            "aligned_burden_rate": 0.3,
+            "raw_night_fraction": 0.5,
+            "raw_signal_granularity": [
+              "beat_to_beat",
+              "epoch"
+            ]
+          },
+          "minimum": {
+            "participant_count": 20,
+            "median_nights_per_participant": 10.0,
+            "aligned_burden_rate": 0.15,
+            "raw_night_fraction": 0.3,
+            "raw_signal_granularity": [
+              "beat_to_beat",
+              "epoch",
+              "nightly_summary"
+            ]
+          },
+          "dual_frontier": {
+            "outcome_density_anchor": {
+              "candidate": "ifh_affect_2024_rawnight_bundle",
+              "status": "ready_with_limits",
+              "best_join_rate": 0.6439012096774194
+            },
+            "raw_support_anchor": {
+              "candidate": "hrv_sleep_diary_2025_rawnight_bundle",
+              "status": "hold_fix_linkage_or_density",
+              "raw_night_fraction": 0.7908163265306123,
+              "mean_raw_coverage": 0.8312922077229882
+            },
+            "must_beat_ifh_on_raw_support": {
+              "raw_night_fraction_gt": 0.4347278225806452,
+              "mean_raw_coverage_gt": 0.5053565335335646
+            },
+            "hrv_reference": {
+              "raw_night_fraction_target": 0.7908163265306123,
+              "mean_raw_coverage_target": 0.8312922077229882
+            }
+          }
+        },
+        "frontier_readout": {
+          "candidate_raw_night_fraction": 0.68,
+          "candidate_mean_raw_coverage": 0.74,
+          "candidate_best_join_rate": 0.38,
+          "delta_vs_ifh_raw_night_fraction": 0.24527217741935486,
+          "delta_vs_ifh_mean_raw_coverage": 0.2346434664664354,
+          "delta_vs_hrv_raw_night_fraction": -0.11081632653061224,
+          "delta_vs_hrv_mean_raw_coverage": -0.09129220772298818
+        },
+        "input_snapshot": {
+          "candidate_key": "direct_fit_example",
+          "institution_or_group": "Example Sleep Lab",
+          "participant_night_rows": true,
+          "repeated_stress_or_burden": true,
+          "stress_or_burden_endpoint_name": "stress_0_10",
+          "best_aligned_outcome_rate_estimate": 0.38,
+          "participant_count": 62,
+          "median_nights_per_participant": 24,
+          "raw_signal_granularity": "epoch",
+          "raw_night_fraction_estimate": 0.68,
+          "mean_raw_coverage_estimate": 0.74,
+          "linkage_mode": "sleep_date_local",
+          "psg_subset_available": false,
+          "confounders_available": true,
+          "data_transfer_constraints": "none",
+          "notes": "Synthetic direct-fit style example for batch ranking."
+        }
+      },
+      "rank": 1
+    },
+    {
+      "input_path": "/Users/damasomengodperez/neural-echo-planning/reports/institution_targets/examples/ifh_affect_rawnight_pre_screen_input_2026-03-27.json",
+      "candidate_key": "ifh_affect_2024_rawnight_bundle",
+      "institution_or_group": "Local internal benchmark",
+      "decision": "fit_with_limits",
+      "decision_priority": 3,
+      "ranking_tuple": [
+        3,
+        0,
+        1,
+        0.6439012096774194,
+        0,
+        0.4347278225806452,
+        0.5053565335335646,
+        0,
+        1,
+        0,
+        -3
+      ],
+      "result": {
+        "candidate_key": "ifh_affect_2024_rawnight_bundle",
+        "decision": "fit_with_limits",
+        "recommended_next_step": "request a tighter cohort description and only proceed if the limits are scientifically acceptable",
+        "checks": {
+          "participant_night_rows": true,
+          "repeated_stress_or_burden": true,
+          "linkage_mode_preferred": true,
+          "raw_signal_usable": true,
+          "participant_count_min": true,
+          "participant_count_preferred": false,
+          "median_nights_min": true,
+          "median_nights_preferred": true,
+          "aligned_burden_rate_min": true,
+          "aligned_burden_rate_preferred": true,
+          "raw_night_fraction_min": true,
+          "raw_night_fraction_preferred": false,
+          "raw_signal_preferred": false,
+          "mean_raw_coverage_known": true,
+          "beats_ifh_raw_night_fraction": false,
+          "beats_ifh_mean_raw_coverage": false,
+          "beats_ifh_raw_support": false,
+          "approaches_hrv_raw_night_fraction": false,
+          "approaches_hrv_mean_raw_coverage": false
+        },
+        "hard_failures": [],
+        "soft_failures": [
+          "participant count is below the preferred threshold",
+          "raw night fraction is below the preferred threshold",
+          "raw sidecar is nightly-summary only, not true epoch or beat-to-beat physiology"
+        ],
+        "missing_clarifications": [],
+        "benchmark": {
+          "preferred": {
+            "participant_count": 40,
+            "median_nights_per_participant": 20.0,
+            "aligned_burden_rate": 0.3,
+            "raw_night_fraction": 0.5,
+            "raw_signal_granularity": [
+              "beat_to_beat",
+              "epoch"
+            ]
+          },
+          "minimum": {
+            "participant_count": 20,
+            "median_nights_per_participant": 10.0,
+            "aligned_burden_rate": 0.15,
+            "raw_night_fraction": 0.3,
+            "raw_signal_granularity": [
+              "beat_to_beat",
+              "epoch",
+              "nightly_summary"
+            ]
+          },
+          "dual_frontier": {
+            "outcome_density_anchor": {
+              "candidate": "ifh_affect_2024_rawnight_bundle",
+              "status": "ready_with_limits",
+              "best_join_rate": 0.6439012096774194
+            },
+            "raw_support_anchor": {
+              "candidate": "hrv_sleep_diary_2025_rawnight_bundle",
+              "status": "hold_fix_linkage_or_density",
+              "raw_night_fraction": 0.7908163265306123,
+              "mean_raw_coverage": 0.8312922077229882
+            },
+            "must_beat_ifh_on_raw_support": {
+              "raw_night_fraction_gt": 0.4347278225806452,
+              "mean_raw_coverage_gt": 0.5053565335335646
+            },
+            "hrv_reference": {
+              "raw_night_fraction_target": 0.7908163265306123,
+              "mean_raw_coverage_target": 0.8312922077229882
+            }
+          }
+        },
+        "frontier_readout": {
+          "candidate_raw_night_fraction": 0.4347278225806452,
+          "candidate_mean_raw_coverage": 0.5053565335335646,
+          "candidate_best_join_rate": 0.6439012096774194,
+          "delta_vs_ifh_raw_night_fraction": 0.0,
+          "delta_vs_ifh_mean_raw_coverage": 0.0,
+          "delta_vs_hrv_raw_night_fraction": -0.3560885039499671,
+          "delta_vs_hrv_mean_raw_coverage": -0.3259356741894236
+        },
+        "input_snapshot": {
+          "candidate_key": "ifh_affect_2024_rawnight_bundle",
+          "institution_or_group": "Local internal benchmark",
+          "participant_night_rows": true,
+          "repeated_stress_or_burden": true,
+          "stress_or_burden_endpoint_name": "stress_0_10",
+          "best_aligned_outcome_rate_estimate": 0.6439012096774194,
+          "participant_count": 21,
+          "median_nights_per_participant": 172.0,
+          "raw_signal_granularity": "nightly_summary",
+          "raw_night_fraction_estimate": 0.4347278225806452,
+          "mean_raw_coverage_estimate": 0.5053565335335646,
+          "linkage_mode": "sleep_date_local",
+          "psg_subset_available": false,
+          "confounders_available": true,
+          "data_transfer_constraints": "not applicable",
+          "notes": "First real internal benchmark used to define the next external target."
+        }
+      },
+      "rank": 2
+    },
+    {
+      "input_path": "/Users/damasomengodperez/neural-echo-planning/reports/institution_targets/examples/hrv_sleep_diary_rawnight_pre_screen_input_2026-03-28.json",
+      "candidate_key": "hrv_sleep_diary_2025_rawnight_bundle",
+      "institution_or_group": "Internal Reference",
+      "decision": "reject_for_current_scope",
+      "decision_priority": 0,
+      "ranking_tuple": [
+        0,
+        1,
+        0,
+        0.1071,
+        1,
+        0.7908,
+        0.8313,
+        1,
+        1,
+        0,
+        0
+      ],
+      "result": {
+        "candidate_key": "hrv_sleep_diary_2025_rawnight_bundle",
+        "decision": "reject_for_current_scope",
+        "recommended_next_step": "do not spend time on this cohort for the raw nightly stress lane",
+        "checks": {
+          "participant_night_rows": true,
+          "repeated_stress_or_burden": true,
+          "linkage_mode_preferred": true,
+          "raw_signal_usable": true,
+          "participant_count_min": true,
+          "participant_count_preferred": true,
+          "median_nights_min": true,
+          "median_nights_preferred": true,
+          "aligned_burden_rate_min": false,
+          "aligned_burden_rate_preferred": false,
+          "raw_night_fraction_min": true,
+          "raw_night_fraction_preferred": true,
+          "raw_signal_preferred": true,
+          "mean_raw_coverage_known": true,
+          "beats_ifh_raw_night_fraction": true,
+          "beats_ifh_mean_raw_coverage": true,
+          "beats_ifh_raw_support": true,
+          "approaches_hrv_raw_night_fraction": false,
+          "approaches_hrv_mean_raw_coverage": true
+        },
+        "hard_failures": [
+          "aligned repeated burden rate is below the minimum practical threshold"
+        ],
+        "soft_failures": [],
+        "missing_clarifications": [],
+        "benchmark": {
+          "preferred": {
+            "participant_count": 40,
+            "median_nights_per_participant": 20.0,
+            "aligned_burden_rate": 0.3,
+            "raw_night_fraction": 0.5,
+            "raw_signal_granularity": [
+              "beat_to_beat",
+              "epoch"
+            ]
+          },
+          "minimum": {
+            "participant_count": 20,
+            "median_nights_per_participant": 10.0,
+            "aligned_burden_rate": 0.15,
+            "raw_night_fraction": 0.3,
+            "raw_signal_granularity": [
+              "beat_to_beat",
+              "epoch",
+              "nightly_summary"
+            ]
+          },
+          "dual_frontier": {
+            "outcome_density_anchor": {
+              "candidate": "ifh_affect_2024_rawnight_bundle",
+              "status": "ready_with_limits",
+              "best_join_rate": 0.6439012096774194
+            },
+            "raw_support_anchor": {
+              "candidate": "hrv_sleep_diary_2025_rawnight_bundle",
+              "status": "hold_fix_linkage_or_density",
+              "raw_night_fraction": 0.7908163265306123,
+              "mean_raw_coverage": 0.8312922077229882
+            },
+            "must_beat_ifh_on_raw_support": {
+              "raw_night_fraction_gt": 0.4347278225806452,
+              "mean_raw_coverage_gt": 0.5053565335335646
+            },
+            "hrv_reference": {
+              "raw_night_fraction_target": 0.7908163265306123,
+              "mean_raw_coverage_target": 0.8312922077229882
+            }
+          }
+        },
+        "frontier_readout": {
+          "candidate_raw_night_fraction": 0.7908,
+          "candidate_mean_raw_coverage": 0.8313,
+          "candidate_best_join_rate": 0.1071,
+          "delta_vs_ifh_raw_night_fraction": 0.35607217741935476,
+          "delta_vs_ifh_mean_raw_coverage": 0.32594346646643546,
+          "delta_vs_hrv_raw_night_fraction": -1.6326530612342793e-05,
+          "delta_vs_hrv_mean_raw_coverage": 7.792277011864357e-06
+        },
+        "input_snapshot": {
+          "candidate_key": "hrv_sleep_diary_2025_rawnight_bundle",
+          "institution_or_group": "Internal Reference",
+          "participant_night_rows": true,
+          "repeated_stress_or_burden": true,
+          "stress_or_burden_endpoint_name": "anxiety_score",
+          "best_aligned_outcome_rate_estimate": 0.1071,
+          "participant_count": 49,
+          "median_nights_per_participant": 28,
+          "raw_signal_granularity": "epoch",
+          "raw_night_fraction_estimate": 0.7908,
+          "mean_raw_coverage_estimate": 0.8313,
+          "linkage_mode": "sleep_date_local",
+          "psg_subset_available": false,
+          "confounders_available": true,
+          "data_transfer_constraints": "none",
+          "notes": "HRV Sleep Diary 2025 internal raw benchmark"
+        }
+      },
+      "rank": 3
+    }
+  ]
+}

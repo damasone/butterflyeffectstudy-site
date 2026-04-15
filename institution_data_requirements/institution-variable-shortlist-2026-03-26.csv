@@ -1,0 +1,58 @@
+table,priority,field_name,unit_or_type,accepted_substitutes,why_it_matters
+participant,must,participant_uid,string,,stable pseudonymized linkage
+participant,must,source_dataset,string,,source lineage
+participant,must,source_subject_id,string,,source traceability
+participant,must,sex_at_birth,categorical,sex,subgroup auditing
+participant,must,age_at_baseline_years,years,age_band,subgroup auditing
+participant,recommended,cohort_type,string,,sampling context
+participant,recommended,timezone_name,string,site_timezone,local date alignment
+participant,recommended,device_family,string,device_modality,signal interpretation
+participant,recommended,shift_work_flag,binary,,circadian confounding
+participant,recommended,baseline_sleep_disorder_flag,binary,,clinical context
+night_sleep,must,night_uid,string,,one participant-night key
+night_sleep,must,participant_uid,string,,join to participant
+night_sleep,must,sleep_date_local,date,,night to next-day linkage
+night_sleep,must,total_sleep_time_min,minutes,,core nightly burden signal
+night_sleep,must,sleep_onset_ts,datetime,sleep_midpoint_local,timing and regularity
+night_sleep,must,sleep_offset_ts,datetime,,timing and duration
+night_sleep,must,sleep_efficiency_pct,percent,wake_after_sleep_onset_min|awakening_count,continuity
+night_sleep,must,heart_rate_mean_bpm,bpm,hrv_rmssd_ms,nocturnal physiology
+night_sleep,must,movement_index,float,fragmentation_index,nocturnal restlessness
+night_sleep,must,device_modality,string,,modality-specific interpretation
+night_sleep,recommended,time_in_bed_min,minutes,,sleep opportunity context
+night_sleep,recommended,sleep_latency_min,minutes,,initiation burden
+night_sleep,recommended,rem_min,minutes,rem_pct,stage structure
+night_sleep,recommended,n3_min,minutes,deep_min,restorative structure
+night_sleep,recommended,spo2_mean_pct,percent,spo2_min_pct,respiratory burden
+night_sleep,recommended,resp_rate_mean_bpm,bpm,,respiratory physiology
+night_sleep,recommended,signal_quality_score_0_1,float,,quality gating
+night_sleep,high_value,night_ibi.csv,sidecar,,raw cardiovascular reconstruction
+night_sleep,high_value,night_hr_epoch.csv,sidecar,,epoch-level physiology
+night_sleep,high_value,night_motion_epoch.csv,sidecar,,epoch-level movement
+night_sleep,high_value,night_resp_epoch.csv,sidecar,,respiratory sidecar
+night_sleep,high_value,psg_manifest.csv,sidecar,,gold-standard subset
+day_emotion,must,emotion_uid,string,,row identity
+day_emotion,must,participant_uid,string,,join to participant
+day_emotion,must,report_date_local,date,,next-day linkage
+day_emotion,must,stress_0_10,float,anxiety_score|depression_score,highest-value repeated burden
+day_emotion,recommended,gad7_total,score,anxiety_score,clean anxiety instrument
+day_emotion,recommended,phq9_total,score,depression_score,clean depression instrument
+day_emotion,recommended,mood_valence_0_10,float,,daily affect context
+day_emotion,recommended,major_stressor_flag,binary,,acute load context
+day_symptoms,must,symptom_uid,string,,row identity
+day_symptoms,must,participant_uid,string,,join to participant
+day_symptoms,must,report_date_local,date,,next-day linkage
+day_symptoms,must,fatigue_0_10,float,pain_0_10|muscle_tension_0_10|perceived_rest_quality_0_10,non-stress burden support
+day_symptoms,recommended,migraine_flag,binary,,acute symptom context
+day_symptoms,recommended,somatic_burden_score,float,,proxy somatic load
+day_confounders,must,confounder_uid,string,,row identity
+day_confounders,must,participant_uid,string,,join to participant
+day_confounders,must,report_date_local,date,,local alignment
+day_confounders,must,caffeine_mg,float,,common nightly confounder
+day_confounders,must,alcohol_units,float,,common nightly confounder
+day_confounders,must,exercise_minutes,float,,day-level recovery context
+day_confounders,must,nap_minutes,float,,next-day linkage interpretation
+day_confounders,recommended,acute_illness_flag,binary,,major distortion flag
+day_confounders,recommended,medication_change_flag,binary,,major distortion flag
+day_confounders,recommended,menstrual_cycle_phase,categorical,,biological context
+day_confounders,recommended,travel_flag,binary,,circadian disruption

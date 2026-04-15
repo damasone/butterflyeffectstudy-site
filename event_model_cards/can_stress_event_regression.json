@@ -1,0 +1,17 @@
+{
+  "card_key": "can_stress_event_regression",
+  "label": "CAN-STRESS event stress regression",
+  "kind": "cohort_event_regression",
+  "tier": "support_only",
+  "role": "event_challenge_support",
+  "blocking_flags": [
+    "cohort_signal_floor"
+  ],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-can-stress-event-stress-noleak/summary.json",
+  "calibration_summary_path": null,
+  "metrics": {
+    "mae": 1.9153225806451613,
+    "rmse": 2.2103231043914033,
+    "r2": -0.08379331140350876
+  }
+}

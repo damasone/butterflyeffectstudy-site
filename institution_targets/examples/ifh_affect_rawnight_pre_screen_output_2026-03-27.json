@@ -1,0 +1,104 @@
+{
+  "candidate_key": "ifh_affect_2024_rawnight_bundle",
+  "decision": "fit_with_limits",
+  "recommended_next_step": "request a tighter cohort description and only proceed if the limits are scientifically acceptable",
+  "checks": {
+    "participant_night_rows": true,
+    "repeated_stress_or_burden": true,
+    "linkage_mode_preferred": true,
+    "raw_signal_usable": true,
+    "participant_count_min": true,
+    "participant_count_preferred": false,
+    "median_nights_min": true,
+    "median_nights_preferred": true,
+    "aligned_burden_rate_min": true,
+    "aligned_burden_rate_preferred": true,
+    "raw_night_fraction_min": true,
+    "raw_night_fraction_preferred": false,
+    "raw_signal_preferred": false,
+    "mean_raw_coverage_known": true,
+    "beats_ifh_raw_night_fraction": false,
+    "beats_ifh_mean_raw_coverage": false,
+    "beats_ifh_raw_support": false,
+    "approaches_hrv_raw_night_fraction": false,
+    "approaches_hrv_mean_raw_coverage": false
+  },
+  "hard_failures": [],
+  "soft_failures": [
+    "participant count is below the preferred threshold",
+    "raw night fraction is below the preferred threshold",
+    "raw sidecar is nightly-summary only, not true epoch or beat-to-beat physiology"
+  ],
+  "missing_clarifications": [],
+  "benchmark": {
+    "preferred": {
+      "participant_count": 40,
+      "median_nights_per_participant": 20.0,
+      "aligned_burden_rate": 0.3,
+      "raw_night_fraction": 0.5,
+      "raw_signal_granularity": [
+        "beat_to_beat",
+        "epoch"
+      ]
+    },
+    "minimum": {
+      "participant_count": 20,
+      "median_nights_per_participant": 10.0,
+      "aligned_burden_rate": 0.15,
+      "raw_night_fraction": 0.3,
+      "raw_signal_granularity": [
+        "beat_to_beat",
+        "epoch",
+        "nightly_summary"
+      ]
+    },
+    "dual_frontier": {
+      "outcome_density_anchor": {
+        "candidate": "ifh_affect_2024_rawnight_bundle",
+        "status": "ready_with_limits",
+        "best_join_rate": 0.6439012096774194
+      },
+      "raw_support_anchor": {
+        "candidate": "hrv_sleep_diary_2025_rawnight_bundle",
+        "status": "hold_fix_linkage_or_density",
+        "raw_night_fraction": 0.7908163265306123,
+        "mean_raw_coverage": 0.8312922077229882
+      },
+      "must_beat_ifh_on_raw_support": {
+        "raw_night_fraction_gt": 0.4347278225806452,
+        "mean_raw_coverage_gt": 0.5053565335335646
+      },
+      "hrv_reference": {
+        "raw_night_fraction_target": 0.7908163265306123,
+        "mean_raw_coverage_target": 0.8312922077229882
+      }
+    }
+  },
+  "frontier_readout": {
+    "candidate_raw_night_fraction": 0.4347278225806452,
+    "candidate_mean_raw_coverage": 0.5053565335335646,
+    "candidate_best_join_rate": 0.6439012096774194,
+    "delta_vs_ifh_raw_night_fraction": 0.0,
+    "delta_vs_ifh_mean_raw_coverage": 0.0,
+    "delta_vs_hrv_raw_night_fraction": -0.3560885039499671,
+    "delta_vs_hrv_mean_raw_coverage": -0.3259356741894236
+  },
+  "input_snapshot": {
+    "candidate_key": "ifh_affect_2024_rawnight_bundle",
+    "institution_or_group": "Local internal benchmark",
+    "participant_night_rows": true,
+    "repeated_stress_or_burden": true,
+    "stress_or_burden_endpoint_name": "stress_0_10",
+    "best_aligned_outcome_rate_estimate": 0.6439012096774194,
+    "participant_count": 21,
+    "median_nights_per_participant": 172.0,
+    "raw_signal_granularity": "nightly_summary",
+    "raw_night_fraction_estimate": 0.4347278225806452,
+    "mean_raw_coverage_estimate": 0.5053565335335646,
+    "linkage_mode": "sleep_date_local",
+    "psg_subset_available": false,
+    "confounders_available": true,
+    "data_transfer_constraints": "not applicable",
+    "notes": "First real internal benchmark used to define the next external target."
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "date": "2026-03-26",
+  "title": "Butterfly Effect Institutional Data Requirements Pack",
+  "aligned_with": [
+    "common-schema.yaml",
+    "nightly routes",
+    "daily challenge layers",
+    "event layer",
+    "research-first governance"
+  ],
+  "minimum_useful_package": [
+    "longitudinal nightly sleep summaries",
+    "nocturnal cardiovascular signal or HRV surrogate",
+    "movement or fragmentation signal",
+    "repeated symptom or burden outcomes",
+    "basic participant and day-level context"
+  ],
+  "entities": {
+    "participant": {
+      "required": ["participant_uid", "source_dataset", "source_subject_id"],
+      "recommended": ["sex_at_birth", "age_at_baseline_years", "cohort_type"]
+    },
+    "night_sleep": {
+      "required": ["night_uid", "participant_uid", "sleep_date_local"],
+      "minimum_signal": [
+        "total_sleep_time_min",
+        "sleep_efficiency_pct or wake_after_sleep_onset_min or awakening_count",
+        "heart_rate_mean_bpm or hrv_rmssd_ms",
+        "movement_index or actigraphy fragmentation"
+      ],
+      "high_value": [
+        "sleep_onset_ts",
+        "sleep_offset_ts",
+        "time_in_bed_min",
+        "rem_min",
+        "n1_min",
+        "n2_min",
+        "n3_min",
+        "rem_pct",
+        "deep_sleep_onset_min",
+        "ahi_events_per_hour",
+        "apnea_index_per_hour",
+        "spo2_mean_pct",
+        "spo2_min_pct",
+        "resp_rate_mean_bpm",
+        "signal_quality_score_0_1",
+        "device_modality"
+      ]
+    },
+    "day_emotion": {
+      "required": ["emotion_uid", "participant_uid", "report_date_local"],
+      "outcomes": ["stress_0_10", "anxiety_score", "depression_score"],
+      "optional": ["mood_valence_0_10", "positive_affect_0_10", "negative_affect_0_10", "major_stressor_flag"]
+    },
+    "day_symptoms": {
+      "required": ["symptom_uid", "participant_uid", "report_date_local"],
+      "outcomes": ["fatigue_0_10", "pain_0_10", "muscle_tension_0_10", "perceived_rest_quality_0_10"],
+      "optional": ["migraine_flag"]
+    },
+    "day_confounders": {
+      "strongly_recommended": true,
+      "required_if_present": ["confounder_uid", "participant_uid", "report_date_local"],
+      "fields": [
+        "caffeine_mg",
+        "alcohol_units",
+        "exercise_minutes",
+        "nap_minutes",
+        "acute_illness_flag",
+        "medication_change_flag",
+        "menstrual_cycle_phase"
+      ]
+    }
+  },
+  "supplementary_sidecars": {
+    "tier_2": [
+      "night_ibi",
+      "night_hr_epoch",
+      "night_motion_epoch",
+      "night_resp_epoch",
+      "temperature",
+      "signal_quality_traces"
+    ],
+    "tier_3": [
+      "psg_subset_eeg",
+      "psg_subset_eog",
+      "psg_subset_emg",
+      "respiratory_labels",
+      "clinician_anchored_outcomes"
+    ]
+  },
+  "preferred_file_contract": {
+    "core_files": [
+      "participant.csv",
+      "night_sleep.csv",
+      "day_emotion.csv",
+      "day_symptoms.csv",
+      "day_confounders.csv"
+    ],
+    "optional_sidecars": [
+      "night_physio_epoch.csv",
+      "night_hr_epoch.csv",
+      "night_ibi.csv",
+      "raw_hr_epoch.csv",
+      "raw_ibi_epoch.csv",
+      "night_motion_epoch.csv",
+      "night_resp_epoch.csv",
+      "psg_manifest.csv"
+    ],
+    "raw_sidecar_normalization": {
+      "normalizer": "training/normalize_raw_nightly_physio_epochs.py",
+      "mapping_templates": [
+        "reports/institution_data_requirements/templates/raw_physio_mapping_combined.json",
+        "reports/institution_data_requirements/templates/raw_physio_mapping_split.json"
+      ]
+    }
+  },
+  "pilot_readiness_thresholds": {
+    "recommended_minimum": {
+      "participants": 40,
+      "median_nights_per_participant": 20,
+      "outcome_density": "at least 30% of nights or at least 3 times per week"
+    },
+    "preferred": {
+      "participants": 75,
+      "median_nights_per_participant": 45,
+      "nightly_or_near_daily_outcomes": true,
+      "raw_sidecar_present": true,
+      "psg_subset": true
+    }
+  },
+  "governance_expectations": [
+    "pseudonymized identifiers",
+    "date-linked longitudinal records",
+    "explicit DUA or data-use basis",
+    "schema and units documentation",
+    "source lineage preserved"
+  ]
+}

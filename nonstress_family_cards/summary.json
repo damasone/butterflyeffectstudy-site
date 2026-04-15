@@ -1,0 +1,104 @@
+{
+  "cards": [
+    {
+      "family_key": "anxiety",
+      "label": "Anxiety",
+      "status": "experimental",
+      "note": "Closest non-stress family to usable portable reference, but still below the route signal floor.",
+      "metrics": {
+        "portable_mean_r2": 0.020202053343458887,
+        "route_replay_r2": -0.046568820009684986,
+        "coverage_pct": 79.86798679867987,
+        "rows": 303,
+        "participants": 103,
+        "feature_count": 10
+      },
+      "cohorts": [
+        "hrv_diary",
+        "ifh_affect",
+        "panicsym24"
+      ],
+      "targets": [
+        "anxiety_phase",
+        "gad7_score",
+        "gad7_total"
+      ],
+      "paths": [
+        "/Users/damasomengodperez/neural-echo-planning/artifacts/portable-family-models-stable/anxiety/summary.json",
+        "/Users/damasomengodperez/neural-echo-planning/reports/route_cards/anxiety_family_portable_experimental.json"
+      ],
+      "chips": [
+        "closest_non_stress_family",
+        "route_present"
+      ]
+    },
+    {
+      "family_key": "depression",
+      "label": "Depression",
+      "status": "semantic_mismatch",
+      "note": "The mixed family is still blocked by questionnaire mismatch, but the strict PHQ-9-only subtrack now improves both transport and replay through a compact hybrid nightly sequence representation. That is the clean research direction for depression.",
+      "metrics": {
+        "portable_mean_r2": -0.02150317219287093,
+        "phq9_only_mean_r2": 0.016793079291369584,
+        "phq9_only_min_r2": 0.0019516348851456033,
+        "phq9_only_replay_r2": 0.046854515866513236,
+        "rows": 11188,
+        "participants": 4141,
+        "feature_count": 6
+      },
+      "cohorts": [
+        "hrv_diary",
+        "ifh_affect",
+        "panicsym24",
+        "psyched"
+      ],
+      "targets": [
+        "bdi_total",
+        "depression_phase",
+        "phq9_score",
+        "phq9_score_end"
+      ],
+      "paths": [
+        "/Users/damasomengodperez/neural-echo-planning/artifacts/portable-family-models/depression/summary.json",
+        "/Users/damasomengodperez/neural-echo-planning/artifacts/portable-family-models-research/depression_phq9_only_clean/summary.json",
+        "/Users/damasomengodperez/neural-echo-planning/reports/depression-phq9-nightly-hybrid-followup-2026-03-26.md"
+      ],
+      "chips": [
+        "semantic_mismatch",
+        "instrument_alignment_needed",
+        "phq9_only_subtrack"
+      ]
+    },
+    {
+      "family_key": "pain_like",
+      "label": "Somatic Burden Proxy",
+      "status": "proxy_only",
+      "note": "This family aligns general physical pain with muscle-tension proxy burden. EPISONO pain 2016 now provides a direct open pain anchor, but the portable family still remains proxy-only until transport is shown explicitly.",
+      "metrics": {
+        "portable_mean_r2": -0.026713641340096683,
+        "rows": 6305,
+        "participants": 211,
+        "feature_count": 12,
+        "direct_support_anchor_present": 1
+      },
+      "cohorts": [
+        "novartis",
+        "pmdata_proxy"
+      ],
+      "targets": [
+        "muscle_tension_d0",
+        "pain_d0"
+      ],
+      "paths": [
+        "/Users/damasomengodperez/neural-echo-planning/artifacts/portable-family-models/pain_like/summary.json",
+        "/Users/damasomengodperez/neural-echo-planning/reports/episono-pain-2016-integration.md"
+      ],
+      "chips": [
+        "proxy_only",
+        "somatic_burden",
+        "direct_support_anchor"
+      ]
+    }
+  ],
+  "card_count": 3
+}

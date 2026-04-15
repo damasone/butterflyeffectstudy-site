@@ -1,0 +1,21 @@
+{
+  "card_key": "resilient_phq9_exact_watch",
+  "label": "RESILIENT PHQ-9 exact-night + ScanWatch",
+  "kind": "regression_support",
+  "tier": "experimental_challenge",
+  "role": "same_instrument_sparse_depression_support",
+  "blocking_flags": [
+    "signal_floor"
+  ],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-resilient-phq9-exact-watch/summary.json",
+  "metrics": {
+    "mae": 3.3341857379414757,
+    "rmse": 4.556655461866172,
+    "r2": 0.038127429818305636,
+    "rows": 61,
+    "participants": 61,
+    "feature_count": 24,
+    "best_model": "random_forest"
+  },
+  "note": "Same-instrument sparse support for depression in an older-adult cohort with exact-night alignment."
+}

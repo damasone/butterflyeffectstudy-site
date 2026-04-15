@@ -1,0 +1,24 @@
+{
+  "domain": "butterflyeffectstudy.com",
+  "output_dir": "/Users/damasomengodperez/neural-echo-planning/site/butterflyeffectstudy.com",
+  "copied_directories": [
+    "public_research_surface",
+    "participant_facing",
+    "institution_one_pager",
+    "institution_targets",
+    "institution_data_requirements",
+    "institution_pilot_protocol",
+    "institution_governance",
+    "night_route_cards",
+    "event_model_cards",
+    "daily_challenge_cards",
+    "nonstress_daily_cards",
+    "nonstress_family_cards",
+    "shared"
+  ],
+  "copied_files": [
+    "common-schema.yaml"
+  ],
+  "entrypoint": "/Users/damasomengodperez/neural-echo-planning/site/butterflyeffectstudy.com/index.html",
+  "public_home": "/Users/damasomengodperez/neural-echo-planning/site/butterflyeffectstudy.com/public_research_surface/index.html"
+}

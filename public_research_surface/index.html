@@ -1,0 +1,1313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Butterfly Effect</title>
+  <meta name="description" content="Butterfly Effect is a research-grade sleep interpretation surface built around nightly routes, daily challenge layers, portable event stress, governance, and evidence-linked reporting.">
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    :root {
+      --bg: #161311;
+      --bg-deep: #1d1916;
+      --panel: rgba(28, 24, 21, 0.88);
+      --ink: #f3ede7;
+      --muted: #b2a89d;
+      --line: #342c26;
+      --line-strong: #4a4038;
+      --accent: #c39a79;
+      --accent-deep: #eadbce;
+      --ok: #9ecab3;
+      --ok-bg: #1c2823;
+      --warn: #d0a177;
+      --warn-bg: #302319;
+      --muted-bg: #24201c;
+      --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.14);
+      --sans: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+      font-family: var(--sans);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 14% 18%, rgba(195, 154, 121, 0.06), transparent 24%),
+        radial-gradient(circle at 86% 8%, rgba(124, 157, 163, 0.05), transparent 20%);
+      opacity: 1;
+    }
+    a {
+      color: var(--accent-deep);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(234, 219, 206, 0.18);
+      transition: border-color 180ms ease, color 180ms ease;
+    }
+    a:hover { border-bottom-color: rgba(234, 219, 206, 0.5); }
+    button { font: inherit; }
+    .page-shell {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 900ms ease, transform 900ms ease;
+    }
+    body.surface-live .page-shell {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      background:
+        radial-gradient(circle at 50% 34%, rgba(195,154,121,0.08), transparent 24%),
+        linear-gradient(180deg, #14110f 0%, #1b1714 100%);
+      transition: opacity 900ms ease, visibility 900ms ease;
+    }
+    body.surface-live .intro {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .intro-copy {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 26px;
+      text-align: center;
+    }
+    .intro-copy-inner {
+      max-width: 980px;
+    }
+    .brand-lockup,
+    .hero-brand {
+      display: grid;
+      gap: 12px;
+    }
+    .brand-lockup {
+      justify-items: center;
+      margin-bottom: 18px;
+    }
+    .hero-brand {
+      justify-items: start;
+      margin-bottom: 10px;
+    }
+    .brand-mark {
+      display: inline-flex;
+      line-height: 0;
+      flex-shrink: 0;
+    }
+    .brand-mark img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transform: translateZ(0);
+      image-rendering: auto;
+    }
+    .intro-logo {
+      width: clamp(92px, 9.2vw, 118px);
+    }
+    .intro-butterfly {
+      position: relative;
+      display: block;
+      aspect-ratio: 1 / 1;
+      isolation: isolate;
+      perspective: 1280px;
+      transform-style: preserve-3d;
+      animation: butterfly-float 7.4s ease-in-out infinite;
+    }
+    .intro-butterfly .butterfly-layer {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      display: block;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+    }
+    .intro-butterfly .butterfly-layer img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .intro-butterfly .butterfly-foundation {
+      inset: 0;
+      opacity: 0.09;
+      z-index: 0;
+      transform: translateY(0.8%) scale(1.01);
+      filter: blur(1.2px) brightness(0.78);
+    }
+    .intro-butterfly .butterfly-wing {
+      inset: 0;
+      will-change: transform, filter;
+    }
+    .intro-butterfly .wing-upper-left {
+      z-index: 1;
+      transform-origin: 57% 55%;
+      animation: wing-upper-left-depth 6.3s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+    }
+    .intro-butterfly .wing-upper-right {
+      z-index: 2;
+      transform-origin: 43% 55%;
+      animation: wing-upper-right-depth 6.3s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+    }
+    .intro-butterfly .wing-lower-left {
+      z-index: 3;
+      transform-origin: 60% 34%;
+      animation: wing-lower-left-depth 6.3s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+      animation-delay: -0.24s;
+    }
+    .intro-butterfly .wing-lower-right {
+      z-index: 3;
+      transform-origin: 40% 34%;
+      animation: wing-lower-right-depth 6.3s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+      animation-delay: -0.24s;
+    }
+    .intro-butterfly .butterfly-body {
+      inset: 0;
+      z-index: 4;
+      animation: butterfly-body-hover 6.3s ease-in-out infinite;
+    }
+    .intro-butterfly .butterfly-body img {
+      width: 100%;
+    }
+    @keyframes wing-upper-left-depth {
+      0%, 100% {
+        transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
+        filter: drop-shadow(-1px 4px 5px rgba(0, 0, 0, 0.10)) brightness(0.99);
+      }
+      34% {
+        transform: translateZ(18px) rotateY(24deg) rotateX(-4.5deg) rotateZ(-0.54deg) translateX(-0.8%) translateY(0.28%);
+        filter: drop-shadow(-4px 12px 12px rgba(0, 0, 0, 0.16)) brightness(0.93);
+      }
+      50% {
+        transform: translateZ(34px) rotateY(42deg) rotateX(-7.8deg) rotateZ(-1deg) translateX(-1.45%) translateY(0.52%);
+        filter: drop-shadow(-8px 18px 18px rgba(0, 0, 0, 0.22)) brightness(0.84);
+      }
+      72% {
+        transform: translateZ(11px) rotateY(14deg) rotateX(-2.3deg) rotateZ(-0.26deg) translateX(-0.42%) translateY(0.14%);
+        filter: drop-shadow(-2px 7px 8px rgba(0, 0, 0, 0.12)) brightness(0.96);
+      }
+    }
+    @keyframes wing-upper-right-depth {
+      0%, 100% {
+        transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
+        filter: drop-shadow(1px 4px 5px rgba(0, 0, 0, 0.10)) brightness(0.99);
+      }
+      34% {
+        transform: translateZ(18px) rotateY(-24deg) rotateX(-4.5deg) rotateZ(0.54deg) translateX(0.8%) translateY(0.28%);
+        filter: drop-shadow(4px 12px 12px rgba(0, 0, 0, 0.16)) brightness(0.93);
+      }
+      50% {
+        transform: translateZ(34px) rotateY(-42deg) rotateX(-7.8deg) rotateZ(1deg) translateX(1.45%) translateY(0.52%);
+        filter: drop-shadow(8px 18px 18px rgba(0, 0, 0, 0.22)) brightness(0.84);
+      }
+      72% {
+        transform: translateZ(11px) rotateY(-14deg) rotateX(-2.3deg) rotateZ(0.26deg) translateX(0.42%) translateY(0.14%);
+        filter: drop-shadow(2px 7px 8px rgba(0, 0, 0, 0.12)) brightness(0.96);
+      }
+    }
+    @keyframes wing-lower-left-depth {
+      0%, 100% {
+        transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
+        filter: drop-shadow(-1px 3px 4px rgba(0, 0, 0, 0.09)) brightness(0.99);
+      }
+      38% {
+        transform: translateZ(9px) rotateY(13deg) rotateX(1.9deg) rotateZ(-0.28deg) translateX(-0.28%) translateY(0.13%);
+        filter: drop-shadow(-2px 7px 8px rgba(0, 0, 0, 0.13)) brightness(0.94);
+      }
+      50% {
+        transform: translateZ(18px) rotateY(23deg) rotateX(3.4deg) rotateZ(-0.56deg) translateX(-0.55%) translateY(0.25%);
+        filter: drop-shadow(-4px 11px 12px rgba(0, 0, 0, 0.17)) brightness(0.89);
+      }
+      72% {
+        transform: translateZ(6px) rotateY(8deg) rotateX(1.2deg) rotateZ(-0.16deg) translateX(-0.18%) translateY(0.07%);
+        filter: drop-shadow(-1px 5px 6px rgba(0, 0, 0, 0.10)) brightness(0.96);
+      }
+    }
+    @keyframes wing-lower-right-depth {
+      0%, 100% {
+        transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
+        filter: drop-shadow(1px 3px 4px rgba(0, 0, 0, 0.09)) brightness(0.99);
+      }
+      38% {
+        transform: translateZ(9px) rotateY(-13deg) rotateX(1.9deg) rotateZ(0.28deg) translateX(0.28%) translateY(0.13%);
+        filter: drop-shadow(2px 7px 8px rgba(0, 0, 0, 0.13)) brightness(0.94);
+      }
+      50% {
+        transform: translateZ(18px) rotateY(-23deg) rotateX(3.4deg) rotateZ(0.56deg) translateX(0.55%) translateY(0.25%);
+        filter: drop-shadow(4px 11px 12px rgba(0, 0, 0, 0.17)) brightness(0.89);
+      }
+      72% {
+        transform: translateZ(6px) rotateY(-8deg) rotateX(1.2deg) rotateZ(0.16deg) translateX(0.18%) translateY(0.07%);
+        filter: drop-shadow(1px 5px 6px rgba(0, 0, 0, 0.10)) brightness(0.96);
+      }
+    }
+    @keyframes butterfly-float {
+      0%, 100% {
+        transform: translateY(0) rotateX(0deg) rotateZ(0deg);
+      }
+      50% {
+        transform: translateY(-1.8%) rotateX(1.8deg) rotateZ(-0.25deg);
+      }
+    }
+    @keyframes butterfly-body-hover {
+      0%, 100% {
+        transform: translateZ(0) translateY(0);
+        filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.10));
+      }
+      50% {
+        transform: translateZ(9px) translateY(-0.55%);
+        filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.16));
+      }
+    }
+    .hero-logo {
+      width: 88px;
+    }
+    .page-logo {
+      width: 58px;
+    }
+    .nav-logo {
+      width: 22px;
+    }
+    .intro-label,
+    .section-eyebrow,
+    .eyebrow {
+      margin: 0 0 10px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+    }
+    .intro-title {
+      margin: 0 auto;
+      max-width: 16ch;
+      font-size: clamp(2.5rem, 5.8vw, 4.9rem);
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      font-weight: 500;
+      text-wrap: balance;
+    }
+    .intro-note {
+      margin: 20px auto 0;
+      max-width: 44rem;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.72;
+    }
+    .intro-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+      justify-content: center;
+    }
+    .intro-enter { min-width: 118px; }
+    .button,
+    .ghost-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      cursor: pointer;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease;
+    }
+    .button {
+      background: var(--accent);
+      color: #171311;
+      border-color: var(--accent);
+    }
+    .button:hover,
+    .ghost-button:hover { transform: translateY(-1px); }
+    .ghost-button {
+      background: transparent;
+      color: var(--ink);
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 24px;
+      backdrop-filter: blur(16px);
+      background: rgba(22, 19, 17, 0.82);
+      border-bottom: 1px solid rgba(74, 64, 56, 0.72);
+    }
+    .mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--ink);
+      border: 0;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 0.92rem;
+    }
+    .nav-links a,
+    .topbar button {
+      border-bottom: 0;
+      color: var(--muted);
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      padding: 0;
+    }
+    .nav-links a.active,
+    .topbar button:hover,
+    .nav-links a:hover { color: var(--ink); }
+    .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 44px 28px 92px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero,
+    .page-intro {
+      display: grid;
+      gap: 28px;
+    }
+    .hero {
+      grid-template-columns: 1.25fr 0.75fr;
+      align-items: start;
+      padding: 54px 0 58px;
+    }
+    .page-intro {
+      max-width: 58rem;
+      padding: 54px 0 12px;
+    }
+    .page-intro h1,
+    .hero h2 {
+      margin: 0;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.035em;
+      font-weight: 500;
+      text-wrap: balance;
+    }
+    .hero h2 { max-width: 11ch; }
+    .page-intro p,
+    .hero-quote,
+    .lede {
+      margin: 0;
+      max-width: 46rem;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.75;
+    }
+    .hero-quote { color: var(--accent-deep); margin-top: 20px; }
+    .lede { margin-top: 20px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+    .hero-panel,
+    .metric-card,
+    .principle-card,
+    .system-card,
+    .evidence-card,
+    .layer-card,
+    .validation-card,
+    .page-card,
+    .figure-panel {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--panel);
+      box-shadow: var(--shadow-soft);
+    }
+    .hero-panel strong,
+    .metric-label {
+      display: block;
+      margin: 0 0 10px;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+    }
+    .hero-panel p,
+    .highlight-list em,
+    .highlight-list span,
+    .metric-card span,
+    .principle-card p,
+    .system-card p,
+    .evidence-card p,
+    .validation-card p,
+    .validation-card li,
+    .layer-note,
+    .layer-actions,
+    .page-card p,
+    footer {
+      color: var(--muted);
+      line-height: 1.66;
+    }
+    .highlight-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 12px;
+    }
+    .highlight-list li,
+    .view-list li {
+      display: grid;
+      gap: 4px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(74, 64, 56, 0.78);
+    }
+    .highlight-list strong,
+    .page-card h3,
+    .metric-card strong,
+    .validation-card h3,
+    .system-card h3,
+    .principle-card h3,
+    .evidence-card h3,
+    .layer-card h3 {
+      margin: 0;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      font-weight: 500;
+    }
+    .page-card h3,
+    .validation-card h3,
+    .system-card h3,
+    .principle-card h3,
+    .evidence-card h3,
+    .layer-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.18rem;
+    }
+    .metric-card strong {
+      display: block;
+      margin-top: 10px;
+      font-size: 1.72rem;
+    }
+    .metric-grid,
+    .principles-grid,
+    .system-grid,
+    .evidence-grid,
+    .layer-grid,
+    .validation-grid,
+    .page-grid,
+    .figure-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .metric-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 40px; }
+    .system-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .principles-grid,
+    .evidence-grid,
+    .page-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .validation-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .layer-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .figure-grid { grid-template-columns: 1fr; }
+    .section {
+      padding: 34px 0 38px;
+      border-top: 1px solid rgba(74, 64, 56, 0.72);
+    }
+    .section-header {
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: 22px;
+      align-items: start;
+      margin-bottom: 26px;
+    }
+    .section-header h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      font-weight: 500;
+      text-wrap: balance;
+    }
+    .section-header p { margin: 0; color: var(--muted); line-height: 1.72; }
+    .system-meta,
+    .layer-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .validation-card ul { margin: 0; padding-left: 18px; }
+    .layer-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(74, 64, 56, 0.78);
+      margin-bottom: 12px;
+    }
+    .layer-best { margin-top: 16px; padding-top: 16px; border-top: 1px dashed rgba(74, 64, 56, 0.8); }
+    .mini {
+      display: inline-block;
+      margin-bottom: 8px;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      border: 1px solid transparent;
+    }
+    .chip-ok { background: var(--ok-bg); color: var(--ok); border-color: #31473c; }
+    .chip-warn { background: var(--warn-bg); color: var(--warn); border-color: #4c3422; }
+    .chip-muted { background: var(--muted-bg); color: var(--muted); border-color: #38322d; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    td { padding: 7px 0; border-top: 1px solid rgba(74, 64, 56, 0.65); vertical-align: top; }
+    td:first-child { color: var(--muted); padding-right: 10px; width: 52%; }
+    .view-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+    .view-list span { color: var(--muted); font-size: 0.88rem; word-break: break-word; }
+    .figure-head {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .figure-head h3 {
+      margin: 0;
+      font-size: 1.08rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+    .atlas-panel {
+      display: grid;
+      gap: 12px;
+    }
+    .atlas-axis {
+      display: grid;
+      grid-template-columns: minmax(180px, 1.1fr) 160px minmax(280px, 1.4fr) auto;
+      gap: 14px;
+      padding: 0 0 12px;
+      border-bottom: 1px solid rgba(74, 64, 56, 0.72);
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      align-items: center;
+    }
+    .atlas-axis-label {
+      display: block;
+      padding-right: 8px;
+    }
+    .atlas-row {
+      display: grid;
+      grid-template-columns: minmax(180px, 1.1fr) 160px minmax(280px, 1.4fr) auto;
+      gap: 14px;
+      align-items: center;
+      padding: 16px 18px;
+      border: 1px solid rgba(74, 64, 56, 0.58);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .atlas-row:first-child {
+      border-top: 1px solid rgba(74, 64, 56, 0.58);
+      padding-top: 16px;
+    }
+    .atlas-copy {
+      display: grid;
+      gap: 5px;
+    }
+    .atlas-copy strong {
+      font-size: 0.98rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .atlas-copy span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .atlas-timescale {
+      display: flex;
+      align-items: flex-start;
+    }
+    .atlas-purpose {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+    .atlas-row .figure-meta {
+      justify-content: flex-start;
+    }
+    .figure-row {
+      display: grid;
+      grid-template-columns: minmax(200px, 1.3fr) minmax(180px, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      padding: 16px 0;
+      border-top: 1px solid rgba(74, 64, 56, 0.6);
+      transition: background 180ms ease, border-color 180ms ease;
+    }
+    .figure-row:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+    .figure-row:hover,
+    .figure-row:focus-visible {
+      background: rgba(255, 255, 255, 0.015);
+      outline: none;
+    }
+    .figure-copy {
+      display: grid;
+      gap: 5px;
+    }
+    .figure-copy strong {
+      font-size: 0.98rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .figure-copy span,
+    .figure-meta span,
+    .metric-tag {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+    .figure-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    .figure-meta-tight {
+      display: grid;
+      justify-items: end;
+      gap: 4px;
+      min-width: 108px;
+    }
+    .stacked-track,
+    .meter-track {
+      height: 12px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .stacked-track {
+      display: flex;
+    }
+    .seg,
+    .meter-fill {
+      display: block;
+      height: 100%;
+    }
+    .seg-ok { background: linear-gradient(90deg, #82c3aa 0%, #9ecab3 100%); }
+    .seg-warn { background: linear-gradient(90deg, #b98658 0%, #d0a177 100%); }
+    .seg-muted { background: linear-gradient(90deg, #4f4a45 0%, #67615a 100%); }
+    .meter-fill {
+      background: linear-gradient(90deg, rgba(195,154,121,0.75) 0%, rgba(234,219,206,0.95) 100%);
+      border-radius: 999px;
+    }
+    .matrix-panel {
+      display: grid;
+      gap: 8px;
+    }
+    .overview-panel {
+      display: grid;
+      gap: 10px;
+    }
+    .overview-row {
+      display: grid;
+      grid-template-columns: minmax(180px, 1.1fr) minmax(260px, 1.35fr) minmax(180px, 0.9fr);
+      gap: 14px;
+      align-items: center;
+      padding: 14px 0;
+      border-top: 1px solid rgba(74, 64, 56, 0.48);
+      transition: background 180ms ease;
+    }
+    .overview-row:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+    .overview-row:hover,
+    .overview-row:focus-visible {
+      background: rgba(255, 255, 255, 0.015);
+      outline: none;
+    }
+    .overview-copy {
+      display: grid;
+      gap: 5px;
+    }
+    .overview-copy strong {
+      font-size: 0.98rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .overview-copy span,
+    .overview-note {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+    .overview-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .evidence-row,
+    .index-row,
+    .build-row,
+    .anchor-row {
+      display: grid;
+      grid-template-columns: minmax(220px, 1.2fr) minmax(200px, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      padding: 15px 0;
+      border-top: 1px solid rgba(74, 64, 56, 0.48);
+      transition: background 180ms ease;
+    }
+    .evidence-row:first-child,
+    .index-row:first-child,
+    .build-row:first-child,
+    .anchor-row:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+    .evidence-row:hover,
+    .evidence-row:focus-visible,
+    .index-row:hover,
+    .index-row:focus-visible,
+    .build-row:hover,
+    .build-row:focus-visible,
+    .anchor-row:hover,
+    .anchor-row:focus-visible {
+      background: rgba(255, 255, 255, 0.015);
+      outline: none;
+    }
+    .evidence-copy,
+    .evidence-signal,
+    .index-copy,
+    .build-copy,
+    .anchor-copy {
+      display: grid;
+      gap: 5px;
+    }
+    .evidence-copy strong,
+    .evidence-signal strong,
+    .index-copy strong,
+    .build-copy strong,
+    .anchor-copy strong {
+      font-size: 0.98rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .evidence-copy span,
+    .index-copy span,
+    .build-copy span,
+    .anchor-copy span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+    .index-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      color: var(--accent-deep);
+      white-space: nowrap;
+    }
+    .matrix-header,
+    .matrix-row {
+      display: grid;
+      grid-template-columns: minmax(220px, 1.2fr) repeat(3, minmax(150px, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+    .matrix-header {
+      color: var(--muted);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(74, 64, 56, 0.65);
+    }
+    .matrix-row {
+      padding: 12px 0;
+      border-top: 1px solid rgba(74, 64, 56, 0.45);
+    }
+    .matrix-row:first-of-type {
+      border-top: 0;
+    }
+    .matrix-layer {
+      display: grid;
+      gap: 4px;
+    }
+    .matrix-layer strong {
+      font-size: 0.98rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .matrix-layer span {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .matrix-cell {
+      display: grid;
+      align-content: center;
+      min-height: 70px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .matrix-cell strong {
+      font-weight: 500;
+    }
+    .matrix-high,
+    .matrix-strong,
+    .matrix-operational {
+      background: rgba(24, 48, 44, 0.86);
+      border-color: #28473e;
+      color: #b9ddcd;
+    }
+    .matrix-moderate,
+    .matrix-limited,
+    .matrix-separate,
+    .matrix-challenge {
+      background: rgba(48, 35, 25, 0.86);
+      border-color: #544033;
+      color: #dfbc98;
+    }
+    .matrix-low,
+    .matrix-weak,
+    .matrix-emerging,
+    .matrix-support,
+    .matrix-research {
+      background: rgba(33, 30, 27, 0.92);
+      border-color: #3b3631;
+      color: #c4b8ac;
+    }
+    .footer {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 22px 34px;
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 14px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(74, 64, 56, 0.72);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .page-shell,
+      .intro,
+      .button,
+      .ghost-button,
+      .intro-butterfly .butterfly-layer { transition: none; animation: none; }
+    }
+    @media (max-width: 1040px) {
+      .hero,
+      .section-header { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .wrap { padding-inline: 16px; }
+      .topbar { padding: 16px; align-items: flex-start; }
+      .nav-links { gap: 12px; }
+      .intro-copy { padding: 20px; }
+      .layer-head { flex-direction: column; }
+      .hero-logo { width: 76px; }
+      .page-logo { width: 52px; }
+      .nav-logo { width: 20px; }
+      .intro-title { font-size: clamp(2.1rem, 10vw, 3.3rem); line-height: 1.12; }
+      .figure-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .atlas-axis,
+      .atlas-timescale,
+      .atlas-row,
+      .overview-row,
+      .evidence-row,
+      .index-row,
+      .build-row,
+      .anchor-row,
+      .matrix-header,
+      .matrix-row {
+        grid-template-columns: 1fr;
+      }
+      .figure-meta,
+      .figure-meta-tight {
+        justify-content: flex-start;
+        justify-items: start;
+      }
+    }
+    </style>
+  <link rel="stylesheet" href="../shared/surface_enhancer.css">
+  <script src="../shared/surface_enhancer.js" defer></script>
+</head>
+<body class=" page-index">
+
+  <div class="intro" id="intro" aria-label="Intro">
+    <div class="intro-copy">
+      <div class="intro-copy-inner">
+        <div class="brand-lockup">
+          <span class="brand-mark intro-logo intro-butterfly" aria-hidden="true">
+      <span class="butterfly-layer butterfly-foundation">
+        <img src="assets/butterfly-mark-accent.png" alt="">
+      </span>
+      <span class="butterfly-layer butterfly-wing wing-upper-left">
+        <img src="assets/butterfly-piece-upper-left.png" alt="">
+      </span>
+      <span class="butterfly-layer butterfly-wing wing-upper-right">
+        <img src="assets/butterfly-piece-upper-right.png" alt="">
+      </span>
+      <span class="butterfly-layer butterfly-wing wing-lower-left">
+        <img src="assets/butterfly-piece-lower-left.png" alt="">
+      </span>
+      <span class="butterfly-layer butterfly-wing wing-lower-right">
+        <img src="assets/butterfly-piece-lower-right.png" alt="">
+      </span>
+      <span class="butterfly-layer butterfly-body">
+        <img src="assets/butterfly-piece-body.png" alt="">
+      </span>
+    </span>
+        </div>
+        <h1 class="intro-title">The flap of a butterfly’s wings can be felt on the other side of the world.</h1>
+        <p class="intro-note">A research system for detecting subtle sleep and physiological patterns that may precede future changes in stress, symptoms, and health burden.</p>
+        <div class="intro-actions">
+          <button class="button intro-enter" id="enter-surface">Enter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-shell">
+    <nav class="topbar">
+      <a class="mark" href="index.html"><span>Butterfly Effect</span></a>
+      <div class="nav-links"><a class="active" href="index.html" aria-current="page">Overview</a><a class="" href="system.html">System</a><a class="" href="built.html">Built</a><a class="" href="validation.html">Validation</a><a class="" href="evidence.html">Evidence</a><a class="" href="participant.html">Participant</a><a class="" href="views.html">Views</a><button type="button" id="replay-intro">Replay intro</button></div>
+    </nav>
+
+    <main class="wrap">
+      <section class="hero" id="overview">
+        <div>
+          <p class="eyebrow">Sleep Interpretation Research</p>
+          <h2>Reading how subtle changes at night may precede changes the next day.</h2>
+          <p class="hero-quote">The flap of a butterfly’s wings can be felt on the other side of the world.</p>
+          <p class="lede">Butterfly Effect explores how small changes in sleep and overnight physiology may precede later changes in stress, symptoms, and daily burden. The public surface is designed to explain that idea clearly without blurring the very different layers of evidence underneath it.</p>
+          <div class="hero-actions">
+            <a class="button" href="views.html">Open the live surfaces</a>
+            <a class="ghost-button" href="validation.html">Read the validation frame</a>
+            <a class="ghost-button" href="participant.html">Open participant return</a>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <strong>What already holds</strong>
+          <p>Nightly within-cohort interpretation, portable event stress, and daily temporal gains already hold. Night transport is still the main bottleneck, though the portable stress D+1 family has now improved under a governed blended contract and remains research-only. Not diagnostic.</p>
+          <ul class="highlight-list"><li>
+          <span>Night Layer</span>
+          <strong>Novartis D0 fatigue contextual interpretation</strong>
+          <em>Held-out R²: 0.4350</em>
+          <a href="../night_route_cards/index.html">Open layer</a>
+        </li><li>
+          <span>Event Layer</span>
+          <strong>Portable family stress event</strong>
+          <em>R²: 0.3164</em>
+          <a href="../event_model_cards/index.html">Open layer</a>
+        </li><li>
+          <span>Daily Challenge Layer</span>
+          <strong>Boston anxiety D0 temporal</strong>
+          <em>R²: 0.1685</em>
+          <a href="../daily_challenge_cards/index.html">Open layer</a>
+        </li><li>
+          <span>Non-Stress Daily Layer</span>
+          <strong>Novartis depression D0 temporal</strong>
+          <em>R²: 0.3454</em>
+          <a href="../nonstress_daily_cards/index.html">Open layer</a>
+        </li><li>
+          <span>Non-Stress Portable Families</span>
+          <strong>Anxiety</strong>
+          <em>Portable mean R²: 0.0202</em>
+          <a href="../nonstress_family_cards/index.html">Open layer</a>
+        </li></ul>
+        </aside>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="section-eyebrow">From Signal To Surface</p>
+            <h2>The project is easier to understand when it is read as a flow, not as a stack of technical labels.</h2>
+          </div>
+          <p>These three blocks are the simplest entry into the system: what is observed, what is built from it, and what the public surface actually gives back.</p>
+        </div>
+        <div class="principles-grid"><article class="principle-card">
+          <h3>What it watches</h3>
+          <p>Longitudinal sleep timing, continuity, nocturnal cardiovascular load, movement, and repeated self-report signals.</p>
+        </article><article class="principle-card">
+          <h3>What it builds</h3>
+          <p>Nightly interpretation routes, event stress models, daily challenge layers, and portable research families with explicit governance.</p>
+        </article><article class="principle-card">
+          <h3>What it returns</h3>
+          <p>A readable interpretation surface for institutions, participants, and professionals: signal, limits, validation posture, and evidence links kept visible at the same time.</p>
+        </article></div>
+      </section>
+
+      <section class="metric-grid"><article class="metric-card">
+          <p class="metric-label">Visible cards</p>
+          <strong>40</strong>
+          <span>night, event, daily, and family surfaces exposed without flattening them into one false product claim</span>
+        </article><article class="metric-card">
+          <p class="metric-label">Accepted units</p>
+          <strong>15</strong>
+          <span>cards or families with signals the current evidence can defend inside their intended scope</span>
+        </article><article class="metric-card">
+          <p class="metric-label">Experimental units</p>
+          <strong>18</strong>
+          <span>research layers that remain useful but still fall below deployment or transport thresholds</span>
+        </article><article class="metric-card">
+          <p class="metric-label">Main bottleneck</p>
+          <strong>Night transport</strong>
+          <span>cross-cohort nightly portability still limits the strongest public claim the project can make</span>
+        </article></section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="section-eyebrow">Audience Entry</p>
+            <h2>The same project has three different public reading paths.</h2>
+          </div>
+          <p>This switcher keeps the entry point readable. It lets a new visitor move straight into the right surface instead of reading the entire stack in the wrong order.</p>
+        </div>
+        <div class="audience-switcher" data-tabs>
+          <div class="tab-controls" role="tablist" aria-label="Audience entry paths">
+            <button class="tab-button is-active" type="button" role="tab" aria-selected="true" data-tab-target="research">Research</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab-target="institution">Institution</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab-target="participant">Participant / Professional</button>
+          </div>
+          <div class="tab-panels">
+            <article class="tab-panel is-active" data-tab-panel="research">
+              <div class="page-grid">
+                <article class="validation-card">
+                  <h3>Start here if you want the method</h3>
+                  <ul class="view-list">
+                    <li><strong>System</strong><span><a href="system.html">See the layered architecture</a></span></li>
+                    <li><strong>Validation</strong><span><a href="validation.html">Read the claim boundary before the metrics</a></span></li>
+                    <li><strong>Evidence</strong><span><a href="evidence.html">Trace each layer back to its anchor base</a></span></li>
+                  </ul>
+                </article>
+                <article class="validation-card">
+                  <h3>What this path gives you</h3>
+                  <ul class="view-list">
+                    <li><strong>Research posture</strong><span>Strongest in `stress`, explicit limits elsewhere.</span></li>
+                    <li><strong>Live layers</strong><span><a href="views.html">Open the governed dashboards and route cards</a></span></li>
+                    <li><strong>Tone</strong><span>Method first, no flattened “one model” story.</span></li>
+                  </ul>
+                </article>
+              </div>
+            </article>
+            <article class="tab-panel" data-tab-panel="institution" hidden>
+              <div class="page-grid">
+                <article class="validation-card">
+                  <h3>Start here if you want a collaboration path</h3>
+                  <ul class="view-list">
+                    <li><strong>One-pager</strong><span><a href="../institution_one_pager/index.html">Open the institutional entry point</a></span></li>
+                    <li><strong>Data requirements</strong><span><a href="../institution_data_requirements/index.html">Open the technical data pack</a></span></li>
+                    <li><strong>Pilot protocol</strong><span><a href="../institution_pilot_protocol/index.html">Open the default first-pilot frame</a></span></li>
+                  </ul>
+                </article>
+                <article class="validation-card">
+                  <h3>What this path gives you</h3>
+                  <ul class="view-list">
+                    <li><strong>Serious ask</strong><span>One cohort, one endpoint family, pre-screen before transfer.</span></li>
+                    <li><strong>Governance</strong><span><a href="../institution_governance/index.html">Open the intake and linkage gate</a></span></li>
+                    <li><strong>Targeting</strong><span><a href="../institution_targets/index.html">See the current shortlist and raw-night benchmark</a></span></li>
+                  </ul>
+                </article>
+              </div>
+            </article>
+            <article class="tab-panel" data-tab-panel="participant" hidden>
+              <div class="page-grid">
+                <article class="validation-card">
+                  <h3>Start here if you want the human-facing layer</h3>
+                  <ul class="view-list">
+                    <li><strong>Participant Return</strong><span><a href="participant.html">Open the governed weekly return surface</a></span></li>
+                    <li><strong>Directory</strong><span><a href="../participant_facing/index.html">Open the live participant-facing outputs</a></span></li>
+                    <li><strong>Primary sample</strong><span><a href="../participant_facing/lifesnaps_621e32e667b776a2406d2f1c__2022-01-17__2022-01-22__lifesnaps_stress_d1_contextual__participant_weekly.html">Open the first weekly report</a></span></li>
+                  </ul>
+                </article>
+                <article class="validation-card">
+                  <h3>What this path gives you</h3>
+                  <ul class="view-list">
+                    <li><strong>No sleep-app framing</strong><span>Weekly longitudinal interpretation, not single-night scoring.</span></li>
+                    <li><strong>Professional companion</strong><span>Same payload, stricter technical view, clean handoff formats.</span></li>
+                    <li><strong>Governed scope</strong><span>Only audited nightly stress routes can enter this layer.</span></li>
+                  </ul>
+                </article>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="section-eyebrow">Research posture</p>
+            <h2>One project, five visible layers, five different evidentiary roles.</h2>
+          </div>
+          <p>Once the core idea is clear, the rest of the site stays readable by showing where each layer is strong, where it is limited, and what kind of claim it can legitimately carry today.</p>
+        </div>
+        <article class="figure-panel overview-panel"><article class="overview-row" tabindex="0" data-filter-tags="stress">
+              <div class="overview-copy">
+                <strong>Night Layer</strong>
+                <span>Within-cohort interpretation</span>
+              </div>
+              <div class="overview-chips">
+                <span class="chip chip-ok">High · Held-out R² 0.4350</span>
+                <span class="chip chip-warn">Limited</span>
+                <span class="chip chip-ok">Operational</span>
+              </div>
+              <div class="overview-note">Blocked by nightly transport</div>
+            </article><article class="overview-row" tabindex="0" data-filter-tags="stress portable">
+              <div class="overview-copy">
+                <strong>Event Layer</strong>
+                <span>Acute stress portability</span>
+              </div>
+              <div class="overview-chips">
+                <span class="chip chip-ok">High · R² 0.3164</span>
+                <span class="chip chip-ok">Portable</span>
+                <span class="chip chip-warn">Separate stack</span>
+              </div>
+              <div class="overview-note">Must stay separate from night claims</div>
+            </article><article class="overview-row" tabindex="0" data-filter-tags="stress">
+              <div class="overview-copy">
+                <strong>Daily Challenge Layer</strong>
+                <span>Temporal challenge layer</span>
+              </div>
+              <div class="overview-chips">
+                <span class="chip chip-warn">Moderate · R² 0.1685</span>
+                <span class="chip chip-muted">Challenge only</span>
+                <span class="chip chip-warn">Challenge</span>
+              </div>
+              <div class="overview-note">Good within cohort, weak across cohorts</div>
+            </article><article class="overview-row" tabindex="0" data-filter-tags="nonstress">
+              <div class="overview-copy">
+                <strong>Non-Stress Daily Layer</strong>
+                <span>Supportive daily reading</span>
+              </div>
+              <div class="overview-chips">
+                <span class="chip chip-ok">High · R² 0.3454</span>
+                <span class="chip chip-muted">Challenge only</span>
+                <span class="chip chip-muted">Mixed support</span>
+              </div>
+              <div class="overview-note">Support visible, portability limited</div>
+            </article><article class="overview-row" tabindex="0" data-filter-tags="nonstress portable">
+              <div class="overview-copy">
+                <strong>Non-Stress Portable Families</strong>
+                <span>Portable research family</span>
+              </div>
+              <div class="overview-chips">
+                <span class="chip chip-muted">Low · Portable mean R² 0.0202</span>
+                <span class="chip chip-muted">Emerging</span>
+                <span class="chip chip-muted">Research only</span>
+              </div>
+              <div class="overview-note">Below transport readiness</div>
+            </article></article>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="section-eyebrow">Pages</p>
+            <h2>The home stays light. The detail lives on dedicated pages.</h2>
+          </div>
+          <p>The front page should orient, not flood. System structure, validation, evidence, and live analytical views now sit on their own pages so the entry point stays readable.</p>
+        </div>
+        <div class="page-grid"><article class="page-card">
+          <p class="section-eyebrow">System</p>
+          <h3>System</h3>
+          <p>How the project is structured across night, event, daily, and portable-family layers, and why those boundaries matter.</p>
+          <a href="system.html">Open page</a>
+        </article><article class="page-card">
+          <p class="section-eyebrow">Built</p>
+          <h3>Built</h3>
+          <p>What is already implemented: nightly routes, event stress, daily challenge layers, governance, evidence, and support.</p>
+          <a href="built.html">Open page</a>
+        </article><article class="page-card">
+          <p class="section-eyebrow">Validation</p>
+          <h3>Validation</h3>
+          <p>What the current evidence can support, what it cannot, and where transport still fails across cohorts.</p>
+          <a href="validation.html">Open page</a>
+        </article><article class="page-card">
+          <p class="section-eyebrow">Evidence</p>
+          <h3>Evidence</h3>
+          <p>The open cohorts, support cohorts, and evidence-linked reporting stack underneath the public surface.</p>
+          <a href="evidence.html">Open page</a>
+        </article><article class="page-card">
+          <p class="section-eyebrow">Participant</p>
+          <h3>Participant Return</h3>
+          <p>A participant-facing research-return layer and a professional companion built on approved nightly stress routes, not on a separate consumer stack.</p>
+          <a href="participant.html">Open page</a>
+        </article><article class="page-card">
+          <p class="section-eyebrow">Views</p>
+          <h3>Views</h3>
+          <p>Direct access to the live dashboards and layer-specific surfaces already materialized in the repo.</p>
+          <a href="views.html">Open page</a>
+        </article></div>
+      </section>
+    </main>
+    
+    <footer class="footer">
+      <div class="footer-inner">
+        <span>Generated from /Users/damasomengodperez/neural-echo-planning/reports/public_research_surface/summary.json on 2026-03-27.</span>
+        <span>Butterfly Effect · research surface · not diagnostic · 2026</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const body = document.body;
+      const enterButton = document.getElementById('enter-surface');
+      const replayButton = document.getElementById('replay-intro');
+
+      function enterSurface() {
+        body.classList.add('surface-live');
+      }
+
+      function startIntro() {
+        body.classList.remove('surface-live');
+      }
+
+      function replayIntro() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        startIntro();
+      }
+
+      if (enterButton) {
+        enterButton.addEventListener('click', enterSurface);
+      }
+      if (replayButton) {
+        replayButton.addEventListener('click', replayIntro);
+      }
+      startIntro();
+    })();
+  </script>
+</body>
+</html>

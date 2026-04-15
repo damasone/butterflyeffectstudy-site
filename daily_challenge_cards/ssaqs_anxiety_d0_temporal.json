@@ -1,0 +1,21 @@
+{
+  "card_key": "ssaqs_anxiety_d0_temporal",
+  "label": "SSAQS anxiety D0 temporal",
+  "kind": "cohort_temporal_regression",
+  "tier": "experimental_challenge",
+  "role": "daily_temporal_challenge",
+  "blocking_flags": [
+    "signal_floor"
+  ],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/temporal-ssaqs-anxiety-d0/summary.json",
+  "metrics": {
+    "mae": 2.28643841991342,
+    "rmse": 2.7616890800818417,
+    "r2": 0.021365828121080455,
+    "rows": 1484,
+    "participants": 31,
+    "feature_count": 147,
+    "best_model": "extra_trees"
+  },
+  "note": null
+}

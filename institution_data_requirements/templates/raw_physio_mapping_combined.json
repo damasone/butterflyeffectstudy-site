@@ -1,0 +1,27 @@
+{
+  "mode": "combined_epoch_table",
+  "combined_table": "../incoming/institution_raw_physio_epoch.csv",
+  "combined_columns": {
+    "participant_uid": "participant_id",
+    "sleep_date_local": "sleep_date_local",
+    "epoch_start_utc": "epoch_start_utc",
+    "epoch_end_utc": "epoch_end_utc",
+    "epoch_index": "epoch_index",
+    "epoch_minutes": "epoch_minutes",
+    "hr_coverage_frac": "hr_coverage_frac",
+    "ibi_coverage_frac": "ibi_coverage_frac",
+    "physio_epoch_coverage_frac": "physio_epoch_coverage_frac",
+    "hr_mean": "hr_mean",
+    "hr_std": "hr_std",
+    "hr_min": "hr_min",
+    "hr_max": "hr_max",
+    "ibi_count": "ibi_count",
+    "ibi_mean_ms": "ibi_mean_ms",
+    "ibi_std_ms": "ibi_std_ms",
+    "ibi_rmssd_ms": "ibi_rmssd_ms",
+    "ibi_sdnn_ms": "ibi_sdnn_ms",
+    "ibi_pnn50": "ibi_pnn50",
+    "ibi_hr_mean_bpm": "ibi_hr_mean_bpm",
+    "hr_ibi_mean_gap_bpm": "hr_ibi_mean_gap_bpm"
+  }
+}

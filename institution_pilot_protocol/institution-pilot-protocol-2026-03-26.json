@@ -1,0 +1,43 @@
+{
+  "date": "2026-03-26",
+  "default_pilot_frame": {
+    "institution_count": 1,
+    "cohort_count": 1,
+    "primary_endpoint_family": "stress",
+    "mode": "retrospective_first"
+  },
+  "primary_questions": [
+    "Can the cohort be harmonized without breaking participant-night linkage?",
+    "Does the cohort support valid nightly within-cohort interpretation for the selected endpoint family?",
+    "Does the cohort improve the current transport question or only confirm within-cohort signal?"
+  ],
+  "minimum_fit": {
+    "participants_min": 40,
+    "median_nights_min": 20,
+    "repeated_outcome_threshold": "30% of nights or >=3 times per week"
+  },
+  "preferred_fit": {
+    "participants_min": 75,
+    "median_nights_min": 45,
+    "requires_hr_or_hrv": true,
+    "prefers_raw_sidecar": true
+  },
+  "phases": [
+    "pre_screen",
+    "intake_and_harmonization",
+    "feasibility_benchmark",
+    "decision_gate"
+  ],
+  "success_criteria": [
+    "clean harmonization",
+    "defensible benchmark",
+    "explicit subgroup review",
+    "clear continuation decision"
+  ],
+  "stop_criteria": [
+    "no stable participant-night linkage",
+    "endpoint too sparse",
+    "unreconstructable units or lineage",
+    "quality too poor for honest interpretation"
+  ]
+}

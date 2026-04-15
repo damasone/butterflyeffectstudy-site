@@ -1,0 +1,230 @@
+{
+  "cards": [
+    {
+      "card_key": "anxiety_daily_temporal_challenge",
+      "label": "Anxiety daily temporal challenge layer",
+      "kind": "daily_temporal_layer",
+      "tier": "experimental_research_challenge",
+      "role": "daily_temporal_challenge_layer",
+      "blocking_flags": [
+        "cross_cohort_transport_not_stable",
+        "portable_family_signal_floor"
+      ],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/daily-temporal-anxiety-challenge/summary.json",
+      "metrics": {
+        "boston_static_r2": 0.015817963225515208,
+        "boston_temporal_r2": 0.16848718102805915,
+        "boston_temporal_gain": 0.15266921780254394,
+        "ssaqs_static_r2": -0.02489314114744401,
+        "ssaqs_temporal_r2": 0.021365828121080455,
+        "ssaqs_temporal_gain": 0.046258969268524464,
+        "stable_portable_family_mean_r2": 0.020202053343458887,
+        "boston_shared_domain_probe_mean_r2": 0.01893098497370682,
+        "boston_shared_domain_probe_min_holdout_r2": -0.04673070298600357
+      },
+      "note": "Temporal daily anxiety layer separated from the clinical portable family stack."
+    },
+    {
+      "card_key": "anxiety_daily_temporal_portable",
+      "label": "Anxiety daily temporal portable family",
+      "kind": "portable_temporal_family",
+      "tier": "experimental_research_challenge",
+      "role": "portable_temporal_research_only",
+      "blocking_flags": [
+        "not_in_registry"
+      ],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/portable-family-models-daily/anxiety_daily_temporal_clean_core/summary.json",
+      "metrics": {
+        "portable_mean_r2": 0.008043819069463054,
+        "rows": 21596,
+        "participants": 956,
+        "feature_count": 50
+      },
+      "note": "Experimental sequential portable family kept outside the main registry until temporal cross-cohort behavior is stable."
+    },
+    {
+      "card_key": "depression_daily_temporal_challenge",
+      "label": "Depression daily temporal challenge layer",
+      "kind": "daily_temporal_layer",
+      "tier": "experimental_research_challenge",
+      "role": "daily_temporal_depression_challenge_layer",
+      "blocking_flags": [
+        "cross_cohort_transport_negative",
+        "portable_family_signal_floor"
+      ],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/daily-temporal-depression-challenge/summary.json",
+      "metrics": {
+        "boston_static_r2": 0.12371218850267929,
+        "boston_temporal_r2": 0.15561109764561276,
+        "boston_temporal_gain": 0.031898909142933474,
+        "novartis_static_r2": 0.0005951358231699455,
+        "novartis_temporal_r2": 0.345356325797858,
+        "novartis_temporal_gain": 0.3447611899746881,
+        "portable_probe_mean_r2": -0.045981253053233806,
+        "portable_probe_min_holdout_r2": -0.10272933283316643
+      },
+      "note": "Research layer for daily depression modeling using temporal domains in open daily cohorts. This layer is separate from the clinical portable depression family because cross-cohort transport remains negative."
+    },
+    {
+      "card_key": "boston_anxiety_d0_temporal",
+      "label": "Boston anxiety D0 temporal",
+      "kind": "regression_support",
+      "tier": "accepted_challenge",
+      "role": "daily_temporal_anxiety",
+      "blocking_flags": [],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/temporal-boston-covid-anxiety-d0/summary.json",
+      "metrics": {
+        "mae": 1.3178118422777234,
+        "rmse": 1.66726039882161,
+        "r2": 0.16848718102805915,
+        "rows": 20112,
+        "participants": 925,
+        "feature_count": 91,
+        "best_model": "extra_trees"
+      },
+      "note": "Large daily self-report challenge cohort with strong within-cohort temporal lift for anxiety."
+    },
+    {
+      "card_key": "boston_depression_d0_daily",
+      "label": "Boston depression D0 daily",
+      "kind": "regression_support",
+      "tier": "accepted_challenge",
+      "role": "daily_selfreport_depression",
+      "blocking_flags": [],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-boston-covid-depression-d0-clean/summary.json",
+      "metrics": {
+        "mae": 1.4433047758903872,
+        "rmse": 1.8281851397785571,
+        "r2": 0.12371218850267929,
+        "rows": 20071,
+        "participants": 924,
+        "feature_count": 9,
+        "best_model": "hist_gbm"
+      },
+      "note": "Daily self-report depression challenge benchmark from Boston sleep diary data."
+    },
+    {
+      "card_key": "boston_depression_d0_temporal",
+      "label": "Boston depression D0 temporal",
+      "kind": "regression_support",
+      "tier": "accepted_challenge",
+      "role": "daily_temporal_depression",
+      "blocking_flags": [],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/temporal-boston-covid-depression-d0-compact/summary.json",
+      "metrics": {
+        "mae": 1.3647546861655286,
+        "rmse": 1.730844423913983,
+        "r2": 0.15561109764561276,
+        "rows": 20071,
+        "participants": 924,
+        "feature_count": 241,
+        "best_model": "hist_gbm"
+      },
+      "note": "Boston daily depression benchmark with temporal memory over shared domains."
+    },
+    {
+      "card_key": "novartis_depression_d0_temporal",
+      "label": "Novartis depression D0 temporal",
+      "kind": "regression_support",
+      "tier": "accepted_challenge",
+      "role": "daily_temporal_depression",
+      "blocking_flags": [],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/temporal-novartis-depression-d0-compact/summary.json",
+      "metrics": {
+        "mae": 1.2722481378678963,
+        "rmse": 1.6984520423660392,
+        "r2": 0.345356325797858,
+        "rows": 4818,
+        "participants": 196,
+        "feature_count": 292,
+        "best_model": "hist_gbm"
+      },
+      "note": "Novartis daily wearable depression benchmark with temporal memory over shared domains."
+    },
+    {
+      "card_key": "resilient_gad7_exact_watch",
+      "label": "RESILIENT GAD-7 exact-night + ScanWatch",
+      "kind": "regression_support",
+      "tier": "support_only",
+      "role": "same_instrument_sparse_anxiety_support",
+      "blocking_flags": [
+        "negative_signal"
+      ],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-resilient-gad7-exact-watch/summary.json",
+      "metrics": {
+        "mae": 2.88882124997043,
+        "rmse": 4.196544101911625,
+        "r2": -0.030612504840137333,
+        "rows": 61,
+        "participants": 61,
+        "feature_count": 24,
+        "best_model": "random_forest"
+      },
+      "note": "Same-instrument sparse support for anxiety in an older-adult cohort with exact-night alignment."
+    },
+    {
+      "card_key": "resilient_phq9_exact_watch",
+      "label": "RESILIENT PHQ-9 exact-night + ScanWatch",
+      "kind": "regression_support",
+      "tier": "experimental_challenge",
+      "role": "same_instrument_sparse_depression_support",
+      "blocking_flags": [
+        "signal_floor"
+      ],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-resilient-phq9-exact-watch/summary.json",
+      "metrics": {
+        "mae": 3.3341857379414757,
+        "rmse": 4.556655461866172,
+        "r2": 0.038127429818305636,
+        "rows": 61,
+        "participants": 61,
+        "feature_count": 24,
+        "best_model": "random_forest"
+      },
+      "note": "Same-instrument sparse support for depression in an older-adult cohort with exact-night alignment."
+    },
+    {
+      "card_key": "episono_general_physical_pain_clean",
+      "label": "EPISONO general physical pain clean",
+      "kind": "binary_support",
+      "tier": "accepted_support",
+      "role": "general_physical_pain_support",
+      "blocking_flags": [],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-episono-general-physical-pain-clean/summary.json",
+      "metrics": {
+        "auroc": 0.7954137972695421,
+        "average_precision": 0.5705746817962114,
+        "balanced_accuracy": 0.7294961942732874,
+        "brier": 0.18326615774904784,
+        "prevalence": 0.2562380038387716,
+        "rows": 1042,
+        "participants": 1042,
+        "feature_count": 22,
+        "best_model": "logistic"
+      },
+      "note": "Direct open anchor for general physical pain with PSQI, PSG, and demographic support."
+    },
+    {
+      "card_key": "episono_general_physical_pain_actigraphy",
+      "label": "EPISONO general physical pain actigraphy subset",
+      "kind": "binary_support",
+      "tier": "accepted_support",
+      "role": "general_physical_pain_actigraphy_support",
+      "blocking_flags": [],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-episono-general-physical-pain-actigraphy-subset/summary.json",
+      "metrics": {
+        "auroc": 0.7550348202522116,
+        "average_precision": 0.4507238576571873,
+        "balanced_accuracy": 0.7049689440993789,
+        "brier": 0.20024393211534747,
+        "prevalence": 0.21813031161473087,
+        "rows": 353,
+        "participants": 353,
+        "feature_count": 6,
+        "best_model": "logistic"
+      },
+      "note": "Actigraphy-supported open pain anchor subset."
+    }
+  ],
+  "card_count": 11
+}

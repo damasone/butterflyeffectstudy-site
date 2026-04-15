@@ -1,0 +1,19 @@
+{
+  "card_key": "boston_anxiety_d0_temporal",
+  "label": "Boston anxiety D0 temporal",
+  "kind": "regression_support",
+  "tier": "accepted_challenge",
+  "role": "daily_temporal_anxiety",
+  "blocking_flags": [],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/temporal-boston-covid-anxiety-d0/summary.json",
+  "metrics": {
+    "mae": 1.3178118422777234,
+    "rmse": 1.66726039882161,
+    "r2": 0.16848718102805915,
+    "rows": 20112,
+    "participants": 925,
+    "feature_count": 91,
+    "best_model": "extra_trees"
+  },
+  "note": "Large daily self-report challenge cohort with strong within-cohort temporal lift for anxiety."
+}

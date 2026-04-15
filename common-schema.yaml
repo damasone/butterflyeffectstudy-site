@@ -1,0 +1,573 @@
+version: 0.1.0
+updated_at: 2026-03-19
+purpose: >
+  Esquema canónico para integrar sueño, emoción y síntomas en análisis longitudinal
+  no diagnóstico con targets D+1.
+
+global_rules:
+  timezone_standard: IANA timezone por participante
+  date_anchor: "las variables D+1 usan la noche previa como exposición"
+  units_policy: "unidades SI cuando aplique; conservar unidad original en *_source_unit"
+  missing_policy:
+    not_collected: null
+    prefer_not_answer: coded as -3 (si la fuente lo usa) + normalización a null
+    dont_know: coded as -1 (si la fuente lo usa) + normalización a null
+
+entities:
+  participant:
+    primary_key: participant_uid
+    fields:
+      - name: participant_uid
+        type: string
+        required: true
+        description: ID interno pseudonimizado
+      - name: source_dataset
+        type: string
+        required: true
+        allowed_values:
+          [
+            all_of_us,
+            nsrr_ffcws,
+            nsrr_sandd,
+            nsrr_shhs,
+            nsrr_cfs,
+            uk_biobank,
+            pmdata,
+            lifesnaps,
+            figshare_hrv_sleep_diary_2025,
+            daily_fatigue_wearable_2020,
+            zenodo_panic_symptoms_2024,
+            novartis_fitbit_cohort,
+            studentlife,
+            mendeley_ecsmp,
+            physionet_mmash,
+            physionet_sleep_accel,
+            physionet_globem,
+            physionet_mcphases,
+            tiles_2018,
+            tiles_2019,
+          ]
+      - name: source_subject_id
+        type: string
+        required: true
+      - name: sex_at_birth
+        type: string
+        required: false
+        allowed_values: [female, male, intersex, unknown]
+      - name: age_at_baseline_years
+        type: number
+        required: false
+      - name: race_ethnicity_raw
+        type: string
+        required: false
+      - name: cohort_type
+        type: string
+        required: false
+        allowed_values: [adult, adolescent, pediatric]
+
+  night_sleep:
+    primary_key: night_uid
+    foreign_keys: [participant_uid]
+    fields:
+      - name: night_uid
+        type: string
+        required: true
+      - name: participant_uid
+        type: string
+        required: true
+      - name: sleep_date_local
+        type: date
+        required: true
+      - name: sleep_onset_ts
+        type: datetime
+        required: false
+      - name: sleep_offset_ts
+        type: datetime
+        required: false
+      - name: total_sleep_time_min
+        type: number
+        required: false
+      - name: time_in_bed_min
+        type: number
+        required: false
+      - name: sleep_efficiency_pct
+        type: number
+        required: false
+      - name: wake_after_sleep_onset_min
+        type: number
+        required: false
+      - name: awakening_count
+        type: integer
+        required: false
+      - name: rem_min
+        type: number
+        required: false
+      - name: n1_min
+        type: number
+        required: false
+      - name: n2_min
+        type: number
+        required: false
+      - name: n3_min
+        type: number
+        required: false
+      - name: rem_pct
+        type: number
+        required: false
+      - name: deep_sleep_onset_min
+        type: number
+        required: false
+      - name: ahi_events_per_hour
+        type: number
+        required: false
+      - name: apnea_index_per_hour
+        type: number
+        required: false
+      - name: spo2_mean_pct
+        type: number
+        required: false
+      - name: spo2_min_pct
+        type: number
+        required: false
+      - name: heart_rate_mean_bpm
+        type: number
+        required: false
+      - name: hrv_rmssd_ms
+        type: number
+        required: false
+      - name: resp_rate_mean_bpm
+        type: number
+        required: false
+      - name: movement_index
+        type: number
+        required: false
+      - name: device_modality
+        type: string
+        required: false
+        allowed_values: [psg, actigraphy, wearable_fitbit, other]
+      - name: signal_quality_score_0_1
+        type: number
+        required: false
+
+  day_emotion:
+    primary_key: emotion_uid
+    foreign_keys: [participant_uid]
+    fields:
+      - name: emotion_uid
+        type: string
+        required: true
+      - name: participant_uid
+        type: string
+        required: true
+      - name: report_date_local
+        type: date
+        required: true
+      - name: stress_0_10
+        type: number
+        required: false
+      - name: anxiety_score
+        type: number
+        required: false
+      - name: depression_score
+        type: number
+        required: false
+      - name: mood_valence_0_10
+        type: number
+        required: false
+      - name: positive_affect_0_10
+        type: number
+        required: false
+      - name: negative_affect_0_10
+        type: number
+        required: false
+      - name: major_stressor_flag
+        type: boolean
+        required: false
+      - name: dream_recall_flag
+        type: boolean
+        required: false
+
+  day_symptoms:
+    primary_key: symptom_uid
+    foreign_keys: [participant_uid]
+    fields:
+      - name: symptom_uid
+        type: string
+        required: true
+      - name: participant_uid
+        type: string
+        required: true
+      - name: report_date_local
+        type: date
+        required: true
+      - name: pain_0_10
+        type: number
+        required: false
+      - name: fatigue_0_10
+        type: number
+        required: false
+      - name: muscle_tension_0_10
+        type: number
+        required: false
+      - name: migraine_flag
+        type: boolean
+        required: false
+      - name: perceived_rest_quality_0_10
+        type: number
+        required: false
+
+  day_confounders:
+    primary_key: confounder_uid
+    foreign_keys: [participant_uid]
+    fields:
+      - name: confounder_uid
+        type: string
+        required: true
+      - name: participant_uid
+        type: string
+        required: true
+      - name: report_date_local
+        type: date
+        required: true
+      - name: caffeine_mg
+        type: number
+        required: false
+      - name: alcohol_units
+        type: number
+        required: false
+      - name: exercise_minutes
+        type: number
+        required: false
+      - name: nap_minutes
+        type: number
+        required: false
+      - name: acute_illness_flag
+        type: boolean
+        required: false
+      - name: medication_change_flag
+        type: boolean
+        required: false
+      - name: menstrual_cycle_phase
+        type: string
+        required: false
+        allowed_values: [follicular, ovulatory, luteal, menstruation, unknown]
+
+  derived_features:
+    primary_key: feature_uid
+    foreign_keys: [participant_uid, night_uid]
+    fields:
+      - name: feature_uid
+        type: string
+        required: true
+      - name: participant_uid
+        type: string
+        required: true
+      - name: night_uid
+        type: string
+        required: true
+      - name: rem_fragmentation_index
+        type: number
+        required: false
+      - name: autonomic_activation_index
+        type: number
+        required: false
+      - name: sleep_regularity_index
+        type: number
+        required: false
+      - name: nocturnal_hyperarousal_flag
+        type: boolean
+        required: false
+
+  targets_d_plus_1:
+    primary_key: target_uid
+    foreign_keys: [participant_uid, night_uid]
+    fields:
+      - name: target_uid
+        type: string
+        required: true
+      - name: participant_uid
+        type: string
+        required: true
+      - name: night_uid
+        type: string
+        required: true
+      - name: target_date_local
+        type: date
+        required: true
+      - name: pain_d1
+        type: number
+        required: false
+      - name: fatigue_d1
+        type: number
+        required: false
+      - name: stress_d1
+        type: number
+        required: false
+
+  prediction:
+    primary_key: prediction_uid
+    foreign_keys: [participant_uid, night_uid]
+    fields:
+      - name: prediction_uid
+        type: string
+        required: true
+      - name: participant_uid
+        type: string
+        required: true
+      - name: night_uid
+        type: string
+        required: true
+      - name: target_name
+        type: string
+        required: true
+      - name: predicted_value
+        type: number
+        required: true
+      - name: confidence_label
+        type: string
+        required: true
+        allowed_values: [low, medium, high]
+      - name: model_uid
+        type: string
+        required: true
+      - name: executed_at
+        type: datetime
+        required: true
+
+  prediction_explanation:
+    primary_key: explanation_uid
+    foreign_keys: [prediction_uid]
+    fields:
+      - name: explanation_uid
+        type: string
+        required: true
+      - name: prediction_uid
+        type: string
+        required: true
+      - name: pattern_flags
+        type: json
+        required: true
+      - name: top_drivers_json
+        type: json
+        required: true
+      - name: baseline_summary_json
+        type: json
+        required: true
+      - name: caveats_json
+        type: json
+        required: true
+
+  report:
+    primary_key: report_uid
+    foreign_keys: [prediction_uid]
+    fields:
+      - name: report_uid
+        type: string
+        required: true
+      - name: prediction_uid
+        type: string
+        required: true
+      - name: report_type
+        type: string
+        required: true
+        allowed_values: [research_review, clinician_review, export_fhir]
+      - name: narrative_summary
+        type: string
+        required: true
+      - name: report_json
+        type: json
+        required: true
+      - name: generated_at
+        type: datetime
+        required: true
+
+  feedback_event:
+    primary_key: feedback_uid
+    foreign_keys: [report_uid]
+    fields:
+      - name: feedback_uid
+        type: string
+        required: true
+      - name: report_uid
+        type: string
+        required: true
+      - name: reviewer_id
+        type: string
+        required: true
+      - name: agreement_label
+        type: string
+        required: true
+        allowed_values: [agree, partially_agree, disagree]
+      - name: usefulness_label
+        type: string
+        required: true
+        allowed_values: [useful, partially_useful, not_useful]
+      - name: free_text_comment
+        type: string
+        required: false
+      - name: follow_up_action
+        type: string
+        required: false
+
+  data_lineage:
+    primary_key: lineage_uid
+    fields:
+      - name: lineage_uid
+        type: string
+        required: true
+      - name: entity_type
+        type: string
+        required: true
+      - name: entity_uid
+        type: string
+        required: true
+      - name: source_dataset
+        type: string
+        required: true
+      - name: source_payload_uri
+        type: string
+        required: false
+      - name: parser_version
+        type: string
+        required: false
+      - name: checksum_sha256
+        type: string
+        required: false
+      - name: provenance_json
+        type: json
+        required: true
+
+  evidence_topic:
+    primary_key: topic_uid
+    fields:
+      - name: topic_uid
+        type: string
+        required: true
+      - name: topic_name
+        type: string
+        required: true
+      - name: description
+        type: string
+        required: false
+      - name: query_payload_json
+        type: json
+        required: true
+      - name: source_catalog_uri
+        type: string
+        required: false
+
+  literature_work:
+    primary_key: work_uid
+    fields:
+      - name: work_uid
+        type: string
+        required: true
+      - name: primary_source
+        type: string
+        required: true
+        allowed_values: [pubmed, openalex, europe_pmc, other]
+      - name: pmid
+        type: string
+        required: false
+      - name: doi
+        type: string
+        required: false
+      - name: title
+        type: string
+        required: true
+      - name: journal
+        type: string
+        required: false
+      - name: publication_date
+        type: date
+        required: false
+      - name: publication_year
+        type: integer
+        required: false
+      - name: authors_json
+        type: json
+        required: true
+      - name: abstract_text
+        type: string
+        required: false
+      - name: source_urls_json
+        type: json
+        required: true
+      - name: is_open_access
+        type: boolean
+        required: false
+      - name: cited_by_count
+        type: integer
+        required: false
+      - name: modality_tags_json
+        type: json
+        required: true
+      - name: outcome_tags_json
+        type: json
+        required: true
+      - name: sleep_tags_json
+        type: json
+        required: true
+
+  evidence_topic_work:
+    primary_key: topic_work_uid
+    foreign_keys: [topic_uid, work_uid]
+    fields:
+      - name: topic_work_uid
+        type: string
+        required: true
+      - name: topic_uid
+        type: string
+        required: true
+      - name: work_uid
+        type: string
+        required: true
+      - name: evidence_rank
+        type: integer
+        required: false
+      - name: matched_sources_json
+        type: json
+        required: true
+      - name: pattern_tags_json
+        type: json
+        required: true
+      - name: query_texts_json
+        type: json
+        required: true
+      - name: retrieved_at
+        type: datetime
+        required: false
+
+  model_evidence_link:
+    primary_key: model_evidence_uid
+    foreign_keys: [topic_uid]
+    fields:
+      - name: model_evidence_uid
+        type: string
+        required: true
+      - name: model_uid
+        type: string
+        required: false
+      - name: route_key
+        type: string
+        required: false
+      - name: pattern_code
+        type: string
+        required: true
+      - name: topic_uid
+        type: string
+        required: true
+      - name: rationale
+        type: string
+        required: false
+
+modeling_contract:
+  primary_endpoint: fatigue_d1
+  secondary_endpoints: [pain_d1, stress_d1]
+  minimum_quality_filters:
+    - "night_sleep.total_sleep_time_min >= 180"
+    - "night_sleep.signal_quality_score_0_1 >= 0.7 (si existe)"
+    - "targets_d_plus_1 con timestamp válido y unívoco"
+  validation_recommendation:
+    - "split por sujeto (leave-subject-out)"
+    - "validación temporal dentro de sujeto"

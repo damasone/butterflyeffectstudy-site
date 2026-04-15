@@ -1,0 +1,111 @@
+{
+  "cards": [
+    {
+      "card_key": "portable_family_stress_event",
+      "label": "Portable family stress event",
+      "kind": "portable_event_regression",
+      "tier": "accepted",
+      "role": "portable_event_reference",
+      "blocking_flags": [],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/portable-family-models-event/stress_event/summary.json",
+      "calibration_summary_path": null,
+      "metrics": {
+        "mae": 0.6774730187595547,
+        "rmse": 0.8181522169280948,
+        "r2": 0.3163911834904391
+      }
+    },
+    {
+      "card_key": "portable_family_high_stress_event",
+      "label": "Portable family high stress event",
+      "kind": "portable_event_binary",
+      "tier": "accepted",
+      "role": "portable_event_binary_reference",
+      "blocking_flags": [],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/portable-binary-family-models-event/high_stress_event/summary.json",
+      "calibration_summary_path": null,
+      "metrics": {
+        "auroc": 0.7185154217762914,
+        "average_precision": 0.5106120172629425,
+        "brier": 0.340127547181479,
+        "balanced_accuracy": 0.6770113340765515
+      }
+    },
+    {
+      "card_key": "physionet_stress_event_regression",
+      "label": "PhysioNet event stress regression",
+      "kind": "cohort_event_regression",
+      "tier": "accepted_support",
+      "role": "event_challenge_support",
+      "blocking_flags": [],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-physionet-stress-task-noleak/summary.json",
+      "calibration_summary_path": null,
+      "metrics": {
+        "mae": 1.1129330783754956,
+        "rmse": 1.4411619894463485,
+        "r2": 0.4800704870205328
+      }
+    },
+    {
+      "card_key": "can_stress_event_regression",
+      "label": "CAN-STRESS event stress regression",
+      "kind": "cohort_event_regression",
+      "tier": "support_only",
+      "role": "event_challenge_support",
+      "blocking_flags": [
+        "cohort_signal_floor"
+      ],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-can-stress-event-stress-noleak/summary.json",
+      "calibration_summary_path": null,
+      "metrics": {
+        "mae": 1.9153225806451613,
+        "rmse": 2.2103231043914033,
+        "r2": -0.08379331140350876
+      }
+    },
+    {
+      "card_key": "physionet_high_stress_event",
+      "label": "PhysioNet high stress event",
+      "kind": "cohort_event_binary",
+      "tier": "experimental_support",
+      "role": "event_challenge_binary_support",
+      "blocking_flags": [
+        "binary_auroc_floor",
+        "binary_calibration_gap"
+      ],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-physionet-stress-task-highstress-noleak/summary.json",
+      "calibration_summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/binary-calibration-physionet-stress-task-highstress-logistic-noleak/summary.json",
+      "metrics": {
+        "auroc": 0.6356807511737088,
+        "average_precision": 0.28329690666301643,
+        "balanced_accuracy": 0.6225352112676057,
+        "brier": 0.18040251362712315,
+        "prevalence": 0.1744186046511628,
+        "raw_calibration_ece": 0.22404369663817192,
+        "calibrated_ece": 0.2142667916415813
+      }
+    },
+    {
+      "card_key": "can_stress_high_stress_event",
+      "label": "CAN-STRESS high stress event",
+      "kind": "cohort_event_binary",
+      "tier": "experimental_support",
+      "role": "event_challenge_binary_support",
+      "blocking_flags": [
+        "binary_calibration_gap"
+      ],
+      "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-can-stress-event-highstress-noleak/summary.json",
+      "calibration_summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/binary-calibration-can-stress-event-highstress-et-noleak/summary.json",
+      "metrics": {
+        "auroc": 0.6965811965811967,
+        "average_precision": 0.5668024227234754,
+        "balanced_accuracy": 0.5918803418803419,
+        "brier": 0.22971431714607252,
+        "prevalence": 0.41935483870967744,
+        "raw_calibration_ece": 0.2983470955748243,
+        "calibrated_ece": 0.3716056340881975
+      }
+    }
+  ],
+  "card_count": 6
+}

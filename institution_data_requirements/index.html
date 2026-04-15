@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Butterfly Effect — Institutional Data Requirements</title>
+  <meta name="description" content="Technical data requirements pack for Butterfly Effect institutional pilots.">
+  <link rel="stylesheet" href="../shared/surface_enhancer.css">
+  <script src="../shared/surface_enhancer.js" defer></script>
+  <style>
+    :root {
+      --bg: #151210;
+      --bg-deep: #1b1714;
+      --panel: rgba(27, 23, 20, 0.88);
+      --panel-strong: rgba(31, 26, 23, 0.96);
+      --ink: #f4ede7;
+      --muted: #b8ada1;
+      --line: #342c26;
+      --accent: #c39a79;
+      --accent-soft: #eadbce;
+      --ok: #9dcab1;
+      --warn: #d1a178;
+      --sans: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+      --radius: 20px;
+      --shadow: 0 18px 42px rgba(0,0,0,0.22);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background: radial-gradient(circle at top left, rgba(195,154,121,0.07), transparent 28%), linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+    }
+    a { color: var(--accent-soft); text-decoration: none; border-bottom: 1px solid rgba(234,219,206,0.22); }
+    a:hover { border-bottom-color: rgba(234,219,206,0.48); }
+    .wrap { width: min(1160px, calc(100vw - 40px)); margin: 0 auto; }
+    .topbar { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(14px); background: rgba(21,18,16,0.82); border-bottom: 1px solid rgba(74,64,56,0.72); }
+    .topbar-inner { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:18px 0; }
+    .brand { font-size:0.92rem; text-transform:uppercase; letter-spacing:0.18em; }
+    .nav { display:flex; flex-wrap:wrap; gap:18px; }
+    .nav a { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--muted); border:0; }
+    .nav a:hover { color: var(--accent-soft); }
+    .hero { padding: 72px 0 40px; }
+    .eyebrow { margin:0 0 12px; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.19em; color:var(--accent); }
+    h1 { margin:0; font-size: clamp(2.5rem, 5vw, 4.4rem); line-height: 0.98; letter-spacing:-0.045em; font-weight:550; max-width:14ch; }
+    .subtitle { margin:18px 0 0; max-width:64rem; color:var(--muted); font-size:1.06rem; line-height:1.8; }
+    .hero-grid, .grid-3, .grid-2, .metric-strip { display:grid; gap:18px; }
+    .hero-grid { grid-template-columns: 1.35fr 0.95fr; margin-top: 32px; }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .metric-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 16px; }
+    .panel, .card { background: var(--panel); border: 1px solid rgba(74,64,56,0.78); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .hero-card, .card { padding: 24px; }
+    h2 { margin:0; font-size:1.3rem; letter-spacing:-0.02em; font-weight:550; }
+    h3 { margin:0 0 10px; font-size:1rem; font-weight:550; }
+    p, li { color:var(--muted); line-height:1.72; font-size:0.96rem; }
+    .badge-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+    .badge { display:inline-flex; align-items:center; min-height:34px; padding:0 12px; border-radius:999px; border:1px solid rgba(74,64,56,0.78); background: rgba(255,255,255,0.02); font-size:0.8rem; color:var(--ink); }
+    .badge.ok { color:var(--ok); }
+    .badge.warn { color:var(--warn); }
+    .item { padding:14px; border-radius:14px; background: rgba(255,255,255,0.02); border:1px solid rgba(74,64,56,0.52); }
+    .k { font-size:0.74rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--muted); }
+    .item strong { display:block; font-size:1.08rem; letter-spacing:-0.02em; margin-top:6px; color:var(--ink); }
+    .section { padding: 16px 0 10px; }
+    .section-head { display:flex; align-items:end; justify-content:space-between; gap:16px; margin-bottom:18px; }
+    .section-note { max-width:44rem; }
+    ul.clean { margin:0; padding-left:18px; }
+    .quick-links { margin-top: 18px; padding: 18px 20px; background: rgba(255,255,255,0.02); border: 1px solid rgba(74,64,56,0.58); border-radius: 18px; }
+    .quick-link-list { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+    .quick-link-list a { display:inline-flex; align-items:center; min-height:36px; padding:0 12px; border-radius:999px; border:1px solid rgba(74,64,56,0.74); background: rgba(255,255,255,0.02); }
+    .footer { padding: 34px 0 56px; color: var(--muted); font-size:0.9rem; }
+    @media (max-width: 1040px) {
+      .hero-grid, .grid-3, .grid-2, .metric-strip { grid-template-columns:1fr; }
+      .section-head, .topbar-inner { align-items:flex-start; flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">Butterfly Effect</div>
+      <nav class="nav">
+        <a href="#minimum">Minimum</a>
+        <a href="#contract">Contract</a>
+        <a href="#thresholds">Thresholds</a>
+        <a href="#downloads">Downloads</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Institutional data requirements</p>
+      <h1>The technical data pack for a serious Butterfly Effect pilot.</h1>
+      <p class="subtitle">This pack translates the current stack into a concrete data request: what is strictly required, what materially increases scientific value, and what file contract is sufficient to start a harmonized longitudinal pilot. The current execution lane is `raw nightly stress`, so the pack now includes the sidecar contract and the normalizer needed to absorb institution HR/IBI epoch exports.</p>
+      <div class="hero-grid">
+        <article class="panel hero-card">
+          <h2>Minimum useful package</h2>
+          <p>The current stack does not require full PSG on every subject. The minimum useful institutional package is longitudinal nightly sleep, nocturnal cardiovascular signal, movement or fragmentation, repeated outcomes, and basic day-level context.</p>
+          <div class="badge-row">
+            <span class="badge ok">Nightly sleep summaries</span>
+            <span class="badge ok">Nocturnal HR / HRV</span>
+            <span class="badge ok">Repeated outcomes</span>
+            <span class="badge warn">PSG subset optional but high-value</span>
+          </div>
+          <div class="metric-strip">
+            <div class="item"><div class="k">Core files</div><strong>5</strong></div>
+            <div class="item"><div class="k">Recommended minimum</div><strong>40 participants</strong></div>
+            <div class="item"><div class="k">Median exposure</div><strong>20 nights</strong></div>
+            <div class="item"><div class="k">Main unlock</div><strong>Night transport</strong></div>
+          </div>
+        </article>
+        <article class="panel hero-card">
+          <h2>What richer data unlocks</h2>
+          <ul class="clean">
+            <li>Stronger cross-cohort nightly transport</li>
+            <li>Cleaner anxiety and depression portability studies</li>
+            <li>Physiological anchoring of interpretation claims</li>
+            <li>More defensible subgroup and calibration analyses</li>
+          </ul>
+        </article>
+      </div>
+      <div class="quick-links" id="downloads">
+        <h3>Downloads</h3>
+        <div class="quick-link-list">
+          <a href="institution-data-requirements-pack-2026-03-26.md">Markdown pack</a>
+          <a href="institution-data-requirements-pack-2026-03-26.json">JSON pack</a>
+          <a href="institution-data-requirements-field-matrix-2026-03-26.csv">Field matrix CSV</a>
+          <a href="variable-shortlist.html">Variable shortlist</a>
+          <a href="institution-variable-shortlist-2026-03-26.csv">Variable shortlist CSV</a>
+          <a href="templates/night_physio_epoch.csv">night_physio_epoch.csv</a>
+          <a href="templates/raw_hr_epoch.csv">raw_hr_epoch.csv</a>
+          <a href="templates/raw_ibi_epoch.csv">raw_ibi_epoch.csv</a>
+          <a href="templates/raw_physio_mapping_combined.json">Combined mapping JSON</a>
+          <a href="templates/raw_physio_mapping_split.json">Split mapping JSON</a>
+          <a href="../institution_pilot_protocol/index.html">Pilot protocol</a>
+          <a href="../institution_governance/index.html">Data intake + governance</a>
+          <a href="../institution_targets/index.html">Target shortlist</a>
+          <a href="../../common-schema.yaml">Canonical schema</a>
+          <a href="../institution_one_pager/index.html">Institutional one-pager</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="minimum">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Minimum entities</p>
+          <h2>The current stack can start from five core tables</h2>
+        </div>
+        <p class="section-note">Everything else improves fidelity. These five tables are the smallest clean institutional handoff that still supports route training, harmonization, and held-out evaluation.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card"><h3>participant</h3><ul class="clean"><li>`participant_uid`</li><li>`source_dataset`</li><li>`source_subject_id`</li><li>recommended: age and sex metadata</li></ul></article>
+        <article class="card"><h3>night_sleep</h3><ul class="clean"><li>night ID and local sleep date</li><li>sleep duration</li><li>continuity metric</li><li>nocturnal HR/HRV metric</li><li>movement or fragmentation metric</li></ul></article>
+        <article class="card"><h3>day_emotion / day_symptoms</h3><ul class="clean"><li>local report date</li><li>stress and/or anxiety and/or depression</li><li>fatigue and/or pain when relevant</li><li>one row per participant-day report</li></ul></article>
+      </div>
+      <div class="grid-2" style="margin-top:18px;">
+        <article class="card"><h3>day_confounders</h3><ul class="clean"><li>caffeine</li><li>alcohol</li><li>exercise</li><li>naps</li><li>acute illness</li><li>medication change</li></ul></article>
+        <article class="card"><h3>Supplementary sidecars</h3><ul class="clean"><li>IBI or beat-level intervals</li><li>epoch HR</li><li>epoch movement</li><li>respiration / SpO2</li><li>small PSG subset</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section" id="contract">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">File contract</p>
+          <h2>The preferred first pilot handoff</h2>
+        </div>
+        <p class="section-note">The point is not to request every possible file. The point is to get a handoff that can be harmonized quickly and defended methodologically.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card"><h3>Core files</h3><ul class="clean"><li>`participant.csv`</li><li>`night_sleep.csv`</li><li>`day_emotion.csv`</li><li>`day_symptoms.csv`</li><li>`day_confounders.csv`</li></ul></article>
+        <article class="card"><h3>Operational rules</h3><ul class="clean"><li>stable pseudonymized IDs</li><li>local dates or timestamps with timezone logic</li><li>one row per participant-night in `night_sleep`</li><li>device and unit documentation</li><li>source lineage preserved</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Operational pack</p>
+          <h2>The field-level shortlist and templates are ready to send</h2>
+        </div>
+        <p class="section-note">The data pack defines scope. The variable shortlist and header-only templates make the first institutional handoff concrete.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card"><h3>Field-level shortlist</h3><ul class="clean"><li><a href="variable-shortlist.html">Preview the shortlist</a></li><li><a href="institution-variable-shortlist-2026-03-26.md">Markdown version</a></li><li><a href="institution-variable-shortlist-2026-03-26.csv">CSV version</a></li><li><a href="institution-variable-shortlist-2026-03-26.json">JSON version</a></li></ul></article>
+        <article class="card"><h3>Header-only templates</h3><ul class="clean"><li><a href="templates/participant.csv">participant.csv</a></li><li><a href="templates/night_sleep.csv">night_sleep.csv</a></li><li><a href="templates/day_emotion.csv">day_emotion.csv</a></li><li><a href="templates/day_symptoms.csv">day_symptoms.csv</a></li><li><a href="templates/day_confounders.csv">day_confounders.csv</a></li><li><a href="templates/night_physio_epoch.csv">night_physio_epoch.csv</a></li><li><a href="templates/raw_hr_epoch.csv">raw_hr_epoch.csv</a></li><li><a href="templates/raw_ibi_epoch.csv">raw_ibi_epoch.csv</a></li></ul></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Operational next step</p>
+          <h2>The pilot protocol and intake gate are now explicit</h2>
+        </div>
+        <p class="section-note">The data pack defines what to ask for. The pilot protocol defines what to do next, and the intake checklist defines what must pass before any cohort enters modeling.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card"><h3>Pilot protocol</h3><ul class="clean"><li><a href="../institution_pilot_protocol/index.html">Open pilot protocol</a></li><li>one cohort</li><li>one endpoint family</li><li>one explicit decision gate</li></ul></article>
+        <article class="card"><h3>Data intake + governance</h3><ul class="clean"><li><a href="../institution_governance/index.html">Open intake checklist</a></li><li>linkage audit</li><li>schema and unit audit</li><li>governance handling gate</li><li><code>training/normalize_raw_nightly_physio_epochs.py</code> for HR/IBI epoch normalization</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section" id="thresholds">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Pilot thresholds</p>
+          <h2>The practical bar for a useful first pilot</h2>
+        </div>
+        <p class="section-note">These are not hard exclusion rules. They are the minimum level at which the pilot starts to answer the scientific question instead of just proving ingestion works.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card"><h3>Recommended minimum</h3><ul class="clean"><li>`>= 40` participants</li><li>median `>= 20` nights per participant</li><li>repeated outcomes on `>= 30%` of nights or `>= 3` times per week</li><li>stable night-to-next-day linkage</li></ul></article>
+        <article class="card"><h3>Preferred</h3><ul class="clean"><li>`>= 75` participants</li><li>median `>= 45` nights per participant</li><li>nightly or near-daily outcomes</li><li>at least one raw sidecar</li><li>a small PSG subset</li></ul></article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p><strong>Current recommendation:</strong> use this pack to scope institutional conversations around harmonizable longitudinal pilots, not broad exploratory data grabs.</p>
+      <p><a href="../institution_one_pager/index.html">Institutional one-pager</a> · <a href="variable-shortlist.html">Variable shortlist</a> · <a href="../institution_pilot_protocol/index.html">Pilot protocol</a> · <a href="../institution_governance/index.html">Data intake + governance</a> · <a href="../institution_targets/index.html">Target shortlist</a> · <a href="../../common-schema.yaml">Canonical schema</a> · <a href="../public_research_surface/index.html">Public research surface</a></p>
+    </footer>
+  </main>
+</body>
+</html>

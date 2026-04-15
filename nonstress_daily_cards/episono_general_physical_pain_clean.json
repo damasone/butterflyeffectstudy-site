@@ -1,0 +1,21 @@
+{
+  "card_key": "episono_general_physical_pain_clean",
+  "label": "EPISONO general physical pain clean",
+  "kind": "binary_support",
+  "tier": "accepted_support",
+  "role": "general_physical_pain_support",
+  "blocking_flags": [],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-episono-general-physical-pain-clean/summary.json",
+  "metrics": {
+    "auroc": 0.7954137972695421,
+    "average_precision": 0.5705746817962114,
+    "balanced_accuracy": 0.7294961942732874,
+    "brier": 0.18326615774904784,
+    "prevalence": 0.2562380038387716,
+    "rows": 1042,
+    "participants": 1042,
+    "feature_count": 22,
+    "best_model": "logistic"
+  },
+  "note": "Direct open anchor for general physical pain with PSQI, PSG, and demographic support."
+}

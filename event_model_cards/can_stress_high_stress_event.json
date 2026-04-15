@@ -1,0 +1,21 @@
+{
+  "card_key": "can_stress_high_stress_event",
+  "label": "CAN-STRESS high stress event",
+  "kind": "cohort_event_binary",
+  "tier": "experimental_support",
+  "role": "event_challenge_binary_support",
+  "blocking_flags": [
+    "binary_calibration_gap"
+  ],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-can-stress-event-highstress-noleak/summary.json",
+  "calibration_summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/binary-calibration-can-stress-event-highstress-et-noleak/summary.json",
+  "metrics": {
+    "auroc": 0.6965811965811967,
+    "average_precision": 0.5668024227234754,
+    "balanced_accuracy": 0.5918803418803419,
+    "brier": 0.22971431714607252,
+    "prevalence": 0.41935483870967744,
+    "raw_calibration_ece": 0.2983470955748243,
+    "calibrated_ece": 0.3716056340881975
+  }
+}

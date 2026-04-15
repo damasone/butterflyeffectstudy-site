@@ -1,0 +1,18 @@
+{
+  "candidate_key": "direct_fit_example",
+  "institution_or_group": "Example Sleep Lab",
+  "participant_night_rows": true,
+  "repeated_stress_or_burden": true,
+  "stress_or_burden_endpoint_name": "stress_0_10",
+  "best_aligned_outcome_rate_estimate": 0.38,
+  "participant_count": 62,
+  "median_nights_per_participant": 24,
+  "raw_signal_granularity": "epoch",
+  "raw_night_fraction_estimate": 0.68,
+  "mean_raw_coverage_estimate": 0.74,
+  "linkage_mode": "sleep_date_local",
+  "psg_subset_available": false,
+  "confounders_available": true,
+  "data_transfer_constraints": "none",
+  "notes": "Synthetic direct-fit style example for batch ranking."
+}

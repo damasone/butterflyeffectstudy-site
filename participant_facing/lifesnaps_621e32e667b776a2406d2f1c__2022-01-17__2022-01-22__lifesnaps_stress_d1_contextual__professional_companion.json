@@ -1,0 +1,196 @@
+{
+  "report_kind": "professional_companion_summary",
+  "source_report_kind": "weekly_stress_next_day_report",
+  "participant_id": "lifesnaps_621e32e667b776a2406d2f1c",
+  "route_key": "lifesnaps_stress_d1_contextual",
+  "route_label": "LifeSnaps D+1 contextual forecasting",
+  "focus_label": "next-day stress burden",
+  "window": {
+    "date_from": "2022-01-17",
+    "date_to": "2022-01-22"
+  },
+  "operational_readout": {
+    "window_quality_label": "moderate confidence",
+    "window_shift_label": "clearly shifted",
+    "usable_nights": 6,
+    "matched_day_reports": 6,
+    "mean_observed_burden": 7.183333333333334,
+    "mean_predicted_burden": 6.5085231216931225
+  },
+  "dominant_domains": [
+    {
+      "domain_name": "sleep_continuity",
+      "domain_label": "Sleep continuity",
+      "count": 3,
+      "mean_aggregate_score": 0.03268474035527202,
+      "supporting_features": [
+        "time_in_bed_min__mean_w14",
+        "time_in_bed_min__mean_w7",
+        "total_sleep_time_min__mean_w7"
+      ],
+      "mean_observed_target": 7.033333333333334
+    },
+    {
+      "domain_name": "daily_behavior",
+      "domain_label": "Daily carry-over behavior",
+      "count": 6,
+      "mean_aggregate_score": 0.12226229989393578,
+      "supporting_features": [
+        "conf_lightly_active_minutes",
+        "conf_sedentary_minutes",
+        "conf_sedentary_minutes__delta_lag1"
+      ],
+      "mean_observed_target": 7.183333333333334
+    },
+    {
+      "domain_name": "other_signal",
+      "domain_label": "Mixed contextual pattern",
+      "count": 6,
+      "mean_aggregate_score": 0.1321704515659379,
+      "supporting_features": [
+        "lifesnaps_exertion_points_pct",
+        "lifesnaps_exertion_points_pct__lag1",
+        "lifesnaps_exertion_points_pct__z_w7",
+        "lifesnaps_minutes_after_wakeup__lag1",
+        "lifesnaps_nightly_temperature_c__std_w3",
+        "lifesnaps_sleep_points_pct__z_w7",
+        "lifesnaps_sleep_rem_ratio__std_w7"
+      ],
+      "mean_observed_target": 7.183333333333334
+    }
+  ],
+  "shift_vs_baseline": [
+    {
+      "feature_name": "lifesnaps_minutes_after_wakeup__lag1",
+      "display_name": "lifesnaps minutes after wakeup previous night",
+      "count": 1,
+      "direction_label": "higher than usual",
+      "mean_abs_delta_zscore": 8.094
+    },
+    {
+      "feature_name": "time_in_bed_min__mean_w7",
+      "display_name": "7-night mean of Time in bed",
+      "count": 1,
+      "direction_label": "lower than usual",
+      "mean_abs_delta_zscore": 2.2368487229862515
+    },
+    {
+      "feature_name": "lifesnaps_exertion_points_pct",
+      "display_name": "lifesnaps exertion points pct",
+      "count": 4,
+      "direction_label": "lower than usual",
+      "mean_abs_delta_zscore": 1.9900657327586206
+    },
+    {
+      "feature_name": "lifesnaps_nightly_temperature_c__std_w3",
+      "display_name": "3-night variability of lifesnaps nightly temperature c",
+      "count": 5,
+      "direction_label": "higher than usual",
+      "mean_abs_delta_zscore": 1.739852463080485
+    }
+  ],
+  "observed_links_with_next_day_burden": [],
+  "review_nights": [
+    {
+      "label": "Most shifted night",
+      "target_date_local": "2022-01-21",
+      "observed_target": 7.0,
+      "quality_status": "pass",
+      "reason": "largest baseline-relative deviation across the main drivers in this window"
+    },
+    {
+      "label": "Most stable night",
+      "target_date_local": "2022-01-22",
+      "observed_target": 7.0,
+      "quality_status": "pass",
+      "reason": "closest to the recent participant reference across the main drivers"
+    },
+    {
+      "label": "Highest burden follow-up",
+      "target_date_local": "2022-01-17",
+      "observed_target": 7.5,
+      "quality_status": "pass",
+      "reason": "night linked to the highest observed burden inside the weekly window"
+    },
+    {
+      "label": "Night with the weakest signal",
+      "target_date_local": "2022-01-21",
+      "observed_target": 7.0,
+      "quality_status": "pass",
+      "reason": "night most constrained by missingness or signal quality"
+    }
+  ],
+  "audience_contract": {
+    "audience_key": "professional_companion",
+    "contract_version": "professional_companion_v1",
+    "reader_label": "professional",
+    "cadence": "weekly",
+    "interpretation_scope": "companion review of the same participant-facing weekly payload with more explicit operational structure",
+    "allowed_claims": [
+      "weekly operational readout",
+      "dominant night domains and baseline shifts",
+      "review-night selection",
+      "confidence and caveat framing tied to the same governed payload"
+    ],
+    "disallowed_claims": [
+      "diagnosis from the companion surface alone",
+      "clinical decision without external assessment",
+      "claim expansion beyond the approved route and weekly burden frame"
+    ],
+    "escalation_guidance": [
+      "escalate to institutional workflow for cohort-level validation or pilot work",
+      "keep route governance and route-card audit visible when using the companion in professional settings"
+    ]
+  },
+  "route_audit": {
+    "route_key": "lifesnaps_stress_d1_contextual",
+    "route_card_path": "/Users/damasomengodperez/neural-echo-planning/reports/route_cards/lifesnaps_stress_d1_contextual.json",
+    "approved": true,
+    "status": "approved_now",
+    "reasons": [],
+    "checks": {
+      "accepted_tier": true,
+      "stress_target": true,
+      "supported_intended_use": true,
+      "auto_promotion_eligible": true,
+      "blocking_passed": true,
+      "review_passed": true,
+      "transport_not_negative": true,
+      "robustness_flags_absent": true,
+      "deployable_within_cohort": true
+    },
+    "route_tier": "accepted",
+    "target_name": "stress_d1",
+    "intended_use": "next_day_forecasting",
+    "transportability_status": "weak_open_transport",
+    "auto_promotion_eligible": true,
+    "deployment_recommendation": "deploy_within_cohort_and_monitor"
+  },
+  "governance_snapshot": {
+    "route_kind": "cohort",
+    "route_tier": "accepted",
+    "route_status": "approved_now",
+    "target_name": "stress_d1",
+    "intended_use": "next_day_forecasting",
+    "transportability_status": "weak_open_transport",
+    "deployment_recommendation": "deploy_within_cohort_and_monitor",
+    "route_card_path": "/Users/damasomengodperez/neural-echo-planning/reports/route_cards/lifesnaps_stress_d1_contextual.json"
+  },
+  "confidence_and_limits": {
+    "window_quality_label": "moderate confidence",
+    "reasons": [],
+    "usable_nights": 6,
+    "matched_day_reports": 6,
+    "window_reports": 6,
+    "participant_relative_reference": true,
+    "important_caveats": []
+  },
+  "takeaway": "The weekly readout remains moderate confidence across 6 usable nights. The dominant domain is Sleep continuity, but no repeated in-window night-to-day link reached the current reporting threshold.",
+  "research_footnote": {
+    "route_label": "LifeSnaps D+1 contextual forecasting",
+    "route_kind": "cohort",
+    "intended_use": "next_day_forecasting",
+    "generated_from": "/Users/damasomengodperez/neural-echo-planning/data/temporal_lifesnaps_stress_d1.csv",
+    "weekly_row_count": 6
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "date": "2026-03-26",
+  "current_bottleneck": "cross_cohort_nightly_stress_transport",
+  "lanes": [
+    {
+      "name": "Lane A — Physiology-rich sleep and circadian programs",
+      "targets": [
+        {
+          "priority": "P1",
+          "name": "Brigham and Women's Hospital — Division of Sleep and Circadian Disorders",
+          "type": "hospital_sleep_program",
+          "best_fit": "physiology_rich_nightly_validation",
+          "ask": "participant-night sleep data with repeated stress or symptom burden plus physiology-rich subset",
+          "source_url": "https://www.brighamandwomens.org/neurology/sleep-and-circadian-rhythm-disorders"
+        },
+        {
+          "priority": "P1",
+          "name": "Stanford Medicine — Center for Sleep and Circadian Sciences",
+          "type": "academic_sleep_center",
+          "best_fit": "wearable_linked_nightly_cohort",
+          "ask": "nightly wearable datasets with repeated next-day burden or behavioral outcomes",
+          "source_url": "https://med.stanford.edu/cscs.html"
+        },
+        {
+          "priority": "P1",
+          "name": "Northwestern University / Northwestern Medicine — CSCB + Center for Circadian & Sleep Medicine",
+          "type": "academic_clinical_sleep_program",
+          "best_fit": "circadian_sleep_clinical_cohort",
+          "ask": "participant-night sleep datasets with repeated burden outcomes and linked clinical or wearable phenotyping",
+          "source_urls": [
+            "https://cscb.northwestern.edu/",
+            "https://www.feinberg.northwestern.edu/sites/sleep/index.html"
+          ]
+        },
+        {
+          "priority": "P1",
+          "name": "Hospital Clínic Barcelona — Unit of Sleep Research",
+          "type": "hospital_sleep_unit",
+          "best_fit": "european_sleep_disorder_cohort",
+          "ask": "longitudinal sleep disorder cohort with participant-night rows, repeated burden outcomes, and biomarker or PSG subset",
+          "source_url": "https://www.clinicbarcelona.org/en/unit/sleep/research"
+        }
+      ]
+    },
+    {
+      "name": "Lane B — Digital trials and wearable-first cohorts",
+      "targets": [
+        {
+          "priority": "P1",
+          "name": "Scripps Research — Digital Trials Center",
+          "type": "digital_trials_center",
+          "best_fit": "remote_wearable_longitudinal_cohort",
+          "ask": "participant-night exports with sleep, HR, activity, and repeated burden endpoints",
+          "contact": "dtc@scripps.edu",
+          "source_urls": [
+            "https://digitaltrials.scripps.edu/",
+            "https://www.scripps.edu/science-and-medicine/translational-institute/translational-research/digital-medicine/index.html"
+          ]
+        },
+        {
+          "priority": "P1",
+          "name": "Duke University Population Research Institute — RAISE / mobile stress study line",
+          "type": "population_research_digital_ema_wearables",
+          "best_fit": "daily_stress_wearable_bridge",
+          "ask": "repeated stress-linked wearable cohorts preserving participant-day or participant-night linkage",
+          "contact": "contactdupri@duke.edu",
+          "source_url": "https://dupri.duke.edu/research/assessing-stress-well-being-connectedness-across-three-generations-using-mobile"
+        }
+      ]
+    },
+    {
+      "name": "Lane C — Platform and device partners for prospective pilots",
+      "targets": [
+        {
+          "priority": "P2",
+          "name": "Oura for Research",
+          "type": "wearable_platform_partner",
+          "best_fit": "prospective_wearable_sleep_pilot",
+          "ask": "prospective pilot or access path through an academic collaborator using Oura data with repeated burden reporting",
+          "source_url": "https://organizations.ouraring.com/solutions/research"
+        },
+        {
+          "priority": "P2",
+          "name": "Empatica — Health Monitoring Platform / Research Portal",
+          "type": "wearable_platform_partner",
+          "best_fit": "physiology_heavy_remote_monitoring_pilot",
+          "ask": "prospective study with autonomic, movement, and sleep-relevant physiology and raw data access",
+          "source_urls": [
+            "https://www.empatica.com/research/research-portal/",
+            "https://www.empatica.com/en-us/"
+          ]
+        },
+        {
+          "priority": "P2",
+          "name": "Withings Health Solutions",
+          "type": "home_sleep_platform_partner",
+          "best_fit": "hospital_partnered_home_sleep_pilot",
+          "ask": "prospective pilot combining nightly sleep summaries with repeated burden outcomes and optional home sleep hardware",
+          "source_url": "https://www.withings.com/us/en/health-solutions/research-request"
+        }
+      ]
+    }
+  ]
+}

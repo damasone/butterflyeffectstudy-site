@@ -1,0 +1,1206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Butterfly Effect · Evidence</title>
+  <meta name="description" content="Butterfly Effect is a research-grade sleep interpretation surface built around nightly routes, daily challenge layers, portable event stress, governance, and evidence-linked reporting.">
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    :root {
+      --bg: #161311;
+      --bg-deep: #1d1916;
+      --panel: rgba(28, 24, 21, 0.88);
+      --ink: #f3ede7;
+      --muted: #b2a89d;
+      --line: #342c26;
+      --line-strong: #4a4038;
+      --accent: #c39a79;
+      --accent-deep: #eadbce;
+      --ok: #9ecab3;
+      --ok-bg: #1c2823;
+      --warn: #d0a177;
+      --warn-bg: #302319;
+      --muted-bg: #24201c;
+      --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.14);
+      --sans: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+      font-family: var(--sans);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 14% 18%, rgba(195, 154, 121, 0.06), transparent 24%),
+        radial-gradient(circle at 86% 8%, rgba(124, 157, 163, 0.05), transparent 20%);
+      opacity: 1;
+    }
+    a {
+      color: var(--accent-deep);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(234, 219, 206, 0.18);
+      transition: border-color 180ms ease, color 180ms ease;
+    }
+    a:hover { border-bottom-color: rgba(234, 219, 206, 0.5); }
+    button { font: inherit; }
+    .page-shell {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 900ms ease, transform 900ms ease;
+    }
+    body.surface-live .page-shell {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      background:
+        radial-gradient(circle at 50% 34%, rgba(195,154,121,0.08), transparent 24%),
+        linear-gradient(180deg, #14110f 0%, #1b1714 100%);
+      transition: opacity 900ms ease, visibility 900ms ease;
+    }
+    body.surface-live .intro {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .intro-copy {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 26px;
+      text-align: center;
+    }
+    .intro-copy-inner {
+      max-width: 980px;
+    }
+    .brand-lockup,
+    .hero-brand {
+      display: grid;
+      gap: 12px;
+    }
+    .brand-lockup {
+      justify-items: center;
+      margin-bottom: 18px;
+    }
+    .hero-brand {
+      justify-items: start;
+      margin-bottom: 10px;
+    }
+    .brand-mark {
+      display: inline-flex;
+      line-height: 0;
+      flex-shrink: 0;
+    }
+    .brand-mark img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transform: translateZ(0);
+      image-rendering: auto;
+    }
+    .intro-logo {
+      width: clamp(92px, 9.2vw, 118px);
+    }
+    .intro-butterfly {
+      position: relative;
+      display: block;
+      aspect-ratio: 1 / 1;
+      isolation: isolate;
+      perspective: 1280px;
+      transform-style: preserve-3d;
+      animation: butterfly-float 7.4s ease-in-out infinite;
+    }
+    .intro-butterfly .butterfly-layer {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      display: block;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+    }
+    .intro-butterfly .butterfly-layer img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .intro-butterfly .butterfly-foundation {
+      inset: 0;
+      opacity: 0.09;
+      z-index: 0;
+      transform: translateY(0.8%) scale(1.01);
+      filter: blur(1.2px) brightness(0.78);
+    }
+    .intro-butterfly .butterfly-wing {
+      inset: 0;
+      will-change: transform, filter;
+    }
+    .intro-butterfly .wing-upper-left {
+      z-index: 1;
+      transform-origin: 57% 55%;
+      animation: wing-upper-left-depth 6.3s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+    }
+    .intro-butterfly .wing-upper-right {
+      z-index: 2;
+      transform-origin: 43% 55%;
+      animation: wing-upper-right-depth 6.3s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+    }
+    .intro-butterfly .wing-lower-left {
+      z-index: 3;
+      transform-origin: 60% 34%;
+      animation: wing-lower-left-depth 6.3s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+      animation-delay: -0.24s;
+    }
+    .intro-butterfly .wing-lower-right {
+      z-index: 3;
+      transform-origin: 40% 34%;
+      animation: wing-lower-right-depth 6.3s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+      animation-delay: -0.24s;
+    }
+    .intro-butterfly .butterfly-body {
+      inset: 0;
+      z-index: 4;
+      animation: butterfly-body-hover 6.3s ease-in-out infinite;
+    }
+    .intro-butterfly .butterfly-body img {
+      width: 100%;
+    }
+    @keyframes wing-upper-left-depth {
+      0%, 100% {
+        transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
+        filter: drop-shadow(-1px 4px 5px rgba(0, 0, 0, 0.10)) brightness(0.99);
+      }
+      34% {
+        transform: translateZ(18px) rotateY(24deg) rotateX(-4.5deg) rotateZ(-0.54deg) translateX(-0.8%) translateY(0.28%);
+        filter: drop-shadow(-4px 12px 12px rgba(0, 0, 0, 0.16)) brightness(0.93);
+      }
+      50% {
+        transform: translateZ(34px) rotateY(42deg) rotateX(-7.8deg) rotateZ(-1deg) translateX(-1.45%) translateY(0.52%);
+        filter: drop-shadow(-8px 18px 18px rgba(0, 0, 0, 0.22)) brightness(0.84);
+      }
+      72% {
+        transform: translateZ(11px) rotateY(14deg) rotateX(-2.3deg) rotateZ(-0.26deg) translateX(-0.42%) translateY(0.14%);
+        filter: drop-shadow(-2px 7px 8px rgba(0, 0, 0, 0.12)) brightness(0.96);
+      }
+    }
+    @keyframes wing-upper-right-depth {
+      0%, 100% {
+        transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
+        filter: drop-shadow(1px 4px 5px rgba(0, 0, 0, 0.10)) brightness(0.99);
+      }
+      34% {
+        transform: translateZ(18px) rotateY(-24deg) rotateX(-4.5deg) rotateZ(0.54deg) translateX(0.8%) translateY(0.28%);
+        filter: drop-shadow(4px 12px 12px rgba(0, 0, 0, 0.16)) brightness(0.93);
+      }
+      50% {
+        transform: translateZ(34px) rotateY(-42deg) rotateX(-7.8deg) rotateZ(1deg) translateX(1.45%) translateY(0.52%);
+        filter: drop-shadow(8px 18px 18px rgba(0, 0, 0, 0.22)) brightness(0.84);
+      }
+      72% {
+        transform: translateZ(11px) rotateY(-14deg) rotateX(-2.3deg) rotateZ(0.26deg) translateX(0.42%) translateY(0.14%);
+        filter: drop-shadow(2px 7px 8px rgba(0, 0, 0, 0.12)) brightness(0.96);
+      }
+    }
+    @keyframes wing-lower-left-depth {
+      0%, 100% {
+        transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
+        filter: drop-shadow(-1px 3px 4px rgba(0, 0, 0, 0.09)) brightness(0.99);
+      }
+      38% {
+        transform: translateZ(9px) rotateY(13deg) rotateX(1.9deg) rotateZ(-0.28deg) translateX(-0.28%) translateY(0.13%);
+        filter: drop-shadow(-2px 7px 8px rgba(0, 0, 0, 0.13)) brightness(0.94);
+      }
+      50% {
+        transform: translateZ(18px) rotateY(23deg) rotateX(3.4deg) rotateZ(-0.56deg) translateX(-0.55%) translateY(0.25%);
+        filter: drop-shadow(-4px 11px 12px rgba(0, 0, 0, 0.17)) brightness(0.89);
+      }
+      72% {
+        transform: translateZ(6px) rotateY(8deg) rotateX(1.2deg) rotateZ(-0.16deg) translateX(-0.18%) translateY(0.07%);
+        filter: drop-shadow(-1px 5px 6px rgba(0, 0, 0, 0.10)) brightness(0.96);
+      }
+    }
+    @keyframes wing-lower-right-depth {
+      0%, 100% {
+        transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
+        filter: drop-shadow(1px 3px 4px rgba(0, 0, 0, 0.09)) brightness(0.99);
+      }
+      38% {
+        transform: translateZ(9px) rotateY(-13deg) rotateX(1.9deg) rotateZ(0.28deg) translateX(0.28%) translateY(0.13%);
+        filter: drop-shadow(2px 7px 8px rgba(0, 0, 0, 0.13)) brightness(0.94);
+      }
+      50% {
+        transform: translateZ(18px) rotateY(-23deg) rotateX(3.4deg) rotateZ(0.56deg) translateX(0.55%) translateY(0.25%);
+        filter: drop-shadow(4px 11px 12px rgba(0, 0, 0, 0.17)) brightness(0.89);
+      }
+      72% {
+        transform: translateZ(6px) rotateY(-8deg) rotateX(1.2deg) rotateZ(0.16deg) translateX(0.18%) translateY(0.07%);
+        filter: drop-shadow(1px 5px 6px rgba(0, 0, 0, 0.10)) brightness(0.96);
+      }
+    }
+    @keyframes butterfly-float {
+      0%, 100% {
+        transform: translateY(0) rotateX(0deg) rotateZ(0deg);
+      }
+      50% {
+        transform: translateY(-1.8%) rotateX(1.8deg) rotateZ(-0.25deg);
+      }
+    }
+    @keyframes butterfly-body-hover {
+      0%, 100% {
+        transform: translateZ(0) translateY(0);
+        filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.10));
+      }
+      50% {
+        transform: translateZ(9px) translateY(-0.55%);
+        filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.16));
+      }
+    }
+    .hero-logo {
+      width: 88px;
+    }
+    .page-logo {
+      width: 58px;
+    }
+    .nav-logo {
+      width: 22px;
+    }
+    .intro-label,
+    .section-eyebrow,
+    .eyebrow {
+      margin: 0 0 10px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+    }
+    .intro-title {
+      margin: 0 auto;
+      max-width: 16ch;
+      font-size: clamp(2.5rem, 5.8vw, 4.9rem);
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      font-weight: 500;
+      text-wrap: balance;
+    }
+    .intro-note {
+      margin: 20px auto 0;
+      max-width: 44rem;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.72;
+    }
+    .intro-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+      justify-content: center;
+    }
+    .intro-enter { min-width: 118px; }
+    .button,
+    .ghost-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      cursor: pointer;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease;
+    }
+    .button {
+      background: var(--accent);
+      color: #171311;
+      border-color: var(--accent);
+    }
+    .button:hover,
+    .ghost-button:hover { transform: translateY(-1px); }
+    .ghost-button {
+      background: transparent;
+      color: var(--ink);
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 24px;
+      backdrop-filter: blur(16px);
+      background: rgba(22, 19, 17, 0.82);
+      border-bottom: 1px solid rgba(74, 64, 56, 0.72);
+    }
+    .mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--ink);
+      border: 0;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 0.92rem;
+    }
+    .nav-links a,
+    .topbar button {
+      border-bottom: 0;
+      color: var(--muted);
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      padding: 0;
+    }
+    .nav-links a.active,
+    .topbar button:hover,
+    .nav-links a:hover { color: var(--ink); }
+    .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 44px 28px 92px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero,
+    .page-intro {
+      display: grid;
+      gap: 28px;
+    }
+    .hero {
+      grid-template-columns: 1.25fr 0.75fr;
+      align-items: start;
+      padding: 54px 0 58px;
+    }
+    .page-intro {
+      max-width: 58rem;
+      padding: 54px 0 12px;
+    }
+    .page-intro h1,
+    .hero h2 {
+      margin: 0;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.035em;
+      font-weight: 500;
+      text-wrap: balance;
+    }
+    .hero h2 { max-width: 11ch; }
+    .page-intro p,
+    .hero-quote,
+    .lede {
+      margin: 0;
+      max-width: 46rem;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.75;
+    }
+    .hero-quote { color: var(--accent-deep); margin-top: 20px; }
+    .lede { margin-top: 20px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+    .hero-panel,
+    .metric-card,
+    .principle-card,
+    .system-card,
+    .evidence-card,
+    .layer-card,
+    .validation-card,
+    .page-card,
+    .figure-panel {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--panel);
+      box-shadow: var(--shadow-soft);
+    }
+    .hero-panel strong,
+    .metric-label {
+      display: block;
+      margin: 0 0 10px;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+    }
+    .hero-panel p,
+    .highlight-list em,
+    .highlight-list span,
+    .metric-card span,
+    .principle-card p,
+    .system-card p,
+    .evidence-card p,
+    .validation-card p,
+    .validation-card li,
+    .layer-note,
+    .layer-actions,
+    .page-card p,
+    footer {
+      color: var(--muted);
+      line-height: 1.66;
+    }
+    .highlight-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 12px;
+    }
+    .highlight-list li,
+    .view-list li {
+      display: grid;
+      gap: 4px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(74, 64, 56, 0.78);
+    }
+    .highlight-list strong,
+    .page-card h3,
+    .metric-card strong,
+    .validation-card h3,
+    .system-card h3,
+    .principle-card h3,
+    .evidence-card h3,
+    .layer-card h3 {
+      margin: 0;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      font-weight: 500;
+    }
+    .page-card h3,
+    .validation-card h3,
+    .system-card h3,
+    .principle-card h3,
+    .evidence-card h3,
+    .layer-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.18rem;
+    }
+    .metric-card strong {
+      display: block;
+      margin-top: 10px;
+      font-size: 1.72rem;
+    }
+    .metric-grid,
+    .principles-grid,
+    .system-grid,
+    .evidence-grid,
+    .layer-grid,
+    .validation-grid,
+    .page-grid,
+    .figure-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .metric-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 40px; }
+    .system-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .principles-grid,
+    .evidence-grid,
+    .page-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .validation-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .layer-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .figure-grid { grid-template-columns: 1fr; }
+    .section {
+      padding: 34px 0 38px;
+      border-top: 1px solid rgba(74, 64, 56, 0.72);
+    }
+    .section-header {
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: 22px;
+      align-items: start;
+      margin-bottom: 26px;
+    }
+    .section-header h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      font-weight: 500;
+      text-wrap: balance;
+    }
+    .section-header p { margin: 0; color: var(--muted); line-height: 1.72; }
+    .system-meta,
+    .layer-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .validation-card ul { margin: 0; padding-left: 18px; }
+    .layer-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(74, 64, 56, 0.78);
+      margin-bottom: 12px;
+    }
+    .layer-best { margin-top: 16px; padding-top: 16px; border-top: 1px dashed rgba(74, 64, 56, 0.8); }
+    .mini {
+      display: inline-block;
+      margin-bottom: 8px;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      border: 1px solid transparent;
+    }
+    .chip-ok { background: var(--ok-bg); color: var(--ok); border-color: #31473c; }
+    .chip-warn { background: var(--warn-bg); color: var(--warn); border-color: #4c3422; }
+    .chip-muted { background: var(--muted-bg); color: var(--muted); border-color: #38322d; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    td { padding: 7px 0; border-top: 1px solid rgba(74, 64, 56, 0.65); vertical-align: top; }
+    td:first-child { color: var(--muted); padding-right: 10px; width: 52%; }
+    .view-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+    .view-list span { color: var(--muted); font-size: 0.88rem; word-break: break-word; }
+    .figure-head {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .figure-head h3 {
+      margin: 0;
+      font-size: 1.08rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+    .atlas-panel {
+      display: grid;
+      gap: 12px;
+    }
+    .atlas-axis {
+      display: grid;
+      grid-template-columns: minmax(180px, 1.1fr) 160px minmax(280px, 1.4fr) auto;
+      gap: 14px;
+      padding: 0 0 12px;
+      border-bottom: 1px solid rgba(74, 64, 56, 0.72);
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      align-items: center;
+    }
+    .atlas-axis-label {
+      display: block;
+      padding-right: 8px;
+    }
+    .atlas-row {
+      display: grid;
+      grid-template-columns: minmax(180px, 1.1fr) 160px minmax(280px, 1.4fr) auto;
+      gap: 14px;
+      align-items: center;
+      padding: 16px 18px;
+      border: 1px solid rgba(74, 64, 56, 0.58);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .atlas-row:first-child {
+      border-top: 1px solid rgba(74, 64, 56, 0.58);
+      padding-top: 16px;
+    }
+    .atlas-copy {
+      display: grid;
+      gap: 5px;
+    }
+    .atlas-copy strong {
+      font-size: 0.98rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .atlas-copy span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .atlas-timescale {
+      display: flex;
+      align-items: flex-start;
+    }
+    .atlas-purpose {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+    .atlas-row .figure-meta {
+      justify-content: flex-start;
+    }
+    .figure-row {
+      display: grid;
+      grid-template-columns: minmax(200px, 1.3fr) minmax(180px, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      padding: 16px 0;
+      border-top: 1px solid rgba(74, 64, 56, 0.6);
+      transition: background 180ms ease, border-color 180ms ease;
+    }
+    .figure-row:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+    .figure-row:hover,
+    .figure-row:focus-visible {
+      background: rgba(255, 255, 255, 0.015);
+      outline: none;
+    }
+    .figure-copy {
+      display: grid;
+      gap: 5px;
+    }
+    .figure-copy strong {
+      font-size: 0.98rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .figure-copy span,
+    .figure-meta span,
+    .metric-tag {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+    .figure-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    .figure-meta-tight {
+      display: grid;
+      justify-items: end;
+      gap: 4px;
+      min-width: 108px;
+    }
+    .stacked-track,
+    .meter-track {
+      height: 12px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .stacked-track {
+      display: flex;
+    }
+    .seg,
+    .meter-fill {
+      display: block;
+      height: 100%;
+    }
+    .seg-ok { background: linear-gradient(90deg, #82c3aa 0%, #9ecab3 100%); }
+    .seg-warn { background: linear-gradient(90deg, #b98658 0%, #d0a177 100%); }
+    .seg-muted { background: linear-gradient(90deg, #4f4a45 0%, #67615a 100%); }
+    .meter-fill {
+      background: linear-gradient(90deg, rgba(195,154,121,0.75) 0%, rgba(234,219,206,0.95) 100%);
+      border-radius: 999px;
+    }
+    .matrix-panel {
+      display: grid;
+      gap: 8px;
+    }
+    .overview-panel {
+      display: grid;
+      gap: 10px;
+    }
+    .overview-row {
+      display: grid;
+      grid-template-columns: minmax(180px, 1.1fr) minmax(260px, 1.35fr) minmax(180px, 0.9fr);
+      gap: 14px;
+      align-items: center;
+      padding: 14px 0;
+      border-top: 1px solid rgba(74, 64, 56, 0.48);
+      transition: background 180ms ease;
+    }
+    .overview-row:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+    .overview-row:hover,
+    .overview-row:focus-visible {
+      background: rgba(255, 255, 255, 0.015);
+      outline: none;
+    }
+    .overview-copy {
+      display: grid;
+      gap: 5px;
+    }
+    .overview-copy strong {
+      font-size: 0.98rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .overview-copy span,
+    .overview-note {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+    .overview-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .evidence-row,
+    .index-row,
+    .build-row,
+    .anchor-row {
+      display: grid;
+      grid-template-columns: minmax(220px, 1.2fr) minmax(200px, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      padding: 15px 0;
+      border-top: 1px solid rgba(74, 64, 56, 0.48);
+      transition: background 180ms ease;
+    }
+    .evidence-row:first-child,
+    .index-row:first-child,
+    .build-row:first-child,
+    .anchor-row:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+    .evidence-row:hover,
+    .evidence-row:focus-visible,
+    .index-row:hover,
+    .index-row:focus-visible,
+    .build-row:hover,
+    .build-row:focus-visible,
+    .anchor-row:hover,
+    .anchor-row:focus-visible {
+      background: rgba(255, 255, 255, 0.015);
+      outline: none;
+    }
+    .evidence-copy,
+    .evidence-signal,
+    .index-copy,
+    .build-copy,
+    .anchor-copy {
+      display: grid;
+      gap: 5px;
+    }
+    .evidence-copy strong,
+    .evidence-signal strong,
+    .index-copy strong,
+    .build-copy strong,
+    .anchor-copy strong {
+      font-size: 0.98rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .evidence-copy span,
+    .index-copy span,
+    .build-copy span,
+    .anchor-copy span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+    .index-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      color: var(--accent-deep);
+      white-space: nowrap;
+    }
+    .matrix-header,
+    .matrix-row {
+      display: grid;
+      grid-template-columns: minmax(220px, 1.2fr) repeat(3, minmax(150px, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+    .matrix-header {
+      color: var(--muted);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(74, 64, 56, 0.65);
+    }
+    .matrix-row {
+      padding: 12px 0;
+      border-top: 1px solid rgba(74, 64, 56, 0.45);
+    }
+    .matrix-row:first-of-type {
+      border-top: 0;
+    }
+    .matrix-layer {
+      display: grid;
+      gap: 4px;
+    }
+    .matrix-layer strong {
+      font-size: 0.98rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .matrix-layer span {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .matrix-cell {
+      display: grid;
+      align-content: center;
+      min-height: 70px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .matrix-cell strong {
+      font-weight: 500;
+    }
+    .matrix-high,
+    .matrix-strong,
+    .matrix-operational {
+      background: rgba(24, 48, 44, 0.86);
+      border-color: #28473e;
+      color: #b9ddcd;
+    }
+    .matrix-moderate,
+    .matrix-limited,
+    .matrix-separate,
+    .matrix-challenge {
+      background: rgba(48, 35, 25, 0.86);
+      border-color: #544033;
+      color: #dfbc98;
+    }
+    .matrix-low,
+    .matrix-weak,
+    .matrix-emerging,
+    .matrix-support,
+    .matrix-research {
+      background: rgba(33, 30, 27, 0.92);
+      border-color: #3b3631;
+      color: #c4b8ac;
+    }
+    .footer {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 22px 34px;
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 14px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(74, 64, 56, 0.72);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .page-shell,
+      .intro,
+      .button,
+      .ghost-button,
+      .intro-butterfly .butterfly-layer { transition: none; animation: none; }
+    }
+    @media (max-width: 1040px) {
+      .hero,
+      .section-header { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .wrap { padding-inline: 16px; }
+      .topbar { padding: 16px; align-items: flex-start; }
+      .nav-links { gap: 12px; }
+      .intro-copy { padding: 20px; }
+      .layer-head { flex-direction: column; }
+      .hero-logo { width: 76px; }
+      .page-logo { width: 52px; }
+      .nav-logo { width: 20px; }
+      .intro-title { font-size: clamp(2.1rem, 10vw, 3.3rem); line-height: 1.12; }
+      .figure-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .atlas-axis,
+      .atlas-timescale,
+      .atlas-row,
+      .overview-row,
+      .evidence-row,
+      .index-row,
+      .build-row,
+      .anchor-row,
+      .matrix-header,
+      .matrix-row {
+        grid-template-columns: 1fr;
+      }
+      .figure-meta,
+      .figure-meta-tight {
+        justify-content: flex-start;
+        justify-items: start;
+      }
+    }
+    </style>
+  <link rel="stylesheet" href="../shared/surface_enhancer.css">
+  <script src="../shared/surface_enhancer.js" defer></script>
+</head>
+<body class="surface-live page-evidence">
+
+  <div class="page-shell">
+    <nav class="topbar">
+      <a class="mark" href="index.html"><span>Butterfly Effect</span></a>
+      <div class="nav-links"><a class="" href="index.html">Overview</a><a class="" href="system.html">System</a><a class="" href="built.html">Built</a><a class="" href="validation.html">Validation</a><a class="active" href="evidence.html" aria-current="page">Evidence</a><a class="" href="participant.html">Participant</a><a class="" href="views.html">Views</a></div>
+    </nav>
+
+    <main class="wrap">
+      <section class="page-intro">
+        <p class="eyebrow">Evidence</p>
+        <h1>Evidence has to stay attached to the live system underneath it.</h1>
+        <p>This page keeps the public story tied to actual cohorts, governance, support structures, and evidence-linked reporting.</p>
+      </section>
+
+      <div class="filter-shell" data-filter-group>
+        <section class="section">
+          <div class="section-header">
+            <div>
+              <p class="section-eyebrow">Filter</p>
+              <h2>Read the evidence base by lane.</h2>
+            </div>
+            <p class="filter-note">This view helps a public reader isolate the strongest stress evidence, the weaker non-stress anchors, or the explicitly portable pieces without having to parse every row at once.</p>
+          </div>
+          <div class="tab-controls" role="toolbar" aria-label="Evidence filters">
+            <button class="tab-button is-active" type="button" aria-pressed="true" data-filter-value="all">All layers</button>
+            <button class="tab-button" type="button" aria-pressed="false" data-filter-value="stress">Stress</button>
+            <button class="tab-button" type="button" aria-pressed="false" data-filter-value="nonstress">Non-stress</button>
+            <button class="tab-button" type="button" aria-pressed="false" data-filter-value="portable">Portable</button>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <div>
+              <p class="section-eyebrow">Anchor map</p>
+              <h2>Each visible layer rests on a different evidence base.</h2>
+            </div>
+            <p>The point is not to pretend that all layers are equally mature. The point is to show what anchors each one: open cohorts, support cohorts, transport probes, governance, and evidence linkage.</p>
+          </div>
+          <article class="figure-panel overview-panel"><article class="anchor-row" tabindex="0" data-filter-tags="stress">
+              <div class="anchor-copy">
+                <strong>Night Layer</strong>
+                <span>Open cohorts, route governance, held-out evaluation</span>
+              </div>
+              <div class="overview-chips">
+                <span class="chip chip-ok">open cohorts</span><span class="chip chip-ok">held-out</span><span class="chip chip-ok">route governance</span>
+              </div>
+            </article><article class="anchor-row" tabindex="0" data-filter-tags="stress portable">
+              <div class="anchor-copy">
+                <strong>Event Layer</strong>
+                <span>Portable LOCO, challenge cohorts, event-specific governance</span>
+              </div>
+              <div class="overview-chips">
+                <span class="chip chip-ok">portable LOCO</span><span class="chip chip-ok">challenge cohorts</span><span class="chip chip-muted">event governance</span>
+              </div>
+            </article><article class="anchor-row" tabindex="0" data-filter-tags="stress">
+              <div class="anchor-copy">
+                <strong>Daily Challenge Layer</strong>
+                <span>Daily self-report cohorts, temporal challenge probes</span>
+              </div>
+              <div class="overview-chips">
+                <span class="chip chip-warn">daily self-report</span><span class="chip chip-warn">temporal probes</span><span class="chip chip-muted">challenge layer</span>
+              </div>
+            </article><article class="anchor-row" tabindex="0" data-filter-tags="nonstress">
+              <div class="anchor-copy">
+                <strong>Non-Stress Daily Layer</strong>
+                <span>Support cohorts, same-instrument anchors, daily probes</span>
+              </div>
+              <div class="overview-chips">
+                <span class="chip chip-muted">support cohorts</span><span class="chip chip-warn">same-instrument</span><span class="chip chip-muted">daily support</span>
+              </div>
+            </article><article class="anchor-row" tabindex="0" data-filter-tags="nonstress portable">
+              <div class="anchor-copy">
+                <strong>Non-Stress Portable Families</strong>
+                <span>Family transport probes, support cohorts, outcome mapping</span>
+              </div>
+              <div class="overview-chips">
+                <span class="chip chip-warn">outcome mapping</span><span class="chip chip-muted">support cards</span><span class="chip chip-muted">transport probes</span>
+              </div>
+            </article></article>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <div>
+              <p class="section-eyebrow">Live attachment</p>
+              <h2>The evidence base should stay attached to a visible signal.</h2>
+            </div>
+            <p>Each row ties evidence posture back to a representative visible signal and its anchor tokens, so the page does not drift into abstract background material.</p>
+          </div>
+          <article class="figure-panel overview-panel"><article class="evidence-row" tabindex="0" data-filter-tags="stress">
+              <div class="evidence-copy">
+                <strong>Night Layer</strong>
+                <span>Open cohorts, route governance, held-out evaluation</span>
+              </div>
+              <div class="evidence-signal">
+                <span class="mini">Representative visible signal</span>
+                <strong>Novartis D0 fatigue contextual interpretation</strong>
+                <div class="overview-chips">
+                  <span class="chip chip-ok">open cohorts</span><span class="chip chip-ok">held-out</span><span class="chip chip-ok">route governance</span>
+                </div>
+              </div>
+              <div class="figure-meta figure-meta-tight">
+                <span class="metric-tag">Held-out R²</span>
+                <strong>0.4350</strong>
+              </div>
+            </article><article class="evidence-row" tabindex="0" data-filter-tags="stress portable">
+              <div class="evidence-copy">
+                <strong>Event Layer</strong>
+                <span>Portable LOCO, challenge cohorts, event-specific governance</span>
+              </div>
+              <div class="evidence-signal">
+                <span class="mini">Representative visible signal</span>
+                <strong>Portable family stress event</strong>
+                <div class="overview-chips">
+                  <span class="chip chip-ok">portable LOCO</span><span class="chip chip-ok">challenge cohorts</span><span class="chip chip-muted">event governance</span>
+                </div>
+              </div>
+              <div class="figure-meta figure-meta-tight">
+                <span class="metric-tag">R²</span>
+                <strong>0.3164</strong>
+              </div>
+            </article><article class="evidence-row" tabindex="0" data-filter-tags="stress">
+              <div class="evidence-copy">
+                <strong>Daily Challenge Layer</strong>
+                <span>Daily self-report cohorts, temporal challenge probes</span>
+              </div>
+              <div class="evidence-signal">
+                <span class="mini">Representative visible signal</span>
+                <strong>Boston anxiety D0 temporal</strong>
+                <div class="overview-chips">
+                  <span class="chip chip-warn">daily self-report</span><span class="chip chip-warn">temporal probes</span><span class="chip chip-muted">challenge layer</span>
+                </div>
+              </div>
+              <div class="figure-meta figure-meta-tight">
+                <span class="metric-tag">R²</span>
+                <strong>0.1685</strong>
+              </div>
+            </article><article class="evidence-row" tabindex="0" data-filter-tags="nonstress">
+              <div class="evidence-copy">
+                <strong>Non-Stress Daily Layer</strong>
+                <span>Support cohorts, same-instrument anchors, daily probes</span>
+              </div>
+              <div class="evidence-signal">
+                <span class="mini">Representative visible signal</span>
+                <strong>Novartis depression D0 temporal</strong>
+                <div class="overview-chips">
+                  <span class="chip chip-muted">support cohorts</span><span class="chip chip-warn">same-instrument</span><span class="chip chip-muted">daily support</span>
+                </div>
+              </div>
+              <div class="figure-meta figure-meta-tight">
+                <span class="metric-tag">R²</span>
+                <strong>0.3454</strong>
+              </div>
+            </article><article class="evidence-row" tabindex="0" data-filter-tags="nonstress portable">
+              <div class="evidence-copy">
+                <strong>Non-Stress Portable Families</strong>
+                <span>Family transport probes, support cohorts, outcome mapping</span>
+              </div>
+              <div class="evidence-signal">
+                <span class="mini">Representative visible signal</span>
+                <strong>Anxiety</strong>
+                <div class="overview-chips">
+                  <span class="chip chip-warn">outcome mapping</span><span class="chip chip-muted">support cards</span><span class="chip chip-muted">transport probes</span>
+                </div>
+              </div>
+              <div class="figure-meta figure-meta-tight">
+                <span class="metric-tag">Portable mean R²</span>
+                <strong>0.0202</strong>
+              </div>
+            </article></article>
+        </section>
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="section-eyebrow">Foundation</p>
+            <h2>The public surface is downstream of a deeper validation stack.</h2>
+          </div>
+          <p>These blocks keep the site aligned with the real system instead of letting it drift into a generic health narrative.</p>
+        </div>
+        <div class="evidence-grid"><article class="evidence-card">
+          <h3>Open cohorts</h3>
+          <p>The surface rests on open nightly, daily, and event cohorts, plus support cohorts used to keep anxiety, depression, and physical pain anchors scientifically legible.</p>
+          <div class="overview-chips">
+            <span class="chip chip-ok">night</span><span class="chip chip-warn">daily</span><span class="chip chip-ok">event</span>
+          </div>
+        </article><article class="evidence-card">
+          <h3>Governance</h3>
+          <p>Every layer preserves its own accepted, experimental, or support status. Nothing rises to the top level just because it looks good in one cohort or one benchmark.</p>
+          <div class="overview-chips">
+            <span class="chip chip-ok">tiers</span><span class="chip chip-ok">held-out</span><span class="chip chip-muted">gates</span>
+          </div>
+        </article><article class="evidence-card">
+          <h3>Evidence linkage</h3>
+          <p>The public surface sits on top of evidence-linked reporting, route cards, support cards, and transport probes rather than free-form interpretation.</p>
+          <div class="overview-chips">
+            <span class="chip chip-muted">reports</span><span class="chip chip-muted">cards</span><span class="chip chip-warn">transport probes</span>
+          </div>
+        </article></div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="section-eyebrow">Recent Research Direction</p>
+            <h2>The non-stress picture changed in a specific way.</h2>
+          </div>
+          <p>The mixed depression family is still blocked by instrument mismatch, but the strict `PHQ-9 only` depression subtrack is now materially cleaner. Anxiety remains the strongest non-stress portable family overall, and somatic burden remains support-heavy rather than transport-ready.</p>
+        </div>
+        <div class="page-grid">
+          <article class="validation-card" data-filter-tags="nonstress portable">
+            <h3>Depression</h3>
+            <ul class="view-list">
+              <li><strong>Mixed family</strong><span>Still blocked by questionnaire mismatch across cohorts.</span></li>
+              <li><strong>PHQ-9 only clean subtrack</strong><span>Portable mean R² `0.0168`, replay `0.0469`, now the correct research direction for depression.</span></li>
+              <li><strong>Status</strong><span>Research-only, not promoted into route governance.</span></li>
+            </ul>
+          </article>
+          <article class="validation-card" data-filter-tags="nonstress">
+            <h3>Somatic burden</h3>
+            <ul class="view-list">
+              <li><strong>Direct anchor</strong><span>`EPISONO pain 2016` keeps physical pain scientifically anchored.</span></li>
+              <li><strong>Family posture</strong><span>Still `proxy_only` until transport is shown explicitly.</span></li>
+              <li><strong>Interpretation</strong><span>Useful as somatic burden support, not as clean portable pain.</span></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+      </div>
+    </main>
+    
+    <footer class="footer">
+      <div class="footer-inner">
+        <span>Generated from /Users/damasomengodperez/neural-echo-planning/reports/public_research_surface/summary.json on 2026-03-27.</span>
+        <span>Butterfly Effect · research surface · not diagnostic · 2026</span>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>

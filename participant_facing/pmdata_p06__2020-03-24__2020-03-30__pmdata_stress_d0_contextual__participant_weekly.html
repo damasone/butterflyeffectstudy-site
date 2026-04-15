@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Butterfly Effect · Weekly Participant Report</title>
+  <link rel="stylesheet" href="../shared/surface_enhancer.css">
+  <script src="../shared/surface_enhancer.js" defer></script>
+  <style>
+    :root {
+      --bg: #161311;
+      --bg-deep: #1d1916;
+      --panel: rgba(28, 24, 21, 0.9);
+      --ink: #f3ede7;
+      --muted: #b2a89d;
+      --line: #342c26;
+      --accent: #c39a79;
+      --accent-deep: #eadbce;
+      --ok: #9ecab3;
+      --ok-bg: #1c2823;
+      --neutral-bg: #24201c;
+      --sans: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+      font-family: var(--sans);
+    }
+    a { color: var(--accent-deep); text-decoration: none; border-bottom: 1px solid rgba(234,219,206,0.22); }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 24px;
+      border-bottom: 1px solid rgba(74,64,56,0.72);
+      backdrop-filter: blur(16px);
+      background: rgba(22,19,17,0.82);
+    }
+    .mark { color: var(--ink); text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.84rem; border-bottom: 0; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.88rem; }
+    .nav-links a { color: var(--muted); border-bottom: 0; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 52px 28px 88px; }
+    .hero { display: grid; gap: 18px; padding-bottom: 34px; border-bottom: 1px solid rgba(74,64,56,0.72); }
+    .eyebrow { margin: 0; color: var(--accent); text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.74rem; }
+    h1 { margin: 0; font-size: clamp(2.3rem, 5.2vw, 4.1rem); line-height: 1.03; font-weight: 500; max-width: 12ch; }
+    .lede { margin: 0; max-width: 48rem; color: var(--muted); line-height: 1.76; font-size: 1rem; }
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .summary-stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+    }
+    .summary-stat strong { display: block; margin-bottom: 6px; font-size: 1.35rem; font-weight: 500; }
+    .summary-stat span { color: var(--muted); font-size: 0.9rem; }
+    .headline {
+      margin: 0;
+      padding: 18px 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(74,64,56,0.72);
+      background: linear-gradient(180deg, rgba(195,154,121,0.12), rgba(28,24,21,0.88));
+      color: var(--accent-deep);
+      line-height: 1.7;
+      font-size: 1.02rem;
+    }
+    .section {
+      padding: 30px 0 34px;
+      border-bottom: 1px solid rgba(74,64,56,0.72);
+    }
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 18px;
+    }
+    .section-head h2 { margin: 0; font-size: clamp(1.6rem, 3.4vw, 2.2rem); line-height: 1.06; font-weight: 500; }
+    .section-head p { margin: 0; color: var(--muted); line-height: 1.72; }
+    .prose p { margin: 0 0 14px; color: var(--muted); line-height: 1.78; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .mini-card, .panel {
+      padding: 18px;
+      border-radius: 18px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+    }
+    .mini-card strong, .panel strong { display: block; margin-bottom: 6px; font-weight: 500; }
+    .mini-card span, .panel span { display: block; color: var(--muted); line-height: 1.62; }
+    .mini-card p, .panel p { margin: 8px 0 0; color: var(--muted); line-height: 1.64; }
+    .list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+    .list li { padding: 14px 0 0; border-top: 1px solid rgba(74,64,56,0.58); }
+    .list strong { display: block; margin-bottom: 4px; font-weight: 500; }
+    .list span { color: var(--muted); line-height: 1.62; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      border: 1px solid transparent;
+    }
+    .chip-ok { background: var(--ok-bg); color: var(--ok); border-color: #31473c; }
+    .chip-neutral { background: var(--neutral-bg); color: var(--muted); border-color: #38322d; }
+    .footer { padding-top: 22px; color: var(--muted); font-size: 0.92rem; line-height: 1.7; }
+    @media (max-width: 780px) {
+      .wrap { padding-inline: 16px; }
+      .section-head { grid-template-columns: 1fr; }
+      .topbar { padding: 16px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar">
+    <a class="mark" href="../public_research_surface/index.html">Butterfly Effect</a>
+    <div class="nav-links">
+      <a href="../participant_facing/index.html">Participant Layer</a>
+      <a href="../public_research_surface/views.html">Views</a>
+      <a href="../public_research_surface/validation.html">Validation</a>
+    </div>
+  </nav>
+  <main class="wrap">
+    <header class="hero">
+      <p class="eyebrow">Weekly Longitudinal Report</p>
+      <h1>Weekly longitudinal research return.</h1>
+      <p class="lede">This participant-facing surface stays inside the same route logic, baseline framing, confidence rules, and caveat structure as the research engine underneath it. It is a weekly longitudinal readout, not a consumer sleep score and not a diagnostic claim.</p>
+      <div class="summary-strip">
+        <article class="summary-stat"><strong>pmdata_p06</strong><span>Participant</span></article>
+        <article class="summary-stat"><strong>2020-03-24 to 2020-03-30</strong><span>Reporting window</span></article>
+        <article class="summary-stat"><strong>7</strong><span>Usable nights</span></article>
+        <article class="summary-stat"><strong>moderate confidence</strong><span>Weekly confidence</span></article>
+      </div>
+      <p class="headline">Within this weekly window, the clearest repeated departure from the participant baseline appeared in sleep continuity under the same-day stress burden frame, with the overall week reading as clearly shifted.</p>
+    </header>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Week At A Glance</p>
+          <h2>The current window supports a weekly interpretation, not a single-night claim.</h2>
+        </div>
+        <div class="chips">
+          <span class="chip chip-ok">moderate confidence</span>
+          <span class="chip chip-neutral">clearly shifted</span>
+        </div>
+      </div>
+      <div class="prose"><p>This weekly readout is based on 7 usable nights and 7 matched day reports. The current confidence label is moderate confidence.</p><p>The strongest repeated night pattern was concentrated in sleep continuity, which surfaced across 7 nights in the current window.</p><p>This week did not yet contain a repeated night-to-day pattern strong enough to support a firmer burden statement.</p></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Dominant Domains</p>
+          <h2>The clearest night domains inside the current window.</h2>
+        </div>
+        <p>These are the recurring areas of the night signal that surfaced most consistently in the weekly window.</p>
+      </div>
+      <div class="grid"><article class="mini-card">
+          <strong>Sleep continuity</strong>
+          <span>7 nights highlighted this domain in the weekly window.</span>
+          <p>Mean domain prominence 0.04.</p>
+        </article><article class="mini-card">
+          <strong>Autonomic activation</strong>
+          <span>4 nights highlighted this domain in the weekly window.</span>
+          <p>Mean domain prominence 0.02.</p>
+        </article><article class="mini-card">
+          <strong>Sleep architecture</strong>
+          <span>2 nights highlighted this domain in the weekly window.</span>
+          <p>Mean domain prominence 0.02.</p>
+        </article><article class="mini-card">
+          <strong>Daily carry-over behavior</strong>
+          <span>5 nights highlighted this domain in the weekly window.</span>
+          <p>Mean domain prominence 0.03.</p>
+        </article></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Shift Vs Baseline</p>
+          <h2>What moved away from the recent participant reference.</h2>
+        </div>
+        <p>These shifts stay participant-relative. The point is not whether a value looks globally high or low, but whether it moved away from your own recent pattern.</p>
+      </div>
+      <ul class="list"><li><strong>7-night variability of Alcohol units</strong><span>lower than usual · mean absolute shift 9.31</span></li><li><strong>14-night variability of Alcohol units</strong><span>lower than usual · mean absolute shift 8.14</span></li><li><strong>Awakening count z-score vs 7-night reference</strong><span>higher than usual · mean absolute shift 5.65</span></li><li><strong>Sleep score overall z-score vs 7-night reference</strong><span>lower than usual · mean absolute shift 4.19</span></li><li><strong>14-night variability of Awakening count</strong><span>lower than usual · mean absolute shift 3.02</span></li></ul>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Observed Links</p>
+          <h2>What this week suggests about night patterns and next-day burden.</h2>
+        </div>
+        <p>These are observational links inside the current weekly window. They are not causal statements.</p>
+      </div>
+      <ul class="list"><li><strong>No clear repeated link</strong><span>The week stayed readable, but not strong enough for a firmer night-to-day pattern statement.</span></li></ul>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Review Nights</p>
+          <h2>The nights worth reviewing more closely.</h2>
+        </div>
+        <p>This keeps the report concrete without pretending that every night is equally informative.</p>
+      </div>
+      <ul class="list"><li><strong>Most shifted night</strong><span>2020-03-28 · burden 2.50 · largest baseline-relative deviation across the main drivers in this window</span></li><li><strong>Most stable night</strong><span>2020-03-26 · burden 2.50 · closest to the recent participant reference across the main drivers</span></li><li><strong>Highest burden follow-up</strong><span>2020-03-24 · burden 2.50 · night linked to the highest observed burden inside the weekly window</span></li><li><strong>Night with the weakest signal</strong><span>2020-03-24 · burden 2.50 · night most constrained by missingness or signal quality</span></li></ul>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Limits</p>
+          <h2>The weekly reading only remains useful if its limits stay visible.</h2>
+        </div>
+        <p>The participant-facing layer keeps the same caution structure as the core engine.</p>
+      </div>
+      <div class="grid">
+        <article class="panel">
+          <strong>Why this confidence level</strong>
+          <ul class="list"><li>No major weekly cautions.</li></ul>
+        </article>
+        <article class="panel">
+          <strong>What this does not mean</strong>
+          <ul class="list"><li>This report is not a diagnosis and should not be read as a disease-risk statement.</li><li>This weekly view summarizes repeated patterns, not a single-night truth.</li><li>This first participant-facing report is currently limited to the same-day stress burden frame over route PMData D0 contextual interpretation.</li></ul>
+        </article>
+        <article class="panel">
+          <strong>What to keep tracking</strong>
+          <ul class="list"><li>Keep tracking repeated daily burden on the same scale so that night-to-day links stay comparable.</li><li>Continue tracking awakenings, wake after sleep onset, or any sleep-fragmentation proxy available in the cohort.</li><li>Nightly cardiovascular signal remains informative here, so HR / HRV consistency should keep being captured.</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Route: PMData D0 contextual interpretation · Generated from /Users/damasomengodperez/neural-echo-planning/data/temporal_pmdata_stress.csv · Weekly rows 7.
+    </footer>
+  </main>
+</body>
+</html>

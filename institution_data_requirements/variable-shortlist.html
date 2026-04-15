@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Butterfly Effect — Institutional Variable Shortlist</title>
+  <meta name="description" content="Field-level institutional variable shortlist for Butterfly Effect pilots.">
+  <link rel="stylesheet" href="../shared/surface_enhancer.css">
+  <script src="../shared/surface_enhancer.js" defer></script>
+  <style>
+    :root {
+      --bg: #151210;
+      --bg-deep: #1b1714;
+      --panel: rgba(27, 23, 20, 0.88);
+      --panel-strong: rgba(31, 26, 23, 0.96);
+      --ink: #f4ede7;
+      --muted: #b8ada1;
+      --line: #342c26;
+      --accent: #c39a79;
+      --accent-soft: #eadbce;
+      --ok: #9dcab1;
+      --warn: #d1a178;
+      --sans: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+      --radius: 20px;
+      --shadow: 0 18px 42px rgba(0,0,0,0.22);
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:var(--sans); color:var(--ink); background:radial-gradient(circle at top left, rgba(195,154,121,0.07), transparent 28%), linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%); }
+    a { color:var(--accent-soft); text-decoration:none; border-bottom:1px solid rgba(234,219,206,0.22); }
+    a:hover { border-bottom-color: rgba(234,219,206,0.48); }
+    .wrap { width:min(1160px, calc(100vw - 40px)); margin:0 auto; }
+    .topbar { position:sticky; top:0; z-index:10; backdrop-filter:blur(14px); background:rgba(21,18,16,0.82); border-bottom:1px solid rgba(74,64,56,0.72); }
+    .topbar-inner { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:18px 0; }
+    .brand { font-size:0.92rem; text-transform:uppercase; letter-spacing:0.18em; }
+    .nav { display:flex; flex-wrap:wrap; gap:18px; }
+    .nav a { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--muted); border:0; }
+    .hero { padding:72px 0 40px; }
+    .eyebrow { margin:0 0 12px; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.19em; color:var(--accent); }
+    h1 { margin:0; font-size:clamp(2.5rem,5vw,4.3rem); line-height:0.98; letter-spacing:-0.045em; font-weight:550; max-width:14ch; }
+    .subtitle { margin:18px 0 0; max-width:64rem; color:var(--muted); font-size:1.06rem; line-height:1.8; }
+    .hero-grid, .grid-3, .grid-2, .metric-strip { display:grid; gap:18px; }
+    .hero-grid { grid-template-columns:1.35fr 0.95fr; margin-top:32px; }
+    .grid-3 { grid-template-columns:repeat(3, minmax(0,1fr)); }
+    .grid-2 { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .metric-strip { grid-template-columns:repeat(3, minmax(0,1fr)); margin-top:16px; }
+    .panel, .card { background:var(--panel); border:1px solid rgba(74,64,56,0.78); border-radius:var(--radius); box-shadow:var(--shadow); }
+    .hero-card, .card { padding:24px; }
+    h2 { margin:0; font-size:1.3rem; letter-spacing:-0.02em; font-weight:550; }
+    h3 { margin:0 0 10px; font-size:1rem; font-weight:550; }
+    p, li { color:var(--muted); line-height:1.72; font-size:0.96rem; }
+    .badge-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+    .badge { display:inline-flex; align-items:center; min-height:34px; padding:0 12px; border-radius:999px; border:1px solid rgba(74,64,56,0.78); background:rgba(255,255,255,0.02); font-size:0.8rem; color:var(--ink); }
+    .badge.ok { color:var(--ok); }
+    .badge.warn { color:var(--warn); }
+    .item { padding:14px; border-radius:14px; background:rgba(255,255,255,0.02); border:1px solid rgba(74,64,56,0.52); }
+    .k { font-size:0.74rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--muted); }
+    .item strong { display:block; font-size:1.08rem; letter-spacing:-0.02em; margin-top:6px; color:var(--ink); }
+    .section { padding:16px 0 10px; }
+    .section-head { display:flex; align-items:end; justify-content:space-between; gap:16px; margin-bottom:18px; }
+    .section-note { max-width:44rem; }
+    ul.clean { margin:0; padding-left:18px; }
+    .quick-links { margin-top:18px; padding:18px 20px; background:rgba(255,255,255,0.02); border:1px solid rgba(74,64,56,0.58); border-radius:18px; }
+    .quick-link-list { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+    .quick-link-list a { display:inline-flex; align-items:center; min-height:36px; padding:0 12px; border-radius:999px; border:1px solid rgba(74,64,56,0.74); background:rgba(255,255,255,0.02); }
+    .footer { padding:34px 0 56px; color:var(--muted); font-size:0.9rem; }
+    @media (max-width:1040px) {
+      .hero-grid, .grid-3, .grid-2, .metric-strip { grid-template-columns:1fr; }
+      .section-head, .topbar-inner { align-items:flex-start; flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">Butterfly Effect</div>
+      <nav class="nav">
+        <a href="#tables">Tables</a>
+        <a href="#rules">Rules</a>
+        <a href="#templates">Templates</a>
+        <a href="#downloads">Downloads</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Institutional variable shortlist</p>
+      <h1>The field-level handoff to send after a positive first reply.</h1>
+      <p class="subtitle">This is the operational version of the data requirements pack: what to request first, what can be substituted safely, and which tables matter most for the current Butterfly Effect bottlenecks.</p>
+      <div class="hero-grid">
+        <article class="panel hero-card">
+          <h2>Use order</h2>
+          <p>The project does not need every modality on day one. It needs a clean participant-night core, repeated burden outcomes, and just enough context to avoid false interpretation.</p>
+          <div class="badge-row">
+            <span class="badge ok">Tier 1: route-ready</span>
+            <span class="badge ok">Tier 2: transport-ready</span>
+            <span class="badge warn">Tier 3: physiology-rich</span>
+          </div>
+          <div class="metric-strip">
+            <div class="item"><div class="k">Highest-value table</div><strong>`night_sleep`</strong></div>
+            <div class="item"><div class="k">Highest-value outcome</div><strong>`stress_0_10`</strong></div>
+            <div class="item"><div class="k">Main unlock</div><strong>Night transport</strong></div>
+          </div>
+        </article>
+        <article class="panel hero-card">
+          <h2>Send first</h2>
+          <ul class="clean">
+            <li>`participant.csv`</li>
+            <li>`night_sleep.csv`</li>
+            <li>one repeated outcome table</li>
+            <li>`day_confounders.csv` if available</li>
+            <li>raw sidecars after join validation</li>
+          </ul>
+        </article>
+      </div>
+      <div class="quick-links" id="downloads">
+        <h3>Downloads</h3>
+        <div class="quick-link-list">
+          <a href="institution-variable-shortlist-2026-03-26.md">Markdown shortlist</a>
+          <a href="institution-variable-shortlist-2026-03-26.csv">CSV shortlist</a>
+          <a href="institution-variable-shortlist-2026-03-26.json">JSON shortlist</a>
+          <a href="index.html">Data requirements pack</a>
+          <a href="../institution_pilot_protocol/index.html">Pilot protocol</a>
+          <a href="../institution_governance/index.html">Data intake + governance</a>
+          <a href="../institution_one_pager/outreach-templates-2026-03-26.md">Outreach templates</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tables">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Tables</p>
+          <h2>The smallest defensible institutional handoff</h2>
+        </div>
+        <p class="section-note">These are the tables that matter most if the current goal is one serious pilot rather than a broad exploratory data grab.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card"><h3>`participant`</h3><ul class="clean"><li>stable pseudonymized ID</li><li>source lineage</li><li>age and sex</li><li>timezone if possible</li></ul></article>
+        <article class="card"><h3>`night_sleep`</h3><ul class="clean"><li>participant-night key</li><li>sleep duration</li><li>continuity</li><li>HR or HRV</li><li>movement</li></ul></article>
+        <article class="card"><h3>`day_emotion`</h3><ul class="clean"><li>local report date</li><li>stress preferred</li><li>GAD-7 or PHQ-9 if available</li><li>major stressor flag if available</li></ul></article>
+      </div>
+      <div class="grid-2" style="margin-top:18px;">
+        <article class="card"><h3>`day_symptoms`</h3><ul class="clean"><li>fatigue</li><li>pain</li><li>muscle tension</li><li>rest quality</li></ul></article>
+        <article class="card"><h3>`day_confounders`</h3><ul class="clean"><li>caffeine</li><li>alcohol</li><li>exercise</li><li>naps</li><li>illness or medication changes</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section" id="rules">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Rules</p>
+          <h2>What can be substituted safely in a first pilot</h2>
+        </div>
+        <p class="section-note">These substitutions are acceptable only when they preserve participant-night linkage and keep the interpretation problem honest.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card"><h3>Acceptable substitutions</h3><ul class="clean"><li>`sleep_midpoint_local` for missing onset time if offset or total sleep time exists</li><li>`heart_rate_mean_bpm` when raw IBI is not shareable</li><li>`fragmentation_index` when raw movement is not shareable</li><li>`gad7_total` and `phq9_total` over free-text questionnaire dumps</li></ul></article>
+        <article class="card"><h3>Do not compromise these</h3><ul class="clean"><li>stable pseudonymized IDs</li><li>participant-night rows in `night_sleep`</li><li>local date logic</li><li>explicit next-day linkage</li><li>documented units and device source</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section" id="templates">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Templates</p>
+          <h2>Header-only CSVs are ready to send</h2>
+        </div>
+        <p class="section-note">These are useful when an institution wants a direct example of expected table shape before any transfer starts. For the current `raw nightly stress` lane, the raw physiology templates and mapping JSONs are the important additions.</p>
+      </div>
+      <div class="quick-link-list">
+        <a href="templates/participant.csv">participant.csv</a>
+        <a href="templates/night_sleep.csv">night_sleep.csv</a>
+        <a href="templates/day_emotion.csv">day_emotion.csv</a>
+        <a href="templates/day_symptoms.csv">day_symptoms.csv</a>
+        <a href="templates/day_confounders.csv">day_confounders.csv</a>
+        <a href="templates/night_physio_epoch.csv">night_physio_epoch.csv</a>
+        <a href="templates/raw_hr_epoch.csv">raw_hr_epoch.csv</a>
+        <a href="templates/raw_ibi_epoch.csv">raw_ibi_epoch.csv</a>
+        <a href="templates/raw_physio_mapping_combined.json">Combined mapping JSON</a>
+        <a href="templates/raw_physio_mapping_split.json">Split mapping JSON</a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p><strong>Current recommendation:</strong> send this shortlist only after interest is confirmed, together with the one-pager and the target-specific outreach message.</p>
+      <p><a href="index.html">Data requirements pack</a> · <a href="../institution_one_pager/index.html">Institutional one-pager</a> · <a href="../institution_pilot_protocol/index.html">Pilot protocol</a> · <a href="../institution_governance/index.html">Data intake + governance</a> · <a href="../institution_targets/index.html">Target shortlist</a></p>
+    </footer>
+  </main>
+</body>
+</html>

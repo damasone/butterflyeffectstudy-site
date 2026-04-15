@@ -1,0 +1,90 @@
+{
+  "date": "2026-03-27",
+  "updated": "2026-03-28",
+  "purpose": "pre-transfer screening benchmark for the raw nightly stress lane",
+  "preferred_bar": {
+    "participant_night_rows": true,
+    "repeated_stress_or_burden": true,
+    "aligned_burden_rate_estimate": 0.3,
+    "participant_count": 40,
+    "median_nights_per_participant": 20,
+    "raw_night_fraction_estimate": 0.5,
+    "mean_raw_coverage_estimate_required": true,
+    "raw_signal_granularity": [
+      "beat_to_beat",
+      "epoch"
+    ],
+    "linkage_mode": [
+      "sleep_date_local",
+      "timestamp_overlap"
+    ]
+  },
+  "minimum_floor": {
+    "participant_night_rows": true,
+    "repeated_stress_or_burden": true,
+    "aligned_burden_rate_estimate": 0.15,
+    "participant_count": 20,
+    "median_nights_per_participant": 10,
+    "raw_night_fraction_estimate": 0.3,
+    "raw_signal_granularity": [
+      "beat_to_beat",
+      "epoch",
+      "nightly_summary"
+    ]
+  },
+  "hard_reject_conditions": [
+    "no participant-night structure",
+    "no repeated burden endpoint",
+    "event/session-only physiology",
+    "night-level linkage cannot be reconstructed",
+    "participant count below 20",
+    "median nightly depth below 10",
+    "aligned burden rate below 0.15"
+  ],
+  "template": "reports/institution_targets/templates/raw_nightly_candidate_pre_screen_template.json",
+  "script": "training/pre_screen_raw_nightly_candidate.py",
+  "required_reply_fields": [
+    "candidate_key",
+    "participant_night_rows",
+    "stress_or_burden_endpoint_name",
+    "best_aligned_outcome_rate_estimate",
+    "participant_count",
+    "median_nights_per_participant",
+    "raw_signal_granularity",
+    "raw_night_fraction_estimate",
+    "mean_raw_coverage_estimate",
+    "linkage_mode",
+    "psg_subset_available"
+  ],
+  "current_internal_benchmark": {
+    "mode": "dual_frontier",
+    "anchors": {
+      "outcome_density_anchor": {
+        "candidate": "ifh_affect_2024_rawnight_bundle",
+        "status": "ready_with_limits",
+        "best_join_rate": 0.6439012096774194
+      },
+      "raw_support_anchor": {
+        "candidate": "hrv_sleep_diary_2025_rawnight_bundle",
+        "status": "hold_fix_linkage_or_density",
+        "raw_night_fraction": 0.7908163265306123,
+        "mean_raw_coverage": 0.8312922077229882
+      }
+    },
+    "must_clear_floor": {
+      "aligned_burden_rate_estimate": 0.3,
+      "participant_count": 40,
+      "median_nights_per_participant": 20,
+      "raw_night_fraction_estimate": 0.5
+    },
+    "should_beat_ifh_on_raw_support": {
+      "raw_night_fraction_gt": 0.4347278225806452,
+      "mean_raw_coverage_gt": 0.5053565335335646
+    },
+    "should_move_toward_hrv_on_raw_support": {
+      "raw_night_fraction_target": 0.7908163265306123,
+      "mean_raw_coverage_target": 0.8312922077229882
+    },
+    "reference_report": "reports/raw-nightly-real-bundle-frontier-2026-03-28.md"
+  }
+}

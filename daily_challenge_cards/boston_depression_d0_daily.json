@@ -1,0 +1,19 @@
+{
+  "card_key": "boston_depression_d0_daily",
+  "label": "Boston depression D0 daily",
+  "kind": "cohort_daily_regression",
+  "tier": "accepted_challenge",
+  "role": "daily_selfreport_challenge",
+  "blocking_flags": [],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/model-suite-boston-covid-depression-d0-clean/summary.json",
+  "metrics": {
+    "mae": 1.4433047758903872,
+    "rmse": 1.8281851397785571,
+    "r2": 0.12371218850267929,
+    "rows": 20071,
+    "participants": 924,
+    "feature_count": 9,
+    "best_model": "hist_gbm"
+  },
+  "note": null
+}

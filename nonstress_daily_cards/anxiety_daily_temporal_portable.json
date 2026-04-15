@@ -1,0 +1,18 @@
+{
+  "card_key": "anxiety_daily_temporal_portable",
+  "label": "Anxiety daily temporal portable family",
+  "kind": "portable_temporal_family",
+  "tier": "experimental_research_challenge",
+  "role": "portable_temporal_research_only",
+  "blocking_flags": [
+    "not_in_registry"
+  ],
+  "summary_path": "/Users/damasomengodperez/neural-echo-planning/artifacts/portable-family-models-daily/anxiety_daily_temporal_clean_core/summary.json",
+  "metrics": {
+    "portable_mean_r2": 0.008043819069463054,
+    "rows": 21596,
+    "participants": 956,
+    "feature_count": 50
+  },
+  "note": "Experimental sequential portable family kept outside the main registry until temporal cross-cohort behavior is stable."
+}
