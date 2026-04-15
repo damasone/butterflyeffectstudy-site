@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Butterfly Effect — Institutional Collaboration One-Pager</title>
+  <meta name="description" content="Institutional one-pager for Butterfly Effect: research-grade longitudinal sleep interpretation, current validation status, requested data, and pilot collaboration model.">
+  <link rel="stylesheet" href="/shared/surface_enhancer.css">
+  <script src="/shared/surface_enhancer.js" defer></script>
+  <style>
+    :root {
+      --bg: #151210;
+      --bg-deep: #1b1714;
+      --panel: rgba(27, 23, 20, 0.88);
+      --panel-strong: rgba(31, 26, 23, 0.96);
+      --ink: #f4ede7;
+      --muted: #b8ada1;
+      --line: #342c26;
+      --line-strong: #4a4038;
+      --accent: #c39a79;
+      --accent-soft: #eadbce;
+      --ok: #9dcab1;
+      --ok-bg: #1d2a24;
+      --warn: #d1a178;
+      --warn-bg: #332419;
+      --sans: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+      --shadow: 0 18px 42px rgba(0,0,0,0.22);
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background: radial-gradient(circle at top left, rgba(195,154,121,0.07), transparent 28%), linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 84% 12%, rgba(126,165,174,0.05), transparent 18%);
+    }
+    a {
+      color: var(--accent-soft);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(234,219,206,0.2);
+    }
+    a:hover { border-bottom-color: rgba(234,219,206,0.52); }
+    .wrap {
+      width: min(1180px, calc(100vw - 40px));
+      margin: 0 auto;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(21,18,16,0.82);
+      border-bottom: 1px solid rgba(74,64,56,0.72);
+    }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 0;
+    }
+    .brand {
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--ink);
+    }
+    .nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .nav a {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      border: 0;
+    }
+    .nav a:hover { color: var(--accent-soft); }
+    .hero {
+      padding: 78px 0 42px;
+    }
+    .eyebrow {
+      margin: 0 0 12px;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.19em;
+      color: var(--accent);
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(2.65rem, 5vw, 4.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+      font-weight: 550;
+      max-width: 13ch;
+      text-wrap: balance;
+    }
+    .subtitle {
+      margin: 18px 0 0;
+      max-width: 62rem;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.8;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 28px;
+      margin-top: 34px;
+      align-items: stretch;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(74,64,56,0.78);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero-card {
+      padding: 26px 26px 24px;
+    }
+    .hero-card h2, .section h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+      font-weight: 550;
+    }
+    .hero-card p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.72;
+      font-size: 0.98rem;
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .stat {
+      padding: 14px 15px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(74,64,56,0.58);
+    }
+    .stat-label {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .stat-value {
+      font-size: 1.5rem;
+      letter-spacing: -0.03em;
+      font-weight: 560;
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(74,64,56,0.78);
+      color: var(--ink);
+      font-size: 0.8rem;
+      letter-spacing: 0.02em;
+      background: rgba(255,255,255,0.02);
+    }
+    .badge.ok {
+      background: var(--ok-bg);
+      border-color: rgba(157,202,177,0.28);
+      color: var(--ok);
+    }
+    .badge.warn {
+      background: var(--warn-bg);
+      border-color: rgba(209,161,120,0.26);
+      color: var(--warn);
+    }
+    .section {
+      padding: 18px 0 10px;
+    }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .section-note {
+      color: var(--muted);
+      font-size: 0.96rem;
+      line-height: 1.65;
+      max-width: 44rem;
+    }
+    .grid-3, .grid-2 {
+      display: grid;
+      gap: 18px;
+    }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .card {
+      padding: 22px;
+      background: var(--panel-strong);
+      border: 1px solid rgba(74,64,56,0.78);
+      border-radius: 18px;
+      min-height: 100%;
+    }
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      font-weight: 550;
+    }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+    .metric-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .metric-strip .item {
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(74,64,56,0.52);
+    }
+    .metric-strip strong {
+      display: block;
+      font-size: 1.08rem;
+      letter-spacing: -0.02em;
+      margin-top: 6px;
+    }
+    .quick-links {
+      margin-top: 18px;
+      padding: 18px 20px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(74,64,56,0.58);
+      border-radius: 18px;
+    }
+    .quick-links h3 {
+      margin: 0 0 8px;
+      font-size: 0.92rem;
+      letter-spacing: -0.01em;
+      font-weight: 550;
+    }
+    .quick-links p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.68;
+    }
+    .quick-link-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .quick-link-list a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(74,64,56,0.74);
+      background: rgba(255,255,255,0.02);
+      color: var(--accent-soft);
+      font-size: 0.82rem;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+    .quick-link-list a:hover {
+      border-color: rgba(234,219,206,0.48);
+    }
+    ul.clean {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .step {
+      padding: 16px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(74,64,56,0.62);
+      min-height: 148px;
+    }
+    .step-kicker {
+      color: var(--accent);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .step-title {
+      font-size: 0.95rem;
+      font-weight: 550;
+      margin-bottom: 8px;
+    }
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+    .footer {
+      padding: 34px 0 56px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    @media (max-width: 1040px) {
+      .hero-grid, .grid-3, .grid-2, .metric-strip, .pipeline { grid-template-columns: 1fr; }
+      .section-head, .topbar-inner { align-items: flex-start; flex-direction: column; }
+      .nav { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">Butterfly Effect</div>
+      <nav class="nav">
+        <a href="#state">State</a>
+        <a href="#why-now">Why Now</a>
+        <a href="#data">Data</a>
+        <a href="#pilot">Pilot</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Institutional collaboration one-pager</p>
+      <h1>Research-grade longitudinal sleep interpretation, ready for data partnerships.</h1>
+      <p class="subtitle">Butterfly Effect is a research system for detecting subtle sleep and physiological patterns that may precede changes in stress, symptoms, and health burden. The platform is strong within cohort, now has two nightly routes that clear promotion gates, is increasingly credible across cohorts for stress, and is ready for institution-facing pilot work focused on longitudinal data.</p>
+
+      <div class="hero-grid">
+        <article class="panel hero-card">
+          <h2>What is already real</h2>
+          <p>The current stack already supports nightly routes, event stress models, daily challenge layers, portable-family research tracks, governance gates, calibration, and evidence-linked reporting. Two nightly routes now clear promotion gates under explicit governance. This is no longer a prototype shell. It is a structured research platform with explicit deployment boundaries.</p>
+          <div class="badge-row">
+            <span class="badge ok">Within-cohort routes operational</span>
+            <span class="badge ok">2 nightly routes clear promotion gates</span>
+            <span class="badge ok">Event stress portable</span>
+            <span class="badge warn">Night transport still the main bottleneck</span>
+          </div>
+          <div class="metric-strip">
+            <div class="item"><span class="stat-label">Night routes</span><strong>12</strong></div>
+            <div class="item"><span class="stat-label">Auto-promotable nightly</span><strong>2</strong></div>
+            <div class="item"><span class="stat-label">Event cards</span><strong>6</strong></div>
+            <div class="item"><span class="stat-label">Portable stress event</span><strong>R² 0.316</strong></div>
+          </div>
+        </article>
+
+        <article class="panel hero-card">
+          <h2>Current strongest evidence</h2>
+          <div class="stat-grid">
+            <div class="stat">
+              <div class="stat-label">PMData stress D0</div>
+              <div class="stat-value">R² 0.238</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">LifeSnaps stress D+1</div>
+              <div class="stat-value">R² 0.346</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Novartis fatigue D0</div>
+              <div class="stat-value">R² 0.435</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Novartis pain D0</div>
+              <div class="stat-value">R² 0.371</div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="quick-links">
+        <h3>Partner-specific versions and export</h3>
+        <p>Use the tailored one-pagers for first outreach, and the print version when you need a clean PDF attachment.</p>
+        <div class="quick-link-list">
+          <a href="hospital-collaboration-one-pager.html">Hospital version</a>
+          <a href="university-collaboration-one-pager.html">University version</a>
+          <a href="wearable-company-collaboration-one-pager.html">Wearable company version</a>
+          <a href="/institution/data-requirements/">Technical data requirements</a>
+          <a href="/institution/data-requirements/variable-shortlist/">Variable shortlist</a>
+          <a href="/institution/pilot/">Pilot protocol</a>
+          <a href="/institution/governance/">Data intake + governance</a>
+          <a href="/institution/targets/">Target shortlist</a>
+          <a href="institutional-collaboration-one-pager-print.html">Print / PDF-ready</a>
+          <a href="outreach-templates-2026-03-26.md">Outreach templates</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="state">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">State of the project</p>
+          <h2>Where the platform is strong, and where new institutional data matters most</h2>
+        </div>
+        <p class="section-note">The platform is strongest in structured nightly interpretation within matched cohorts and in portable event-level stress. The main unresolved frontier is generalization of nightly interpretations across cohorts.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Strong today</h3>
+          <ul class="clean">
+            <li>Nightly within-cohort routes with explicit held-out evaluation, including two routes that now clear promotion gates</li>
+            <li>Event stress portable family with positive cross-cohort performance</li>
+            <li>Calibrated reporting, governance gates, and PostgreSQL-backed route materialization</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Improving</h3>
+          <ul class="clean">
+            <li>Nightly stress transport across cohorts, now positive in the open stack but still below deployment signal floor</li>
+            <li>Daily temporal layers for anxiety and depression</li>
+            <li>Research-only portable tracks such as `PHQ-9 only` depression</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Not yet strong enough</h3>
+          <ul class="clean">
+            <li>Portable anxiety as a deployable clinical family</li>
+            <li>Portable depression across mixed instruments</li>
+            <li>Portable physical pain beyond somatic-burden proxies</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="why-now">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Why now</p>
+          <h2>Why this is the right stage to approach institutions</h2>
+        </div>
+        <p class="section-note">The project is mature enough to justify a serious collaboration, but still open enough that additional longitudinal datasets can clearly move the science.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>What we can already bring</h3>
+          <ul class="clean">
+            <li>A working interpretation stack, not only exploratory notebooks</li>
+            <li>Existing open-cohort validation and a clear benchmark baseline</li>
+            <li>Governance layers separating accepted, experimental, and support-only claims</li>
+            <li>A reproducible data-to-report pipeline suitable for pilots</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>What institutional data would unlock</h3>
+          <ul class="clean">
+            <li>Stronger nightly transport across cohorts</li>
+            <li>Cleaner outcome equivalence for anxiety and depression</li>
+            <li>Validation of interpretable patterns against richer physiological measurements</li>
+            <li>Prospective evidence instead of only open retrospective harmonization</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="data">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Data requirements</p>
+          <h2>The minimum dataset for a good interpretation, and the ideal expansion path</h2>
+        </div>
+        <p class="section-note">EEG and ocular channels are highly valuable, but they are not the minimum requirement for the interpretation layer already being built. The core need is longitudinal nocturnal physiology plus repeated outcomes.</p>
+      </div>
+      <div class="pipeline">
+        <article class="step">
+          <div class="step-kicker">Tier 1</div>
+          <div class="step-title">Required nightly core</div>
+          <p>Sleep timing, duration, continuity, awakenings or efficiency, nocturnal HR or HRV, and actigraphy or movement fragmentation.</p>
+        </article>
+        <article class="step">
+          <div class="step-kicker">Tier 1</div>
+          <div class="step-title">Repeated outcomes</div>
+          <p>Stress, fatigue, anxiety, depression, pain, or symptom burden measured repeatedly, ideally daily or several times per week.</p>
+        </article>
+        <article class="step">
+          <div class="step-kicker">Tier 1</div>
+          <div class="step-title">Context variables</div>
+          <p>Age, sex, medication, alcohol, caffeine, exercise, shift work, relevant diagnoses, and major acute events.</p>
+        </article>
+        <article class="step">
+          <div class="step-kicker">Tier 2</div>
+          <div class="step-title">Highly valuable raw signals</div>
+          <p>PPG or IBI, minute-level HR, raw accelerometry, temperature, respiration, and SpO2 where available.</p>
+        </article>
+        <article class="step">
+          <div class="step-kicker">Tier 3</div>
+          <div class="step-title">Gold-standard subset</div>
+          <p>PSG subset with EEG, EOG, EMG, plus aligned symptom outcomes for calibration and physiological validation.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="pilot">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Pilot collaboration</p>
+          <h2>A practical first collaboration model</h2>
+        </div>
+        <p class="section-note">The right first study is not “all available data.” It is a sharply defined longitudinal pilot around one outcome family and one institutional dataset.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Recommended pilot design</h3>
+          <ul class="clean">
+            <li>One institution, one dataset, one primary outcome family</li>
+            <li>Longitudinal wearable sleep plus repeated self-report outcomes</li>
+            <li>Retrospective harmonization first, then prospective extension if feasible</li>
+            <li>Optional PSG subset for physiological anchoring</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>What the institution receives</h3>
+          <ul class="clean">
+            <li>Data schema and harmonization specification</li>
+            <li>Benchmarking against the current open stack</li>
+            <li>Interpretable route-level and family-level outputs</li>
+            <li>Feasibility results for transport, calibration, and subgroup robustness</li>
+          </ul>
+        </article>
+      </div>
+      <div class="grid-2" style="margin-top:18px;">
+        <article class="card">
+          <h3>Governance posture</h3>
+          <ul class="clean">
+            <li>Research-only framing unless a route is explicitly accepted</li>
+            <li>Pseudonymized identifiers and DUA-compatible ingestion</li>
+            <li>Clear separation between accepted, experimental, and support-only outputs</li>
+            <li>No diagnostic claim inflation</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Best current institutional fit</h3>
+          <p>The best collaboration target is a group with longitudinal wearable sleep, nocturnal cardiovascular signals, and repeated symptom data. The highest-impact contribution would be a dataset capable of testing nightly transport across cohorts rather than just adding another single-cohort benchmark.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p><strong>Current recommendation:</strong> begin institution-facing conversations now, framed as a research collaboration around longitudinal sleep interpretation and cross-cohort generalization, not as a finished diagnostic product.</p>
+      <p>Supporting project surfaces: <a href="/">public research surface</a>, <a href="/nightly/">night routes</a>, <a href="/events/">event layer</a>, <a href="/nonstress-families/">non-stress families</a>.</p>
+    </footer>
+  </main>
+</body>
+</html>

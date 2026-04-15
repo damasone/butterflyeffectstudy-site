@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Butterfly Effect — Data Intake + Governance Checklist</title>
+  <meta name="description" content="Operational intake and governance checklist for Butterfly Effect institutional pilots.">
+  <link rel="stylesheet" href="/shared/surface_enhancer.css">
+  <script src="/shared/surface_enhancer.js" defer></script>
+  <style>
+    :root {
+      --bg: #151210;
+      --bg-deep: #1b1714;
+      --panel: rgba(27, 23, 20, 0.88);
+      --panel-strong: rgba(31, 26, 23, 0.96);
+      --ink: #f4ede7;
+      --muted: #b8ada1;
+      --line: #342c26;
+      --accent: #c39a79;
+      --accent-soft: #eadbce;
+      --ok: #9dcab1;
+      --warn: #d1a178;
+      --sans: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+      --radius: 20px;
+      --shadow: 0 18px 42px rgba(0,0,0,0.22);
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:var(--sans); color:var(--ink); background:radial-gradient(circle at top left, rgba(195,154,121,0.07), transparent 28%), linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%); }
+    a { color:var(--accent-soft); text-decoration:none; border-bottom:1px solid rgba(234,219,206,0.22); }
+    a:hover { border-bottom-color: rgba(234,219,206,0.48); }
+    .wrap { width:min(1160px, calc(100vw - 40px)); margin:0 auto; }
+    .topbar { position:sticky; top:0; z-index:10; backdrop-filter:blur(14px); background:rgba(21,18,16,0.82); border-bottom:1px solid rgba(74,64,56,0.72); }
+    .topbar-inner { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:18px 0; }
+    .brand { font-size:0.92rem; text-transform:uppercase; letter-spacing:0.18em; }
+    .nav { display:flex; flex-wrap:wrap; gap:18px; }
+    .nav a { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--muted); border:0; }
+    .hero { padding:72px 0 40px; }
+    .eyebrow { margin:0 0 12px; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.19em; color:var(--accent); }
+    h1 { margin:0; font-size:clamp(2.5rem,5vw,4.4rem); line-height:0.98; letter-spacing:-0.045em; font-weight:550; max-width:14ch; }
+    .subtitle { margin:18px 0 0; max-width:64rem; color:var(--muted); font-size:1.06rem; line-height:1.8; }
+    .hero-grid, .grid-3, .grid-2 { display:grid; gap:18px; }
+    .hero-grid { grid-template-columns:1.35fr 0.95fr; margin-top:32px; }
+    .grid-3 { grid-template-columns:repeat(3, minmax(0,1fr)); }
+    .grid-2 { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .panel, .card { background:var(--panel); border:1px solid rgba(74,64,56,0.78); border-radius:var(--radius); box-shadow:var(--shadow); }
+    .hero-card, .card { padding:24px; }
+    h2 { margin:0; font-size:1.3rem; letter-spacing:-0.02em; font-weight:550; }
+    h3 { margin:0 0 10px; font-size:1rem; font-weight:550; }
+    p, li { color:var(--muted); line-height:1.72; font-size:0.96rem; }
+    ul.clean { margin:0; padding-left:18px; }
+    .badge-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+    .badge { display:inline-flex; align-items:center; min-height:34px; padding:0 12px; border-radius:999px; border:1px solid rgba(74,64,56,0.78); background:rgba(255,255,255,0.02); font-size:0.8rem; color:var(--ink); }
+    .badge.ok { color:var(--ok); }
+    .badge.warn { color:var(--warn); }
+    .section { padding:16px 0 10px; }
+    .section-head { display:flex; align-items:end; justify-content:space-between; gap:16px; margin-bottom:18px; }
+    .section-note { max-width:44rem; }
+    .quick-links { margin-top:18px; padding:18px 20px; background:rgba(255,255,255,0.02); border:1px solid rgba(74,64,56,0.58); border-radius:18px; }
+    .quick-link-list { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+    .quick-link-list a { display:inline-flex; align-items:center; min-height:36px; padding:0 12px; border-radius:999px; border:1px solid rgba(74,64,56,0.74); background:rgba(255,255,255,0.02); }
+    .footer { padding:34px 0 56px; color:var(--muted); font-size:0.9rem; }
+    @media (max-width:1040px) {
+      .hero-grid, .grid-3, .grid-2 { grid-template-columns:1fr; }
+      .section-head, .topbar-inner { align-items:flex-start; flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">Butterfly Effect</div>
+      <nav class="nav">
+        <a href="#stages">Stages</a>
+        <a href="#redflags">Red flags</a>
+        <a href="#downloads">Downloads</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Data intake + governance checklist</p>
+      <h1>The operational gate before any institutional cohort enters modeling.</h1>
+      <p class="subtitle">This checklist turns governance and intake into an explicit workflow: before transfer, after receipt, during linkage audit, during schema audit, and before any dataset is allowed into the analytical stack.</p>
+      <div class="hero-grid">
+        <article class="panel hero-card">
+          <h2>Core principle</h2>
+          <p>The project does not need direct identifiers or full health-system integration to begin. It does need stable pseudonymized linkage, explicit date logic, documented units and device lineage, and a narrow scope for the first pilot.</p>
+          <div class="badge-row">
+            <span class="badge ok">Pseudonymized linkage</span>
+            <span class="badge ok">Explicit date logic</span>
+            <span class="badge ok">Units and lineage</span>
+            <span class="badge warn">No fabricated joins</span>
+          </div>
+        </article>
+        <article class="panel hero-card" id="downloads">
+          <h2>Downloads</h2>
+          <div class="quick-link-list">
+            <a href="data-intake-governance-checklist-2026-03-26.md">Markdown checklist</a>
+            <a href="data-intake-governance-checklist-2026-03-26.json">JSON summary</a>
+            <a href="/institution/pilot/">Pilot protocol</a>
+            <a href="/institution/data-requirements/">Data requirements pack</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="stages">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Stages</p>
+          <h2>Intake should be a gate, not an assumption</h2>
+        </div>
+        <p class="section-note">A dataset should not enter modeling because transfer succeeded. It should enter only after linkage, units, scope, and governance all pass an explicit review.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card"><h3>Before transfer</h3><ul class="clean"><li>named data owner</li><li>cohort description</li><li>transfer path</li><li>DUA or approval path</li></ul></article>
+        <article class="card"><h3>File receipt</h3><ul class="clean"><li>manifest match</li><li>delivery integrity</li><li>source system logged</li><li>raw delivery preserved read-only</li></ul></article>
+        <article class="card"><h3>Identity and linkage</h3><ul class="clean"><li>stable `participant_uid`</li><li>explicit participant-night linkage</li><li>no fabricated joins</li><li>date logic documented</li></ul></article>
+      </div>
+      <div class="grid-3" style="margin-top:18px;">
+        <article class="card"><h3>Schema and unit audit</h3><ul class="clean"><li>field mapping complete</li><li>units normalized</li><li>device modality documented</li><li>score semantics documented</li></ul></article>
+        <article class="card"><h3>Quality and feasibility</h3><ul class="clean"><li>participant count</li><li>median nights</li><li>endpoint density</li><li>missingness summary</li></ul></article>
+        <article class="card"><h3>Decision gate</h3><ul class="clean"><li>`accept_for_pilot`</li><li>`accept_with_limits`</li><li>`hold_pending_clarification`</li><li>`reject_for_current_scope`</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section" id="redflags">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Red flags</p>
+          <h2>These should stop the workflow</h2>
+        </div>
+        <p class="section-note">The point of a checklist is to block weak datasets early, not to rationalize them after transfer.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card"><h3>Hard stops</h3><ul class="clean"><li>join would depend on row order</li><li>direct identifiers appear in analytical tables</li><li>no sleep-date to report-date logic</li><li>missing unit definitions for core physiology</li><li>only aggregate exports are available</li></ul></article>
+        <article class="card"><h3>Required minimal governance posture</h3><ul class="clean"><li>pseudonymized subject IDs</li><li>no direct identifiers in analytical tables</li><li>narrow documented research scope</li><li>file-level provenance</li><li>raw and transformed outputs separated</li></ul></article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p><strong>Current recommendation:</strong> use this checklist as an operational gate, not as a passive document.</p>
+      <p><a href="/institution/">Institutional one-pager</a> · <a href="/institution/pilot/">Pilot protocol</a> · <a href="/institution/data-requirements/variable-shortlist/">Variable shortlist</a></p>
+    </footer>
+  </main>
+</body>
+</html>

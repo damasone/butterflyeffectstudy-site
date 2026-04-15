@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Butterfly Effect · Participant-Facing Layer</title>
+  <link rel="stylesheet" href="/shared/surface_enhancer.css">
+  <script src="/shared/surface_enhancer.js" defer></script>
+  <style>
+    :root {
+      --bg: #161311;
+      --bg-deep: #1d1916;
+      --panel: rgba(28, 24, 21, 0.88);
+      --panel-strong: rgba(31, 26, 23, 0.96);
+      --ink: #f3ede7;
+      --muted: #b2a89d;
+      --line: #342c26;
+      --line-strong: #4a4038;
+      --accent: #c39a79;
+      --accent-deep: #eadbce;
+      --ok: #9ecab3;
+      --ok-bg: #1c2823;
+      --warn: #d1a178;
+      --warn-bg: #332419;
+      --shadow: 0 18px 42px rgba(0,0,0,0.22);
+      --sans: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: radial-gradient(circle at top left, rgba(195,154,121,0.07), transparent 28%), linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+      font-family: var(--sans);
+    }
+    a { color: var(--accent-deep); text-decoration: none; border-bottom: 1px solid rgba(234,219,206,0.22); }
+    a:hover { border-bottom-color: rgba(234,219,206,0.46); }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 46px 28px 88px; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(22,19,17,0.82);
+      border-bottom: 1px solid rgba(74,64,56,0.72);
+    }
+    .topbar-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand { color: var(--ink); text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.84rem; border-bottom: 0; }
+    .nav { display: flex; flex-wrap: wrap; gap: 16px; }
+    .nav a { color: var(--muted); border-bottom: 0; font-size: 0.84rem; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr;
+      gap: 22px;
+      padding: 34px 0 38px;
+      border-bottom: 1px solid rgba(74,64,56,0.72);
+    }
+    .eyebrow { margin: 0 0 10px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.74rem; }
+    h1 { margin: 0; font-size: clamp(2.4rem, 4.8vw, 4rem); line-height: 1.02; font-weight: 500; max-width: 12ch; }
+    .lede, .hero-note, p { color: var(--muted); line-height: 1.72; }
+    .lede { margin: 16px 0 0; max-width: 52rem; font-size: 1rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+    .button, .ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255,255,255,0.03);
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .button { background: rgba(195,154,121,0.14); }
+    .hero-panel, .card, .stat, .sample-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+    .hero-panel, .card, .sample-card { padding: 22px; }
+    .stat-grid, .grid, .sample-grid { display: grid; gap: 18px; }
+    .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 18px; }
+    .stat { padding: 16px; }
+    .stat strong { display: block; font-size: 1.45rem; margin-bottom: 6px; font-weight: 500; }
+    .stat span { color: var(--muted); font-size: 0.88rem; }
+    .section { padding: 30px 0 34px; border-bottom: 1px solid rgba(74,64,56,0.72); }
+    .section-head { display: grid; grid-template-columns: 1fr 0.9fr; gap: 18px; margin-bottom: 18px; }
+    .section-head h2 { margin: 0; font-size: clamp(1.7rem, 3.6vw, 2.4rem); line-height: 1.04; font-weight: 500; }
+    .section-head p { margin: 0; }
+    .grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .sample-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .card h3, .sample-card h3 { margin: 0 0 10px; font-size: 1.18rem; font-weight: 500; }
+    .chip-row, .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .chip, .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      border: 1px solid transparent;
+    }
+    .chip.ok, .badge.ok { background: var(--ok-bg); color: var(--ok); border-color: #31473c; }
+    .chip.warn, .badge.warn { background: var(--warn-bg); color: var(--warn); border-color: #4c3422; }
+    .chip.neutral, .badge.neutral { background: rgba(255,255,255,0.03); color: var(--muted); border-color: #38322d; }
+    .list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+    .list li { padding-top: 12px; border-top: 1px solid rgba(74,64,56,0.58); }
+    .list strong { display: block; margin-bottom: 4px; font-weight: 500; color: var(--ink); }
+    .sample-links { display: grid; gap: 10px; margin-top: 16px; }
+    .sample-links a { display: inline-flex; width: fit-content; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid rgba(74,64,56,0.78); background: rgba(255,255,255,0.03); }
+    code { color: var(--accent-deep); }
+    .footer { padding-top: 22px; color: var(--muted); font-size: 0.92rem; line-height: 1.68; }
+    @media (max-width: 980px) {
+      .hero, .section-head { grid-template-columns: 1fr; }
+      .topbar-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 720px) {
+      .wrap { padding-inline: 16px; }
+      .topbar-inner { padding-inline: 16px; }
+      .stat-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="/">Butterfly Effect</a>
+      <nav class="nav">
+        <a href="/participant/">Public participant page</a>
+        <a href="/validation/">Validation</a>
+        <a href="/views/">Views</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Participant-Facing Layer</p>
+        <h1>Research return for people and professionals.</h1>
+        <p class="lede">This layer exists to return weekly longitudinal interpretation from the same governed engine used elsewhere in Butterfly Effect. It is deliberately narrower than the institutional stack, and deliberately more serious than a consumer sleep product.</p>
+        <div class="hero-actions">
+          <a class="button" href="/participant/">Open the public participant page</a>
+          <a class="ghost" href="/participant-layer/">Read the blueprint</a>
+        </div>
+      </div>
+      <aside class="hero-panel">
+        <h3 style="margin:0 0 10px; font-size:1.16rem; font-weight:500;">Current governed scope</h3>
+        <p class="hero-note">The layer is live, but still intentionally tight. Only approved nightly stress routes can enter this surface, and every output keeps route audit, audience contract, and governance snapshot attached.</p>
+        <div class="stat-grid">
+          <article class="stat"><strong>2</strong><span>approved routes</span></article>
+          <article class="stat"><strong>2</strong><span>reviewed sample cohorts</span></article>
+          <article class="stat"><strong>4</strong><span>export forms per surface</span></article>
+          <article class="stat"><strong>1 week</strong><span>reporting unit</span></article>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Reading Frame</p>
+          <h2>The layer stays useful only if it stays narrow.</h2>
+        </div>
+        <p>This is not a sleep score, not a single-night explanation layer, and not a diagnostic surface. The point is to summarize repeated night patterns, baseline-relative shifts, and observed links with next-day burden in a reviewed weekly form.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>For participants</h3>
+          <p>Readable weekly interpretation with explicit confidence, limits, and review nights.</p>
+          <div class="chip-row">
+            <span class="chip ok">weekly</span>
+            <span class="chip neutral">baseline-relative</span>
+            <span class="chip neutral">non-diagnostic</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>For professionals</h3>
+          <p>The same weekly payload, but in a stricter operational summary for review and handoff.</p>
+          <div class="chip-row">
+            <span class="chip ok">same engine</span>
+            <span class="chip neutral">companion summary</span>
+            <span class="chip neutral">PDF-ready</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>For the project</h3>
+          <p>A human-facing layer that does not weaken the research contract or invent a second inference stack.</p>
+          <div class="chip-row">
+            <span class="chip ok">route audit</span>
+            <span class="chip ok">audience contract</span>
+            <span class="chip warn">stress-only for now</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Audience Switcher</p>
+          <h2>One core, three different contracts.</h2>
+        </div>
+        <p>The same weekly interpretation can be read three ways. The content changes with the audience, but the route governance and report provenance stay attached throughout.</p>
+      </div>
+      <div class="audience-switcher" data-tabs>
+        <div class="tab-controls" role="tablist" aria-label="Participant layer audiences">
+          <button class="tab-button is-active" type="button" role="tab" aria-selected="true" data-tab-target="participant-aud">Participant</button>
+          <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab-target="professional-aud">Professional</button>
+          <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab-target="governance-aud">Governance</button>
+        </div>
+        <div class="tab-panels">
+          <article class="tab-panel is-active" data-tab-panel="participant-aud">
+            <div class="grid">
+              <article class="card">
+                <h3>Participant contract</h3>
+                <ul class="list">
+                  <li><strong>What it returns</strong><span>Week-at-a-glance, dominant domains, shifts vs baseline, observed links, review nights, and limits.</span></li>
+                  <li><strong>What it does not do</strong><span>No diagnosis, no disease-risk statement, and no single-night certainty language.</span></li>
+                  <li><strong>Current focus</strong><span>Stress / next-day burden only.</span></li>
+                </ul>
+              </article>
+            </div>
+          </article>
+          <article class="tab-panel" data-tab-panel="professional-aud" hidden>
+            <div class="grid">
+              <article class="card">
+                <h3>Professional contract</h3>
+                <ul class="list">
+                  <li><strong>Same payload</strong><span>The companion summary is generated from the exact same weekly report payload.</span></li>
+                  <li><strong>Use case</strong><span>Structured review, supervision, or participant handoff with clearer operational readout.</span></li>
+                  <li><strong>Formats</strong><span>HTML, print-ready HTML, JSON, and PDF.</span></li>
+                </ul>
+              </article>
+            </div>
+          </article>
+          <article class="tab-panel" data-tab-panel="governance-aud" hidden>
+            <div class="grid">
+              <article class="card">
+                <h3>Governance contract</h3>
+                <ul class="list">
+                  <li><strong>Route entry</strong><span>Only explicitly approved routes that also pass route-card audit can enter.</span></li>
+                  <li><strong>Attached safeguards</strong><span>Audience contract, route audit, and governance snapshot remain inside the output payload.</span></li>
+                  <li><strong>Why this matters</strong><span>The human-facing layer stays serious because it inherits the same methodological discipline as the rest of the system.</span></li>
+                </ul>
+              </article>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Live Reviewed Samples</p>
+          <h2>Two cohorts, one reviewed weekly return surface.</h2>
+        </div>
+        <p>These are not mockups. They are real outputs from the approved nightly stress routes that currently define the participant-facing layer.</p>
+      </div>
+      <div class="sample-grid">
+        <article class="sample-card">
+          <h3>LifeSnaps · `stress_d1_contextual`</h3>
+          <p>Primary sample route for next-day burden. This is currently the clearest participant-facing example of the weekly return format.</p>
+          <div class="badge-row">
+            <span class="badge ok">D+1 stress</span>
+            <span class="badge ok">approved route</span>
+            <span class="badge neutral">participant + professional</span>
+          </div>
+          <div class="sample-links">
+            <a href="/participant-layer/examples/lifesnaps-participant/">Open participant report</a>
+            <a href="/participant-layer/examples/lifesnaps-professional/">Open professional companion</a>
+            <a href="lifesnaps_621e32e667b776a2406d2f1c__2022-01-17__2022-01-22__lifesnaps_stress_d1_contextual__participant_weekly.pdf">Open participant PDF</a>
+            <a href="lifesnaps_621e32e667b776a2406d2f1c__2022-01-17__2022-01-22__lifesnaps_stress_d1_contextual__professional_companion.pdf">Open professional PDF</a>
+          </div>
+        </article>
+        <article class="sample-card">
+          <h3>PMData · `stress_d0_contextual`</h3>
+          <p>Secondary approved route so the layer is not tied to one cohort or one latency frame.</p>
+          <div class="badge-row">
+            <span class="badge ok">D0 stress</span>
+            <span class="badge ok">approved route</span>
+            <span class="badge neutral">participant + professional</span>
+          </div>
+          <div class="sample-links">
+            <a href="/participant-layer/examples/pmdata-participant/">Open participant report</a>
+            <a href="/participant-layer/examples/pmdata-professional/">Open professional companion</a>
+            <a href="pmdata_p06__2020-03-24__2020-03-30__pmdata_stress_d0_contextual__participant_weekly.pdf">Open participant PDF</a>
+            <a href="pmdata_p06__2020-03-24__2020-03-30__pmdata_stress_d0_contextual__professional_companion.pdf">Open professional PDF</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Materials And Build Path</p>
+          <h2>The layer is specified, audited, and reproducible.</h2>
+        </div>
+        <p>This page is not just a sample gallery. It also exposes the documents and commands that keep the layer defendable.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>Specification and contracts</h3>
+          <ul class="list">
+            <li><strong>Layer blueprint</strong><span><a href="/participant-layer/">Open specification</a></span></li>
+            <li><strong>Eligibility audit</strong><span><a href="/participant-layer/">Open route-card audit</a></span></li>
+            <li><strong>Audience contracts</strong><span><a href="/participant-layer/">Open participant and professional contracts</a></span></li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Build commands</h3>
+          <ul class="list">
+            <li><strong>List approved routes</strong><span><code>./.venv/bin/python -m neural_echo_system.build_participant_weekly_report --list-routes</code></span></li>
+            <li><strong>List contracts</strong><span><code>./.venv/bin/python -m neural_echo_system.build_participant_weekly_report --list-contracts</code></span></li>
+            <li><strong>Refresh audit</strong><span><code>./.venv/bin/python -m neural_echo_system.audit_participant_facing_routes --output-dir reports/participant_facing</code></span></li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Public context</h3>
+          <ul class="list">
+            <li><strong>Public participant page</strong><span><a href="/participant/">Open the narrative-facing public surface</a></span></li>
+            <li><strong>Validation frame</strong><span><a href="/validation/">Open the validation boundary</a></span></li>
+            <li><strong>Live views</strong><span><a href="/views/">Open the layer index</a></span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      This layer remains governed on purpose. It should feel accessible, but it should not drift into a sleep app, a wellness score, or a diagnostic claim surface.
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Butterfly Effect — University collaboration one-pager</title>
+  <meta name="description" content="Institutional one-pager tailored for universities and academic research groups.">
+  <link rel="stylesheet" href="/shared/surface_enhancer.css">
+  <script src="/shared/surface_enhancer.js" defer></script>
+  <style>
+:root {
+  --bg: #151210;
+  --bg-deep: #1b1714;
+  --panel: rgba(27, 23, 20, 0.88);
+  --panel-strong: rgba(31, 26, 23, 0.96);
+  --ink: #f4ede7;
+  --muted: #b8ada1;
+  --line: #342c26;
+  --line-strong: #4a4038;
+  --accent: #c39a79;
+  --accent-soft: #eadbce;
+  --ok: #9dcab1;
+  --ok-bg: #1d2a24;
+  --warn: #d1a178;
+  --warn-bg: #332419;
+  --sans: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --shadow: 0 18px 42px rgba(0,0,0,0.22);
+  --radius: 22px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: radial-gradient(circle at top left, rgba(195,154,121,0.07), transparent 28%), linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 84% 12%, rgba(126,165,174,0.05), transparent 18%);
+}
+a {
+  color: var(--accent-soft);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(234,219,206,0.2);
+}
+a:hover { border-bottom-color: rgba(234,219,206,0.52); }
+.wrap { width: min(1180px, calc(100vw - 40px)); margin: 0 auto; }
+.topbar {
+  position: sticky; top: 0; z-index: 10; backdrop-filter: blur(16px);
+  background: rgba(21,18,16,0.82); border-bottom: 1px solid rgba(74,64,56,0.72);
+}
+.topbar-inner {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 0;
+}
+.brand { font-size: 0.92rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink); }
+.nav { display: flex; gap: 18px; flex-wrap: wrap; justify-content: flex-end; }
+.nav a { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted); border: 0; }
+.nav a:hover { color: var(--accent-soft); }
+.hero { padding: 78px 0 42px; }
+.eyebrow { margin: 0 0 12px; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.19em; color: var(--accent); }
+h1 { margin: 0; font-size: clamp(2.65rem, 5vw, 4.8rem); line-height: 0.98; letter-spacing: -0.045em; font-weight: 550; max-width: 13ch; text-wrap: balance; }
+.subtitle { margin: 18px 0 0; max-width: 62rem; color: var(--muted); font-size: 1.08rem; line-height: 1.8; }
+.hero-grid { display: grid; grid-template-columns: 1.35fr 0.95fr; gap: 28px; margin-top: 34px; align-items: stretch; }
+.panel { background: var(--panel); border: 1px solid rgba(74,64,56,0.78); border-radius: var(--radius); box-shadow: var(--shadow); }
+.hero-card { padding: 26px 26px 24px; }
+.hero-card h2, .section h2 { margin: 0; font-size: 1.35rem; letter-spacing: -0.02em; font-weight: 550; }
+.hero-card p { margin: 12px 0 0; color: var(--muted); line-height: 1.72; font-size: 0.98rem; }
+.stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+.stat { padding: 14px 15px; border-radius: 16px; background: rgba(255,255,255,0.02); border: 1px solid rgba(74,64,56,0.58); }
+.stat-label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted); margin-bottom: 8px; }
+.stat-value { font-size: 1.5rem; letter-spacing: -0.03em; font-weight: 560; }
+.badge-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.badge { display: inline-flex; align-items: center; min-height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid rgba(74,64,56,0.78); color: var(--ink); font-size: 0.8rem; letter-spacing: 0.02em; background: rgba(255,255,255,0.02); }
+.badge.ok { background: var(--ok-bg); border-color: rgba(157,202,177,0.28); color: var(--ok); }
+.badge.warn { background: var(--warn-bg); border-color: rgba(209,161,120,0.26); color: var(--warn); }
+.section { padding: 18px 0 10px; }
+.section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.section-note { color: var(--muted); font-size: 0.96rem; line-height: 1.65; max-width: 44rem; }
+.grid-3, .grid-2 { display: grid; gap: 18px; }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.card { padding: 22px; background: var(--panel-strong); border: 1px solid rgba(74,64,56,0.78); border-radius: 18px; min-height: 100%; }
+.card h3 { margin: 0 0 10px; font-size: 1rem; letter-spacing: -0.01em; font-weight: 550; }
+.card p { margin: 0; color: var(--muted); line-height: 1.7; font-size: 0.95rem; }
+.metric-strip { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-top: 16px; }
+.metric-strip .item { padding: 14px; border-radius: 14px; background: rgba(255,255,255,0.02); border: 1px solid rgba(74,64,56,0.52); }
+.metric-strip strong { display: block; font-size: 1.08rem; letter-spacing: -0.02em; margin-top: 6px; }
+ul.clean { margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+.footer { padding: 34px 0 56px; color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+.callout { margin-top: 18px; padding: 18px; border-radius: 16px; border: 1px solid rgba(74,64,56,0.58); background: rgba(255,255,255,0.02); }
+@media (max-width: 1040px) {
+  .hero-grid, .grid-3, .grid-2, .metric-strip { grid-template-columns: 1fr; }
+  .section-head, .topbar-inner { align-items: flex-start; flex-direction: column; }
+  .nav { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">Butterfly Effect</div>
+      <nav class="nav">
+        <a href="#fit">Fit</a>
+        <a href="#data">Data</a>
+        <a href="#pilot">Pilot</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">University / academic research group</p>
+      <h1>A collaboration model for longitudinal sleep research, transport, and interpretable physiology.</h1>
+      <p class="subtitle">Best suited for academic groups with longitudinal cohorts, repeated outcomes, and interest in transport, harmonization, and publishable validation studies.</p>
+      <div class="hero-grid">
+        <article class="panel hero-card">
+          <h2>Why this institution is a strong fit</h2>
+          <p>Universities are a strong fit when they can contribute well-annotated longitudinal cohorts and a clear research question. The platform already supports open harmonization, route governance, and portable-family probes, so the collaboration can move quickly toward a publishable methodological or applied study.</p>
+          <div class="badge-row"><span class="badge ok">Longitudinal cohorts</span><span class="badge ok">Publishable methods</span><span class="badge warn">Cross-cohort validation</span></div>
+        </article>
+        <article class="panel hero-card">
+          <h2>What is already defensible</h2>
+          <div class="stat-grid">
+            <div class="stat"><div class="stat-label">Night stress</div><div class="stat-value">R² 0.238</div></div>
+            <div class="stat"><div class="stat-label">Night D+1 stress</div><div class="stat-value">R² 0.346</div></div>
+            <div class="stat"><div class="stat-label">Event stress portable</div><div class="stat-value">R² 0.316</div></div>
+            <div class="stat"><div class="stat-label">Main gap</div><div class="stat-value">Night transport</div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="fit">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Institutional fit</p>
+          <h2>Academic datasets can turn the current system into a stronger research program</h2>
+        </div>
+        <p class="section-note">The strongest academic contribution is a cohort that adds methodological leverage: comparable outcomes, longer follow-up, or richer physiology aligned with repeated self-report.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card"><h3>What we bring</h3><ul class="clean"><li>A reproducible data-to-report research pipeline</li><li>Two nightly routes that now clear promotion gates under explicit governance</li><li>Open-cohort baselines for comparison</li><li>Portable-family and route-level validation logic</li><li>A clear separation between accepted, experimental, and support-only claims</li></ul></article>
+        <article class="card"><h3>What you contribute</h3><ul class="clean"><li>Longitudinal cohort with repeated outcomes</li><li>Consistent annotation and study protocol metadata</li><li>Wearable or sleep-derived physiology</li><li>A concrete research question suitable for a pilot manuscript or grant work package</li></ul></article>
+        <article class="card"><h3>Expected outcome</h3><ul class="clean"><li>Cross-cohort transport evidence</li><li>A stronger portable-family study for stress or non-stress targets</li><li>A methods paper around interpretation, harmonization, or generalization</li><li>Groundwork for grants or follow-on prospective studies</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section" id="data">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Data package</p>
+          <h2>What an academic cohort should contain</h2>
+        </div>
+        <p class="section-note">Longitudinality and outcome quality matter more than raw modality count alone.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card"><h3>Minimum required</h3><ul class="clean"><li>Nightly sleep features over weeks or months</li><li>HR/HRV or other nocturnal physiology</li><li>Repeated PROs/EMA for symptoms or burden</li><li>Study metadata, inclusion criteria, and confounders</li><li>Stable identifiers and dates for longitudinal linkage</li></ul></article>
+        <article class="card"><h3>High-value expansion</h3><ul class="clean"><li>Raw PPG / IBI / accelerometry</li><li>Additional clinical instruments with clean timing</li><li>Daily self-report or event-linked outcomes</li><li>Small PSG-anchored validation subset</li></ul></article>
+      </div>
+      <div class="callout"><strong>Key point:</strong> For academic collaboration, the best datasets are not the noisiest or largest by default; they are the ones that let us test the right methodological claim clearly.</div>
+    </section>
+
+    <section class="section" id="pilot">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Pilot model</p>
+          <h2>Recommended pilot for a university partner</h2>
+        </div>
+        <p class="section-note">The ideal academic pilot is designed to answer one publishable question cleanly.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card"><h3>Recommended first pilot</h3><ul class="clean"><li>One cohort, one target family, one transport or interpretation question</li><li>Retrospective harmonization against the open stack first</li><li>Transparent held-out and subgroup analysis</li><li>Joint authorship and protocol framing from the beginning</li></ul></article>
+        <article class="card"><h3>Outputs to the institution</h3><ul class="clean"><li>Technical harmonization package</li><li>Portable-family or route-level benchmarking</li><li>Draft figures/tables for manuscript or grant use</li><li>A recommendation on whether to expand prospectively</li></ul></article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p><strong>Current posture:</strong> research collaboration, not diagnostic deployment.</p>
+      <p><a href="index.html">Base institutional one-pager</a> · <a href="institutional-collaboration-one-pager-print.html">Print / PDF-ready version</a> · <a href="outreach-templates-2026-03-26.md">Outreach templates</a></p>
+    </footer>
+  </main>
+</body>
+</html>

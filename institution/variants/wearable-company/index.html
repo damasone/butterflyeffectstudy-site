@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Butterfly Effect — Wearable company collaboration one-pager</title>
+  <meta name="description" content="Institutional one-pager tailored for wearable and digital health companies.">
+  <link rel="stylesheet" href="/shared/surface_enhancer.css">
+  <script src="/shared/surface_enhancer.js" defer></script>
+  <style>
+:root {
+  --bg: #151210;
+  --bg-deep: #1b1714;
+  --panel: rgba(27, 23, 20, 0.88);
+  --panel-strong: rgba(31, 26, 23, 0.96);
+  --ink: #f4ede7;
+  --muted: #b8ada1;
+  --line: #342c26;
+  --line-strong: #4a4038;
+  --accent: #c39a79;
+  --accent-soft: #eadbce;
+  --ok: #9dcab1;
+  --ok-bg: #1d2a24;
+  --warn: #d1a178;
+  --warn-bg: #332419;
+  --sans: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --shadow: 0 18px 42px rgba(0,0,0,0.22);
+  --radius: 22px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: radial-gradient(circle at top left, rgba(195,154,121,0.07), transparent 28%), linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 84% 12%, rgba(126,165,174,0.05), transparent 18%);
+}
+a {
+  color: var(--accent-soft);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(234,219,206,0.2);
+}
+a:hover { border-bottom-color: rgba(234,219,206,0.52); }
+.wrap { width: min(1180px, calc(100vw - 40px)); margin: 0 auto; }
+.topbar {
+  position: sticky; top: 0; z-index: 10; backdrop-filter: blur(16px);
+  background: rgba(21,18,16,0.82); border-bottom: 1px solid rgba(74,64,56,0.72);
+}
+.topbar-inner {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 0;
+}
+.brand { font-size: 0.92rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink); }
+.nav { display: flex; gap: 18px; flex-wrap: wrap; justify-content: flex-end; }
+.nav a { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted); border: 0; }
+.nav a:hover { color: var(--accent-soft); }
+.hero { padding: 78px 0 42px; }
+.eyebrow { margin: 0 0 12px; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.19em; color: var(--accent); }
+h1 { margin: 0; font-size: clamp(2.65rem, 5vw, 4.8rem); line-height: 0.98; letter-spacing: -0.045em; font-weight: 550; max-width: 13ch; text-wrap: balance; }
+.subtitle { margin: 18px 0 0; max-width: 62rem; color: var(--muted); font-size: 1.08rem; line-height: 1.8; }
+.hero-grid { display: grid; grid-template-columns: 1.35fr 0.95fr; gap: 28px; margin-top: 34px; align-items: stretch; }
+.panel { background: var(--panel); border: 1px solid rgba(74,64,56,0.78); border-radius: var(--radius); box-shadow: var(--shadow); }
+.hero-card { padding: 26px 26px 24px; }
+.hero-card h2, .section h2 { margin: 0; font-size: 1.35rem; letter-spacing: -0.02em; font-weight: 550; }
+.hero-card p { margin: 12px 0 0; color: var(--muted); line-height: 1.72; font-size: 0.98rem; }
+.stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+.stat { padding: 14px 15px; border-radius: 16px; background: rgba(255,255,255,0.02); border: 1px solid rgba(74,64,56,0.58); }
+.stat-label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted); margin-bottom: 8px; }
+.stat-value { font-size: 1.5rem; letter-spacing: -0.03em; font-weight: 560; }
+.badge-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.badge { display: inline-flex; align-items: center; min-height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid rgba(74,64,56,0.78); color: var(--ink); font-size: 0.8rem; letter-spacing: 0.02em; background: rgba(255,255,255,0.02); }
+.badge.ok { background: var(--ok-bg); border-color: rgba(157,202,177,0.28); color: var(--ok); }
+.badge.warn { background: var(--warn-bg); border-color: rgba(209,161,120,0.26); color: var(--warn); }
+.section { padding: 18px 0 10px; }
+.section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.section-note { color: var(--muted); font-size: 0.96rem; line-height: 1.65; max-width: 44rem; }
+.grid-3, .grid-2 { display: grid; gap: 18px; }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.card { padding: 22px; background: var(--panel-strong); border: 1px solid rgba(74,64,56,0.78); border-radius: 18px; min-height: 100%; }
+.card h3 { margin: 0 0 10px; font-size: 1rem; letter-spacing: -0.01em; font-weight: 550; }
+.card p { margin: 0; color: var(--muted); line-height: 1.7; font-size: 0.95rem; }
+.metric-strip { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-top: 16px; }
+.metric-strip .item { padding: 14px; border-radius: 14px; background: rgba(255,255,255,0.02); border: 1px solid rgba(74,64,56,0.52); }
+.metric-strip strong { display: block; font-size: 1.08rem; letter-spacing: -0.02em; margin-top: 6px; }
+ul.clean { margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+.footer { padding: 34px 0 56px; color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+.callout { margin-top: 18px; padding: 18px; border-radius: 16px; border: 1px solid rgba(74,64,56,0.58); background: rgba(255,255,255,0.02); }
+@media (max-width: 1040px) {
+  .hero-grid, .grid-3, .grid-2, .metric-strip { grid-template-columns: 1fr; }
+  .section-head, .topbar-inner { align-items: flex-start; flex-direction: column; }
+  .nav { justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">Butterfly Effect</div>
+      <nav class="nav">
+        <a href="#fit">Fit</a>
+        <a href="#data">Data</a>
+        <a href="#pilot">Pilot</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Wearable / digital health company</p>
+      <h1>A research collaboration model for validating longitudinal sleep interpretation on wearable signals.</h1>
+      <p class="subtitle">Best suited for teams with wearable sleep and cardiovascular signals who want scientifically structured interpretation and validation rather than undifferentiated prediction claims.</p>
+      <div class="hero-grid">
+        <article class="panel hero-card">
+          <h2>Why this institution is a strong fit</h2>
+          <p>Wearable companies are a strong fit when they can provide longitudinal device data linked to repeated outcomes. The platform is especially useful for testing whether current device-level sleep and cardiovascular signals support interpretable burden tracking rather than just feature-rich black-box prediction.</p>
+          <div class="badge-row"><span class="badge ok">Wearable physiology</span><span class="badge ok">Longitudinal passive sensing</span><span class="badge warn">Interpretability over hype</span></div>
+        </article>
+        <article class="panel hero-card">
+          <h2>What is already defensible</h2>
+          <div class="stat-grid">
+            <div class="stat"><div class="stat-label">Night stress</div><div class="stat-value">R² 0.238</div></div>
+            <div class="stat"><div class="stat-label">Night D+1 stress</div><div class="stat-value">R² 0.346</div></div>
+            <div class="stat"><div class="stat-label">Event stress portable</div><div class="stat-value">R² 0.316</div></div>
+            <div class="stat"><div class="stat-label">Main gap</div><div class="stat-value">Night transport</div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="fit">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Institutional fit</p>
+          <h2>Wearable datasets can test whether device signals carry stable longitudinal meaning</h2>
+        </div>
+        <p class="section-note">The platform is most useful here as an interpretation and validation stack, not as a shortcut to product claims.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card"><h3>What we bring</h3><ul class="clean"><li>A research-grade interpretation layer for sleep-linked burden signals</li><li>Two nightly routes that now clear promotion gates under explicit governance</li><li>Cross-cohort benchmarking against the open stack</li><li>Governance that separates strong claims from exploratory ones</li><li>An evidence-linked framework suitable for internal research and external validation</li></ul></article>
+        <article class="card"><h3>What you contribute</h3><ul class="clean"><li>Longitudinal sleep and cardiovascular device data</li><li>Repeated symptom or self-report outcomes</li><li>Device metadata and measurement quality information</li><li>A product-research question around interpretation, generalization, or validation</li></ul></article>
+        <article class="card"><h3>Expected outcome</h3><ul class="clean"><li>Feasibility of interpretable burden tracking from current wearable signals</li><li>Stress portability tests across device-linked cohorts</li><li>A cleaner understanding of where device summaries are enough and where raw signals matter</li><li>Research outputs that can support future validation strategy</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section" id="data">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Data package</p>
+          <h2>What a wearable collaboration should provide</h2>
+        </div>
+        <p class="section-note">For this setting, raw or semi-raw cardiovascular and motion signals add major value beyond device summary tables.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card"><h3>Minimum required</h3><ul class="clean"><li>Nightly sleep summary output</li><li>HR / HRV / IBI or derivable nocturnal cardiovascular data</li><li>Movement / actigraphy data</li><li>Repeated user-reported outcomes</li><li>Basic demographic and contextual metadata</li></ul></article>
+        <article class="card"><h3>High-value expansion</h3><ul class="clean"><li>Raw PPG or beat-level intervals</li><li>Minute-level or windowed HR and movement series</li><li>Temperature, SpO2, respiration, and measurement quality traces</li><li>Event-linked labels or short EMA bursts</li></ul></article>
+      </div>
+      <div class="callout"><strong>Key point:</strong> The best wearable collaboration is not about making stronger claims faster. It is about learning which device signals genuinely support longitudinal interpretation and transport.</div>
+    </section>
+
+    <section class="section" id="pilot">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Pilot model</p>
+          <h2>Recommended pilot for a wearable partner</h2>
+        </div>
+        <p class="section-note">Keep the first pilot narrow and validation-driven.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card"><h3>Recommended first pilot</h3><ul class="clean"><li>One device dataset with repeated outcomes</li><li>One primary family, ideally stress first</li><li>Comparison against the current open nightly and event baselines</li><li>Assessment of summary vs raw-signal contribution</li></ul></article>
+        <article class="card"><h3>Outputs to the institution</h3><ul class="clean"><li>Benchmarking against open research baselines</li><li>Interpretability report by domain and layer</li><li>Assessment of signal sufficiency and transport limitations</li><li>A recommendation for the next validation stage</li></ul></article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p><strong>Current posture:</strong> research collaboration, not diagnostic deployment.</p>
+      <p><a href="index.html">Base institutional one-pager</a> · <a href="institutional-collaboration-one-pager-print.html">Print / PDF-ready version</a> · <a href="outreach-templates-2026-03-26.md">Outreach templates</a></p>
+    </footer>
+  </main>
+</body>
+</html>

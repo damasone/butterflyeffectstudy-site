@@ -20,7 +20,7 @@ Deploy bundle for the public Butterfly Effect site.
 
 ## Domain
 - apex: `butterflyeffectstudy.com`
-- root `/` redirects to `/public_research_surface/index.html`
+- root `/` serves the public research surface directly
 
 ## Important
 Do not replace this repo with the full project tree.

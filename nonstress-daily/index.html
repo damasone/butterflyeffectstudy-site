@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Butterfly Effect · Non-Stress Daily Layer</title>
+  <style>
+    :root {
+      --bg: #161311;
+      --bg-deep: #1d1916;
+      --panel: rgba(28, 24, 21, 0.88);
+      --ink: #f3ede7;
+      --muted: #b2a89d;
+      --line: #342c26;
+      --line-strong: #4a4038;
+      --accent: #b39172;
+      --accent-deep: #eddccf;
+      --ok: #9ecab3;
+      --ok-bg: #1c2823;
+      --warn: #d0a177;
+      --warn-bg: #302319;
+      --support: #9fbdd3;
+      --support-bg: #1b2934;
+      --muted-bg: #24201c;
+      --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.14);
+      --shadow-card: 0 18px 44px rgba(0, 0, 0, 0.16);
+      --sans: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+      font-family: var(--sans);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 14% 18%, rgba(179,145,114,0.10), transparent 24%),
+        radial-gradient(circle at 86% 8%, rgba(124, 157, 163, 0.04), transparent 18%);
+      opacity: 1;
+    }
+    a {
+      color: var(--accent-deep);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(234, 219, 206, 0.18);
+      transition: border-color 180ms ease, color 180ms ease;
+    }
+    a:hover { border-bottom-color: rgba(234, 219, 206, 0.5); }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 24px;
+      backdrop-filter: blur(16px);
+      background: rgba(22, 19, 17, 0.82);
+      border-bottom: 1px solid rgba(74, 64, 56, 0.72);
+    }
+    .mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink);
+      border: 0;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.88rem;
+    }
+    .nav-links a {
+      border-bottom: 0;
+      color: var(--muted);
+    }
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+    .wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 56px 28px 96px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero {
+      display: grid;
+      gap: 16px;
+      padding: 2px 0 28px;
+    }
+    .eyebrow {
+      margin: 0;
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(2.15rem, 4.5vw, 3.35rem);
+      line-height: 1.04;
+      letter-spacing: -0.032em;
+      font-weight: 500;
+      text-wrap: balance;
+      max-width: 13ch;
+    }
+    .lede {
+      margin: 0;
+      max-width: 46rem;
+      color: var(--muted);
+      font-size: 0.99rem;
+      line-height: 1.72;
+    }
+    .banner {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(176px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .stat,
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow-soft);
+    }
+    .stat {
+      padding: 16px 16px;
+    }
+    .stat strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1.42rem;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+    }
+    .stat span {
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.9rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 20px;
+      margin-top: 18px;
+    }
+    .card {
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+    }
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 14px;
+    }
+    h2 {
+      margin: 0;
+      font-size: 1.22rem;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      font-weight: 500;
+      max-width: 18ch;
+    }
+    h3 {
+      margin: 0 0 9px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+    .meta {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .section {
+      margin-top: 18px;
+    }
+    .note {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.62;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.94rem;
+    }
+    td {
+      padding: 8px 0;
+      border-top: 1px solid rgba(74, 64, 56, 0.65);
+      vertical-align: top;
+    }
+    td:first-child {
+      color: var(--muted);
+      padding-right: 10px;
+      width: 48%;
+    }
+    .chips,
+    .head-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .head-chips {
+      justify-content: flex-end;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      border: 1px solid transparent;
+    }
+    .chip-ok { background: var(--ok-bg); color: var(--ok); border-color: #31473c; }
+    .chip-warn { background: var(--warn-bg); color: var(--warn); border-color: #4c3422; }
+    .chip-support { background: var(--support-bg); color: var(--support); border-color: #304452; }
+    .chip-muted { background: var(--muted-bg); color: var(--muted); border-color: #38322d; }
+    .paths {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+    .paths strong {
+      color: var(--accent-deep);
+      font-weight: 500;
+    }
+    .footer {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 22px 36px;
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 14px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(74, 64, 56, 0.72);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    @media (max-width: 1040px) {
+      h1 { max-width: none; }
+    }
+    @media (max-width: 720px) {
+      .wrap { padding-inline: 16px; }
+      .topbar { padding: 16px; align-items: flex-start; }
+      .nav-links { gap: 12px; }
+      .grid { grid-template-columns: 1fr; }
+      .card-head { flex-direction: column; }
+      .head-chips { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar">
+    <a class="mark" href="/">Butterfly Effect</a>
+    <div class="nav-links">
+      <a href="/">Overview</a>
+      <a href="/system/">System</a>
+      <a href="/validation/">Validation</a>
+      <a href="/evidence/">Evidence</a>
+      <a href="/views/">Views</a>
+    </div>
+  </nav>
+  <main class="wrap">
+    <header class="hero">
+      <p class="eyebrow">Non-Stress Daily Layer</p>
+      <h1>Daily anxiety, depression, and somatic support</h1>
+      <p class="lede">Non-stress daily layer for anxiety temporal work, depression support cohorts, and open somatic anchors kept outside the portable clinical family registry.</p>
+      <section class="banner"><article class="stat">
+          <strong>11</strong>
+          <span>cards</span>
+        </article><article class="stat">
+          <strong>6</strong>
+          <span>accepted</span>
+        </article><article class="stat">
+          <strong>4</strong>
+          <span>experimental</span>
+        </article><article class="stat">
+          <strong>1</strong>
+          <span>support only</span>
+        </article></section>
+    </header>
+    <section class="grid"><article class="card">
+              <div class="card-head">
+                <div>
+                  <h2>Anxiety daily temporal challenge layer</h2>
+                  <p class="meta">daily_temporal_challenge_layer</p>
+                </div>
+                <div class="head-chips">
+                  <span class="chip chip-warn">experimental_research_challenge</span>
+                  <span class="chip chip-muted">daily_temporal_layer</span>
+                </div>
+              </div>
+              <div class="section">
+                <h3>Reading</h3>
+                <p class="note">Temporal daily anxiety layer separated from the clinical portable family stack.</p>
+              </div>
+              <div class="section">
+                <h3>Metrics</h3>
+                <table><tbody><tr><td>boston_static_r2</td><td>0.0158</td></tr><tr><td>boston_temporal_r2</td><td>0.1685</td></tr><tr><td>boston_temporal_gain</td><td>0.1527</td></tr><tr><td>ssaqs_static_r2</td><td>-0.0249</td></tr><tr><td>ssaqs_temporal_r2</td><td>0.0214</td></tr><tr><td>ssaqs_temporal_gain</td><td>0.0463</td></tr><tr><td>stable_portable_family_mean_r2</td><td>0.0202</td></tr><tr><td>boston_shared_domain_probe_mean_r2</td><td>0.0189</td></tr><tr><td>boston_shared_domain_probe_min_holdout_r2</td><td>-0.0467</td></tr></tbody></table>
+              </div>
+              <div class="section">
+                <h3>Blocking Flags</h3>
+                <div class="chips"><span class="chip chip-warn">cross_cohort_transport_not_stable</span><span class="chip chip-warn">portable_family_signal_floor</span></div>
+              </div>
+              <div class="section paths">
+                <strong>Summary</strong><br>Internal artifact summary</div>
+            </article><article class="card">
+              <div class="card-head">
+                <div>
+                  <h2>Anxiety daily temporal portable family</h2>
+                  <p class="meta">portable_temporal_research_only</p>
+                </div>
+                <div class="head-chips">
+                  <span class="chip chip-warn">experimental_research_challenge</span>
+                  <span class="chip chip-muted">portable_temporal_family</span>
+                </div>
+              </div>
+              <div class="section">
+                <h3>Reading</h3>
+                <p class="note">Experimental sequential portable family kept outside the main registry until temporal cross-cohort behavior is stable.</p>
+              </div>
+              <div class="section">
+                <h3>Metrics</h3>
+                <table><tbody><tr><td>portable_mean_r2</td><td>0.0080</td></tr><tr><td>rows</td><td>21596</td></tr><tr><td>participants</td><td>956</td></tr><tr><td>feature_count</td><td>50</td></tr></tbody></table>
+              </div>
+              <div class="section">
+                <h3>Blocking Flags</h3>
+                <div class="chips"><span class="chip chip-warn">not_in_registry</span></div>
+              </div>
+              <div class="section paths">
+                <strong>Summary</strong><br>Internal artifact summary</div>
+            </article><article class="card">
+              <div class="card-head">
+                <div>
+                  <h2>Depression daily temporal challenge layer</h2>
+                  <p class="meta">daily_temporal_depression_challenge_layer</p>
+                </div>
+                <div class="head-chips">
+                  <span class="chip chip-warn">experimental_research_challenge</span>
+                  <span class="chip chip-muted">daily_temporal_layer</span>
+                </div>
+              </div>
+              <div class="section">
+                <h3>Reading</h3>
+                <p class="note">Research layer for daily depression modeling using temporal domains in open daily cohorts. This layer is separate from the clinical portable depression family because cross-cohort transport remains negative.</p>
+              </div>
+              <div class="section">
+                <h3>Metrics</h3>
+                <table><tbody><tr><td>boston_static_r2</td><td>0.1237</td></tr><tr><td>boston_temporal_r2</td><td>0.1556</td></tr><tr><td>boston_temporal_gain</td><td>0.0319</td></tr><tr><td>novartis_static_r2</td><td>0.0006</td></tr><tr><td>novartis_temporal_r2</td><td>0.3454</td></tr><tr><td>novartis_temporal_gain</td><td>0.3448</td></tr><tr><td>portable_probe_mean_r2</td><td>-0.0460</td></tr><tr><td>portable_probe_min_holdout_r2</td><td>-0.1027</td></tr></tbody></table>
+              </div>
+              <div class="section">
+                <h3>Blocking Flags</h3>
+                <div class="chips"><span class="chip chip-warn">cross_cohort_transport_negative</span><span class="chip chip-warn">portable_family_signal_floor</span></div>
+              </div>
+              <div class="section paths">
+                <strong>Summary</strong><br>Internal artifact summary</div>
+            </article><article class="card">
+              <div class="card-head">
+                <div>
+                  <h2>Boston anxiety D0 temporal</h2>
+                  <p class="meta">daily_temporal_anxiety</p>
+                </div>
+                <div class="head-chips">
+                  <span class="chip chip-ok">accepted_challenge</span>
+                  <span class="chip chip-muted">regression_support</span>
+                </div>
+              </div>
+              <div class="section">
+                <h3>Reading</h3>
+                <p class="note">Large daily self-report challenge cohort with strong within-cohort temporal lift for anxiety.</p>
+              </div>
+              <div class="section">
+                <h3>Metrics</h3>
+                <table><tbody><tr><td>mae</td><td>1.3178</td></tr><tr><td>rmse</td><td>1.6673</td></tr><tr><td>r2</td><td>0.1685</td></tr><tr><td>rows</td><td>20112</td></tr><tr><td>participants</td><td>925</td></tr><tr><td>feature_count</td><td>91</td></tr><tr><td>best_model</td><td>extra_trees</td></tr></tbody></table>
+              </div>
+              <div class="section">
+                <h3>Blocking Flags</h3>
+                <div class="chips"><span class="chip chip-ok">none</span></div>
+              </div>
+              <div class="section paths">
+                <strong>Summary</strong><br>Internal artifact summary</div>
+            </article><article class="card">
+              <div class="card-head">
+                <div>
+                  <h2>Boston depression D0 daily</h2>
+                  <p class="meta">daily_selfreport_depression</p>
+                </div>
+                <div class="head-chips">
+                  <span class="chip chip-ok">accepted_challenge</span>
+                  <span class="chip chip-muted">regression_support</span>
+                </div>
+              </div>
+              <div class="section">
+                <h3>Reading</h3>
+                <p class="note">Daily self-report depression challenge benchmark from Boston sleep diary data.</p>
+              </div>
+              <div class="section">
+                <h3>Metrics</h3>
+                <table><tbody><tr><td>mae</td><td>1.4433</td></tr><tr><td>rmse</td><td>1.8282</td></tr><tr><td>r2</td><td>0.1237</td></tr><tr><td>rows</td><td>20071</td></tr><tr><td>participants</td><td>924</td></tr><tr><td>feature_count</td><td>9</td></tr><tr><td>best_model</td><td>hist_gbm</td></tr></tbody></table>
+              </div>
+              <div class="section">
+                <h3>Blocking Flags</h3>
+                <div class="chips"><span class="chip chip-ok">none</span></div>
+              </div>
+              <div class="section paths">
+                <strong>Summary</strong><br>Internal artifact summary</div>
+            </article><article class="card">
+              <div class="card-head">
+                <div>
+                  <h2>Boston depression D0 temporal</h2>
+                  <p class="meta">daily_temporal_depression</p>
+                </div>
+                <div class="head-chips">
+                  <span class="chip chip-ok">accepted_challenge</span>
+                  <span class="chip chip-muted">regression_support</span>
+                </div>
+              </div>
+              <div class="section">
+                <h3>Reading</h3>
+                <p class="note">Boston daily depression benchmark with temporal memory over shared domains.</p>
+              </div>
+              <div class="section">
+                <h3>Metrics</h3>
+                <table><tbody><tr><td>mae</td><td>1.3648</td></tr><tr><td>rmse</td><td>1.7308</td></tr><tr><td>r2</td><td>0.1556</td></tr><tr><td>rows</td><td>20071</td></tr><tr><td>participants</td><td>924</td></tr><tr><td>feature_count</td><td>241</td></tr><tr><td>best_model</td><td>hist_gbm</td></tr></tbody></table>
+              </div>
+              <div class="section">
+                <h3>Blocking Flags</h3>
+                <div class="chips"><span class="chip chip-ok">none</span></div>
+              </div>
+              <div class="section paths">
+                <strong>Summary</strong><br>Internal artifact summary</div>
+            </article><article class="card">
+              <div class="card-head">
+                <div>
+                  <h2>Novartis depression D0 temporal</h2>
+                  <p class="meta">daily_temporal_depression</p>
+                </div>
+                <div class="head-chips">
+                  <span class="chip chip-ok">accepted_challenge</span>
+                  <span class="chip chip-muted">regression_support</span>
+                </div>
+              </div>
+              <div class="section">
+                <h3>Reading</h3>
+                <p class="note">Novartis daily wearable depression benchmark with temporal memory over shared domains.</p>
+              </div>
+              <div class="section">
+                <h3>Metrics</h3>
+                <table><tbody><tr><td>mae</td><td>1.2722</td></tr><tr><td>rmse</td><td>1.6985</td></tr><tr><td>r2</td><td>0.3454</td></tr><tr><td>rows</td><td>4818</td></tr><tr><td>participants</td><td>196</td></tr><tr><td>feature_count</td><td>292</td></tr><tr><td>best_model</td><td>hist_gbm</td></tr></tbody></table>
+              </div>
+              <div class="section">
+                <h3>Blocking Flags</h3>
+                <div class="chips"><span class="chip chip-ok">none</span></div>
+              </div>
+              <div class="section paths">
+                <strong>Summary</strong><br>Internal artifact summary</div>
+            </article><article class="card">
+              <div class="card-head">
+                <div>
+                  <h2>RESILIENT GAD-7 exact-night + ScanWatch</h2>
+                  <p class="meta">same_instrument_sparse_anxiety_support</p>
+                </div>
+                <div class="head-chips">
+                  <span class="chip chip-muted">support_only</span>
+                  <span class="chip chip-muted">regression_support</span>
+                </div>
+              </div>
+              <div class="section">
+                <h3>Reading</h3>
+                <p class="note">Same-instrument sparse support for anxiety in an older-adult cohort with exact-night alignment.</p>
+              </div>
+              <div class="section">
+                <h3>Metrics</h3>
+                <table><tbody><tr><td>mae</td><td>2.8888</td></tr><tr><td>rmse</td><td>4.1965</td></tr><tr><td>r2</td><td>-0.0306</td></tr><tr><td>rows</td><td>61</td></tr><tr><td>participants</td><td>61</td></tr><tr><td>feature_count</td><td>24</td></tr><tr><td>best_model</td><td>random_forest</td></tr></tbody></table>
+              </div>
+              <div class="section">
+                <h3>Blocking Flags</h3>
+                <div class="chips"><span class="chip chip-warn">negative_signal</span></div>
+              </div>
+              <div class="section paths">
+                <strong>Summary</strong><br>Internal artifact summary</div>
+            </article><article class="card">
+              <div class="card-head">
+                <div>
+                  <h2>RESILIENT PHQ-9 exact-night + ScanWatch</h2>
+                  <p class="meta">same_instrument_sparse_depression_support</p>
+                </div>
+                <div class="head-chips">
+                  <span class="chip chip-warn">experimental_challenge</span>
+                  <span class="chip chip-muted">regression_support</span>
+                </div>
+              </div>
+              <div class="section">
+                <h3>Reading</h3>
+                <p class="note">Same-instrument sparse support for depression in an older-adult cohort with exact-night alignment.</p>
+              </div>
+              <div class="section">
+                <h3>Metrics</h3>
+                <table><tbody><tr><td>mae</td><td>3.3342</td></tr><tr><td>rmse</td><td>4.5567</td></tr><tr><td>r2</td><td>0.0381</td></tr><tr><td>rows</td><td>61</td></tr><tr><td>participants</td><td>61</td></tr><tr><td>feature_count</td><td>24</td></tr><tr><td>best_model</td><td>random_forest</td></tr></tbody></table>
+              </div>
+              <div class="section">
+                <h3>Blocking Flags</h3>
+                <div class="chips"><span class="chip chip-warn">signal_floor</span></div>
+              </div>
+              <div class="section paths">
+                <strong>Summary</strong><br>Internal artifact summary</div>
+            </article><article class="card">
+              <div class="card-head">
+                <div>
+                  <h2>EPISONO general physical pain clean</h2>
+                  <p class="meta">general_physical_pain_support</p>
+                </div>
+                <div class="head-chips">
+                  <span class="chip chip-ok">accepted_support</span>
+                  <span class="chip chip-muted">binary_support</span>
+                </div>
+              </div>
+              <div class="section">
+                <h3>Reading</h3>
+                <p class="note">Direct open anchor for general physical pain with PSQI, PSG, and demographic support.</p>
+              </div>
+              <div class="section">
+                <h3>Metrics</h3>
+                <table><tbody><tr><td>auroc</td><td>0.7954</td></tr><tr><td>average_precision</td><td>0.5706</td></tr><tr><td>balanced_accuracy</td><td>0.7295</td></tr><tr><td>brier</td><td>0.1833</td></tr><tr><td>prevalence</td><td>0.2562</td></tr><tr><td>rows</td><td>1042</td></tr><tr><td>participants</td><td>1042</td></tr><tr><td>feature_count</td><td>22</td></tr><tr><td>best_model</td><td>logistic</td></tr></tbody></table>
+              </div>
+              <div class="section">
+                <h3>Blocking Flags</h3>
+                <div class="chips"><span class="chip chip-ok">none</span></div>
+              </div>
+              <div class="section paths">
+                <strong>Summary</strong><br>Internal artifact summary</div>
+            </article><article class="card">
+              <div class="card-head">
+                <div>
+                  <h2>EPISONO general physical pain actigraphy subset</h2>
+                  <p class="meta">general_physical_pain_actigraphy_support</p>
+                </div>
+                <div class="head-chips">
+                  <span class="chip chip-ok">accepted_support</span>
+                  <span class="chip chip-muted">binary_support</span>
+                </div>
+              </div>
+              <div class="section">
+                <h3>Reading</h3>
+                <p class="note">Actigraphy-supported open pain anchor subset.</p>
+              </div>
+              <div class="section">
+                <h3>Metrics</h3>
+                <table><tbody><tr><td>auroc</td><td>0.7550</td></tr><tr><td>average_precision</td><td>0.4507</td></tr><tr><td>balanced_accuracy</td><td>0.7050</td></tr><tr><td>brier</td><td>0.2002</td></tr><tr><td>prevalence</td><td>0.2181</td></tr><tr><td>rows</td><td>353</td></tr><tr><td>participants</td><td>353</td></tr><tr><td>feature_count</td><td>6</td></tr><tr><td>best_model</td><td>logistic</td></tr></tbody></table>
+              </div>
+              <div class="section">
+                <h3>Blocking Flags</h3>
+                <div class="chips"><span class="chip chip-ok">none</span></div>
+              </div>
+              <div class="section paths">
+                <strong>Summary</strong><br>Internal artifact summary</div>
+            </article></section>
+  </main>
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>Source: Butterfly Effect non-stress daily registry</span>
+      <span>Butterfly Effect · research surface · not diagnostic</span>
+    </div>
+  </footer>
+</body>
+</html>
