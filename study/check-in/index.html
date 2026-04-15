@@ -366,19 +366,35 @@
         <article class="hero-card">
           <p class="eyebrow">Participant check-in</p>
           <h1>One short check-in a day.</h1>
-          <p class="lede">This page is designed for repeated follow-up, not for interpretation after a single day. Your entries stay in this browser and help build the later longitudinal view that can be linked back to your wearable history.</p>
+          <p class="lede">This page is designed for repeated follow-up, not for interpretation after a single day. Once you sign in, entries are stored in the secure study backend and later linked back to your wearable history.</p>
           <div class="hero-actions">
             <a class="button" href="#checkin">Open today’s check-in</a>
             <a class="ghost-button" href="#progress">See your progress</a>
           </div>
         </article>
         <aside class="panel">
-          <p class="eyebrow">What to expect</p>
-          <h2>How this study works</h2>
+          <p class="eyebrow">Study access</p>
+          <h2>Secure participant access</h2>
+          <p>Use the same email each time. The participant code can be prefilled from your study link and will then be linked to your secure study account.</p>
+          <div class="field-grid" style="margin-top:14px;">
+            <div class="field wide">
+              <label for="auth_email">Email for magic link access</label>
+              <input id="auth_email" type="email" autocomplete="email" placeholder="name@example.com">
+            </div>
+          </div>
+          <div class="actions">
+            <button class="button" type="button" id="send-link-button">Send secure sign-in link</button>
+            <button class="mini-button" type="button" id="sign-out-button">Sign out</button>
+          </div>
+          <div id="auth-status" class="status"></div>
+          <div class="callout" style="margin-top:12px;">
+            <strong style="display:block; color:var(--ink); margin-bottom:4px;">Current access</strong>
+            <div id="auth-summary">Not signed in yet.</div>
+          </div>
           <div class="stat-grid">
             <div class="stat">
-              <strong>Daily effort</strong>
-              <span>One short check-in, ideally at the start of the day or soon after waking.</span>
+              <strong>Remote sync</strong>
+              <span id="sync-summary">Waiting for sign-in.</span>
             </div>
             <div class="stat">
               <strong>Data return</strong>
@@ -396,8 +412,8 @@
         <article class="section-card">
           <div>
             <p class="eyebrow">Participant profile</p>
-            <h2>Identity in this browser</h2>
-            <p>If your study link already includes a participant code, it will be stored automatically. Otherwise, save it once here and reuse the same browser during follow-up.</p>
+            <h2>Study identity</h2>
+            <p>If your study link already includes a participant code, it will appear here automatically. Save it after signing in so the code is linked to your secure study account.</p>
           </div>
           <div class="field-grid">
             <div class="field">
@@ -410,12 +426,12 @@
             </div>
           </div>
           <div class="actions">
-            <button class="button" type="button" id="save-profile-button">Save participant code</button>
+            <button class="button" type="button" id="save-profile-button">Link participant code</button>
           </div>
           <div id="profile-status" class="status"></div>
           <div class="callout">
             <strong style="display:block; color:var(--ink); margin-bottom:4px;">Current participant</strong>
-            <div id="profile-summary">No participant code saved in this browser yet.</div>
+            <div id="profile-summary">No participant code linked to this account yet.</div>
           </div>
         </article>
 
@@ -501,8 +517,8 @@
         <article class="section-card">
           <div>
             <p class="eyebrow">Recent history</p>
-            <h2>Your local follow-up log</h2>
-            <p>You can review and edit previous entries here. Export and backup tools are intentionally not shown in the participant view.</p>
+            <h2>Your study follow-up log</h2>
+            <p>You can review and edit previous entries here. Participant-facing export and backup tools are intentionally hidden.</p>
           </div>
           <div id="table-status" class="status"></div>
           <div class="table-wrap">
@@ -524,21 +540,30 @@
           </div>
           <div class="callout">
             <strong style="display:block; color:var(--ink); margin-bottom:4px;">Study privacy</strong>
-            <span>This participant view stores data in this browser only. If the device or browser changes, the saved follow-up history will not move automatically.</span>
+            <span>This participant view writes to the secure study backend after sign-in. Data is private by default and linked to your participant code and account.</span>
           </div>
         </article>
       </section>
 
       <footer class="footer">
         <span>Butterfly Effect · participant check-in · longitudinal follow-up · not diagnostic · 2026</span>
-        <span>Data in this view stays local to this browser.</span>
+        <span>Participant data is private by default and stored in the study backend after sign-in.</span>
       </footer>
     </main>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    const PROFILE_KEY = "butterfly_effect_study_profile_v1";
-    const ENTRIES_KEY = "butterfly_effect_daily_checkins_v1";
+    const SUPABASE_URL = "https://cssmtjtfyvkdlfvnjthj.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzc210anRmeXZrZGxmdm5qdGhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyNzMzODEsImV4cCI6MjA5MTg0OTM4MX0.55GiAhSex58x03B0LE9Eu5rWYKcsrgo0r4zMMrq61lI";
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+      },
+    });
+
     const FIELD_ORDER = [
       "participant_uid","report_date_local","checkin_completed_ts_local","sleep_quality_0_10","stress_0_10","anxiety_0_10",
       "depression_0_10","mood_valence_0_10","positive_affect_0_10","negative_affect_0_10","fatigue_0_10","energy_0_10",
@@ -555,6 +580,19 @@
       "negative_affect_0_10","fatigue_0_10","energy_0_10","pain_0_10","muscle_tension_0_10"
     ];
 
+    const state = {
+      session: null,
+      user: null,
+      participant: null,
+      entries: [],
+      currentEditId: null,
+    };
+
+    const authEmailInput = document.getElementById("auth_email");
+    const authStatus = document.getElementById("auth-status");
+    const authSummary = document.getElementById("auth-summary");
+    const syncSummary = document.getElementById("sync-summary");
+    const signOutButton = document.getElementById("sign-out-button");
     const profileStatus = document.getElementById("profile-status");
     const profileSummary = document.getElementById("profile-summary");
     const formStatus = document.getElementById("form-status");
@@ -566,7 +604,9 @@
     const participantCodeInput = document.getElementById("participant_code");
     const participantLabelInput = document.getElementById("participant_label");
 
-    let currentEditKey = null;
+    function queryParams() {
+      return new URLSearchParams(window.location.search);
+    }
 
     function todayLocalDate() {
       return new Date().toISOString().slice(0, 10);
@@ -602,67 +642,34 @@
       node.className = `status ${tone}`.trim();
     }
 
-    function loadProfile() {
-      try {
-        return JSON.parse(localStorage.getItem(PROFILE_KEY) || "null");
-      } catch {
-        return null;
-      }
+    function toOptionalInt(value) {
+      const raw = String(value ?? "").trim();
+      if (!raw) return null;
+      const parsed = Number.parseInt(raw, 10);
+      return Number.isNaN(parsed) ? null : parsed;
     }
 
-    function saveProfile(profile) {
-      localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+    function toOptionalFloat(value) {
+      const raw = String(value ?? "").trim();
+      if (!raw) return null;
+      const parsed = Number.parseFloat(raw);
+      return Number.isNaN(parsed) ? null : parsed;
     }
 
-    function loadEntries() {
-      try {
-        return JSON.parse(localStorage.getItem(ENTRIES_KEY) || "[]");
-      } catch {
-        return [];
-      }
-    }
-
-    function saveEntries(entries) {
-      localStorage.setItem(ENTRIES_KEY, JSON.stringify(entries));
+    function boolString(value) {
+      return value ? "1" : "0";
     }
 
     function entryKey(entry) {
-      return `${entry.participant_uid || ""}__${entry.report_date_local || ""}`;
+      return entry.id || `${entry.participant_uid || ""}__${entry.report_date_local || ""}`;
     }
 
-    function queryParams() {
-      return new URLSearchParams(window.location.search);
-    }
-
-    function maybeSeedProfileFromQuery() {
+    function seedFromQuery() {
       const params = queryParams();
       const pid = (params.get("pid") || "").trim();
-      if (!pid) return;
-      const current = loadProfile() || {};
-      const profile = {
-        participant_uid: pid,
-        display_label: params.get("label") || current.display_label || "",
-        study_label: params.get("study") || current.study_label || "",
-        timezone: current.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone || "",
-        note: current.note || "",
-        updated_at: localIsoTimestamp(),
-      };
-      saveProfile(profile);
-    }
-
-    function updateProfileSummary() {
-      const profile = loadProfile();
-      if (!profile || !profile.participant_uid) {
-        participantUidInput.value = "";
-        participantCodeInput.value = "";
-        participantLabelInput.value = "";
-        profileSummary.textContent = "No participant code saved in this browser yet.";
-        return;
-      }
-      participantUidInput.value = profile.participant_uid;
-      participantCodeInput.value = profile.participant_uid;
-      participantLabelInput.value = profile.display_label || "";
-      profileSummary.innerHTML = `<strong style="display:block; color:var(--ink); margin-bottom:4px;">${escapeHtml(profile.participant_uid)}</strong><span>${escapeHtml(profile.display_label || "No local label")}</span>`;
+      const label = (params.get("label") || "").trim();
+      if (pid && !participantCodeInput.value.trim()) participantCodeInput.value = pid;
+      if (label && !participantLabelInput.value.trim()) participantLabelInput.value = label;
     }
 
     function computeStreak(entries) {
@@ -695,8 +702,32 @@
       node.classList.add(count >= threshold ? "ready" : "progressing");
     }
 
+    function renderAuthState() {
+      if (!state.user) {
+        authSummary.textContent = "Not signed in yet.";
+        syncSummary.textContent = "Waiting for secure sign-in.";
+        signOutButton.style.display = "none";
+        return;
+      }
+      authSummary.innerHTML = `<strong style="display:block; color:var(--ink); margin-bottom:4px;">${escapeHtml(state.user.email || "Signed in")}</strong><span>Secure study session active</span>`;
+      syncSummary.textContent = state.participant ? "Secure sync active for this participant." : "Signed in. Link the participant code next.";
+      signOutButton.style.display = "inline-flex";
+    }
+
+    function updateProfileSummary() {
+      if (!state.participant) {
+        participantUidInput.value = "";
+        profileSummary.textContent = state.user ? "No participant code linked to this account yet." : "Sign in first, then link your participant code.";
+        return;
+      }
+      participantUidInput.value = state.participant.participant_code;
+      participantCodeInput.value = state.participant.participant_code;
+      participantLabelInput.value = state.participant.display_label || "";
+      profileSummary.innerHTML = `<strong style="display:block; color:var(--ink); margin-bottom:4px;">${escapeHtml(state.participant.participant_code)}</strong><span>${escapeHtml(state.participant.display_label || "No local label")}</span><br><span>${escapeHtml(state.participant.study_label || "No study label")}</span>`;
+    }
+
     function updateMetrics() {
-      const entries = loadEntries().sort((a, b) => (a.report_date_local > b.report_date_local ? 1 : -1));
+      const entries = [...state.entries].sort((a, b) => (a.report_date_local > b.report_date_local ? 1 : -1));
       const count = entries.length;
       document.getElementById("metric-total").textContent = String(count);
       document.getElementById("metric-latest").textContent = count ? entries[count - 1].report_date_local : "—";
@@ -705,6 +736,41 @@
       setMilestone("milestone-7", "milestone-7-text", count, 7);
       setMilestone("milestone-14", "milestone-14-text", count, 14);
       setMilestone("milestone-28", "milestone-28-text", count, 28);
+    }
+
+    function dbRowToEntry(row) {
+      return {
+        id: row.id,
+        participant_uid: state.participant?.participant_code || "",
+        report_date_local: row.report_date_local || "",
+        checkin_completed_ts_local: row.checkin_completed_at || row.created_at || "",
+        sleep_quality_0_10: row.sleep_quality_0_10 ?? "",
+        stress_0_10: row.stress_0_10 ?? "",
+        anxiety_0_10: row.anxiety_0_10 ?? "",
+        depression_0_10: row.depression_0_10 ?? "",
+        mood_valence_0_10: row.mood_valence_0_10 ?? row.mood_0_10 ?? "",
+        positive_affect_0_10: row.positive_affect_0_10 ?? "",
+        negative_affect_0_10: row.negative_affect_0_10 ?? "",
+        fatigue_0_10: row.fatigue_0_10 ?? "",
+        energy_0_10: row.energy_0_10 ?? "",
+        pain_0_10: row.pain_0_10 ?? "",
+        muscle_tension_0_10: row.muscle_tension_0_10 ?? "",
+        major_stressor_flag: boolString(row.major_stressor_flag),
+        dream_recall_flag: boolString(row.dream_recall_flag),
+        caffeine_mg: row.caffeine_mg ?? "",
+        caffeine_late_flag: boolString(row.caffeine_late_flag),
+        alcohol_units: row.alcohol_units ?? "",
+        alcohol_evening_flag: boolString(row.alcohol_evening_flag),
+        nap_minutes: row.nap_minutes ?? "",
+        exercise_minutes: row.exercise_minutes ?? "",
+        exercise_late_flag: boolString(row.exercise_late_flag),
+        acute_illness_flag: boolString(row.acute_illness_flag),
+        medication_change_flag: boolString(row.medication_change_flag),
+        travel_flag: boolString(row.travel_flag),
+        major_schedule_disruption_flag: boolString(row.major_schedule_disruption_flag),
+        menstrual_cycle_phase: row.menstrual_cycle_phase ?? "",
+        free_text_note: row.free_text_note ?? "",
+      };
     }
 
     function readFormEntry() {
@@ -717,21 +783,89 @@
         }
         data[name] = CHECKBOX_FIELDS.has(name) ? (node.checked ? "1" : "0") : String(node.value || "").trim();
       }
-      data.participant_uid = data.participant_uid || loadProfile()?.participant_uid || "";
+      data.participant_uid = state.participant?.participant_code || participantCodeInput.value.trim();
       data.checkin_completed_ts_local = localIsoTimestamp();
       return data;
     }
 
+    function entryToPayload(entry) {
+      const pain = toOptionalInt(entry.pain_0_10);
+      const tension = toOptionalInt(entry.muscle_tension_0_10);
+      const mergedPainTension = pain === null && tension === null ? null : Math.max(pain ?? 0, tension ?? 0);
+      return {
+        participant_id: state.participant.id,
+        report_date_local: entry.report_date_local,
+        timezone: state.participant.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone || null,
+        checkin_completed_at: localIsoTimestamp(),
+        sleep_quality_0_10: toOptionalInt(entry.sleep_quality_0_10),
+        stress_0_10: toOptionalInt(entry.stress_0_10),
+        anxiety_0_10: toOptionalInt(entry.anxiety_0_10),
+        depression_0_10: toOptionalInt(entry.depression_0_10),
+        mood_0_10: toOptionalInt(entry.mood_valence_0_10),
+        mood_valence_0_10: toOptionalInt(entry.mood_valence_0_10),
+        positive_affect_0_10: toOptionalInt(entry.positive_affect_0_10),
+        negative_affect_0_10: toOptionalInt(entry.negative_affect_0_10),
+        fatigue_0_10: toOptionalInt(entry.fatigue_0_10),
+        energy_0_10: toOptionalInt(entry.energy_0_10),
+        pain_0_10: pain,
+        muscle_tension_0_10: tension,
+        pain_tension_0_10: mergedPainTension,
+        major_stressor_flag: entry.major_stressor_flag === "1",
+        dream_recall_flag: entry.dream_recall_flag === "1",
+        caffeine_mg: toOptionalInt(entry.caffeine_mg),
+        caffeine_late_flag: entry.caffeine_late_flag === "1",
+        alcohol_units: toOptionalFloat(entry.alcohol_units),
+        alcohol_evening_flag: entry.alcohol_evening_flag === "1",
+        nap_minutes: toOptionalInt(entry.nap_minutes),
+        nap_flag: (toOptionalInt(entry.nap_minutes) || 0) > 0,
+        exercise_minutes: toOptionalInt(entry.exercise_minutes),
+        exercise_late_flag: entry.exercise_late_flag === "1",
+        acute_illness_flag: entry.acute_illness_flag === "1",
+        medication_change_flag: entry.medication_change_flag === "1",
+        travel_flag: entry.travel_flag === "1",
+        major_schedule_disruption_flag: entry.major_schedule_disruption_flag === "1",
+        menstrual_cycle_phase: entry.menstrual_cycle_phase || null,
+        free_text_note: entry.free_text_note || null,
+        source: "participant_portal",
+      };
+    }
+
+    function legacyPayloadFromEntry(entry) {
+      const pain = toOptionalInt(entry.pain_0_10);
+      const tension = toOptionalInt(entry.muscle_tension_0_10);
+      const mergedPainTension = pain === null && tension === null ? null : Math.max(pain ?? 0, tension ?? 0);
+      return {
+        participant_id: state.participant.id,
+        report_date_local: entry.report_date_local,
+        timezone: state.participant.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone || null,
+        checkin_completed_at: localIsoTimestamp(),
+        sleep_quality_0_10: toOptionalInt(entry.sleep_quality_0_10),
+        stress_0_10: toOptionalInt(entry.stress_0_10),
+        anxiety_0_10: toOptionalInt(entry.anxiety_0_10),
+        mood_0_10: toOptionalInt(entry.mood_valence_0_10),
+        fatigue_0_10: toOptionalInt(entry.fatigue_0_10),
+        pain_tension_0_10: mergedPainTension,
+        caffeine_late_flag: entry.caffeine_late_flag === "1",
+        alcohol_evening_flag: entry.alcohol_evening_flag === "1",
+        nap_flag: (toOptionalInt(entry.nap_minutes) || 0) > 0,
+        exercise_late_flag: entry.exercise_late_flag === "1",
+        major_stressor_flag: entry.major_stressor_flag === "1",
+        travel_flag: entry.travel_flag === "1",
+        free_text_note: entry.free_text_note || null,
+        source: "participant_portal",
+      };
+    }
+
     function resetForm() {
       form.reset();
-      participantUidInput.value = loadProfile()?.participant_uid || "";
+      participantUidInput.value = state.participant?.participant_code || participantCodeInput.value.trim();
       reportDateInput.value = todayLocalDate();
       RANGE_FIELDS.forEach((name) => {
         const input = document.getElementById(name);
         const valueNode = document.querySelector(`[data-range-value="${name}"]`);
         if (input && valueNode) valueNode.textContent = input.value;
       });
-      currentEditKey = null;
+      state.currentEditId = null;
       document.getElementById("save-button").textContent = "Save today’s check-in";
       setStatus(formStatus, "", "");
     }
@@ -748,16 +882,16 @@
         const valueNode = document.querySelector(`[data-range-value="${name}"]`);
         if (input && valueNode) valueNode.textContent = input.value;
       });
-      currentEditKey = entryKey(entry);
+      state.currentEditId = entry.id || null;
       document.getElementById("save-button").textContent = "Save changes";
       setStatus(formStatus, "Editing mode active for the selected date.", "warn");
       window.scrollTo({ top: document.getElementById("checkin").offsetTop - 80, behavior: "smooth" });
     }
 
     function renderTable() {
-      const entries = loadEntries().sort((a, b) => (a.report_date_local < b.report_date_local ? 1 : -1));
+      const entries = [...state.entries].sort((a, b) => (a.report_date_local < b.report_date_local ? 1 : -1));
       if (!entries.length) {
-        entriesBody.innerHTML = '<tr><td colspan="8">No local entries yet.</td></tr>';
+        entriesBody.innerHTML = '<tr><td colspan="8">No synced entries yet.</td></tr>';
         updateMetrics();
         return;
       }
@@ -775,43 +909,183 @@
       updateMetrics();
     }
 
-    function saveProfileFromForm() {
-      const participantUid = participantCodeInput.value.trim();
-      if (!participantUid) {
-        setStatus(profileStatus, "Participant code is required.", "danger");
+    async function refreshParticipant() {
+      if (!state.user) {
+        state.participant = null;
+        updateProfileSummary();
+        renderAuthState();
         return;
       }
-      saveProfile({
-        participant_uid: participantUid,
-        display_label: participantLabelInput.value.trim(),
-        updated_at: localIsoTimestamp(),
-      });
+      const { data, error } = await supabaseClient
+        .from("study_participants")
+        .select("*")
+        .maybeSingle();
+      if (error) {
+        setStatus(profileStatus, error.message, "danger");
+        return;
+      }
+      state.participant = data;
       updateProfileSummary();
-      resetForm();
-      setStatus(profileStatus, "Participant code saved in this browser.", "ok");
+      renderAuthState();
     }
 
-    function handleSave(event) {
-      event.preventDefault();
-      const entry = readFormEntry();
-      if (!entry.participant_uid) {
-        setStatus(formStatus, "Save your participant code first.", "danger");
+    async function claimParticipant({ silent = false } = {}) {
+      if (!state.user) {
+        setStatus(profileStatus, "Sign in first with your email.", "danger");
+        return false;
+      }
+      const code = participantCodeInput.value.trim();
+      if (!code) {
+        setStatus(profileStatus, "Participant code is required.", "danger");
+        return false;
+      }
+      const { data, error } = await supabaseClient.rpc("claim_study_participant", {
+        claim_code: code,
+        claim_display_label: participantLabelInput.value.trim() || null,
+        claim_study_label: queryParams().get("study") || null,
+        claim_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
+      });
+      if (error) {
+        setStatus(profileStatus, error.message, "danger");
+        return false;
+      }
+      state.participant = data;
+      updateProfileSummary();
+      renderAuthState();
+      participantUidInput.value = data.participant_code;
+      if (!silent) setStatus(profileStatus, "Participant code linked securely.", "ok");
+      return true;
+    }
+
+    async function loadRemoteEntries() {
+      if (!state.user || !state.participant) {
+        state.entries = [];
+        renderTable();
         return;
       }
+      const { data, error } = await supabaseClient
+        .from("study_daily_checkins")
+        .select("*")
+        .order("report_date_local", { ascending: false });
+      if (error) {
+        setStatus(tableStatus, error.message, "danger");
+        return;
+      }
+      state.entries = (data || []).map(dbRowToEntry);
+      renderTable();
+      syncSummary.textContent = `Secure sync active. ${state.entries.length} remote check-in${state.entries.length === 1 ? "" : "s"} loaded.`;
+    }
+
+    async function refreshSessionState() {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      state.session = session;
+      state.user = session?.user || null;
+      renderAuthState();
+      await refreshParticipant();
+      if (state.user && !state.participant && participantCodeInput.value.trim()) {
+        await claimParticipant({ silent: true });
+      }
+      await loadRemoteEntries();
+      resetForm();
+    }
+
+    async function sendMagicLink() {
+      const email = authEmailInput.value.trim();
+      if (!email) {
+        setStatus(authStatus, "Email is required.", "danger");
+        return;
+      }
+      const redirect = `${window.location.origin}${window.location.pathname}${window.location.search}`;
+      const { error } = await supabaseClient.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: redirect },
+      });
+      if (error) {
+        setStatus(authStatus, error.message, "danger");
+        return;
+      }
+      setStatus(authStatus, "Magic link sent. Open the email on this same device and browser if possible.", "ok");
+    }
+
+    async function signOut() {
+      await supabaseClient.auth.signOut();
+      state.session = null;
+      state.user = null;
+      state.participant = null;
+      state.entries = [];
+      renderAuthState();
+      updateProfileSummary();
+      renderTable();
+      resetForm();
+      setStatus(authStatus, "Signed out.", "warn");
+    }
+
+    async function handleSaveProfile() {
+      const ok = await claimParticipant();
+      if (ok) {
+        await loadRemoteEntries();
+        resetForm();
+      }
+    }
+
+    async function handleSave(event) {
+      event.preventDefault();
+      if (!state.user) {
+        setStatus(formStatus, "Sign in first with your study email.", "danger");
+        return;
+      }
+      if (!state.participant) {
+        const claimed = await claimParticipant({ silent: true });
+        if (!claimed) {
+          setStatus(formStatus, "Link your participant code first.", "danger");
+          return;
+        }
+      }
+      const entry = readFormEntry();
       if (!entry.report_date_local) {
         setStatus(formStatus, "The check-in date is required.", "danger");
         return;
       }
-      const key = currentEditKey || entryKey(entry);
-      const entries = loadEntries().filter((item) => entryKey(item) !== key);
-      entries.push(entry);
-      saveEntries(entries);
-      renderTable();
+      const payload = entryToPayload(entry);
+      let { error } = await supabaseClient
+        .from("study_daily_checkins")
+        .upsert(payload, { onConflict: "participant_id,report_date_local" });
+      let degraded = false;
+      if (error) {
+        const legacyPayload = legacyPayloadFromEntry(entry);
+        const fallback = await supabaseClient
+          .from("study_daily_checkins")
+          .upsert(legacyPayload, { onConflict: "participant_id,report_date_local" });
+        error = fallback.error;
+        degraded = !error;
+      }
+      if (error) {
+        setStatus(formStatus, error.message, "danger");
+        return;
+      }
+      await loadRemoteEntries();
       resetForm();
-      setStatus(tableStatus, "Check-in saved successfully.", "ok");
+      setStatus(tableStatus, degraded ? "Check-in saved securely. Extended fields will sync once the schema extension is applied." : "Check-in saved securely.", degraded ? "warn" : "ok");
     }
 
-    document.getElementById("save-profile-button").addEventListener("click", saveProfileFromForm);
+    async function handleDelete(key) {
+      const entry = state.entries.find((item) => entryKey(item) === key);
+      if (!entry || !entry.id) return;
+      const { error } = await supabaseClient
+        .from("study_daily_checkins")
+        .delete()
+        .eq("id", entry.id);
+      if (error) {
+        setStatus(tableStatus, error.message, "danger");
+        return;
+      }
+      await loadRemoteEntries();
+      setStatus(tableStatus, "Entry deleted.", "warn");
+    }
+
+    document.getElementById("send-link-button").addEventListener("click", sendMagicLink);
+    signOutButton.addEventListener("click", signOut);
+    document.getElementById("save-profile-button").addEventListener("click", handleSaveProfile);
     form.addEventListener("submit", handleSave);
     document.getElementById("reset-button").addEventListener("click", resetForm);
 
@@ -819,13 +1093,11 @@
       const editKey = event.target.getAttribute("data-edit");
       const deleteKey = event.target.getAttribute("data-delete");
       if (editKey) {
-        const entry = loadEntries().find((item) => entryKey(item) === editKey);
+        const entry = state.entries.find((item) => entryKey(item) === editKey);
         if (entry) fillForm(entry);
       }
       if (deleteKey) {
-        saveEntries(loadEntries().filter((item) => entryKey(item) !== deleteKey));
-        renderTable();
-        setStatus(tableStatus, "Entry deleted.", "warn");
+        handleDelete(deleteKey);
       }
     });
 
@@ -835,10 +1107,16 @@
       input.addEventListener("input", () => { valueNode.textContent = input.value; });
     });
 
-    maybeSeedProfileFromQuery();
+    supabaseClient.auth.onAuthStateChange(async () => {
+      await refreshSessionState();
+    });
+
+    seedFromQuery();
+    renderAuthState();
     updateProfileSummary();
     resetForm();
     renderTable();
+    refreshSessionState();
   </script>
 </body>
 </html>
