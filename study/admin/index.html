@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Daily participant check-in for Butterfly Effect study follow-up, with participant code persistence, progress milestones, and later Apple Health merge.">
-  <title>Butterfly Effect — Daily Check-In</title>
+  <meta name="description" content="Research and operational tools for Butterfly Effect study support, including export, import, and local backup handling.">
+  <title>Butterfly Effect — Study Admin</title>
   <style>
     :root {
       --bg: #161311;
@@ -17,8 +17,11 @@
       --accent: #c39a79;
       --accent-deep: #eadbce;
       --ok: #9ecab3;
+      --ok-bg: #1c2823;
       --warn: #d0a177;
+      --warn-bg: #302319;
       --danger: #c86f55;
+      --danger-bg: #321d18;
       --shadow-soft: 0 14px 30px rgba(0, 0, 0, 0.18);
       --sans: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
     }
@@ -82,7 +85,7 @@
     .nav-links a { color: var(--muted); }
     .nav-links a.active { color: var(--ink); }
     .wrap {
-      width: min(1180px, calc(100% - 36px));
+      width: min(1240px, calc(100% - 36px));
       margin: 0 auto;
       padding: 34px 0 68px;
     }
@@ -112,12 +115,17 @@
       font-weight: 700;
     }
     h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.02em; }
-    h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.03; }
-    h2 { font-size: 1.28rem; margin-bottom: 12px; }
+    h1 { font-size: clamp(2rem, 5vw, 3.3rem); line-height: 1.03; }
+    h2 { font-size: 1.32rem; margin-bottom: 12px; }
     h3 { font-size: 1rem; margin-bottom: 10px; }
     p { margin: 0; color: var(--muted); }
     .lede { margin-top: 16px; max-width: 62ch; color: var(--accent-deep); font-size: 1.04rem; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
     .button,
     .ghost-button,
     .mini-button {
@@ -130,17 +138,17 @@
       cursor: pointer;
       transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
       text-decoration: none;
-      border: 1px solid transparent;
     }
     .button,
     .ghost-button { padding: 0 18px; }
     .button {
       background: var(--accent);
       color: #1a1411;
+      border: 1px solid transparent;
       font-weight: 700;
     }
     .ghost-button {
-      border-color: rgba(195, 154, 121, 0.44);
+      border: 1px solid rgba(195, 154, 121, 0.44);
       color: var(--accent-deep);
       background: rgba(35, 29, 25, 0.56);
       font-weight: 600;
@@ -150,34 +158,44 @@
       padding: 0 12px;
       border-radius: 12px;
       background: rgba(35, 29, 25, 0.56);
-      border-color: rgba(74, 64, 56, 0.68);
+      border: 1px solid rgba(74, 64, 56, 0.68);
       color: var(--accent-deep);
       font-size: 0.88rem;
+    }
+    .danger-button {
+      background: rgba(200, 111, 85, 0.12);
+      border-color: rgba(200, 111, 85, 0.3);
+      color: #f0c6bb;
     }
     .button:hover,
     .ghost-button:hover,
     .mini-button:hover { text-decoration: none; transform: translateY(-1px); }
+    .stat-grid,
     .section-grid,
     .field-grid,
-    .boolean-grid,
-    .stat-grid,
-    .milestone-grid {
+    .boolean-grid {
       display: grid;
       gap: 14px;
     }
+    .stat-grid { margin-top: 14px; }
+    .stat {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(36, 32, 28, 0.86);
+      border: 1px solid rgba(74, 64, 56, 0.54);
+    }
+    .stat strong { display: block; margin-bottom: 4px; color: var(--ink); font-size: 0.98rem; }
     .section-grid { grid-template-columns: 1fr 1fr; margin-top: 18px; }
-    .stat-grid,
-    .milestone-grid { margin-top: 12px; }
+    .section-card { display: grid; gap: 14px; }
     .field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .boolean-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .field { display: flex; flex-direction: column; gap: 6px; }
     .field.wide { grid-column: 1 / -1; }
-    label { font-size: 0.9rem; color: var(--accent-deep); }
+    label { font-size: 0.9rem; color: var(--accent-soft); }
     input,
     textarea {
       width: 100%;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
+      background: rgba(255, 255, 255, 0.03);
       color: var(--ink);
       border-radius: 12px;
       padding: 10px 12px;
@@ -188,7 +206,7 @@
       color: var(--accent-deep);
     }
     input[type="range"] { padding: 0; accent-color: var(--accent); }
-    textarea { min-height: 88px; resize: vertical; }
+    textarea { min-height: 86px; resize: vertical; }
     .range-row {
       display: grid;
       grid-template-columns: 1fr auto;
@@ -196,6 +214,7 @@
       align-items: center;
     }
     .range-value { min-width: 34px; text-align: right; color: var(--accent-deep); font-weight: 700; }
+    .boolean-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .checkbox {
       display: flex;
       align-items: center;
@@ -207,7 +226,12 @@
       color: var(--muted);
     }
     .checkbox input { width: auto; margin: 0; }
-    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
     .status {
       min-height: 22px;
       margin-top: 10px;
@@ -217,19 +241,37 @@
     .status.ok { color: var(--ok); }
     .status.warn { color: var(--warn); }
     .status.danger { color: var(--danger); }
-    .callout,
-    .stat,
-    .milestone {
+    .panel-stack {
+      display: grid;
+      gap: 18px;
+    }
+    .callout {
       padding: 14px 16px;
-      border-radius: 18px;
+      border-radius: 16px;
       background: rgba(36, 32, 28, 0.86);
       border: 1px solid rgba(74, 64, 56, 0.54);
       color: var(--muted);
     }
-    .stat strong,
-    .milestone strong { display: block; margin-bottom: 4px; color: var(--ink); }
-    .milestone.ready { border-color: rgba(158, 202, 179, 0.42); background: rgba(28, 40, 35, 0.72); }
-    .milestone.progressing { border-color: rgba(208, 161, 119, 0.42); background: rgba(48, 35, 25, 0.72); }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pill {
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(36, 32, 28, 0.86);
+      border: 1px solid rgba(74, 64, 56, 0.54);
+      color: var(--accent-deep);
+      font-size: 0.84rem;
+    }
+    .list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      display: grid;
+      gap: 10px;
+    }
     .table-wrap {
       overflow: auto;
       border: 1px solid var(--line);
@@ -272,30 +314,30 @@
       .hero,
       .section-grid,
       .field-grid,
-      .boolean-grid,
-      .milestone-grid { grid-template-columns: 1fr; }
+      .boolean-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 720px) {
       .topbar { flex-direction: column; align-items: flex-start; }
-      .wrap { width: min(100% - 24px, 1180px); }
+      .wrap { width: min(100% - 24px, 1240px); }
       .hero-card,
       .panel,
       .section-card { padding: 20px; }
     }
   </style>
-  <link rel="canonical" href="https://butterflyeffectstudy.com/study/check-in/">
+  <link rel="canonical" href="https://butterflyeffectstudy.com/study/admin/">
   <meta property="og:site_name" content="Butterfly Effect">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Butterfly Effect — Daily Check-In">
-  <meta property="og:description" content="Daily participant check-in for Butterfly Effect study follow-up, with participant code persistence, progress milestones, and later Apple Health merge.">
-  <meta property="og:url" content="https://butterflyeffectstudy.com/study/check-in/">
+  <meta property="og:title" content="Butterfly Effect — Study Admin">
+  <meta property="og:description" content="Research and operational tools for Butterfly Effect study support, including export, import, and local backup handling.">
+  <meta property="og:url" content="https://butterflyeffectstudy.com/study/admin/">
   <meta property="og:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Butterfly Effect — Daily Check-In">
-  <meta name="twitter:description" content="Daily participant check-in for Butterfly Effect study follow-up, with participant code persistence, progress milestones, and later Apple Health merge.">
+  <meta name="twitter:title" content="Butterfly Effect — Study Admin">
+  <meta name="twitter:description" content="Research and operational tools for Butterfly Effect study support, including export, import, and local backup handling.">
   <meta name="twitter:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
+  <meta name="robots" content="noindex, nofollow">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -309,85 +351,105 @@
         <a href="/">Overview</a>
         <a href="/participant/">Participant</a>
         <a href="/study/">Study</a>
-        <a class="active" href="/study/check-in/" aria-current="page">Check-in</a>
+        <a class="active" href="/study/check-in/" aria-current="page">Portal</a>
       </div>
     </nav>
 
     <main class="wrap">
       <section class="hero">
         <article class="hero-card">
-          <p class="eyebrow">Participant check-in</p>
-          <h1>One short check-in a day.</h1>
-          <p class="lede">This page is designed for repeated follow-up, not for interpretation after a single day. Your entries stay in this browser and help build the later longitudinal view that can be linked back to your wearable history.</p>
+          <p class="eyebrow">Study portal</p>
+          <h1>Daily check-ins with a persistent participant identity.</h1>
+          <p class="lede">This browser-based portal is the lightest usable version of the Butterfly Effect study workflow. It stores the participant profile and repeated daily check-ins in this browser, then exports them in a format ready for later merge with Apple Health or equivalent wearable history.</p>
           <div class="hero-actions">
-            <a class="button" href="#checkin">Open today’s check-in</a>
-            <a class="ghost-button" href="#progress">See your progress</a>
+            <a class="button" href="#profile">Set participant profile</a>
+            <a class="ghost-button" href="#checkin">Open today’s check-in</a>
+            <a class="ghost-button" href="/study/downloads/daily_checkin_template.csv">Download CSV template</a>
           </div>
         </article>
         <aside class="panel">
-          <p class="eyebrow">What to expect</p>
-          <h2>How this study works</h2>
+          <p class="eyebrow">Operating model</p>
+          <h2>What this portal does and does not do</h2>
           <div class="stat-grid">
             <div class="stat">
-              <strong>Daily effort</strong>
-              <span>One short check-in, ideally at the start of the day or soon after waking.</span>
+              <strong>What it does</strong>
+              <span>Keeps a persistent participant ID, preserves local history, and exports a study-ready CSV or full JSON backup.</span>
             </div>
             <div class="stat">
-              <strong>Data return</strong>
-              <span>When enough days accumulate, the study can produce a participant review and a professional companion.</span>
+              <strong>What it does not do</strong>
+              <span>It does not upload data to a server, create an online account, or replace the later merge with Apple Health history.</span>
             </div>
             <div class="stat">
-              <strong>Boundary</strong>
-              <span>This page records follow-up data. It does not diagnose insomnia, anxiety, depression, pain conditions, or any other disorder.</span>
+              <strong>Why it matters</strong>
+              <span>This is enough for a serious pilot without taking on backend security and account infrastructure too early.</span>
             </div>
           </div>
         </aside>
       </section>
 
-      <section class="section-grid" id="progress">
-        <article class="section-card">
+      <section class="section-grid">
+        <article class="section-card" id="profile">
           <div>
             <p class="eyebrow">Participant profile</p>
-            <h2>Identity in this browser</h2>
-            <p>If your study link already includes a participant code, it will be stored automatically. Otherwise, save it once here and reuse the same browser during follow-up.</p>
+            <h2>Persistent local identity</h2>
+            <p>Save the participant metadata once in this browser. New check-ins will automatically inherit the stored participant ID.</p>
           </div>
           <div class="field-grid">
             <div class="field">
-              <label for="participant_code">Participant code</label>
-              <input id="participant_code" type="text" placeholder="be-pilot-001">
+              <label for="profile_participant_uid">Participant ID</label>
+              <input id="profile_participant_uid" type="text" placeholder="be-pilot-001" required>
             </div>
             <div class="field">
-              <label for="participant_label">Optional local label</label>
-              <input id="participant_label" type="text" placeholder="Optional personal label">
+              <label for="profile_study_label">Study label</label>
+              <input id="profile_study_label" type="text" placeholder="Spring 2026 pilot">
+            </div>
+            <div class="field">
+              <label for="profile_display_label">Participant display label</label>
+              <input id="profile_display_label" type="text" placeholder="Optional local label">
+            </div>
+            <div class="field">
+              <label for="profile_timezone">Timezone</label>
+              <input id="profile_timezone" type="text" placeholder="Europe/Madrid">
+            </div>
+            <div class="field wide">
+              <label for="profile_note">Optional local note</label>
+              <textarea id="profile_note" placeholder="Optional enrolment note or profile context."></textarea>
             </div>
           </div>
           <div class="actions">
-            <button class="button" type="button" id="save-profile-button">Save participant code</button>
+            <button class="button" type="button" id="save-profile-button">Save participant profile</button>
+            <button class="mini-button danger-button" type="button" id="clear-profile-button">Clear local profile</button>
           </div>
           <div id="profile-status" class="status"></div>
           <div class="callout">
-            <strong style="display:block; color:var(--ink); margin-bottom:4px;">Current participant</strong>
-            <div id="profile-summary">No participant code saved in this browser yet.</div>
+            <strong style="display:block; color:var(--ink); margin-bottom:4px;">Profile currently loaded</strong>
+            <div id="profile-summary">No participant profile saved in this browser yet.</div>
           </div>
         </article>
 
         <article class="section-card">
           <div>
-            <p class="eyebrow">Progress</p>
-            <h2>Your follow-up window</h2>
-            <p>These markers do not interpret symptoms. They only show how far the study window has progressed.</p>
+            <p class="eyebrow">Quick study status</p>
+            <h2>Local adherence snapshot</h2>
+            <p>This is just enough operational visibility to make a small pilot manageable.</p>
           </div>
           <div class="stat-grid">
-            <div class="stat"><strong>Total check-ins</strong><span id="metric-total">0</span></div>
-            <div class="stat"><strong>Most recent day</strong><span id="metric-latest">—</span></div>
+            <div class="stat"><strong>Total local check-ins</strong><span id="metric-total">0</span></div>
+            <div class="stat"><strong>Most recent check-in date</strong><span id="metric-latest">—</span></div>
             <div class="stat"><strong>Current streak</strong><span id="metric-streak">0 days</span></div>
-            <div class="stat"><strong>Current phase</strong><span id="metric-phase">Starting</span></div>
+            <div class="stat"><strong>Latest export</strong><span id="metric-export">Not exported in this browser yet</span></div>
           </div>
-          <div class="milestone-grid">
-            <div class="milestone" id="milestone-7"><strong>7-day baseline</strong><span id="milestone-7-text">0 / 7 days completed</span></div>
-            <div class="milestone" id="milestone-14"><strong>14-day pattern review</strong><span id="milestone-14-text">0 / 14 days completed</span></div>
-            <div class="milestone" id="milestone-28"><strong>28-day review-ready window</strong><span id="milestone-28-text">0 / 28 days completed</span></div>
+          <div class="pill-row">
+            <span class="pill">Local-only storage</span>
+            <span class="pill">CSV export</span>
+            <span class="pill">JSON backup</span>
+            <span class="pill">Merge-ready schema</span>
           </div>
+          <ul class="list">
+            <li>Use the same browser for the whole follow-up unless you export and re-import your data.</li>
+            <li>For multi-month follow-up, export a CSV or JSON backup regularly. Local browser storage should not be treated as the only backup.</li>
+            <li>The key linkage rule remains the same: <strong>report_date_local</strong> must match the night being interpreted.</li>
+          </ul>
         </article>
       </section>
 
@@ -396,12 +458,12 @@
           <div>
             <p class="eyebrow">Daily entry</p>
             <h2>Record or edit a day</h2>
-            <p>Linkage rule: if the night started late on the 15th and ended on the 16th, the check-in date should still be <strong>2026-04-15</strong>.</p>
+            <p>If you fell asleep late on the 15th and woke up on the 16th, the check-in date should be <strong>2026-04-15</strong>.</p>
           </div>
           <form id="checkin-form">
             <div class="field-grid">
               <div class="field">
-                <label for="participant_uid">Participant code for this entry</label>
+                <label for="participant_uid">Participant ID used for this entry</label>
                 <input id="participant_uid" name="participant_uid" type="text" readonly>
               </div>
               <div class="field">
@@ -443,7 +505,7 @@
             </div>
 
             <div class="actions">
-              <button class="button" type="submit" id="save-button">Save today’s check-in</button>
+              <button class="button" type="submit" id="save-button">Save entry</button>
               <button class="mini-button" type="button" id="reset-button">Reset form</button>
             </div>
             <div id="form-status" class="status"></div>
@@ -452,9 +514,18 @@
 
         <article class="section-card">
           <div>
-            <p class="eyebrow">Recent history</p>
-            <h2>Your local follow-up log</h2>
-            <p>You can review and edit previous entries here. Export and backup tools are intentionally not shown in the participant view.</p>
+            <p class="eyebrow">History and export</p>
+            <h2>Manage local study data</h2>
+            <p>Export the operational CSV for merge, or a JSON backup that preserves both profile and entries together.</p>
+          </div>
+          <div class="actions">
+            <button class="button" type="button" id="export-button">Export merge-ready CSV</button>
+            <button class="mini-button" type="button" id="export-json-button">Export full JSON backup</button>
+            <button class="mini-button" type="button" id="import-csv-button">Import CSV</button>
+            <button class="mini-button" type="button" id="import-json-button">Import JSON backup</button>
+            <button class="mini-button danger-button" type="button" id="clear-entries-button">Clear local entries</button>
+            <input id="import-csv-file" type="file" accept=".csv,text/csv" hidden>
+            <input id="import-json-file" type="file" accept=".json,application/json" hidden>
           </div>
           <div id="table-status" class="status"></div>
           <div class="table-wrap">
@@ -474,16 +545,17 @@
               <tbody id="entries-body"><tr><td colspan="8">No local entries yet.</td></tr></tbody>
             </table>
           </div>
-          <div class="callout">
-            <strong style="display:block; color:var(--ink); margin-bottom:4px;">Study privacy</strong>
-            <span>This participant view stores data in this browser only. If the device or browser changes, the saved follow-up history will not move automatically.</span>
-          </div>
+          <ul class="list">
+            <li>For multi-month follow-up, export at least weekly so the browser is not your only storage layer.</li>
+            <li>The CSV export is the direct operational input for the later merge with Apple Health or a similar passive bundle.</li>
+            <li>The JSON export is the safest full backup if you move browsers or machines.</li>
+          </ul>
         </article>
       </section>
 
       <footer class="footer">
-        <span>Butterfly Effect · participant check-in · longitudinal follow-up · not diagnostic · 2026</span>
-        <span>Data in this view stays local to this browser.</span>
+        <span>Butterfly Effect · study portal · local participant identity · merge-ready daily follow-up · not diagnostic · 2026</span>
+        <span>This portal currently stores data in this browser only.</span>
       </footer>
     </main>
   </div>
@@ -491,6 +563,7 @@
   <script>
     const PROFILE_KEY = "butterfly_effect_study_profile_v1";
     const ENTRIES_KEY = "butterfly_effect_daily_checkins_v1";
+    const EXPORT_META_KEY = "butterfly_effect_study_last_export_v1";
     const FIELD_ORDER = [
       "participant_uid","report_date_local","checkin_completed_ts_local","sleep_quality_0_10","stress_0_10","anxiety_0_10",
       "depression_0_10","mood_valence_0_10","positive_affect_0_10","negative_affect_0_10","fatigue_0_10","energy_0_10",
@@ -515,8 +588,8 @@
     const form = document.getElementById("checkin-form");
     const reportDateInput = document.getElementById("report_date_local");
     const participantUidInput = document.getElementById("participant_uid");
-    const participantCodeInput = document.getElementById("participant_code");
-    const participantLabelInput = document.getElementById("participant_label");
+    const importCsvFile = document.getElementById("import-csv-file");
+    const importJsonFile = document.getElementById("import-json-file");
 
     let currentEditKey = null;
 
@@ -582,39 +655,25 @@
       return `${entry.participant_uid || ""}__${entry.report_date_local || ""}`;
     }
 
-    function queryParams() {
-      return new URLSearchParams(window.location.search);
-    }
-
-    function maybeSeedProfileFromQuery() {
-      const params = queryParams();
-      const pid = (params.get("pid") || "").trim();
-      if (!pid) return;
-      const current = loadProfile() || {};
-      const profile = {
-        participant_uid: pid,
-        display_label: params.get("label") || current.display_label || "",
-        study_label: params.get("study") || current.study_label || "",
-        timezone: current.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone || "",
-        note: current.note || "",
-        updated_at: localIsoTimestamp(),
-      };
-      saveProfile(profile);
-    }
-
     function updateProfileSummary() {
       const profile = loadProfile();
-      if (!profile || !profile.participant_uid) {
+      if (!profile) {
+        profileSummary.textContent = "No participant profile saved in this browser yet.";
         participantUidInput.value = "";
-        participantCodeInput.value = "";
-        participantLabelInput.value = "";
-        profileSummary.textContent = "No participant code saved in this browser yet.";
         return;
       }
-      participantUidInput.value = profile.participant_uid;
-      participantCodeInput.value = profile.participant_uid;
-      participantLabelInput.value = profile.display_label || "";
-      profileSummary.innerHTML = `<strong style="display:block; color:var(--ink); margin-bottom:4px;">${escapeHtml(profile.participant_uid)}</strong><span>${escapeHtml(profile.display_label || "No local label")}</span>`;
+      participantUidInput.value = profile.participant_uid || "";
+      profileSummary.innerHTML = `
+        <strong style="display:block; color:var(--ink); margin-bottom:6px;">${escapeHtml(profile.participant_uid)}</strong>
+        <span>${escapeHtml(profile.display_label || "No display label")}</span><br>
+        <span>${escapeHtml(profile.study_label || "No study label")}</span><br>
+        <span>${escapeHtml(profile.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone || "Unknown timezone")}</span>
+      `;
+      document.getElementById("profile_participant_uid").value = profile.participant_uid || "";
+      document.getElementById("profile_study_label").value = profile.study_label || "";
+      document.getElementById("profile_display_label").value = profile.display_label || "";
+      document.getElementById("profile_timezone").value = profile.timezone || "";
+      document.getElementById("profile_note").value = profile.note || "";
     }
 
     function computeStreak(entries) {
@@ -631,35 +690,16 @@
       return streak;
     }
 
-    function phaseFromCount(count) {
-      if (count >= 28) return "Review-ready";
-      if (count >= 14) return "Pattern review forming";
-      if (count >= 7) return "Baseline formed";
-      if (count > 0) return "Baseline building";
-      return "Starting";
-    }
-
-    function setMilestone(nodeId, textId, count, threshold) {
-      const node = document.getElementById(nodeId);
-      const textNode = document.getElementById(textId);
-      textNode.textContent = `${Math.min(count, threshold)} / ${threshold} days completed`;
-      node.classList.remove("ready", "progressing");
-      node.classList.add(count >= threshold ? "ready" : "progressing");
-    }
-
     function updateMetrics() {
       const entries = loadEntries().sort((a, b) => (a.report_date_local > b.report_date_local ? 1 : -1));
-      const count = entries.length;
-      document.getElementById("metric-total").textContent = String(count);
-      document.getElementById("metric-latest").textContent = count ? entries[count - 1].report_date_local : "—";
+      document.getElementById("metric-total").textContent = String(entries.length);
+      document.getElementById("metric-latest").textContent = entries.length ? entries[entries.length - 1].report_date_local : "—";
       document.getElementById("metric-streak").textContent = `${computeStreak(entries)} day${computeStreak(entries) === 1 ? "" : "s"}`;
-      document.getElementById("metric-phase").textContent = phaseFromCount(count);
-      setMilestone("milestone-7", "milestone-7-text", count, 7);
-      setMilestone("milestone-14", "milestone-14-text", count, 14);
-      setMilestone("milestone-28", "milestone-28-text", count, 28);
+      document.getElementById("metric-export").textContent = localStorage.getItem(EXPORT_META_KEY) || "Not exported in this browser yet";
     }
 
     function readFormEntry() {
+      const profile = loadProfile();
       const data = {};
       for (const name of FIELD_ORDER) {
         const node = form.elements.namedItem(name);
@@ -669,14 +709,15 @@
         }
         data[name] = CHECKBOX_FIELDS.has(name) ? (node.checked ? "1" : "0") : String(node.value || "").trim();
       }
-      data.participant_uid = data.participant_uid || loadProfile()?.participant_uid || "";
+      data.participant_uid = data.participant_uid || profile?.participant_uid || "";
       data.checkin_completed_ts_local = localIsoTimestamp();
       return data;
     }
 
     function resetForm() {
       form.reset();
-      participantUidInput.value = loadProfile()?.participant_uid || "";
+      const profile = loadProfile();
+      participantUidInput.value = profile?.participant_uid || "";
       reportDateInput.value = todayLocalDate();
       RANGE_FIELDS.forEach((name) => {
         const input = document.getElementById(name);
@@ -684,7 +725,7 @@
         if (input && valueNode) valueNode.textContent = input.value;
       });
       currentEditKey = null;
-      document.getElementById("save-button").textContent = "Save today’s check-in";
+      document.getElementById("save-button").textContent = "Save entry";
       setStatus(formStatus, "", "");
     }
 
@@ -703,7 +744,6 @@
       currentEditKey = entryKey(entry);
       document.getElementById("save-button").textContent = "Save changes";
       setStatus(formStatus, "Editing mode active for the selected date.", "warn");
-      window.scrollTo({ top: document.getElementById("checkin").offsetTop - 80, behavior: "smooth" });
     }
 
     function renderTable() {
@@ -722,32 +762,134 @@
           entry.travel_flag === "1" ? "travel" : ""
         ].filter(Boolean).join(", ");
         const key = entryKey(entry);
-        return `<tr><td>${escapeHtml(entry.report_date_local)}</td><td>${escapeHtml(entry.sleep_quality_0_10 || "")}</td><td>${escapeHtml(entry.stress_0_10 || "")}</td><td>${escapeHtml(entry.anxiety_0_10 || "")}</td><td>${escapeHtml(entry.fatigue_0_10 || "")}</td><td class="wrap">${escapeHtml(context || "—")}</td><td class="wrap">${escapeHtml(entry.free_text_note || "—")}</td><td><div style="display:flex; gap:8px;"><button class="mini-button" type="button" data-edit="${escapeHtml(key)}">Edit</button><button class="mini-button" type="button" data-delete="${escapeHtml(key)}">Delete</button></div></td></tr>`;
+        return `<tr>
+          <td>${escapeHtml(entry.report_date_local)}</td>
+          <td>${escapeHtml(entry.sleep_quality_0_10 || "")}</td>
+          <td>${escapeHtml(entry.stress_0_10 || "")}</td>
+          <td>${escapeHtml(entry.anxiety_0_10 || "")}</td>
+          <td>${escapeHtml(entry.fatigue_0_10 || "")}</td>
+          <td class="wrap">${escapeHtml(context || "—")}</td>
+          <td class="wrap">${escapeHtml(entry.free_text_note || "—")}</td>
+          <td><div style="display:flex; gap:8px;"><button class="mini-button" type="button" data-edit="${escapeHtml(key)}">Edit</button><button class="mini-button danger-button" type="button" data-delete="${escapeHtml(key)}">Delete</button></div></td>
+        </tr>`;
       }).join("");
       updateMetrics();
     }
 
-    function saveProfileFromForm() {
-      const participantUid = participantCodeInput.value.trim();
-      if (!participantUid) {
-        setStatus(profileStatus, "Participant code is required.", "danger");
-        return;
+    function csvLinesFromEntries(entries) {
+      const lines = [FIELD_ORDER.join(",")];
+      for (const entry of entries) {
+        lines.push(FIELD_ORDER.map((field) => `"${String(entry[field] || "").replaceAll('"', '""')}"`).join(","));
       }
-      saveProfile({
-        participant_uid: participantUid,
-        display_label: participantLabelInput.value.trim(),
-        updated_at: localIsoTimestamp(),
-      });
-      updateProfileSummary();
-      resetForm();
-      setStatus(profileStatus, "Participant code saved in this browser.", "ok");
+      return lines;
     }
 
-    function handleSave(event) {
+    function downloadBlob(filename, text, type) {
+      const blob = new Blob([text], { type });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = filename;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function markExport(label) {
+      const timestamp = `${label} exported on ${localIsoTimestamp()}`;
+      localStorage.setItem(EXPORT_META_KEY, timestamp);
+      updateMetrics();
+    }
+
+    function exportCsv() {
+      const entries = loadEntries().sort((a, b) => (a.report_date_local > b.report_date_local ? 1 : -1));
+      if (!entries.length) {
+        setStatus(tableStatus, "No entries available for CSV export.", "warn");
+        return;
+      }
+      downloadBlob("daily_checkin_export.csv", csvLinesFromEntries(entries).join("\n"), "text/csv;charset=utf-8;");
+      markExport("CSV");
+      setStatus(tableStatus, "CSV exported successfully.", "ok");
+    }
+
+    function exportJsonBackup() {
+      const payload = {
+        exported_at: localIsoTimestamp(),
+        profile: loadProfile(),
+        entries: loadEntries(),
+      };
+      downloadBlob("study_portal_backup.json", JSON.stringify(payload, null, 2), "application/json;charset=utf-8;");
+      markExport("JSON backup");
+      setStatus(tableStatus, "JSON backup exported successfully.", "ok");
+    }
+
+    function parseCsvLine(line) {
+      const values = [];
+      let current = "";
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i += 1) {
+        const char = line[i];
+        const next = line[i + 1];
+        if (char === '"' && inQuotes && next === '"') {
+          current += '"';
+          i += 1;
+        } else if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === "," && !inQuotes) {
+          values.push(current);
+          current = "";
+        } else {
+          current += char;
+        }
+      }
+      values.push(current);
+      return values;
+    }
+
+    function importCsvText(text) {
+      const lines = text.trim().split(/\r?\n/);
+      if (!lines.length) return [];
+      const header = parseCsvLine(lines[0]);
+      const entries = [];
+      for (const line of lines.slice(1)) {
+        if (!line.trim()) continue;
+        const cells = parseCsvLine(line);
+        const entry = {};
+        FIELD_ORDER.forEach((field) => {
+          const idx = header.indexOf(field);
+          entry[field] = idx >= 0 ? (cells[idx] || "") : "";
+        });
+        entries.push(entry);
+      }
+      return entries;
+    }
+
+    function handleSaveProfile() {
+      const participantUid = document.getElementById("profile_participant_uid").value.trim();
+      if (!participantUid) {
+        setStatus(profileStatus, "Participant ID is required.", "danger");
+        return;
+      }
+      const profile = {
+        participant_uid: participantUid,
+        study_label: document.getElementById("profile_study_label").value.trim(),
+        display_label: document.getElementById("profile_display_label").value.trim(),
+        timezone: document.getElementById("profile_timezone").value.trim() || Intl.DateTimeFormat().resolvedOptions().timeZone || "",
+        note: document.getElementById("profile_note").value.trim(),
+        updated_at: localIsoTimestamp(),
+      };
+      saveProfile(profile);
+      updateProfileSummary();
+      setStatus(profileStatus, "Participant profile saved in this browser.", "ok");
+      setStatus(formStatus, "Profile linked to future check-ins.", "ok");
+    }
+
+    function handleSaveEntry(event) {
       event.preventDefault();
       const entry = readFormEntry();
       if (!entry.participant_uid) {
-        setStatus(formStatus, "Save your participant code first.", "danger");
+        setStatus(formStatus, "Save a participant profile first, or provide a participant ID.", "danger");
         return;
       }
       if (!entry.report_date_local) {
@@ -760,12 +902,58 @@
       saveEntries(entries);
       renderTable();
       resetForm();
-      setStatus(tableStatus, "Check-in saved successfully.", "ok");
+      setStatus(tableStatus, "Entry saved successfully.", "ok");
     }
 
-    document.getElementById("save-profile-button").addEventListener("click", saveProfileFromForm);
-    form.addEventListener("submit", handleSave);
+    document.getElementById("save-profile-button").addEventListener("click", handleSaveProfile);
+    document.getElementById("clear-profile-button").addEventListener("click", () => {
+      if (!confirm("This clears the participant profile from this browser. Continue?")) return;
+      localStorage.removeItem(PROFILE_KEY);
+      updateProfileSummary();
+      resetForm();
+      setStatus(profileStatus, "Local participant profile cleared.", "warn");
+    });
+
+    form.addEventListener("submit", handleSaveEntry);
     document.getElementById("reset-button").addEventListener("click", resetForm);
+    document.getElementById("export-button").addEventListener("click", exportCsv);
+    document.getElementById("export-json-button").addEventListener("click", exportJsonBackup);
+    document.getElementById("import-csv-button").addEventListener("click", () => importCsvFile.click());
+    document.getElementById("import-json-button").addEventListener("click", () => importJsonFile.click());
+    document.getElementById("clear-entries-button").addEventListener("click", () => {
+      if (!confirm("This will remove all locally stored entries in this browser. Continue?")) return;
+      localStorage.removeItem(ENTRIES_KEY);
+      renderTable();
+      resetForm();
+      setStatus(tableStatus, "Local entries cleared.", "warn");
+    });
+
+    importCsvFile.addEventListener("change", async (event) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const entries = importCsvText(await file.text());
+      saveEntries(entries);
+      renderTable();
+      setStatus(tableStatus, "CSV imported successfully.", "ok");
+      importCsvFile.value = "";
+    });
+
+    importJsonFile.addEventListener("change", async (event) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      try {
+        const payload = JSON.parse(await file.text());
+        if (payload.profile) saveProfile(payload.profile);
+        if (Array.isArray(payload.entries)) saveEntries(payload.entries);
+        updateProfileSummary();
+        renderTable();
+        resetForm();
+        setStatus(tableStatus, "JSON backup imported successfully.", "ok");
+      } catch {
+        setStatus(tableStatus, "Invalid JSON backup file.", "danger");
+      }
+      importJsonFile.value = "";
+    });
 
     entriesBody.addEventListener("click", (event) => {
       const editKey = event.target.getAttribute("data-edit");
@@ -784,10 +972,12 @@
     RANGE_FIELDS.forEach((name) => {
       const input = document.getElementById(name);
       const valueNode = document.querySelector(`[data-range-value="${name}"]`);
-      input.addEventListener("input", () => { valueNode.textContent = input.value; });
+      input.addEventListener("input", () => {
+        valueNode.textContent = input.value;
+      });
     });
 
-    maybeSeedProfileFromQuery();
+    reportDateInput.value = todayLocalDate();
     updateProfileSummary();
     resetForm();
     renderTable();
