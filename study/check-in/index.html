@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Daily participant check-in for Butterfly Effect study follow-up, exportable to CSV and compatible with later Apple Health merge.">
+  <title>Butterfly Effect — Daily Check-In</title>
+  <style>
+    :root {
+      --bg: #161311;
+      --panel: rgba(28, 24, 21, 0.94);
+      --ink: #f3ede7;
+      --muted: #b2a89d;
+      --line: #342c26;
+      --accent: #c39a79;
+      --accent-soft: #eadbce;
+      --ok: #9ecab3;
+      --warn: #d0a177;
+      --danger: #c86f55;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #261f1b 0, #161311 46%, #120f0d 100%);
+      color: var(--ink);
+      font-family: "SF Pro Text", "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+    }
+    .page { max-width: 1180px; margin: 0 auto; padding: 28px 20px 42px; }
+    .hero, .panel {
+      border: 1px solid rgba(255,255,255,0.08);
+      background: var(--panel);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.24);
+    }
+    .hero { padding: 24px; margin-bottom: 16px; background: linear-gradient(135deg, rgba(195,154,121,0.15), rgba(26,22,19,0)); }
+    .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .14em; font-size: 11px; font-weight: 700; margin-bottom: 10px; }
+    h1 { margin: 0 0 8px; font-size: 30px; line-height: 1.08; }
+    p { margin: 0 0 10px; color: var(--muted); }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .badge { border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); color: var(--muted); border-radius: 999px; padding: 5px 10px; font-size: 11px; }
+    .grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 16px; align-items: start; }
+    .panel { padding: 18px; }
+    .panel h2 { margin: 0 0 10px; font-size: 18px; }
+    .panel h3 { margin: 16px 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); }
+    .subtle { font-size: 13px; color: var(--muted); }
+    .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 14px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .wide { grid-column: 1 / -1; }
+    label { font-size: 13px; color: var(--accent-soft); }
+    input, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      color: var(--ink);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font: inherit;
+      outline: none;
+    }
+    input[type="range"] { padding: 0; accent-color: var(--accent); }
+    textarea { min-height: 88px; resize: vertical; }
+    .range-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; }
+    .range-value { min-width: 34px; text-align: right; color: var(--accent-soft); font-weight: 700; }
+    .boolean-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; }
+    .checkbox { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: rgba(255,255,255,0.03); }
+    .checkbox input { width: auto; margin: 0; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    button {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: var(--ink);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font: inherit;
+      cursor: pointer;
+    }
+    .primary { background: linear-gradient(180deg, rgba(195,154,121,0.24), rgba(195,154,121,0.14)); border-color: rgba(195,154,121,0.28); color: var(--accent-soft); font-weight: 700; }
+    .danger { color: #f0c6bb; border-color: rgba(200,111,85,0.24); background: rgba(200,111,85,0.08); }
+    .status { margin-top: 12px; font-size: 13px; color: var(--muted); min-height: 20px; }
+    .status.ok { color: var(--ok); }
+    .status.warn { color: var(--warn); }
+    .status.danger { color: var(--danger); }
+    .table-wrap { overflow: auto; border: 1px solid var(--line); border-radius: 14px; margin-top: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; vertical-align: top; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.07); white-space: nowrap; }
+    th { color: var(--accent); text-transform: uppercase; letter-spacing: .08em; font-size: 11px; background: rgba(255,255,255,0.02); }
+    td { color: var(--muted); }
+    td.wrap { white-space: normal; min-width: 220px; }
+    .table-actions { display: flex; gap: 8px; }
+    .small-button { font-size: 12px; padding: 6px 8px; border-radius: 10px; }
+    .help-list { margin: 8px 0 0; padding-left: 18px; color: var(--muted); font-size: 14px; }
+    .footnote { margin-top: 16px; color: var(--muted); font-size: 12px; }
+    @media (max-width: 900px) { .grid, .field-grid, .boolean-grid { grid-template-columns: 1fr; } .page { padding: 20px 14px 28px; } }
+  </style>
+  <link rel="canonical" href="https://butterflyeffectstudy.com/study/check-in/">
+  <meta property="og:site_name" content="Butterfly Effect">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Butterfly Effect — Daily Check-In">
+  <meta property="og:description" content="Daily participant check-in for Butterfly Effect study follow-up, exportable to CSV and compatible with later Apple Health merge.">
+  <meta property="og:url" content="https://butterflyeffectstudy.com/study/check-in/">
+  <meta property="og:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Butterfly Effect — Daily Check-In">
+  <meta name="twitter:description" content="Daily participant check-in for Butterfly Effect study follow-up, exportable to CSV and compatible with later Apple Health merge.">
+  <meta name="twitter:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#2a1f18">
+</head>
+<body>
+  <div class="page"><div style="margin-bottom:14px; display:flex; flex-wrap:wrap; gap:10px; align-items:center;"><a href="/study/" style="color:#eadbce; text-decoration:none; border:1px solid rgba(195,154,121,0.28); padding:8px 12px; border-radius:999px; background:rgba(35,29,25,0.54);">Study overview</a><a href="/participant/" style="color:#eadbce; text-decoration:none; border:1px solid rgba(195,154,121,0.28); padding:8px 12px; border-radius:999px; background:rgba(35,29,25,0.54);">Participant return</a><a href="/study/downloads/daily_checkin_template.csv" style="color:#eadbce; text-decoration:none; border:1px solid rgba(195,154,121,0.28); padding:8px 12px; border-radius:999px; background:rgba(35,29,25,0.54);">CSV template</a></div>
+    <section class="hero">
+      <div class="eyebrow">Butterfly Effect · study kit check-in</div>
+      <h1>Daily Check-In</h1>
+      <p>Formulario local para registrar cómo estuvo el día y exportarlo a un CSV compatible con el merge del proyecto.</p>
+      <p>Los datos se guardan en este navegador hasta que exportes el CSV. No se envían a ningún servidor.</p>
+      <div class="badges">
+        <span class="badge">Uso local</span>
+        <span class="badge">Export CSV directo</span>
+        <span class="badge">Compatible con Apple Health merge</span>
+      </div>
+    </section>
+    <div class="grid">
+      <section class="panel">
+        <h2>Registrar o editar un día</h2>
+        <p class="subtle">Regla de enlace: <strong>report_date_local</strong> debe corresponder a la noche interpretada. Si te dormiste tarde el 15 y despertaste el 16, usa <strong>2026-04-15</strong>.</p>
+        <form id="checkin-form">
+          <div class="field-grid">
+            <div class="field">
+              <label for="participant_uid">Participant UID opcional</label>
+              <input id="participant_uid" name="participant_uid" type="text" placeholder="Si está vacío y el bundle es de una sola persona, el merge lo completa">
+            </div>
+            <div class="field">
+              <label for="report_date_local">Fecha del check-in</label>
+              <input id="report_date_local" name="report_date_local" type="date" required>
+            </div>
+            <div class="field"><label for="sleep_quality_0_10">Calidad subjetiva del descanso</label><div class="range-row"><input id="sleep_quality_0_10" name="sleep_quality_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="sleep_quality_0_10">5</span></div></div>
+            <div class="field"><label for="stress_0_10">Estrés del día</label><div class="range-row"><input id="stress_0_10" name="stress_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="stress_0_10">5</span></div></div>
+            <div class="field"><label for="anxiety_0_10">Ansiedad del día</label><div class="range-row"><input id="anxiety_0_10" name="anxiety_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="anxiety_0_10">5</span></div></div>
+            <div class="field"><label for="depression_0_10">Bajo ánimo / depresión</label><div class="range-row"><input id="depression_0_10" name="depression_0_10" type="range" min="0" max="10" step="1" value="0"><span class="range-value" data-range-value="depression_0_10">0</span></div></div>
+            <div class="field"><label for="mood_valence_0_10">Valencia del ánimo</label><div class="range-row"><input id="mood_valence_0_10" name="mood_valence_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="mood_valence_0_10">5</span></div></div>
+            <div class="field"><label for="fatigue_0_10">Fatiga</label><div class="range-row"><input id="fatigue_0_10" name="fatigue_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="fatigue_0_10">5</span></div></div>
+            <div class="field"><label for="energy_0_10">Energía</label><div class="range-row"><input id="energy_0_10" name="energy_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="energy_0_10">5</span></div></div>
+            <div class="field"><label for="pain_0_10">Dolor</label><div class="range-row"><input id="pain_0_10" name="pain_0_10" type="range" min="0" max="10" step="1" value="0"><span class="range-value" data-range-value="pain_0_10">0</span></div></div>
+            <div class="field"><label for="muscle_tension_0_10">Tensión muscular</label><div class="range-row"><input id="muscle_tension_0_10" name="muscle_tension_0_10" type="range" min="0" max="10" step="1" value="0"><span class="range-value" data-range-value="muscle_tension_0_10">0</span></div></div>
+            <div class="field"><label for="positive_affect_0_10">Afecto positivo</label><div class="range-row"><input id="positive_affect_0_10" name="positive_affect_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="positive_affect_0_10">5</span></div></div>
+            <div class="field"><label for="negative_affect_0_10">Afecto negativo</label><div class="range-row"><input id="negative_affect_0_10" name="negative_affect_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="negative_affect_0_10">5</span></div></div>
+            <div class="field"><label for="caffeine_mg">Cafeína total aproximada (mg)</label><input id="caffeine_mg" name="caffeine_mg" type="number" min="0" step="1" placeholder="0"></div>
+            <div class="field"><label for="alcohol_units">Alcohol aproximado (unidades)</label><input id="alcohol_units" name="alcohol_units" type="number" min="0" step="0.5" placeholder="0"></div>
+            <div class="field"><label for="nap_minutes">Siesta (min)</label><input id="nap_minutes" name="nap_minutes" type="number" min="0" step="1" placeholder="0"></div>
+            <div class="field"><label for="exercise_minutes">Ejercicio intencional (min)</label><input id="exercise_minutes" name="exercise_minutes" type="number" min="0" step="1" placeholder="0"></div>
+            <div class="field"><label for="menstrual_cycle_phase">Fase menstrual opcional</label><input id="menstrual_cycle_phase" name="menstrual_cycle_phase" type="text" placeholder="Opcional"></div>
+            <div class="field wide"><label for="free_text_note">Nota breve opcional</label><textarea id="free_text_note" name="free_text_note" placeholder="Ejemplo: mucha carga mental, café tarde, entrenamiento intenso, viaje, discusión..."></textarea></div>
+          </div>
+          <h3>Contexto binario</h3>
+          <div class="boolean-grid">
+            <label class="checkbox"><input id="major_stressor_flag" name="major_stressor_flag" type="checkbox"> Estresor importante ese día</label>
+            <label class="checkbox"><input id="dream_recall_flag" name="dream_recall_flag" type="checkbox"> Recuerdo de sueños</label>
+            <label class="checkbox"><input id="caffeine_late_flag" name="caffeine_late_flag" type="checkbox"> Cafeína tarde</label>
+            <label class="checkbox"><input id="alcohol_evening_flag" name="alcohol_evening_flag" type="checkbox"> Alcohol por la tarde/noche</label>
+            <label class="checkbox"><input id="exercise_late_flag" name="exercise_late_flag" type="checkbox"> Ejercicio tarde</label>
+            <label class="checkbox"><input id="acute_illness_flag" name="acute_illness_flag" type="checkbox"> Enfermedad aguda</label>
+            <label class="checkbox"><input id="medication_change_flag" name="medication_change_flag" type="checkbox"> Cambio de medicación</label>
+            <label class="checkbox"><input id="travel_flag" name="travel_flag" type="checkbox"> Viaje</label>
+            <label class="checkbox"><input id="major_schedule_disruption_flag" name="major_schedule_disruption_flag" type="checkbox"> Cambio fuerte de horario</label>
+          </div>
+          <div class="actions">
+            <button class="primary" type="submit" id="save-button">Guardar entrada</button>
+            <button type="button" id="reset-button">Limpiar formulario</button>
+          </div>
+          <div id="form-status" class="status"></div>
+        </form>
+      </section>
+      <section class="panel">
+        <h2>Entradas guardadas</h2>
+        <p class="subtle">Puedes editar una fila, eliminarla o exportar todo a CSV cuando quieras fusionarlo con los datos de Apple Health.</p>
+        <div class="actions">
+          <button class="primary" type="button" id="export-button">Exportar CSV</button>
+          <button type="button" id="import-button">Importar CSV existente</button>
+          <button class="danger" type="button" id="clear-button">Borrar todo</button>
+          <input id="import-file" type="file" accept=".csv,text/csv" style="display:none">
+        </div>
+        <div id="table-status" class="status"></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Fecha</th><th>Descanso</th><th>Estrés</th><th>Ansiedad</th><th>Fatiga</th><th>Contexto</th><th>Nota</th><th>Acciones</th></tr></thead>
+            <tbody id="entries-body"><tr><td colspan="8">Aún no hay entradas guardadas.</td></tr></tbody>
+          </table>
+        </div>
+        <h3>Cómo usarlo bien</h3>
+        <ul class="help-list">
+          <li>Hazlo una vez al día, idealmente por la mañana o a primera hora.</li>
+          <li>No intentes recordar semanas enteras después; la densidad diaria es lo que vuelve útil el análisis.</li>
+          <li>Si dudas en un campo, es mejor dejarlo vacío que inventarlo.</li>
+          <li>Cuando exportes, guarda el CSV en una carpeta fija y luego fusiónalo con el bundle pasivo usando el runner del proyecto.</li>
+        </ul>
+        <div class="footnote">Privacidad práctica: esta página no sube nada por sí sola. Las entradas viven en el almacenamiento local del navegador hasta que exportas el CSV.</div>
+      </section>
+    </div>
+  </div>
+  <script>
+    const STORAGE_KEY = "butterfly_effect_daily_checkins_v1";
+    const FIELD_ORDER = ["participant_uid","report_date_local","checkin_completed_ts_local","sleep_quality_0_10","stress_0_10","anxiety_0_10","depression_0_10","mood_valence_0_10","positive_affect_0_10","negative_affect_0_10","fatigue_0_10","energy_0_10","pain_0_10","muscle_tension_0_10","major_stressor_flag","dream_recall_flag","caffeine_mg","caffeine_late_flag","alcohol_units","alcohol_evening_flag","nap_minutes","exercise_minutes","exercise_late_flag","acute_illness_flag","medication_change_flag","travel_flag","major_schedule_disruption_flag","menstrual_cycle_phase","free_text_note"];
+    const CHECKBOX_FIELDS = new Set(["major_stressor_flag","dream_recall_flag","caffeine_late_flag","alcohol_evening_flag","exercise_late_flag","acute_illness_flag","medication_change_flag","travel_flag","major_schedule_disruption_flag"]);
+    const RANGE_FIELDS = ["sleep_quality_0_10","stress_0_10","anxiety_0_10","depression_0_10","mood_valence_0_10","positive_affect_0_10","negative_affect_0_10","fatigue_0_10","energy_0_10","pain_0_10","muscle_tension_0_10"];
+    const form = document.getElementById("checkin-form");
+    const entriesBody = document.getElementById("entries-body");
+    const formStatus = document.getElementById("form-status");
+    const tableStatus = document.getElementById("table-status");
+    const importFile = document.getElementById("import-file");
+    const reportDateInput = document.getElementById("report_date_local");
+    let currentEditKey = null;
+    function todayLocalDate() { return new Date().toISOString().slice(0, 10); }
+    function localIsoTimestamp() {
+      const now = new Date();
+      const tzOffset = -now.getTimezoneOffset();
+      const sign = tzOffset >= 0 ? "+" : "-";
+      const absOffset = Math.abs(tzOffset);
+      const hours = String(Math.floor(absOffset / 60)).padStart(2, "0");
+      const minutes = String(absOffset % 60).padStart(2, "0");
+      const yyyy = now.getFullYear(); const mm = String(now.getMonth() + 1).padStart(2, "0"); const dd = String(now.getDate()).padStart(2, "0");
+      const hh = String(now.getHours()).padStart(2, "0"); const mi = String(now.getMinutes()).padStart(2, "0"); const ss = String(now.getSeconds()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}T${hh}:${mi}:${ss}${sign}${hours}:${minutes}`;
+    }
+    function getEntries() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); } catch { return []; } }
+    function saveEntries(entries) { localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }
+    function setStatus(element, text, tone = "") { element.textContent = text; element.className = `status ${tone}`.trim(); }
+    function escapeHtml(value) { return String(value ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;"); }
+    function entryKey(entry) { return `${entry.participant_uid || ""}__${entry.report_date_local || ""}`; }
+    function readFormEntry() {
+      const data = {};
+      for (const name of FIELD_ORDER) {
+        const node = form.elements.namedItem(name);
+        if (!node) { data[name] = ""; continue; }
+        data[name] = CHECKBOX_FIELDS.has(name) ? (node.checked ? "1" : "0") : String(node.value || "").trim();
+      }
+      data.checkin_completed_ts_local = localIsoTimestamp();
+      return data;
+    }
+    function resetForm() {
+      form.reset();
+      reportDateInput.value = todayLocalDate();
+      RANGE_FIELDS.forEach((name) => {
+        const input = document.getElementById(name);
+        const valueNode = document.querySelector(`[data-range-value="${name}"]`);
+        if (input && valueNode) valueNode.textContent = input.value;
+      });
+      currentEditKey = null;
+      document.getElementById("save-button").textContent = "Guardar entrada";
+      setStatus(formStatus, "", "");
+    }
+    function fillForm(entry) {
+      for (const name of FIELD_ORDER) {
+        const node = form.elements.namedItem(name);
+        if (!node) continue;
+        if (CHECKBOX_FIELDS.has(name)) node.checked = entry[name] === "1";
+        else node.value = entry[name] || "";
+      }
+      RANGE_FIELDS.forEach((name) => {
+        const input = document.getElementById(name);
+        const valueNode = document.querySelector(`[data-range-value="${name}"]`);
+        if (input && valueNode) valueNode.textContent = input.value;
+      });
+      currentEditKey = entryKey(entry);
+      document.getElementById("save-button").textContent = "Guardar cambios";
+      setStatus(formStatus, "Modo edición activo para la fecha seleccionada.", "warn");
+    }
+    function renderTable() {
+      const entries = getEntries().sort((a, b) => (a.report_date_local < b.report_date_local ? 1 : -1));
+      if (!entries.length) { entriesBody.innerHTML = '<tr><td colspan="8">Aún no hay entradas guardadas.</td></tr>'; return; }
+      entriesBody.innerHTML = entries.map((entry) => {
+        const context = [entry.major_stressor_flag === "1" ? "estresor" : "", entry.caffeine_late_flag === "1" ? "cafeína tarde" : "", entry.alcohol_evening_flag === "1" ? "alcohol tarde" : "", entry.exercise_late_flag === "1" ? "ejercicio tarde" : "", entry.travel_flag === "1" ? "viaje" : ""].filter(Boolean).join(", ");
+        const key = entryKey(entry);
+        return `<tr><td>${escapeHtml(entry.report_date_local)}</td><td>${escapeHtml(entry.sleep_quality_0_10 || "")}</td><td>${escapeHtml(entry.stress_0_10 || "")}</td><td>${escapeHtml(entry.anxiety_0_10 || "")}</td><td>${escapeHtml(entry.fatigue_0_10 || "")}</td><td class="wrap">${escapeHtml(context || "—")}</td><td class="wrap">${escapeHtml(entry.free_text_note || "—")}</td><td><div class="table-actions"><button class="small-button" type="button" data-edit="${escapeHtml(key)}">Editar</button><button class="small-button danger" type="button" data-delete="${escapeHtml(key)}">Borrar</button></div></td></tr>`;
+      }).join("");
+    }
+    function downloadCsv() {
+      const entries = getEntries().sort((a, b) => (a.report_date_local > b.report_date_local ? 1 : -1));
+      if (!entries.length) { setStatus(tableStatus, "No hay entradas para exportar.", "warn"); return; }
+      const lines = [FIELD_ORDER.join(",")];
+      for (const entry of entries) {
+        lines.push(FIELD_ORDER.map((field) => `"${String(entry[field] || "").replaceAll('"', '""')}"`).join(","));
+      }
+      const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = "daily_checkin_export.csv";
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+      setStatus(tableStatus, "CSV exportado correctamente.", "ok");
+    }
+    function parseCsvLine(line) {
+      const values = []; let current = ""; let inQuotes = false;
+      for (let i = 0; i < line.length; i += 1) {
+        const char = line[i]; const next = line[i + 1];
+        if (char === '"' && inQuotes && next === '"') { current += '"'; i += 1; }
+        else if (char === '"') inQuotes = !inQuotes;
+        else if (char === "," && !inQuotes) { values.push(current); current = ""; }
+        else current += char;
+      }
+      values.push(current); return values;
+    }
+    function importCsvText(text) {
+      const lines = text.trim().split(/\r?\n/); if (!lines.length) return [];
+      const header = parseCsvLine(lines[0]); const entries = [];
+      for (const line of lines.slice(1)) {
+        if (!line.trim()) continue;
+        const cells = parseCsvLine(line); const entry = {};
+        FIELD_ORDER.forEach((field) => { const idx = header.indexOf(field); entry[field] = idx >= 0 ? (cells[idx] || "") : ""; });
+        entries.push(entry);
+      }
+      return entries;
+    }
+    function handleSave(event) {
+      event.preventDefault();
+      const entry = readFormEntry();
+      if (!entry.report_date_local) { setStatus(formStatus, "La fecha es obligatoria.", "danger"); return; }
+      const key = currentEditKey || entryKey(entry);
+      const entries = getEntries().filter((item) => entryKey(item) !== key);
+      entries.push(entry); saveEntries(entries); renderTable(); resetForm();
+      setStatus(tableStatus, "Entrada guardada correctamente.", "ok");
+    }
+    entriesBody.addEventListener("click", (event) => {
+      const editKey = event.target.getAttribute("data-edit");
+      const deleteKey = event.target.getAttribute("data-delete");
+      if (editKey) { const entry = getEntries().find((item) => entryKey(item) === editKey); if (entry) fillForm(entry); }
+      if (deleteKey) { saveEntries(getEntries().filter((item) => entryKey(item) !== deleteKey)); renderTable(); setStatus(tableStatus, "Entrada borrada.", "warn"); }
+    });
+    document.getElementById("export-button").addEventListener("click", downloadCsv);
+    document.getElementById("reset-button").addEventListener("click", resetForm);
+    document.getElementById("clear-button").addEventListener("click", () => {
+      if (!confirm("Esto borrará todas las entradas guardadas en este navegador. ¿Seguro?")) return;
+      localStorage.removeItem(STORAGE_KEY); renderTable(); resetForm(); setStatus(tableStatus, "Todas las entradas se han borrado.", "warn");
+    });
+    document.getElementById("import-button").addEventListener("click", () => importFile.click());
+    importFile.addEventListener("change", async (event) => {
+      const file = event.target.files?.[0]; if (!file) return;
+      saveEntries(importCsvText(await file.text())); renderTable(); setStatus(tableStatus, "CSV importado correctamente.", "ok"); importFile.value = "";
+    });
+    form.addEventListener("submit", handleSave);
+    RANGE_FIELDS.forEach((name) => {
+      const input = document.getElementById(name); const valueNode = document.querySelector(`[data-range-value="${name}"]`);
+      input.addEventListener("input", () => { valueNode.textContent = input.value; });
+    });
+    reportDateInput.value = todayLocalDate();
+    renderTable();
+  </script>
+</body>
+</html>

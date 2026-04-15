@@ -1,0 +1,53 @@
+{
+  "study_kit": "butterfly_effect_personal_study_v1",
+  "linkage_mode": "sleep_date_local_d0",
+  "linkage_rule": "report_date_local must match the sleep_date_local of the night being interpreted. For a night starting late on 2026-04-15 and ending on 2026-04-16, use report_date_local=2026-04-15.",
+  "required_columns": [
+    "report_date_local"
+  ],
+  "recommended_minimum_columns": [
+    "sleep_quality_0_10",
+    "stress_0_10",
+    "anxiety_0_10",
+    "mood_valence_0_10",
+    "fatigue_0_10",
+    "pain_0_10",
+    "muscle_tension_0_10",
+    "caffeine_late_flag",
+    "alcohol_evening_flag",
+    "nap_minutes",
+    "exercise_late_flag"
+  ],
+  "participant_uid_policy": "Optional when merging into a single-participant bundle. Required for multi-participant studies.",
+  "fields": {
+    "participant_uid": {"type": "string", "required": false, "description": "Participant id. If omitted, merge can fill it from a single-participant bundle."},
+    "report_date_local": {"type": "date", "required": true, "description": "Date aligned to the sleep row (`sleep_date_local`)."},
+    "checkin_completed_ts_local": {"type": "datetime", "required": false, "description": "Local timestamp of check-in completion."},
+    "sleep_quality_0_10": {"type": "number", "required": false, "description": "Subjective sleep/rest quality, 0-10."},
+    "stress_0_10": {"type": "number", "required": false, "description": "Same-day stress burden, 0-10."},
+    "anxiety_0_10": {"type": "number", "required": false, "description": "Same-day anxiety burden, 0-10."},
+    "depression_0_10": {"type": "number", "required": false, "description": "Same-day low mood/depression burden, 0-10."},
+    "mood_valence_0_10": {"type": "number", "required": false, "description": "Overall mood valence, 0-10 (higher is better)."},
+    "positive_affect_0_10": {"type": "number", "required": false, "description": "Positive affect intensity, 0-10."},
+    "negative_affect_0_10": {"type": "number", "required": false, "description": "Negative affect intensity, 0-10."},
+    "fatigue_0_10": {"type": "number", "required": false, "description": "Fatigue or low energy, 0-10."},
+    "energy_0_10": {"type": "number", "required": false, "description": "Optional energy score, 0-10. If fatigue_0_10 is empty, merge can derive fatigue as 10-energy."},
+    "pain_0_10": {"type": "number", "required": false, "description": "Pain burden, 0-10."},
+    "muscle_tension_0_10": {"type": "number", "required": false, "description": "Somatic tension / muscular tension, 0-10."},
+    "major_stressor_flag": {"type": "boolean", "required": false, "description": "1/0 or yes/no indicator for a major stressor that day."},
+    "dream_recall_flag": {"type": "boolean", "required": false, "description": "1/0 or yes/no indicator for dream recall."},
+    "caffeine_mg": {"type": "number", "required": false, "description": "Approximate total caffeine intake in mg."},
+    "caffeine_late_flag": {"type": "boolean", "required": false, "description": "Late caffeine exposure relevant to the night."},
+    "alcohol_units": {"type": "number", "required": false, "description": "Approximate alcohol units."},
+    "alcohol_evening_flag": {"type": "boolean", "required": false, "description": "Evening alcohol exposure relevant to the night."},
+    "nap_minutes": {"type": "number", "required": false, "description": "Nap minutes that day."},
+    "exercise_minutes": {"type": "number", "required": false, "description": "Intentional exercise minutes that day."},
+    "exercise_late_flag": {"type": "boolean", "required": false, "description": "Late exercise relevant to the night."},
+    "acute_illness_flag": {"type": "boolean", "required": false, "description": "1/0 acute illness indicator."},
+    "medication_change_flag": {"type": "boolean", "required": false, "description": "1/0 medication change indicator."},
+    "travel_flag": {"type": "boolean", "required": false, "description": "1/0 travel indicator."},
+    "major_schedule_disruption_flag": {"type": "boolean", "required": false, "description": "1/0 major schedule disruption indicator."},
+    "menstrual_cycle_phase": {"type": "string", "required": false, "description": "Optional menstrual cycle phase label."},
+    "free_text_note": {"type": "string", "required": false, "description": "Short optional note with context for later professional review."}
+  }
+}
