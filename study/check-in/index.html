@@ -42,7 +42,7 @@
     }
     a { color: var(--accent-deep); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    button, input, textarea { font: inherit; }
+    button, input, textarea, select { font: inherit; }
     .page-shell { position: relative; z-index: 1; min-height: 100vh; }
     .topbar {
       position: sticky;
@@ -174,6 +174,7 @@
     .field.wide { grid-column: 1 / -1; }
     label { font-size: 0.9rem; color: var(--accent-deep); }
     input,
+    select,
     textarea {
       width: 100%;
       border: 1px solid var(--line);
@@ -545,6 +546,121 @@
         </article>
       </section>
 
+      <section class="section-grid" style="margin-top:20px;">
+        <article class="section-card" id="event-log">
+          <div>
+            <p class="eyebrow">Change log</p>
+            <h2>Mark interventions, changes, or disruptions</h2>
+            <p>Use this section when something starts, stops, or changes in a way that could affect sleep or next-day burden. These anchors drive later pre/post response reads.</p>
+          </div>
+          <form id="event-form">
+            <div class="field-grid">
+              <div class="field">
+                <label for="event_participant_uid">Participant code for this event</label>
+                <input id="event_participant_uid" type="text" readonly>
+              </div>
+              <div class="field">
+                <label for="event_date_local">Event date</label>
+                <input id="event_date_local" type="date" required>
+              </div>
+              <div class="field">
+                <label for="event_end_date_local">Optional end date</label>
+                <input id="event_end_date_local" type="date">
+              </div>
+              <div class="field">
+                <label for="event_kind">Event type</label>
+                <select id="event_kind">
+                  <option value="intervention_start">Intervention start</option>
+                  <option value="intervention_end">Intervention end</option>
+                  <option value="context_change">Context change</option>
+                  <option value="disruption">Disruption</option>
+                  <option value="protocol_note">Protocol note</option>
+                </select>
+              </div>
+              <div class="field wide">
+                <label for="event_label">Short event label</label>
+                <input id="event_label" type="text" placeholder="Example: Morning light protocol start" required>
+              </div>
+              <div class="field">
+                <label for="event_domain">Domain</label>
+                <input id="event_domain" type="text" placeholder="circadian, caffeine, exercise, medication...">
+              </div>
+              <div class="field">
+                <label for="response_target">Primary response target</label>
+                <select id="response_target">
+                  <option value="">Optional</option>
+                  <option value="sleep_timing">Sleep timing</option>
+                  <option value="sleep_continuity">Sleep continuity</option>
+                  <option value="autonomic_activation">Autonomic activation</option>
+                  <option value="next_day_burden">Next-day burden</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="expected_direction">Expected direction</label>
+                <select id="expected_direction">
+                  <option value="">Optional</option>
+                  <option value="improve">Improve</option>
+                  <option value="worsen">Worsen</option>
+                  <option value="observe">Observe</option>
+                  <option value="unknown">Unknown</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="event_intensity_0_10">Intensity / salience</label>
+                <input id="event_intensity_0_10" type="number" min="0" max="10" step="1" placeholder="Optional 0-10">
+              </div>
+              <div class="field">
+                <label for="pre_window_days">Pre window days</label>
+                <input id="pre_window_days" type="number" min="1" max="90" step="1" value="14">
+              </div>
+              <div class="field">
+                <label for="post_window_days">Post window days</label>
+                <input id="post_window_days" type="number" min="1" max="90" step="1" value="14">
+              </div>
+              <div class="field wide">
+                <label for="event_note">Optional event note</label>
+                <textarea id="event_note" placeholder="Example: starting morning light at 08:00 daily for two weeks."></textarea>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="button" type="submit" id="save-event-button">Save change event</button>
+              <button class="mini-button" type="button" id="reset-event-button">Reset event form</button>
+            </div>
+            <div id="event-status" class="status"></div>
+          </form>
+        </article>
+
+        <article class="section-card">
+          <div>
+            <p class="eyebrow">Response anchors</p>
+            <h2>Your logged change windows</h2>
+            <p>These rows do not interpret the response by themselves. They create the anchors the study will later use to compare before and after.</p>
+          </div>
+          <div id="event-table-status" class="status"></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Label</th>
+                  <th>Type</th>
+                  <th>Target</th>
+                  <th>Direction</th>
+                  <th>Note</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="events-body"><tr><td colspan="7">No synced change events yet.</td></tr></tbody>
+            </table>
+          </div>
+          <div class="callout">
+            <strong style="display:block; color:var(--ink); margin-bottom:4px;">Why this matters</strong>
+            <span>These event anchors are what let Butterfly Effect move from static pattern description to governed pre/post response analysis.</span>
+          </div>
+        </article>
+      </section>
+
       <footer class="footer">
         <span>Butterfly Effect · participant check-in · longitudinal follow-up · not diagnostic · 2026</span>
         <span>Participant data is private by default and stored in the study backend after sign-in.</span>
@@ -585,7 +701,9 @@
       user: null,
       participant: null,
       entries: [],
+      events: [],
       currentEditId: null,
+      currentEventEditId: null,
     };
 
     const authEmailInput = document.getElementById("auth_email");
@@ -599,6 +717,10 @@
     const tableStatus = document.getElementById("table-status");
     const entriesBody = document.getElementById("entries-body");
     const form = document.getElementById("checkin-form");
+    const eventForm = document.getElementById("event-form");
+    const eventStatus = document.getElementById("event-status");
+    const eventTableStatus = document.getElementById("event-table-status");
+    const eventsBody = document.getElementById("events-body");
     const reportDateInput = document.getElementById("report_date_local");
     const participantUidInput = document.getElementById("participant_uid");
     const participantCodeInput = document.getElementById("participant_code");
@@ -664,6 +786,10 @@
       return entry.id || `${entry.participant_uid || ""}__${entry.report_date_local || ""}`;
     }
 
+    function eventKey(entry) {
+      return entry.id || `${entry.participant_uid || ""}__${entry.event_date_local || ""}__${entry.event_kind || ""}__${entry.event_label || ""}`;
+    }
+
     function seedFromQuery() {
       const params = queryParams();
       const pid = (params.get("pid") || "").trim();
@@ -724,6 +850,7 @@
       participantCodeInput.value = state.participant.participant_code;
       participantLabelInput.value = state.participant.display_label || "";
       profileSummary.innerHTML = `<strong style="display:block; color:var(--ink); margin-bottom:4px;">${escapeHtml(state.participant.participant_code)}</strong><span>${escapeHtml(state.participant.display_label || "No local label")}</span><br><span>${escapeHtml(state.participant.study_label || "No study label")}</span>`;
+      document.getElementById("event_participant_uid").value = state.participant.participant_code;
     }
 
     function updateMetrics() {
@@ -770,6 +897,24 @@
         major_schedule_disruption_flag: boolString(row.major_schedule_disruption_flag),
         menstrual_cycle_phase: row.menstrual_cycle_phase ?? "",
         free_text_note: row.free_text_note ?? "",
+      };
+    }
+
+    function dbRowToEvent(row) {
+      return {
+        id: row.id,
+        participant_uid: state.participant?.participant_code || "",
+        event_date_local: row.event_date_local || "",
+        event_end_date_local: row.event_end_date_local || "",
+        event_kind: row.event_kind || "",
+        event_label: row.event_label || "",
+        domain: row.domain || "",
+        response_target: row.response_target || "",
+        expected_direction: row.expected_direction || "",
+        intensity_0_10: row.intensity_0_10 ?? "",
+        pre_window_days: row.pre_window_days ?? 14,
+        post_window_days: row.post_window_days ?? 14,
+        note: row.note || "",
       };
     }
 
@@ -856,6 +1001,41 @@
       };
     }
 
+    function readEventFormEntry() {
+      return {
+        participant_uid: state.participant?.participant_code || participantCodeInput.value.trim(),
+        event_date_local: String(document.getElementById("event_date_local").value || "").trim(),
+        event_end_date_local: String(document.getElementById("event_end_date_local").value || "").trim(),
+        event_kind: String(document.getElementById("event_kind").value || "").trim(),
+        event_label: String(document.getElementById("event_label").value || "").trim(),
+        domain: String(document.getElementById("event_domain").value || "").trim(),
+        response_target: String(document.getElementById("response_target").value || "").trim(),
+        expected_direction: String(document.getElementById("expected_direction").value || "").trim(),
+        intensity_0_10: String(document.getElementById("event_intensity_0_10").value || "").trim(),
+        pre_window_days: String(document.getElementById("pre_window_days").value || "").trim(),
+        post_window_days: String(document.getElementById("post_window_days").value || "").trim(),
+        note: String(document.getElementById("event_note").value || "").trim(),
+      };
+    }
+
+    function eventToPayload(entry) {
+      return {
+        participant_id: state.participant.id,
+        event_date_local: entry.event_date_local,
+        event_end_date_local: entry.event_end_date_local || null,
+        event_kind: entry.event_kind,
+        event_label: entry.event_label,
+        domain: entry.domain || null,
+        response_target: entry.response_target || null,
+        expected_direction: entry.expected_direction || null,
+        intensity_0_10: toOptionalInt(entry.intensity_0_10),
+        pre_window_days: toOptionalInt(entry.pre_window_days) || 14,
+        post_window_days: toOptionalInt(entry.post_window_days) || 14,
+        event_source: "participant_portal",
+        note: entry.note || null,
+      };
+    }
+
     function resetForm() {
       form.reset();
       participantUidInput.value = state.participant?.participant_code || participantCodeInput.value.trim();
@@ -868,6 +1048,16 @@
       state.currentEditId = null;
       document.getElementById("save-button").textContent = "Save today’s check-in";
       setStatus(formStatus, "", "");
+    }
+
+    function resetEventForm() {
+      eventForm.reset();
+      document.getElementById("event_participant_uid").value = state.participant?.participant_code || participantCodeInput.value.trim();
+      document.getElementById("pre_window_days").value = "14";
+      document.getElementById("post_window_days").value = "14";
+      state.currentEventEditId = null;
+      document.getElementById("save-event-button").textContent = "Save change event";
+      setStatus(eventStatus, "", "");
     }
 
     function fillForm(entry) {
@@ -886,6 +1076,25 @@
       document.getElementById("save-button").textContent = "Save changes";
       setStatus(formStatus, "Editing mode active for the selected date.", "warn");
       window.scrollTo({ top: document.getElementById("checkin").offsetTop - 80, behavior: "smooth" });
+    }
+
+    function fillEventForm(entry) {
+      document.getElementById("event_participant_uid").value = entry.participant_uid || "";
+      document.getElementById("event_date_local").value = entry.event_date_local || "";
+      document.getElementById("event_end_date_local").value = entry.event_end_date_local || "";
+      document.getElementById("event_kind").value = entry.event_kind || "intervention_start";
+      document.getElementById("event_label").value = entry.event_label || "";
+      document.getElementById("event_domain").value = entry.domain || "";
+      document.getElementById("response_target").value = entry.response_target || "";
+      document.getElementById("expected_direction").value = entry.expected_direction || "";
+      document.getElementById("event_intensity_0_10").value = entry.intensity_0_10 || "";
+      document.getElementById("pre_window_days").value = entry.pre_window_days || 14;
+      document.getElementById("post_window_days").value = entry.post_window_days || 14;
+      document.getElementById("event_note").value = entry.note || "";
+      state.currentEventEditId = entry.id || null;
+      document.getElementById("save-event-button").textContent = "Save event changes";
+      setStatus(eventStatus, "Editing mode active for the selected event.", "warn");
+      window.scrollTo({ top: document.getElementById("event-log").offsetTop - 80, behavior: "smooth" });
     }
 
     function renderTable() {
@@ -907,6 +1116,20 @@
         return `<tr><td>${escapeHtml(entry.report_date_local)}</td><td>${escapeHtml(entry.sleep_quality_0_10 || "")}</td><td>${escapeHtml(entry.stress_0_10 || "")}</td><td>${escapeHtml(entry.anxiety_0_10 || "")}</td><td>${escapeHtml(entry.fatigue_0_10 || "")}</td><td class="wrap">${escapeHtml(context || "—")}</td><td class="wrap">${escapeHtml(entry.free_text_note || "—")}</td><td><div style="display:flex; gap:8px;"><button class="mini-button" type="button" data-edit="${escapeHtml(key)}">Edit</button><button class="mini-button" type="button" data-delete="${escapeHtml(key)}">Delete</button></div></td></tr>`;
       }).join("");
       updateMetrics();
+    }
+
+    function renderEventTable() {
+      const events = [...state.events].sort((a, b) => (a.event_date_local < b.event_date_local ? 1 : -1));
+      if (!events.length) {
+        eventsBody.innerHTML = '<tr><td colspan="7">No synced change events yet.</td></tr>';
+        return;
+      }
+      eventsBody.innerHTML = events.map((entry) => {
+        const key = eventKey(entry);
+        const target = entry.response_target || "—";
+        const direction = entry.expected_direction || "—";
+        return `<tr><td>${escapeHtml(entry.event_date_local)}</td><td>${escapeHtml(entry.event_label)}</td><td>${escapeHtml(entry.event_kind)}</td><td>${escapeHtml(target)}</td><td>${escapeHtml(direction)}</td><td class="wrap">${escapeHtml(entry.note || "—")}</td><td><div style="display:flex; gap:8px;"><button class="mini-button" type="button" data-event-edit="${escapeHtml(key)}">Edit</button><button class="mini-button" type="button" data-event-delete="${escapeHtml(key)}">Delete</button></div></td></tr>`;
+      }).join("");
     }
 
     async function refreshParticipant() {
@@ -973,7 +1196,36 @@
       }
       state.entries = (data || []).map(dbRowToEntry);
       renderTable();
-      syncSummary.textContent = `Secure sync active. ${state.entries.length} remote check-in${state.entries.length === 1 ? "" : "s"} loaded.`;
+      updateSyncSummary();
+    }
+
+    function updateSyncSummary() {
+      if (!state.user || !state.participant) {
+        syncSummary.textContent = "Waiting for secure sign-in.";
+        return;
+      }
+      const entryCount = state.entries.length;
+      const eventCount = state.events.length;
+      syncSummary.textContent = `Secure sync active. ${entryCount} remote check-in${entryCount === 1 ? "" : "s"} and ${eventCount} change event${eventCount === 1 ? "" : "s"} loaded.`;
+    }
+
+    async function loadRemoteEvents() {
+      if (!state.user || !state.participant) {
+        state.events = [];
+        renderEventTable();
+        return;
+      }
+      const { data, error } = await supabaseClient
+        .from("study_intervention_events")
+        .select("*")
+        .order("event_date_local", { ascending: false });
+      if (error) {
+        setStatus(eventTableStatus, error.message, "danger");
+        return;
+      }
+      state.events = (data || []).map(dbRowToEvent);
+      renderEventTable();
+      updateSyncSummary();
     }
 
     async function refreshSessionState() {
@@ -986,7 +1238,9 @@
         await claimParticipant({ silent: true });
       }
       await loadRemoteEntries();
+      await loadRemoteEvents();
       resetForm();
+      resetEventForm();
     }
 
     async function sendMagicLink() {
@@ -1013,10 +1267,13 @@
       state.user = null;
       state.participant = null;
       state.entries = [];
+      state.events = [];
       renderAuthState();
       updateProfileSummary();
       renderTable();
+      renderEventTable();
       resetForm();
+      resetEventForm();
       setStatus(authStatus, "Signed out.", "warn");
     }
 
@@ -1024,7 +1281,9 @@
       const ok = await claimParticipant();
       if (ok) {
         await loadRemoteEntries();
+        await loadRemoteEvents();
         resetForm();
+        resetEventForm();
       }
     }
 
@@ -1068,6 +1327,47 @@
       setStatus(tableStatus, degraded ? "Check-in saved securely. Extended fields will sync once the schema extension is applied." : "Check-in saved securely.", degraded ? "warn" : "ok");
     }
 
+    async function handleSaveEvent(event) {
+      event.preventDefault();
+      if (!state.user) {
+        setStatus(eventStatus, "Sign in first with your study email.", "danger");
+        return;
+      }
+      if (!state.participant) {
+        const claimed = await claimParticipant({ silent: true });
+        if (!claimed) {
+          setStatus(eventStatus, "Link your participant code first.", "danger");
+          return;
+        }
+      }
+      const entry = readEventFormEntry();
+      if (!entry.event_date_local || !entry.event_kind || !entry.event_label) {
+        setStatus(eventStatus, "Event date, event type, and label are required.", "danger");
+        return;
+      }
+      const payload = eventToPayload(entry);
+      let error = null;
+      if (state.currentEventEditId) {
+        const response = await supabaseClient
+          .from("study_intervention_events")
+          .update(payload)
+          .eq("id", state.currentEventEditId);
+        error = response.error;
+      } else {
+        const response = await supabaseClient
+          .from("study_intervention_events")
+          .upsert(payload, { onConflict: "participant_id,event_date_local,event_kind,event_label" });
+        error = response.error;
+      }
+      if (error) {
+        setStatus(eventStatus, error.message, "danger");
+        return;
+      }
+      await loadRemoteEvents();
+      resetEventForm();
+      setStatus(eventTableStatus, "Change event saved securely.", "ok");
+    }
+
     async function handleDelete(key) {
       const entry = state.entries.find((item) => entryKey(item) === key);
       if (!entry || !entry.id) return;
@@ -1083,11 +1383,29 @@
       setStatus(tableStatus, "Entry deleted.", "warn");
     }
 
+    async function handleDeleteEvent(key) {
+      const entry = state.events.find((item) => eventKey(item) === key);
+      if (!entry || !entry.id) return;
+      const { error } = await supabaseClient
+        .from("study_intervention_events")
+        .delete()
+        .eq("id", entry.id);
+      if (error) {
+        setStatus(eventTableStatus, error.message, "danger");
+        return;
+      }
+      await loadRemoteEvents();
+      if (state.currentEventEditId === entry.id) resetEventForm();
+      setStatus(eventTableStatus, "Change event deleted.", "warn");
+    }
+
     document.getElementById("send-link-button").addEventListener("click", sendMagicLink);
     signOutButton.addEventListener("click", signOut);
     document.getElementById("save-profile-button").addEventListener("click", handleSaveProfile);
     form.addEventListener("submit", handleSave);
+    eventForm.addEventListener("submit", handleSaveEvent);
     document.getElementById("reset-button").addEventListener("click", resetForm);
+    document.getElementById("reset-event-button").addEventListener("click", resetEventForm);
 
     entriesBody.addEventListener("click", (event) => {
       const editKey = event.target.getAttribute("data-edit");
@@ -1098,6 +1416,18 @@
       }
       if (deleteKey) {
         handleDelete(deleteKey);
+      }
+    });
+
+    eventsBody.addEventListener("click", (event) => {
+      const editKey = event.target.getAttribute("data-event-edit");
+      const deleteKey = event.target.getAttribute("data-event-delete");
+      if (editKey) {
+        const entry = state.events.find((item) => eventKey(item) === editKey);
+        if (entry) fillEventForm(entry);
+      }
+      if (deleteKey) {
+        handleDeleteEvent(deleteKey);
       }
     });
 
@@ -1115,7 +1445,9 @@
     renderAuthState();
     updateProfileSummary();
     resetForm();
+    resetEventForm();
     renderTable();
+    renderEventTable();
     refreshSessionState();
   </script>
 </body>
