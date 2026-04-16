@@ -580,6 +580,53 @@
     .field { display: flex; flex-direction: column; gap: 6px; }
     .field.wide { grid-column: 1 / -1; }
     label { font-size: 0.9rem; color: var(--accent-deep); }
+    .label-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+    .label-row label {
+      margin: 0;
+    }
+    .field-help {
+      position: relative;
+      display: inline-block;
+    }
+    .field-help summary {
+      list-style: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(195, 154, 121, 0.4);
+      background: rgba(35, 29, 25, 0.72);
+      color: var(--accent-deep);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      line-height: 1;
+      cursor: pointer;
+      user-select: none;
+    }
+    .field-help summary::-webkit-details-marker { display: none; }
+    .field-help-card {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      z-index: 8;
+      width: min(280px, calc(100vw - 72px));
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(74, 64, 56, 0.78);
+      background: rgba(23, 19, 17, 0.98);
+      box-shadow: var(--shadow-soft);
+      color: var(--accent-deep);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
     input,
     select,
     textarea {
@@ -827,6 +874,11 @@
       .dashboard-strip,
       .boolean-grid { grid-template-columns: 1fr; }
       .field-grid { grid-template-columns: 1fr; }
+      .field-help-card {
+        position: static;
+        width: 100%;
+        margin-top: 8px;
+      }
       .table-wrap { border-radius: 14px; }
       table { min-width: 680px; }
       .callout,
@@ -1098,16 +1150,16 @@
               <div class="field"><label for="sleep_quality_0_10">Subjective sleep quality</label><div class="range-row"><input id="sleep_quality_0_10" name="sleep_quality_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="sleep_quality_0_10">5</span></div></div>
               <div class="field"><label for="stress_0_10">Stress burden</label><div class="range-row"><input id="stress_0_10" name="stress_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="stress_0_10">5</span></div></div>
               <div class="field"><label for="anxiety_0_10">Anxiety burden</label><div class="range-row"><input id="anxiety_0_10" name="anxiety_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="anxiety_0_10">5</span></div></div>
-              <div class="field"><label for="depression_0_10">Low mood / depression</label><div class="range-row"><input id="depression_0_10" name="depression_0_10" type="range" min="0" max="10" step="1" value="0"><span class="range-value" data-range-value="depression_0_10">0</span></div></div>
-              <div class="field"><label for="mood_valence_0_10">Overall mood valence</label><div class="range-row"><input id="mood_valence_0_10" name="mood_valence_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="mood_valence_0_10">5</span></div></div>
-              <div class="field"><label for="fatigue_0_10">Fatigue</label><div class="range-row"><input id="fatigue_0_10" name="fatigue_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="fatigue_0_10">5</span></div></div>
-              <div class="field"><label for="energy_0_10">Energy</label><div class="range-row"><input id="energy_0_10" name="energy_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="energy_0_10">5</span></div></div>
+              <div class="field"><div class="label-row"><label for="depression_0_10">Low mood / depression</label><details class="field-help"><summary aria-label="What does low mood / depression mean?">i</summary><div class="field-help-card">Use this for how low, heavy, flat, hopeless, or emotionally shut down the day felt overall. Higher means more low mood.</div></details></div><div class="range-row"><input id="depression_0_10" name="depression_0_10" type="range" min="0" max="10" step="1" value="0"><span class="range-value" data-range-value="depression_0_10">0</span></div></div>
+              <div class="field"><div class="label-row"><label for="mood_valence_0_10">Overall mood valence</label><details class="field-help"><summary aria-label="What does overall mood valence mean?">i</summary><div class="field-help-card">Think of this as the overall emotional tone of the day. Lower means more negative overall, higher means more positive overall.</div></details></div><div class="range-row"><input id="mood_valence_0_10" name="mood_valence_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="mood_valence_0_10">5</span></div></div>
+              <div class="field"><div class="label-row"><label for="fatigue_0_10">Fatigue</label><details class="field-help"><summary aria-label="What does fatigue mean?">i</summary><div class="field-help-card">Use this for heaviness, exhaustion, or feeling drained. Higher means more tired and harder to keep going.</div></details></div><div class="range-row"><input id="fatigue_0_10" name="fatigue_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="fatigue_0_10">5</span></div></div>
+              <div class="field"><div class="label-row"><label for="energy_0_10">Energy</label><details class="field-help"><summary aria-label="What does energy mean?">i</summary><div class="field-help-card">This is the opposite side of fatigue: how much usable energy, momentum, or drive you felt through the day. Higher means more energy.</div></details></div><div class="range-row"><input id="energy_0_10" name="energy_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="energy_0_10">5</span></div></div>
               <div class="field"><label for="pain_0_10">Pain</label><div class="range-row"><input id="pain_0_10" name="pain_0_10" type="range" min="0" max="10" step="1" value="0"><span class="range-value" data-range-value="pain_0_10">0</span></div></div>
               <div class="field"><label for="muscle_tension_0_10">Muscle tension</label><div class="range-row"><input id="muscle_tension_0_10" name="muscle_tension_0_10" type="range" min="0" max="10" step="1" value="0"><span class="range-value" data-range-value="muscle_tension_0_10">0</span></div></div>
-              <div class="field"><label for="positive_affect_0_10">Positive affect</label><div class="range-row"><input id="positive_affect_0_10" name="positive_affect_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="positive_affect_0_10">5</span></div></div>
-              <div class="field"><label for="negative_affect_0_10">Negative affect</label><div class="range-row"><input id="negative_affect_0_10" name="negative_affect_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="negative_affect_0_10">5</span></div></div>
-              <div class="field"><label for="caffeine_mg">Approximate caffeine total (mg)</label><input id="caffeine_mg" name="caffeine_mg" type="number" min="0" step="1" placeholder="0"></div>
-              <div class="field"><label for="alcohol_units">Approximate alcohol units</label><input id="alcohol_units" name="alcohol_units" type="number" min="0" step="0.5" placeholder="0"></div>
+              <div class="field"><div class="label-row"><label for="positive_affect_0_10">Positive affect</label><details class="field-help"><summary aria-label="What does positive affect mean?">i</summary><div class="field-help-card">How much positive emotional tone you felt overall: for example calm, hopeful, interested, content, or motivated. Higher means more positive emotional tone.</div></details></div><div class="range-row"><input id="positive_affect_0_10" name="positive_affect_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="positive_affect_0_10">5</span></div></div>
+              <div class="field"><div class="label-row"><label for="negative_affect_0_10">Negative affect</label><details class="field-help"><summary aria-label="What does negative affect mean?">i</summary><div class="field-help-card">How much negative emotional tone you felt overall: for example irritability, sadness, frustration, fear, or emotional overload. Higher means more negative emotional tone.</div></details></div><div class="range-row"><input id="negative_affect_0_10" name="negative_affect_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="negative_affect_0_10">5</span></div></div>
+              <div class="field"><div class="label-row"><label for="caffeine_mg">Approximate caffeine total (mg)</label><details class="field-help"><summary aria-label="How should I estimate caffeine?">i</summary><div class="field-help-card">A rough estimate is enough. As a quick guide: a coffee is often around 80 to 120 mg, tea around 30 to 60 mg, and an energy drink often around 80 mg.</div></details></div><input id="caffeine_mg" name="caffeine_mg" type="number" min="0" step="1" placeholder="0"></div>
+              <div class="field"><div class="label-row"><label for="alcohol_units">Approximate alcohol units</label><details class="field-help"><summary aria-label="How should I estimate alcohol units?">i</summary><div class="field-help-card">Use a rough estimate. One standard drink is often a reasonable shortcut: for example one small beer, one glass of wine, or one single spirit.</div></details></div><input id="alcohol_units" name="alcohol_units" type="number" min="0" step="0.5" placeholder="0"></div>
               <div class="field"><label for="nap_minutes">Nap minutes</label><input id="nap_minutes" name="nap_minutes" type="number" min="0" step="1" placeholder="0"></div>
               <div class="field"><label for="exercise_minutes">Intentional exercise minutes</label><input id="exercise_minutes" name="exercise_minutes" type="number" min="0" step="1" placeholder="0"></div>
               <div class="field"><label for="menstrual_cycle_phase">Menstrual cycle phase</label><input id="menstrual_cycle_phase" name="menstrual_cycle_phase" type="text" placeholder="Optional"></div>
