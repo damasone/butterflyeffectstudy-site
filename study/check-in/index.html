@@ -2026,6 +2026,10 @@
       };
     }
 
+    function inputValue(value) {
+      return value === null || value === undefined ? "" : String(value);
+    }
+
     function resetForm() {
       form.reset();
       participantUidInput.value = state.participant?.participant_code || participantCodeInput.value.trim();
@@ -2056,7 +2060,7 @@
         const node = form.elements.namedItem(name);
         if (!node) continue;
         if (CHECKBOX_FIELDS.has(name)) node.checked = entry[name] === "1";
-        else node.value = entry[name] || "";
+        else node.value = inputValue(entry[name]);
       }
       RANGE_FIELDS.forEach((name) => {
         const input = document.getElementById(name);
@@ -2070,18 +2074,18 @@
     }
 
     function fillEventForm(entry) {
-      document.getElementById("event_participant_uid").value = entry.participant_uid || "";
-      document.getElementById("event_date_local").value = entry.event_date_local || "";
-      document.getElementById("event_end_date_local").value = entry.event_end_date_local || "";
-      document.getElementById("event_kind").value = entry.event_kind || "intervention_start";
-      document.getElementById("event_label").value = entry.event_label || "";
-      document.getElementById("event_domain").value = entry.domain || "";
-      document.getElementById("response_target").value = entry.response_target || "";
-      document.getElementById("expected_direction").value = entry.expected_direction || "";
-      document.getElementById("event_intensity_0_10").value = entry.intensity_0_10 || "";
-      document.getElementById("pre_window_days").value = entry.pre_window_days || 14;
-      document.getElementById("post_window_days").value = entry.post_window_days || 14;
-      document.getElementById("event_note").value = entry.note || "";
+      document.getElementById("event_participant_uid").value = inputValue(entry.participant_uid);
+      document.getElementById("event_date_local").value = inputValue(entry.event_date_local);
+      document.getElementById("event_end_date_local").value = inputValue(entry.event_end_date_local);
+      document.getElementById("event_kind").value = inputValue(entry.event_kind || "intervention_start");
+      document.getElementById("event_label").value = inputValue(entry.event_label);
+      document.getElementById("event_domain").value = inputValue(entry.domain);
+      document.getElementById("response_target").value = inputValue(entry.response_target);
+      document.getElementById("expected_direction").value = inputValue(entry.expected_direction);
+      document.getElementById("event_intensity_0_10").value = inputValue(entry.intensity_0_10);
+      document.getElementById("pre_window_days").value = inputValue(entry.pre_window_days ?? 14);
+      document.getElementById("post_window_days").value = inputValue(entry.post_window_days ?? 14);
+      document.getElementById("event_note").value = inputValue(entry.note);
       state.currentEventEditId = entry.id || null;
       document.getElementById("save-event-button").textContent = "Save event changes";
       setStatus(eventStatus, "Editing mode active for the selected event.", "warn");
@@ -2554,22 +2558,33 @@
         }
       }
       const entry = readFormEntry();
+      const wasEditing = Boolean(state.currentEditId);
       if (!entry.report_date_local) {
         setStatus(formStatus, "The check-in date is required.", "danger");
         return;
       }
       const payload = entryToPayload(entry);
-      let { error } = await supabaseClient
-        .from("study_daily_checkins")
-        .upsert(payload, { onConflict: "participant_id,report_date_local" });
+      let error = null;
       let degraded = false;
-      if (error) {
-        const legacyPayload = legacyPayloadFromEntry(entry);
-        const fallback = await supabaseClient
+      if (state.currentEditId) {
+        const response = await supabaseClient
           .from("study_daily_checkins")
-          .upsert(legacyPayload, { onConflict: "participant_id,report_date_local" });
-        error = fallback.error;
-        degraded = !error;
+          .update(payload)
+          .eq("id", state.currentEditId);
+        error = response.error;
+      } else {
+        let response = await supabaseClient
+          .from("study_daily_checkins")
+          .upsert(payload, { onConflict: "participant_id,report_date_local" });
+        error = response.error;
+        if (error) {
+          const legacyPayload = legacyPayloadFromEntry(entry);
+          const fallback = await supabaseClient
+            .from("study_daily_checkins")
+            .upsert(legacyPayload, { onConflict: "participant_id,report_date_local" });
+          error = fallback.error;
+          degraded = !error;
+        }
       }
       if (error) {
         setStatus(formStatus, error.message, "danger");
@@ -2577,7 +2592,15 @@
       }
       await loadRemoteEntries();
       resetForm();
-      setStatus(tableStatus, degraded ? "Check-in saved securely. Extended fields will sync once the schema extension is applied." : "Check-in saved securely.", degraded ? "warn" : "ok");
+      setStatus(
+        tableStatus,
+        degraded
+          ? "Check-in saved securely. Extended fields will sync once the schema extension is applied."
+          : wasEditing
+            ? "Check-in updated securely."
+            : "Check-in saved securely.",
+        degraded ? "warn" : "ok"
+      );
     }
 
     async function handleSaveEvent(event) {
@@ -2633,6 +2656,7 @@
         return;
       }
       await loadRemoteEntries();
+      if (state.currentEditId === entry.id) resetForm();
       setStatus(tableStatus, "Entry deleted.", "warn");
     }
 
