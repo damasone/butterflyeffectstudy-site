@@ -117,6 +117,155 @@
     h3 { font-size: 1rem; margin-bottom: 10px; }
     p { margin: 0; color: var(--muted); }
     .lede { margin-top: 16px; max-width: 62ch; color: var(--accent-deep); font-size: 1.04rem; }
+    .access-head {
+      display: grid;
+      grid-template-columns: 104px minmax(0, 1fr);
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .access-logo {
+      width: 104px;
+      height: 104px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 30% 24%, rgba(195, 154, 121, 0.2), transparent 42%),
+        rgba(255,255,255,0.02);
+      border: 1px solid rgba(195, 154, 121, 0.16);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+    .access-brand-mark {
+      width: 74px;
+      height: 74px;
+      display: block;
+      background: url("/assets/brand-mark-tight.png") center / contain no-repeat;
+      filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.22));
+      animation: access-mark-hover 6.4s ease-in-out infinite;
+    }
+    .auth-copy {
+      display: grid;
+      gap: 8px;
+    }
+    .auth-copy h2 { margin-bottom: 0; }
+    .auth-stack {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .auth-primary-actions,
+    .auth-secondary-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .auth-helper {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .recovery-panel {
+      display: none;
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(36, 32, 28, 0.82);
+      border: 1px solid rgba(74, 64, 56, 0.58);
+    }
+    .recovery-panel.active { display: block; }
+    .portal-butterfly {
+      position: relative;
+      display: block;
+      width: 78px;
+      height: 78px;
+      aspect-ratio: 1 / 1;
+      isolation: isolate;
+      perspective: 960px;
+      transform-style: preserve-3d;
+      animation: portal-butterfly-float 7.2s ease-in-out infinite;
+    }
+    .portal-butterfly .butterfly-layer {
+      position: absolute;
+      inset: 0;
+      display: block;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+    }
+    .portal-butterfly .butterfly-layer img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .portal-butterfly .butterfly-foundation {
+      opacity: 0.1;
+      transform: translateY(1%) scale(1.02);
+      filter: blur(1px) brightness(0.8);
+    }
+    .portal-butterfly .wing-upper-left {
+      transform-origin: 57% 55%;
+      animation: portal-wing-upper-left 6s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+    }
+    .portal-butterfly .wing-upper-right {
+      transform-origin: 43% 55%;
+      animation: portal-wing-upper-right 6s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+    }
+    .portal-butterfly .wing-lower-left {
+      transform-origin: 60% 34%;
+      animation: portal-wing-lower-left 6s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+      animation-delay: -0.24s;
+    }
+    .portal-butterfly .wing-lower-right {
+      transform-origin: 40% 34%;
+      animation: portal-wing-lower-right 6s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+      animation-delay: -0.24s;
+    }
+    .portal-butterfly .butterfly-body {
+      animation: portal-butterfly-body 6s ease-in-out infinite;
+    }
+    @keyframes portal-wing-upper-left {
+      0%, 100% { transform: translateZ(0) rotateY(0deg) rotateZ(0deg); filter: drop-shadow(-1px 4px 5px rgba(0, 0, 0, 0.1)) brightness(0.99); }
+      34% { transform: translateZ(14px) rotateY(22deg) rotateX(-4deg) rotateZ(-0.42deg) translateX(-0.8%) translateY(0.28%); filter: drop-shadow(-3px 10px 10px rgba(0, 0, 0, 0.15)) brightness(0.93); }
+      50% { transform: translateZ(26px) rotateY(38deg) rotateX(-7deg) rotateZ(-0.82deg) translateX(-1.2%) translateY(0.46%); filter: drop-shadow(-6px 15px 14px rgba(0, 0, 0, 0.2)) brightness(0.84); }
+      72% { transform: translateZ(8px) rotateY(12deg) rotateX(-2deg) rotateZ(-0.22deg) translateX(-0.34%) translateY(0.12%); filter: drop-shadow(-2px 6px 7px rgba(0, 0, 0, 0.12)) brightness(0.96); }
+    }
+    @keyframes portal-wing-upper-right {
+      0%, 100% { transform: translateZ(0) rotateY(0deg) rotateZ(0deg); filter: drop-shadow(1px 4px 5px rgba(0, 0, 0, 0.1)) brightness(0.99); }
+      34% { transform: translateZ(14px) rotateY(-22deg) rotateX(-4deg) rotateZ(0.42deg) translateX(0.8%) translateY(0.28%); filter: drop-shadow(3px 10px 10px rgba(0, 0, 0, 0.15)) brightness(0.93); }
+      50% { transform: translateZ(26px) rotateY(-38deg) rotateX(-7deg) rotateZ(0.82deg) translateX(1.2%) translateY(0.46%); filter: drop-shadow(6px 15px 14px rgba(0, 0, 0, 0.2)) brightness(0.84); }
+      72% { transform: translateZ(8px) rotateY(-12deg) rotateX(-2deg) rotateZ(0.22deg) translateX(0.34%) translateY(0.12%); filter: drop-shadow(2px 6px 7px rgba(0, 0, 0, 0.12)) brightness(0.96); }
+    }
+    @keyframes portal-wing-lower-left {
+      0%, 100% { transform: translateZ(0) rotateY(0deg) rotateZ(0deg); filter: drop-shadow(-1px 3px 4px rgba(0, 0, 0, 0.09)) brightness(0.99); }
+      34% { transform: translateZ(10px) rotateY(18deg) rotateX(4deg) rotateZ(-0.34deg) translateX(-0.72%) translateY(0.4%); filter: drop-shadow(-3px 8px 10px rgba(0, 0, 0, 0.14)) brightness(0.92); }
+      50% { transform: translateZ(18px) rotateY(31deg) rotateX(7deg) rotateZ(-0.7deg) translateX(-1.08%) translateY(0.58%); filter: drop-shadow(-5px 13px 14px rgba(0, 0, 0, 0.19)) brightness(0.84); }
+      72% { transform: translateZ(6px) rotateY(10deg) rotateX(2deg) rotateZ(-0.2deg) translateX(-0.3%) translateY(0.14%); filter: drop-shadow(-2px 5px 6px rgba(0, 0, 0, 0.12)) brightness(0.96); }
+    }
+    @keyframes portal-wing-lower-right {
+      0%, 100% { transform: translateZ(0) rotateY(0deg) rotateZ(0deg); filter: drop-shadow(1px 3px 4px rgba(0, 0, 0, 0.09)) brightness(0.99); }
+      34% { transform: translateZ(10px) rotateY(-18deg) rotateX(4deg) rotateZ(0.34deg) translateX(0.72%) translateY(0.4%); filter: drop-shadow(3px 8px 10px rgba(0, 0, 0, 0.14)) brightness(0.92); }
+      50% { transform: translateZ(18px) rotateY(-31deg) rotateX(7deg) rotateZ(0.7deg) translateX(1.08%) translateY(0.58%); filter: drop-shadow(5px 13px 14px rgba(0, 0, 0, 0.19)) brightness(0.84); }
+      72% { transform: translateZ(6px) rotateY(-10deg) rotateX(2deg) rotateZ(0.2deg) translateX(0.3%) translateY(0.14%); filter: drop-shadow(2px 5px 6px rgba(0, 0, 0, 0.12)) brightness(0.96); }
+    }
+    @keyframes portal-butterfly-float {
+      0%, 100% { transform: translateY(0) rotateZ(0deg); }
+      30% { transform: translateY(-2px) rotateZ(-1deg); }
+      55% { transform: translateY(1px) rotateZ(0.8deg); }
+      78% { transform: translateY(-1px) rotateZ(-0.5deg); }
+    }
+    @keyframes portal-butterfly-body {
+      0%, 100% { transform: translateZ(0) translateY(0); }
+      34% { transform: translateZ(10px) translateY(-0.6%); }
+      50% { transform: translateZ(16px) translateY(-0.9%); }
+      72% { transform: translateZ(6px) translateY(-0.3%); }
+    }
+    @keyframes access-mark-hover {
+      0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+      30% { transform: translateY(-2px) rotate(-1.2deg) scale(1.02); }
+      55% { transform: translateY(1px) rotate(0.9deg) scale(0.995); }
+      78% { transform: translateY(-1px) rotate(-0.4deg) scale(1.01); }
+    }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
     .button,
     .ghost-button,
@@ -275,6 +424,10 @@
       .field-grid,
       .boolean-grid,
       .milestone-grid { grid-template-columns: 1fr; }
+      .access-head { grid-template-columns: 88px minmax(0, 1fr); }
+      .access-logo { width: 88px; height: 88px; }
+      .access-brand-mark { width: 60px; height: 60px; }
+      .portal-butterfly { width: 64px; height: 64px; }
     }
     @media (max-width: 720px) {
       .topbar { flex-direction: column; align-items: flex-start; }
@@ -282,6 +435,19 @@
       .hero-card,
       .panel,
       .section-card { padding: 20px; }
+      .auth-primary-actions,
+      .auth-secondary-actions { flex-direction: column; align-items: stretch; }
+      .access-head { grid-template-columns: 1fr; }
+      .access-logo { width: 92px; height: 92px; }
+      .access-brand-mark { width: 64px; height: 64px; }
+      .portal-butterfly { width: 68px; height: 68px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .access-brand-mark,
+      .portal-butterfly,
+      .portal-butterfly .butterfly-layer {
+        animation: none !important;
+      }
     }
   </style>
   <link rel="canonical" href="https://butterflyeffectstudy.com/study/check-in/">
@@ -374,20 +540,55 @@
           </div>
         </article>
         <aside class="panel">
-          <p class="eyebrow">Study access</p>
-          <h2>Secure participant access</h2>
-          <p>Use the same email each time. The participant code can be prefilled from your study link and will then be linked to your secure study account.</p>
-          <div class="field-grid" style="margin-top:14px;">
-            <div class="field wide">
-              <label for="auth_email">Email for magic link access</label>
-              <input id="auth_email" type="email" autocomplete="email" placeholder="name@example.com">
+          <div class="access-head">
+            <div class="access-logo" aria-hidden="true">
+              <span class="access-brand-mark"></span>
+            </div>
+            <div class="auth-copy">
+              <p class="eyebrow">Study access</p>
+              <h2>Secure participant account</h2>
+              <p>Use your email and password for daily access. Magic link stays available as a fallback, not as the main entry path.</p>
             </div>
           </div>
-          <div class="actions">
-            <button class="button" type="button" id="send-link-button">Send secure sign-in link</button>
+          <div class="auth-stack">
+            <div class="field">
+              <label for="auth_email">Email address</label>
+              <input id="auth_email" type="email" autocomplete="email" placeholder="name@example.com">
+            </div>
+            <div class="field" id="auth-password-row">
+              <label for="auth_password">Password</label>
+              <input id="auth_password" type="password" autocomplete="current-password" placeholder="Enter your password">
+            </div>
+          </div>
+          <div class="auth-primary-actions" style="margin-top:16px;">
+            <button class="button" type="button" id="sign-in-button">Sign in</button>
+            <button class="ghost-button" type="button" id="create-account-button">Create account</button>
             <button class="mini-button" type="button" id="sign-out-button">Sign out</button>
           </div>
+          <div class="auth-secondary-actions" style="margin-top:10px;">
+            <button class="mini-button" type="button" id="reset-password-button">Forgot password</button>
+            <button class="mini-button" type="button" id="send-link-button">Use magic link instead</button>
+          </div>
+          <p class="auth-helper" style="margin-top:12px;">Account creation may trigger a one-time confirmation email. After that, the portal works with your saved password and persistent session.</p>
           <div id="auth-status" class="status"></div>
+          <div id="recovery-panel" class="recovery-panel">
+            <h3>Set a new password</h3>
+            <p style="margin-bottom:12px;">This panel only appears after opening a password reset link.</p>
+            <div class="field-grid">
+              <div class="field">
+                <label for="recovery_password">New password</label>
+                <input id="recovery_password" type="password" autocomplete="new-password" placeholder="At least 8 characters">
+              </div>
+              <div class="field">
+                <label for="recovery_password_confirm">Repeat new password</label>
+                <input id="recovery_password_confirm" type="password" autocomplete="new-password" placeholder="Repeat password">
+              </div>
+            </div>
+            <div class="actions">
+              <button class="button" type="button" id="update-password-button">Save new password</button>
+            </div>
+            <div id="recovery-status" class="status"></div>
+          </div>
           <div class="callout" style="margin-top:12px;">
             <strong style="display:block; color:var(--ink); margin-bottom:4px;">Current access</strong>
             <div id="auth-summary">Not signed in yet.</div>
@@ -704,13 +905,22 @@
       events: [],
       currentEditId: null,
       currentEventEditId: null,
+      recoveryMode: false,
     };
 
     const authEmailInput = document.getElementById("auth_email");
+    const authPasswordInput = document.getElementById("auth_password");
     const authStatus = document.getElementById("auth-status");
     const authSummary = document.getElementById("auth-summary");
     const syncSummary = document.getElementById("sync-summary");
+    const signInButton = document.getElementById("sign-in-button");
+    const createAccountButton = document.getElementById("create-account-button");
+    const resetPasswordButton = document.getElementById("reset-password-button");
     const signOutButton = document.getElementById("sign-out-button");
+    const recoveryPanel = document.getElementById("recovery-panel");
+    const recoveryPasswordInput = document.getElementById("recovery_password");
+    const recoveryPasswordConfirmInput = document.getElementById("recovery_password_confirm");
+    const recoveryStatus = document.getElementById("recovery-status");
     const profileStatus = document.getElementById("profile-status");
     const profileSummary = document.getElementById("profile-summary");
     const formStatus = document.getElementById("form-status");
@@ -728,6 +938,25 @@
 
     function queryParams() {
       return new URLSearchParams(window.location.search);
+    }
+
+    function hashParams() {
+      const hash = window.location.hash.startsWith("#") ? window.location.hash.slice(1) : window.location.hash;
+      return new URLSearchParams(hash);
+    }
+
+    function currentPortalUrl(extraSearchParams = {}) {
+      const url = new URL(window.location.href);
+      Object.entries(extraSearchParams).forEach(([key, value]) => {
+        if (value === null || value === undefined || value === "") url.searchParams.delete(key);
+        else url.searchParams.set(key, value);
+      });
+      url.hash = "";
+      return url.toString();
+    }
+
+    function detectRecoveryFlow() {
+      return queryParams().get("mode") === "recovery" || hashParams().get("type") === "recovery";
     }
 
     function todayLocalDate() {
@@ -796,6 +1025,7 @@
       const label = (params.get("label") || "").trim();
       if (pid && !participantCodeInput.value.trim()) participantCodeInput.value = pid;
       if (label && !participantLabelInput.value.trim()) participantLabelInput.value = label;
+      setRecoveryMode(detectRecoveryFlow());
     }
 
     function computeStreak(entries) {
@@ -829,15 +1059,76 @@
     }
 
     function renderAuthState() {
-      if (!state.user) {
-        authSummary.textContent = "Not signed in yet.";
+      const signedIn = Boolean(state.user);
+      if (!signedIn) {
+        authSummary.textContent = state.recoveryMode ? "Recovery session active. Set a new password below." : "Not signed in yet.";
         syncSummary.textContent = "Waiting for secure sign-in.";
         signOutButton.style.display = "none";
+        signInButton.style.display = "inline-flex";
+        createAccountButton.style.display = "inline-flex";
+        resetPasswordButton.style.display = "inline-flex";
+        document.getElementById("send-link-button").style.display = "inline-flex";
+        authEmailInput.disabled = false;
+        authPasswordInput.disabled = false;
+        document.getElementById("auth-password-row").style.display = state.recoveryMode ? "none" : "block";
         return;
       }
-      authSummary.innerHTML = `<strong style="display:block; color:var(--ink); margin-bottom:4px;">${escapeHtml(state.user.email || "Signed in")}</strong><span>Secure study session active</span>`;
+      authSummary.innerHTML = `<strong style="display:block; color:var(--ink); margin-bottom:4px;">${escapeHtml(state.user.email || "Signed in")}</strong><span>${state.recoveryMode ? "Recovery session active" : "Secure participant account active"}</span>`;
       syncSummary.textContent = state.participant ? "Secure sync active for this participant." : "Signed in. Link the participant code next.";
       signOutButton.style.display = "inline-flex";
+      signInButton.style.display = "none";
+      createAccountButton.style.display = "none";
+      resetPasswordButton.style.display = "none";
+      document.getElementById("send-link-button").style.display = "none";
+      authEmailInput.disabled = true;
+      authPasswordInput.disabled = true;
+      document.getElementById("auth-password-row").style.display = state.recoveryMode ? "none" : "block";
+      if (state.user.email) authEmailInput.value = state.user.email;
+    }
+
+    function setRecoveryMode(enabled) {
+      state.recoveryMode = Boolean(enabled);
+      recoveryPanel.classList.toggle("active", state.recoveryMode);
+      document.getElementById("auth-password-row").style.display = state.recoveryMode ? "none" : "block";
+      if (!state.recoveryMode) {
+        recoveryPasswordInput.value = "";
+        recoveryPasswordConfirmInput.value = "";
+        setStatus(recoveryStatus, "", "");
+      }
+      renderAuthState();
+    }
+
+    function readAuthEmail() {
+      return authEmailInput.value.trim();
+    }
+
+    function readAuthPassword() {
+      return authPasswordInput.value;
+    }
+
+    function ensureEmail() {
+      const email = readAuthEmail();
+      if (!email) {
+        setStatus(authStatus, "Email is required.", "danger");
+        return null;
+      }
+      return email;
+    }
+
+    function ensurePassword() {
+      const password = readAuthPassword();
+      if (!password) {
+        setStatus(authStatus, "Password is required.", "danger");
+        return null;
+      }
+      return password;
+    }
+
+    function clearRecoveryUrlArtifacts() {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("mode");
+      url.hash = "";
+      window.history.replaceState({}, document.title, `${url.pathname}${url.search}`);
     }
 
     function updateProfileSummary() {
@@ -1232,6 +1523,7 @@
       const { data: { session } } = await supabaseClient.auth.getSession();
       state.session = session;
       state.user = session?.user || null;
+      if (!state.user && !detectRecoveryFlow()) setRecoveryMode(false);
       renderAuthState();
       await refreshParticipant();
       if (state.user && !state.participant && participantCodeInput.value.trim()) {
@@ -1244,12 +1536,9 @@
     }
 
     async function sendMagicLink() {
-      const email = authEmailInput.value.trim();
-      if (!email) {
-        setStatus(authStatus, "Email is required.", "danger");
-        return;
-      }
-      const redirect = `${window.location.origin}${window.location.pathname}${window.location.search}`;
+      const email = ensureEmail();
+      if (!email) return;
+      const redirect = currentPortalUrl();
       const { error } = await supabaseClient.auth.signInWithOtp({
         email,
         options: { emailRedirectTo: redirect },
@@ -1261,6 +1550,86 @@
       setStatus(authStatus, "Magic link sent. Open the email on this same device and browser if possible.", "ok");
     }
 
+    async function signInWithPassword() {
+      const email = ensureEmail();
+      if (!email) return;
+      const password = ensurePassword();
+      if (!password) return;
+      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (error) {
+        setStatus(authStatus, error.message, "danger");
+        return;
+      }
+      authPasswordInput.value = "";
+      setStatus(authStatus, "Signed in securely.", "ok");
+    }
+
+    async function createAccount() {
+      const email = ensureEmail();
+      if (!email) return;
+      const password = ensurePassword();
+      if (!password) return;
+      if (password.length < 8) {
+        setStatus(authStatus, "Use a password with at least 8 characters.", "danger");
+        return;
+      }
+      const { data, error } = await supabaseClient.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: currentPortalUrl(),
+        },
+      });
+      if (error) {
+        setStatus(authStatus, error.message, "danger");
+        return;
+      }
+      authPasswordInput.value = "";
+      if (data.session) {
+        setStatus(authStatus, "Account created and signed in.", "ok");
+        return;
+      }
+      setStatus(authStatus, "Account created. Check your email once to confirm it, then come back here and sign in with your password.", "ok");
+    }
+
+    async function sendPasswordReset() {
+      const email = ensureEmail();
+      if (!email) return;
+      const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+        redirectTo: currentPortalUrl({ mode: "recovery" }),
+      });
+      if (error) {
+        setStatus(authStatus, error.message, "danger");
+        return;
+      }
+      setStatus(authStatus, "Password reset email sent. Open it on this same device to set a new password.", "ok");
+    }
+
+    async function updatePassword() {
+      const password = recoveryPasswordInput.value;
+      const confirm = recoveryPasswordConfirmInput.value;
+      if (!state.user) {
+        setStatus(recoveryStatus, "Open the password reset link first.", "danger");
+        return;
+      }
+      if (!password || password.length < 8) {
+        setStatus(recoveryStatus, "Use a password with at least 8 characters.", "danger");
+        return;
+      }
+      if (password !== confirm) {
+        setStatus(recoveryStatus, "Passwords do not match.", "danger");
+        return;
+      }
+      const { error } = await supabaseClient.auth.updateUser({ password });
+      if (error) {
+        setStatus(recoveryStatus, error.message, "danger");
+        return;
+      }
+      setRecoveryMode(false);
+      clearRecoveryUrlArtifacts();
+      setStatus(authStatus, "Password updated. You can now keep using the portal with email and password.", "ok");
+    }
+
     async function signOut() {
       await supabaseClient.auth.signOut();
       state.session = null;
@@ -1268,12 +1637,15 @@
       state.participant = null;
       state.entries = [];
       state.events = [];
+      authPasswordInput.value = "";
       renderAuthState();
       updateProfileSummary();
       renderTable();
       renderEventTable();
       resetForm();
       resetEventForm();
+      setRecoveryMode(false);
+      clearRecoveryUrlArtifacts();
       setStatus(authStatus, "Signed out.", "warn");
     }
 
@@ -1399,7 +1771,35 @@
       setStatus(eventTableStatus, "Change event deleted.", "warn");
     }
 
+    signInButton.addEventListener("click", signInWithPassword);
+    createAccountButton.addEventListener("click", createAccount);
+    resetPasswordButton.addEventListener("click", sendPasswordReset);
     document.getElementById("send-link-button").addEventListener("click", sendMagicLink);
+    document.getElementById("update-password-button").addEventListener("click", updatePassword);
+    authEmailInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !state.recoveryMode) {
+        event.preventDefault();
+        signInWithPassword();
+      }
+    });
+    authPasswordInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !state.recoveryMode) {
+        event.preventDefault();
+        signInWithPassword();
+      }
+    });
+    recoveryPasswordInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && state.recoveryMode) {
+        event.preventDefault();
+        updatePassword();
+      }
+    });
+    recoveryPasswordConfirmInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && state.recoveryMode) {
+        event.preventDefault();
+        updatePassword();
+      }
+    });
     signOutButton.addEventListener("click", signOut);
     document.getElementById("save-profile-button").addEventListener("click", handleSaveProfile);
     form.addEventListener("submit", handleSave);
@@ -1437,7 +1837,11 @@
       input.addEventListener("input", () => { valueNode.textContent = input.value; });
     });
 
-    supabaseClient.auth.onAuthStateChange(async () => {
+    supabaseClient.auth.onAuthStateChange(async (event) => {
+      if (event === "PASSWORD_RECOVERY") {
+        setRecoveryMode(true);
+        setStatus(recoveryStatus, "Recovery session active. Set a new password below.", "warn");
+      }
       await refreshSessionState();
     });
 
