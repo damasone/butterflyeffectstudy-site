@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Participant study entry point for Butterfly Effect, covering daily check-ins, later Apple Health export, governance, and what participants receive back.">
+  <meta name="description" content="Participant study entry point for Butterfly Effect, covering secure accounts, daily check-ins, intervention events, later wearable linkage, and governed reports.">
   <title>Butterfly Effect — Participant Study</title>
   <style>
     :root {
@@ -226,14 +226,14 @@
   <meta property="og:site_name" content="Butterfly Effect">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Butterfly Effect — Participant Study">
-  <meta property="og:description" content="Participant study entry point for Butterfly Effect, covering daily check-ins, later Apple Health export, governance, and what participants receive back.">
+  <meta property="og:description" content="Participant study entry point for Butterfly Effect, covering secure accounts, daily check-ins, intervention events, later wearable linkage, and governed reports.">
   <meta property="og:url" content="https://butterflyeffectstudy.com/study/">
   <meta property="og:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Butterfly Effect — Participant Study">
-  <meta name="twitter:description" content="Participant study entry point for Butterfly Effect, covering daily check-ins, later Apple Health export, governance, and what participants receive back.">
+  <meta name="twitter:description" content="Participant study entry point for Butterfly Effect, covering secure accounts, daily check-ins, intervention events, later wearable linkage, and governed reports.">
   <meta name="twitter:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
@@ -321,7 +321,7 @@
           <div class="stat-grid">
             <div class="stat">
               <strong>During follow-up</strong>
-              <span>One short daily check-in, kept intentionally low-friction.</span>
+              <span>Use a secure participant account to complete one short daily check-in, kept intentionally low-friction.</span>
             </div>
             <div class="stat">
               <strong>At the end</strong>
@@ -329,7 +329,7 @@
             </div>
             <div class="stat">
               <strong>What comes back</strong>
-              <span>A governed participant report, professional companion, and research-ready longitudinal bundle.</span>
+              <span>A governed participant report, professional companion, and research-ready longitudinal bundle with pre/post response windows when interventions are logged.</span>
             </div>
           </div>
         </aside>
@@ -343,6 +343,7 @@
           <ul class="list">
             <li><strong>Passive layer.</strong> Sleep timing, duration, continuity, heart-rate signal, HRV, activity, daylight, and related wearable measures when available.</li>
             <li><strong>Daily check-in.</strong> Short self-report on sleep quality, stress, anxiety, mood, fatigue, pain or tension, and a few key confounders like caffeine or alcohol.</li>
+            <li><strong>Change events.</strong> Intervention starts, context changes, disruptions, or protocol notes can be logged explicitly so the system can compare windows before and after the change.</li>
             <li><strong>Merge point.</strong> The final bundle is joined by participant identity and dates so the project can read night-to-day relationships within the same person.</li>
           </ul>
         </article>
@@ -375,6 +376,7 @@
           <ul class="list">
             <li><strong>Participant-facing monthly review.</strong> Clear explanation of the dominant sleep and physiology patterns in the follow-up window, with explicit limits.</li>
             <li><strong>Professional companion.</strong> Same core payload, but more structured for psychologist, clinician, or research review.</li>
+            <li><strong>Response-to-change layer.</strong> When meaningful events are logged, the project can describe whether the signal moved in the expected direction, stayed mixed, or remains too weak to read clearly.</li>
             <li><strong>Evidence-backed orientation.</strong> Where relevant, the system can attach guidance tiers based on stronger vs weaker evidence rather than generic tips.</li>
           </ul>
         </article>
@@ -385,7 +387,7 @@
           <ul class="list">
             <li><strong>Daily participant check-in.</strong> <a href="/study/check-in/">Open the participant-facing check-in</a>. It links the participant code to a secure study account, stores repeated check-ins in the study backend, and keeps progress visible without exposing export tools to the participant.</li>
             <li><strong>Participant experience stays focused.</strong> Export and support tools are kept out of the participant view so the daily task stays short, clear, and repeatable.</li>
-            <li><strong>Study operations stay separate.</strong> CSV template, schema support, and local recovery tooling remain available for research setup, back-office use, or later merge with Apple Health history.</li>
+            <li><strong>Study operations stay separate.</strong> Research setup, CSV contracts, local recovery utilities, and later wearable merge remain outside the participant-facing panel.</li>
           </ul>
         </article>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Research and operational tools for Butterfly Effect study support, including export, import, and local backup handling.">
+  <meta name="description" content="Research and operational tools for Butterfly Effect study support, including local recovery utilities, CSV handling, and study setup workflows.">
   <title>Butterfly Effect — Study Admin</title>
   <style>
     :root {
@@ -328,14 +328,14 @@
   <meta property="og:site_name" content="Butterfly Effect">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Butterfly Effect — Study Admin">
-  <meta property="og:description" content="Research and operational tools for Butterfly Effect study support, including export, import, and local backup handling.">
+  <meta property="og:description" content="Research and operational tools for Butterfly Effect study support, including local recovery utilities, CSV handling, and study setup workflows.">
   <meta property="og:url" content="https://butterflyeffectstudy.com/study/admin/">
   <meta property="og:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Butterfly Effect — Study Admin">
-  <meta name="twitter:description" content="Research and operational tools for Butterfly Effect study support, including export, import, and local backup handling.">
+  <meta name="twitter:description" content="Research and operational tools for Butterfly Effect study support, including local recovery utilities, CSV handling, and study setup workflows.">
   <meta name="twitter:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -406,30 +406,30 @@
     <main class="wrap">
       <section class="hero">
         <article class="hero-card">
-          <p class="eyebrow">Study portal</p>
-          <h1>Daily check-ins with a persistent participant identity.</h1>
-          <p class="lede">This browser-based portal is the lightest usable version of the Butterfly Effect study workflow. It stores the participant profile and repeated daily check-ins in this browser, then exports them in a format ready for later merge with Apple Health or equivalent wearable history.</p>
+          <p class="eyebrow">Study admin utilities</p>
+          <h1>Local recovery and setup tools for study operations.</h1>
+          <p class="lede">This page is an operational support surface, not the main participant portal. It remains useful for local recovery, CSV handling, and study setup tasks, while the secure participant-facing flow now lives in the authenticated check-in portal.</p>
           <div class="hero-actions">
             <a class="button" href="#profile">Set participant profile</a>
-            <a class="ghost-button" href="#checkin">Open today’s check-in</a>
+            <a class="ghost-button" href="/study/check-in/">Open participant check-in</a>
             <a class="ghost-button" href="/study/downloads/daily_checkin_template.csv">Download CSV template</a>
           </div>
         </article>
         <aside class="panel">
           <p class="eyebrow">Operating model</p>
-          <h2>What this portal does and does not do</h2>
+          <h2>What this admin surface does and does not do</h2>
           <div class="stat-grid">
             <div class="stat">
               <strong>What it does</strong>
-              <span>Keeps a persistent participant ID, preserves local history, and exports a study-ready CSV or full JSON backup.</span>
+              <span>Keeps local recovery options available, preserves browser-stored setup state, and exports study-ready CSV or JSON backups when needed.</span>
             </div>
             <div class="stat">
               <strong>What it does not do</strong>
-              <span>It does not upload data to a server, create an online account, or replace the later merge with Apple Health history.</span>
+              <span>It is not the secure participant experience. It does not replace account-based sign-in, backend storage, or the later merge with Apple Health history.</span>
             </div>
             <div class="stat">
               <strong>Why it matters</strong>
-              <span>This is enough for a serious pilot without taking on backend security and account infrastructure too early.</span>
+              <span>It gives the study team a practical fallback layer without exposing operational tooling inside the participant-facing panel.</span>
             </div>
           </div>
         </aside>
