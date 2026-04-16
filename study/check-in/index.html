@@ -2329,11 +2329,17 @@
     function updateSyncSummary() {
       if (!state.user || !state.participant) {
         syncSummary.textContent = "Waiting for secure sign-in.";
+        metricReports.textContent = "0";
+        dashboardReportSummary.textContent = "No generated reviews are registered yet.";
         return;
       }
       const entryCount = state.entries.length;
       const eventCount = state.events.length;
       const reportCount = state.reports.length;
+      metricReports.textContent = String(reportCount);
+      dashboardReportSummary.textContent = reportCount
+        ? `${reportCount} generated report${reportCount === 1 ? " is" : "s are"} registered for this participant.`
+        : "No generated reviews are registered yet.";
       syncSummary.textContent = `Secure sync active. ${entryCount} remote check-in${entryCount === 1 ? "" : "s"}, ${eventCount} change event${eventCount === 1 ? "" : "s"}, and ${reportCount} registered report${reportCount === 1 ? "" : "s"} loaded.`;
     }
 
