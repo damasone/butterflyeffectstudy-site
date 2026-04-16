@@ -95,6 +95,8 @@
     .hidden { display: none !important; }
     .auth-screen[hidden] { display: none !important; }
     .dashboard-shell[hidden] { display: none !important; }
+    #dashboard-topbar-actions[hidden],
+    #public-topbar-links[hidden] { display: none !important; }
     .hero-card,
     .panel,
     .section-card {
@@ -838,11 +840,15 @@
   <div class="page-shell">
     <nav class="topbar">
       <a class="mark" href="/">Butterfly Effect</a>
-      <div class="nav-links">
+      <div class="nav-links" id="public-topbar-links">
         <a href="/">Overview</a>
         <a href="/participant/">Participant</a>
         <a href="/study/">Study</a>
         <a class="active" href="/study/check-in/" aria-current="page">Check-in</a>
+      </div>
+      <div class="nav-links" id="dashboard-topbar-actions" hidden>
+        <a class="ghost-button" href="/" target="_blank" rel="noopener noreferrer">Overview</a>
+        <button class="mini-button" type="button" id="topbar-sign-out-button">Log out</button>
       </div>
     </nav>
 
@@ -992,9 +998,6 @@
           <div class="milestone" id="milestone-7"><strong>7-day baseline</strong><span id="milestone-7-text">0 / 7 days completed</span></div>
           <div class="milestone" id="milestone-14"><strong>14-day pattern review</strong><span id="milestone-14-text">0 / 14 days completed</span></div>
           <div class="milestone" id="milestone-28"><strong>28-day review-ready window</strong><span id="milestone-28-text">0 / 28 days completed</span></div>
-        </div>
-        <div class="actions">
-          <button class="mini-button" type="button" id="dashboard-sign-out-button">Sign out</button>
         </div>
       </section>
 
@@ -1334,7 +1337,9 @@
     const createAccountButton = document.getElementById("create-account-button");
     const resetPasswordButton = document.getElementById("reset-password-button");
     const signOutButton = document.getElementById("sign-out-button");
-    const dashboardSignOutButton = document.getElementById("dashboard-sign-out-button");
+    const topbarSignOutButton = document.getElementById("topbar-sign-out-button");
+    const publicTopbarLinks = document.getElementById("public-topbar-links");
+    const dashboardTopbarActions = document.getElementById("dashboard-topbar-actions");
     const recoveryPanel = document.getElementById("recovery-panel");
     const recoveryPasswordInput = document.getElementById("recovery_password");
     const recoveryPasswordConfirmInput = document.getElementById("recovery_password_confirm");
@@ -1542,6 +1547,8 @@
     function renderAuthState() {
       const signedIn = Boolean(state.user);
       renderPortalLayout();
+      publicTopbarLinks.hidden = signedIn;
+      dashboardTopbarActions.hidden = !signedIn || state.recoveryMode;
       if (!signedIn) {
         authSummary.textContent = state.recoveryMode ? "Recovery session active. Set a new password below." : "Not signed in yet.";
         syncSummary.textContent = "Waiting for secure sign-in.";
@@ -2479,7 +2486,7 @@
       }
     });
     signOutButton.addEventListener("click", signOut);
-    dashboardSignOutButton.addEventListener("click", signOut);
+    topbarSignOutButton.addEventListener("click", signOut);
     document.getElementById("save-profile-button").addEventListener("click", handleSaveProfile);
     form.addEventListener("submit", handleSave);
     eventForm.addEventListener("submit", handleSaveEvent);
