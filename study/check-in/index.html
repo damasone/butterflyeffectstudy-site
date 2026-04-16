@@ -331,6 +331,80 @@
       color: var(--ink);
       margin-bottom: 6px;
     }
+    .dashboard-status-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(74, 64, 56, 0.62);
+      background: rgba(35, 29, 25, 0.58);
+      color: var(--accent-deep);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .status-pill.ok {
+      border-color: rgba(158, 202, 179, 0.42);
+      background: rgba(28, 40, 35, 0.78);
+      color: var(--ok);
+    }
+    .status-pill.warn {
+      border-color: rgba(208, 161, 119, 0.42);
+      background: rgba(48, 35, 25, 0.78);
+      color: var(--warn);
+    }
+    .status-pill.neutral {
+      border-color: rgba(74, 64, 56, 0.62);
+      background: rgba(35, 29, 25, 0.58);
+      color: var(--accent-deep);
+    }
+    .dashboard-status-copy {
+      display: block;
+      color: var(--accent-deep);
+      line-height: 1.55;
+    }
+    .dashboard-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .dashboard-meta-item {
+      display: grid;
+      gap: 2px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(20, 16, 14, 0.42);
+      border: 1px solid rgba(74, 64, 56, 0.4);
+    }
+    .dashboard-meta-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .dashboard-meta-value {
+      color: var(--accent-deep);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+    .dashboard-sync-note {
+      display: block;
+      margin-top: 12px;
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
     .dashboard-strip {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -356,6 +430,26 @@
     }
     .form-guidance {
       margin-top: 14px;
+    }
+    .dashboard-edit-banner {
+      margin-top: 14px;
+      border-color: rgba(208, 161, 119, 0.38);
+      background: rgba(48, 35, 25, 0.72);
+    }
+    .dashboard-edit-banner strong {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .process-list {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+    }
+    .process-list strong {
+      color: var(--ink);
     }
     .eyebrow {
       margin: 0 0 10px;
@@ -861,6 +955,7 @@
       .dashboard-cue-stack,
       .dashboard-strip,
       .milestone-grid { gap: 10px; }
+      .dashboard-meta-grid { grid-template-columns: 1fr; }
       .report-item-head { flex-direction: column; }
       .report-badge { align-self: flex-start; }
       .access-head { grid-template-columns: 1fr; }
@@ -1095,8 +1190,22 @@
           </div>
           <div class="dashboard-cue-stack">
             <div class="callout dashboard-cue">
-              <strong>When to fill it</strong>
-              <span id="dashboard-when-to-fill">Fill one check-in per day, ideally in the morning after waking. The form defaults to the date of last night.</span>
+              <div class="dashboard-status-head">
+                <strong>Today status</strong>
+                <span class="status-pill neutral" id="dashboard-status-pill">Waiting</span>
+              </div>
+              <span class="dashboard-status-copy" id="dashboard-status-text">Sign in first, then link your participant code so today’s follow-up can land in the right study record.</span>
+              <div class="dashboard-meta-grid">
+                <div class="dashboard-meta-item">
+                  <span class="dashboard-meta-label">Target date</span>
+                  <span class="dashboard-meta-value" id="dashboard-target-date">—</span>
+                </div>
+                <div class="dashboard-meta-item">
+                  <span class="dashboard-meta-label">Last secure save</span>
+                  <span class="dashboard-meta-value" id="dashboard-last-save">No saved check-in yet</span>
+                </div>
+              </div>
+              <span class="dashboard-sync-note" id="dashboard-sync-state">Waiting for secure sign-in.</span>
             </div>
             <div class="callout dashboard-cue">
               <strong>Next step</strong>
@@ -1106,16 +1215,10 @@
         </div>
 
         <div class="dashboard-strip">
-          <div class="stat"><strong>Signed-in account</strong><span id="dashboard-user-email">—</span></div>
           <div class="stat"><strong>Linked participant</strong><span id="dashboard-participant-code">Not linked yet</span></div>
           <div class="stat"><strong>Check-ins recorded</strong><span id="metric-total">0</span></div>
           <div class="stat"><strong>Current phase</strong><span id="metric-phase">Starting</span></div>
-        </div>
-        <div class="dashboard-strip">
-          <div class="stat"><strong>Most recent night</strong><span id="metric-latest">—</span></div>
           <div class="stat"><strong>Current streak</strong><span id="metric-streak">0 days</span></div>
-          <div class="stat"><strong>Reports registered</strong><span id="metric-reports">0</span></div>
-          <div class="stat"><strong>Privacy</strong><span>Private by default</span></div>
         </div>
         <div class="milestone-grid">
           <div class="milestone" id="milestone-7"><strong>7-day baseline</strong><span id="milestone-7-text">0 / 7 days completed</span></div>
@@ -1134,6 +1237,10 @@
           <div class="callout form-guidance">
             <strong style="display:block; color:var(--ink); margin-bottom:4px;">Date rule</strong>
             <span>If the night started late on the 15th and ended on the 16th, the correct check-in date is still <strong>2026-04-15</strong>. This form defaults to last night’s date to reduce mistakes.</span>
+          </div>
+          <div class="callout dashboard-edit-banner" id="edit-mode-banner" hidden>
+            <strong>Editing an existing check-in</strong>
+            <span id="edit-mode-text">You are editing a previously saved day. Save again to update the secure study record, or reset the form to return to today’s default check-in.</span>
           </div>
           <form id="checkin-form">
             <div class="field-grid">
@@ -1216,13 +1323,18 @@
 
           <div class="panel-section">
             <div>
-              <p class="eyebrow">Daily rhythm</p>
-              <h3>What belongs in the daily form</h3>
-              <p>Use one entry per day for the last night. Keep the `Change log` for interventions, disruptions, or context shifts that genuinely change the interpretation window.</p>
+              <p class="eyebrow">After you save</p>
+              <h3>What this panel does with each daily entry</h3>
+              <p>The daily form is meant to feel light, but the follow-up still needs to be trustworthy. Each saved entry immediately updates the secure study record and the longitudinal window.</p>
             </div>
+            <ol class="process-list">
+              <li><strong>It lands in your study history.</strong> You can review or correct it later in <em>Review previous check-ins</em>.</li>
+              <li><strong>It advances the milestone windows.</strong> Repeated entries are what later allow baseline, pattern, and report-ready windows to form.</li>
+              <li><strong>It stays distinct from the change log.</strong> Use <em>Change log</em> only when something meaningful started, stopped, or shifted.</li>
+            </ol>
             <div class="callout">
               <strong style="display:block; color:var(--ink); margin-bottom:4px;">Simple rule</strong>
-              <span>Daily entry first. Change log only when something meaningful started, stopped, or shifted.</span>
+              <span>One daily entry for last night. Change log only for real shifts such as an intervention, travel, illness, medication change, or schedule disruption.</span>
             </div>
           </div>
 
@@ -1235,6 +1347,10 @@
             <div class="callout">
               <strong style="display:block; color:var(--ink); margin-bottom:4px;">Current report status</strong>
               <span id="dashboard-report-summary">No generated reviews are registered yet.</span>
+            </div>
+            <div class="callout">
+              <strong style="display:block; color:var(--ink); margin-bottom:4px;">Privacy</strong>
+              <span>This portal writes to the secure study backend after sign-in. Data is private by default and tied to your participant code and account.</span>
             </div>
           </div>
         </aside>
@@ -1485,12 +1601,16 @@
     const participantLabelInput = document.getElementById("participant_label");
     const dashboardActionTitle = document.getElementById("dashboard-action-title");
     const dashboardGuidance = document.getElementById("dashboard-guidance");
-    const dashboardWhenToFill = document.getElementById("dashboard-when-to-fill");
-    const dashboardUserEmail = document.getElementById("dashboard-user-email");
+    const dashboardStatusPill = document.getElementById("dashboard-status-pill");
+    const dashboardStatusText = document.getElementById("dashboard-status-text");
+    const dashboardTargetDate = document.getElementById("dashboard-target-date");
+    const dashboardLastSave = document.getElementById("dashboard-last-save");
+    const dashboardSyncState = document.getElementById("dashboard-sync-state");
     const dashboardParticipantCode = document.getElementById("dashboard-participant-code");
     const dashboardNextStep = document.getElementById("dashboard-next-step");
     const dashboardReportSummary = document.getElementById("dashboard-report-summary");
-    const metricReports = document.getElementById("metric-reports");
+    const editModeBanner = document.getElementById("edit-mode-banner");
+    const editModeText = document.getElementById("edit-mode-text");
 
     function queryParams() {
       return new URLSearchParams(window.location.search);
@@ -1653,6 +1773,36 @@
       return "Starting";
     }
 
+    function nextMilestoneText(count) {
+      if (count < 7) {
+        const remaining = 7 - count;
+        return `${remaining} more day${remaining === 1 ? "" : "s"} to the first 7-day baseline.`;
+      }
+      if (count < 14) {
+        const remaining = 14 - count;
+        return `${remaining} more day${remaining === 1 ? "" : "s"} to the 14-day pattern review window.`;
+      }
+      if (count < 28) {
+        const remaining = 28 - count;
+        return `${remaining} more day${remaining === 1 ? "" : "s"} to the first review-ready window.`;
+      }
+      return "Enough follow-up is available for report generation when the study pipeline registers a new output.";
+    }
+
+    function lastSavedEntry(entries) {
+      if (!entries.length) return null;
+      return [...entries].sort((a, b) => {
+        const left = new Date(a.checkin_completed_ts_local || a.report_date_local || 0).getTime();
+        const right = new Date(b.checkin_completed_ts_local || b.report_date_local || 0).getTime();
+        return right - left;
+      })[0];
+    }
+
+    function setDashboardStatusPill(label, tone) {
+      dashboardStatusPill.textContent = label;
+      dashboardStatusPill.className = `status-pill ${tone}`.trim();
+    }
+
     function setMilestone(nodeId, textId, count, threshold) {
       const node = document.getElementById(nodeId);
       const textNode = document.getElementById(textId);
@@ -1800,46 +1950,53 @@
       const count = entries.length;
       const expectedDate = defaultCheckinDate();
       const hasExpectedEntry = entries.some((entry) => entry.report_date_local === expectedDate);
+      const latestEntry = lastSavedEntry(entries);
       document.getElementById("metric-total").textContent = String(count);
-      document.getElementById("metric-latest").textContent = count ? entries[count - 1].report_date_local : "—";
       document.getElementById("metric-streak").textContent = `${computeStreak(entries)} day${computeStreak(entries) === 1 ? "" : "s"}`;
       document.getElementById("metric-phase").textContent = phaseFromCount(count);
-      metricReports.textContent = String(state.reports.length);
       dashboardReportSummary.textContent = state.reports.length
         ? `${state.reports.length} generated report${state.reports.length === 1 ? " is" : "s are"} registered for this participant.`
         : "No generated reviews are registered yet.";
+      dashboardTargetDate.textContent = formatDisplayDate(expectedDate);
+      dashboardLastSave.textContent = latestEntry
+        ? `${formatDisplayDate(latestEntry.report_date_local)} · ${formatDisplayTimestamp(latestEntry.checkin_completed_ts_local)}`
+        : "No saved check-in yet";
       setMilestone("milestone-7", "milestone-7-text", count, 7);
       setMilestone("milestone-14", "milestone-14-text", count, 14);
       setMilestone("milestone-28", "milestone-28-text", count, 28);
       if (!state.user) {
         dashboardActionTitle.textContent = "Complete one check-in for last night.";
         dashboardGuidance.textContent = "This panel is designed to be used in a simple sequence: confirm your participant identity, complete one daily follow-up for the last night, and only then log meaningful changes if something actually started, stopped, or shifted.";
-        dashboardWhenToFill.textContent = "Fill one check-in per day, ideally in the morning after waking. The form defaults to the date of last night.";
-        dashboardUserEmail.textContent = "—";
+        setDashboardStatusPill("Waiting", "neutral");
+        dashboardStatusText.textContent = "Sign in first, then link your participant code so today’s follow-up can land in the right study record.";
+        dashboardSyncState.textContent = "Waiting for secure sign-in.";
         dashboardNextStep.textContent = "Sign in first.";
         return;
       }
-      dashboardUserEmail.textContent = state.user.email || "Signed in";
       if (!state.participant) {
         dashboardActionTitle.textContent = "Link your participant code before today’s check-in.";
         dashboardGuidance.textContent = "You are signed in, but your participant code still needs to be linked. Do that first so daily entries and change events attach to the correct study record.";
-        dashboardWhenToFill.textContent = `Once linked, fill one check-in per day, ideally in the morning after waking. The form will default to ${expectedDate}, which represents last night.`;
-        dashboardNextStep.textContent = "Link your participant code in Study setup.";
+        setDashboardStatusPill("Setup", "warn");
+        dashboardStatusText.textContent = "This account is signed in, but the participant code still needs to be linked before daily data can be stored in the right record.";
+        dashboardNextStep.textContent = "Link your participant code in Study setup so the first follow-up starts the study window.";
       } else if (count === 0) {
         dashboardActionTitle.textContent = "Start your baseline with the first daily check-in.";
         dashboardGuidance.textContent = "Your account and participant code are ready. The next useful step is to complete one daily follow-up for the last night before moving on to anything else.";
-        dashboardWhenToFill.textContent = `Best timing: once per day, ideally in the morning after waking. The form defaults to ${expectedDate}, which represents the night you just completed.`;
-        dashboardNextStep.textContent = "Open today’s check-in, confirm the default date, and save your first entry.";
+        setDashboardStatusPill("Start", "warn");
+        dashboardStatusText.textContent = `No check-in is stored yet for ${formatDisplayDate(expectedDate)}. Save the first one to begin the baseline window.`;
+        dashboardNextStep.textContent = `Open today’s check-in, confirm the default date, and save the first entry. ${nextMilestoneText(count)}`;
       } else if (hasExpectedEntry) {
         dashboardActionTitle.textContent = "Today’s follow-up is already recorded.";
         dashboardGuidance.textContent = "Your expected daily check-in is already in the study record. Use the lower sections only if you need to correct an earlier day or log a meaningful new change.";
-        dashboardWhenToFill.textContent = "Come back after the next night of sleep, ideally the following morning. If you are correcting an older day, use Previous check-ins instead of creating a duplicate.";
-        dashboardNextStep.textContent = "Review previous days or log a meaningful change only if something actually started, stopped, or shifted.";
+        setDashboardStatusPill("Done", "ok");
+        dashboardStatusText.textContent = `The check-in for ${formatDisplayDate(expectedDate)} is already saved. Only return to Step 1 if you need to correct that day.`;
+        dashboardNextStep.textContent = `Nothing else is due right now. ${nextMilestoneText(count)}`;
       } else {
         dashboardActionTitle.textContent = "Today’s check-in is due.";
         dashboardGuidance.textContent = "Record one daily follow-up for the last night before doing anything else in the panel. Keep the change log for real shifts or interventions, not ordinary daily variation.";
-        dashboardWhenToFill.textContent = `Best timing: once you have woken up and have a first sense of the morning. The form defaults to ${expectedDate}, which is the correct date for last night.`;
-        dashboardNextStep.textContent = "Open today’s check-in, confirm the default date, and save one complete entry.";
+        setDashboardStatusPill("Due", "warn");
+        dashboardStatusText.textContent = `A daily follow-up is still due for ${formatDisplayDate(expectedDate)}. The form already defaults to the correct date for last night.`;
+        dashboardNextStep.textContent = `Open today’s check-in first, then save one complete entry. ${nextMilestoneText(count + 1)}`;
       }
     }
 
@@ -2041,6 +2198,8 @@
       });
       state.currentEditId = null;
       document.getElementById("save-button").textContent = "Save today’s check-in";
+      editModeBanner.hidden = true;
+      editModeText.textContent = "You are editing a previously saved day. Save again to update the secure study record, or reset the form to return to today’s default check-in.";
       setStatus(formStatus, "", "");
     }
 
@@ -2069,6 +2228,8 @@
       });
       state.currentEditId = entry.id || null;
       document.getElementById("save-button").textContent = "Save changes";
+      editModeBanner.hidden = false;
+      editModeText.textContent = `You are editing the check-in for ${formatDisplayDate(entry.report_date_local)}. Save again to update that day in the secure study record.`;
       setStatus(formStatus, "Editing mode active for the selected date.", "warn");
       window.scrollTo({ top: document.getElementById("checkin").offsetTop - 80, behavior: "smooth" });
     }
@@ -2327,20 +2488,27 @@
     }
 
     function updateSyncSummary() {
-      if (!state.user || !state.participant) {
+      if (!state.user) {
         syncSummary.textContent = "Waiting for secure sign-in.";
-        metricReports.textContent = "0";
         dashboardReportSummary.textContent = "No generated reviews are registered yet.";
+        dashboardSyncState.textContent = "Waiting for secure sign-in.";
+        return;
+      }
+      if (!state.participant) {
+        syncSummary.textContent = "Signed in. Link your participant code next.";
+        dashboardReportSummary.textContent = "No generated reviews are registered yet.";
+        dashboardSyncState.textContent = "Signed in securely. Link your participant code so remote follow-up can start.";
         return;
       }
       const entryCount = state.entries.length;
       const eventCount = state.events.length;
       const reportCount = state.reports.length;
-      metricReports.textContent = String(reportCount);
       dashboardReportSummary.textContent = reportCount
         ? `${reportCount} generated report${reportCount === 1 ? " is" : "s are"} registered for this participant.`
         : "No generated reviews are registered yet.";
-      syncSummary.textContent = `Secure sync active. ${entryCount} remote check-in${entryCount === 1 ? "" : "s"}, ${eventCount} change event${eventCount === 1 ? "" : "s"}, and ${reportCount} registered report${reportCount === 1 ? "" : "s"} loaded.`;
+      const summary = `Secure sync active. ${entryCount} remote check-in${entryCount === 1 ? "" : "s"}, ${eventCount} change event${eventCount === 1 ? "" : "s"}, and ${reportCount} registered report${reportCount === 1 ? "" : "s"} loaded.`;
+      syncSummary.textContent = summary;
+      dashboardSyncState.textContent = summary;
     }
 
     async function loadRemoteEvents() {
@@ -2613,13 +2781,15 @@
       }
       await loadRemoteEntries();
       resetForm();
+      const saveMessage = degraded
+        ? "Check-in saved securely. Extended fields will sync once the schema extension is applied."
+        : wasEditing
+          ? "Check-in updated securely."
+          : "Check-in saved securely.";
+      setStatus(formStatus, saveMessage, degraded ? "warn" : "ok");
       setStatus(
         tableStatus,
-        degraded
-          ? "Check-in saved securely. Extended fields will sync once the schema extension is applied."
-          : wasEditing
-            ? "Check-in updated securely."
-            : "Check-in saved securely.",
+        saveMessage,
         degraded ? "warn" : "ok"
       );
     }
@@ -2662,6 +2832,7 @@
       }
       await loadRemoteEvents();
       resetEventForm();
+      setStatus(eventStatus, "Change event saved securely.", "ok");
       setStatus(eventTableStatus, "Change event saved securely.", "ok");
     }
 
