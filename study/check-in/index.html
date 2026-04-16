@@ -2055,8 +2055,10 @@
       updateSyncSummary();
     }
 
-    async function refreshSessionState() {
-      const { data: { session } } = await supabaseClient.auth.getSession();
+    async function refreshSessionState(sessionOverride = undefined) {
+      const session = sessionOverride === undefined
+        ? (await supabaseClient.auth.getSession()).data.session
+        : sessionOverride;
       state.session = session;
       state.user = session?.user || null;
       if (!state.user && !detectRecoveryFlow()) setRecoveryMode(false);
@@ -2408,12 +2410,16 @@
       input.addEventListener("input", () => { valueNode.textContent = input.value; });
     });
 
-    supabaseClient.auth.onAuthStateChange(async (event) => {
+    supabaseClient.auth.onAuthStateChange((event, session) => {
       if (event === "PASSWORD_RECOVERY") {
         setRecoveryMode(true);
         setStatus(recoveryStatus, "Recovery session active. Set a new password below.", "warn");
       }
-      await refreshSessionState();
+      window.setTimeout(() => {
+        refreshSessionState(session).catch((error) => {
+          setStatus(authStatus, error?.message || "Unable to refresh session state.", "danger");
+        });
+      }, 0);
     });
 
     seedFromQuery();
