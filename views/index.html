@@ -537,6 +537,97 @@
       text-wrap: balance;
     }
     .section-header p { margin: 0; color: var(--muted); line-height: 1.72; }
+    .explorer-shell,
+    .surface-stack {
+      display: grid;
+      gap: 18px;
+    }
+    .explorer-summary {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) auto;
+      gap: 18px;
+      align-items: end;
+    }
+    .explorer-summary h3 {
+      margin: 0 0 10px;
+      font-size: 1.42rem;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      font-weight: 500;
+    }
+    .explorer-summary p {
+      margin: 0;
+      max-width: 42rem;
+      color: var(--muted);
+      line-height: 1.72;
+    }
+    .explorer-stats {
+      justify-content: flex-end;
+      align-content: flex-end;
+    }
+    .explorer-path-grid,
+    .adjacent-grid,
+    .explorer-columns {
+      display: grid;
+      gap: 18px;
+    }
+    .explorer-path-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .explorer-columns {
+      grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+      align-items: start;
+    }
+    .adjacent-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .explorer-path {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+      min-height: 168px;
+      padding: 18px;
+      text-align: left;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: rgba(28, 24, 21, 0.78);
+      color: var(--ink);
+      box-shadow: var(--shadow-soft);
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+    }
+    .explorer-path strong {
+      font-size: 1.02rem;
+      line-height: 1.16;
+      letter-spacing: -0.015em;
+      font-weight: 500;
+    }
+    .explorer-path p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.62;
+    }
+    .explorer-path:hover,
+    .explorer-path:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(195, 154, 121, 0.48);
+      background: rgba(33, 29, 26, 0.92);
+      outline: none;
+    }
+    .explorer-path.is-active {
+      border-color: rgba(195, 154, 121, 0.82);
+      background:
+        linear-gradient(180deg, rgba(195, 154, 121, 0.14) 0%, rgba(33, 29, 26, 0.92) 100%);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+    }
+    .explorer-guide .view-list li,
+    .adjacent-grid .view-list li {
+      gap: 6px;
+    }
+    .explorer-guide p,
+    .adjacent-grid p {
+      margin: 0;
+    }
     .system-meta,
     .layer-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
     .validation-card ul { margin: 0; padding-left: 18px; }
@@ -924,7 +1015,10 @@
     }
     @media (max-width: 1040px) {
       .hero,
-      .section-header { grid-template-columns: 1fr; }
+      .section-header,
+      .explorer-summary,
+      .explorer-columns { grid-template-columns: 1fr; }
+      .explorer-stats { justify-content: flex-start; }
     }
     @media (max-width: 720px) {
       .wrap { padding-inline: 16px; }
@@ -936,6 +1030,7 @@
       .page-logo { width: 52px; }
       .nav-logo { width: 20px; }
       .intro-title { font-size: clamp(2.1rem, 10vw, 3.3rem); line-height: 1.12; }
+      .explorer-path { min-height: auto; }
       .figure-row {
         grid-template-columns: 1fr;
         gap: 10px;
@@ -1112,47 +1207,62 @@
     <main class="wrap">
       <section class="page-intro">
         <p class="eyebrow">Views</p>
-        <h1>Open the live layers without flattening the system.</h1>
-        <p>This page goes straight to the dashboards already materialized in the repo. The landing is the entry point; these are the analytical surfaces underneath it.</p>
+        <h1>Open the live surfaces by question, not by file tree.</h1>
+        <p>Views should behave like an atlas. Filter the layer family first, keep the claim boundary explicit, then open the dashboard that matches the question you are actually asking.</p>
       </section>
 
-      <section class="section">
+      <section class="section" id="surface-explorer" data-filter-group>
         <div class="section-header">
           <div>
-            <p class="section-eyebrow">Reading path</p>
-            <h2>The cleanest way to navigate the project is sequential.</h2>
+            <p class="section-eyebrow">Live explorer</p>
+            <h2>Filter the stack before you open a dashboard.</h2>
           </div>
-          <p>Orient the scope first, read the validation boundary second, and only then open the live layer that matches the question you are asking.</p>
+          <p>Nightly interpretation, portable event stress, supportive non-stress layers, and output surfaces all live in the same repo. This explorer keeps those lanes separate so the route you open still means what you think it means.</p>
         </div>
-        <div class="page-grid"><article class="page-card">
-          <p class="section-eyebrow">Step 1</p>
-          <h3>Orient the scope.</h3>
-          <p>Start on the public overview. It tells you which layer you are looking at and what kind of claim it is allowed to carry.</p>
-          <a href="/overview/">Open overview</a>
-        </article>
-        <article class="page-card">
-          <p class="section-eyebrow">Step 2</p>
-          <h3>Check validation and evidence.</h3>
-          <p>Before opening a dashboard, read the validation and evidence pages so signal, transport, and limitations stay explicit.</p>
-          <a href="/validation/">Open validation</a>
-        </article>
-        <article class="page-card">
-          <p class="section-eyebrow">Step 3</p>
-          <h3>Drop into the live layer.</h3>
-          <p>Only then go to the analytical dashboard that matches the layer you need: night, event, daily, or non-stress.</p>
-          <a href="#surface-index">Open layer index</a>
-        </article></div>
-      </section>
+        <div class="explorer-shell">
+          <article class="figure-panel explorer-summary">
+            <div>
+              <p class="section-eyebrow">Explorer</p>
+              <h3>Choose the layer family first.</h3>
+              <p>Use the filters below when you want the explorer to narrow to a specific claim family: stress interpretation, non-stress support, or portable transport. Leave it on all when you are orienting the full stack.</p>
+            </div>
+            <div class="overview-chips explorer-stats">
+              <span class="chip chip-ok">5 live dashboards</span>
+              <span class="chip chip-warn">2 portable surfaces</span>
+              <span class="chip chip-muted">2 output surfaces</span>
+            </div>
+          </article>
 
-      <section class="section" id="surface-index">
-        <div class="section-header">
-          <div>
-            <p class="section-eyebrow">Surface index</p>
-            <h2>Each layer should be reachable in one move.</h2>
+          <div class="explorer-path-grid">
+            <button type="button" class="explorer-path is-active" data-filter-value="all" aria-pressed="true">
+              <span class="mini">All surfaces</span>
+              <strong>See the full layer atlas.</strong>
+              <p>Use this when you are orienting the whole system and want every live dashboard in view.</p>
+            </button>
+            <button type="button" class="explorer-path" data-filter-value="stress" aria-pressed="false">
+              <span class="mini">Stress interpretation</span>
+              <strong>Stay inside nightly and daily stress layers.</strong>
+              <p>Focus on Night Layer, Event Layer, and Daily Challenge when the question is stress-facing or sleep-adjacent.</p>
+            </button>
+            <button type="button" class="explorer-path" data-filter-value="nonstress" aria-pressed="false">
+              <span class="mini">Non-stress support</span>
+              <strong>Open supportive anxiety, mood, fatigue, and somatic surfaces.</strong>
+              <p>Use this when you want the governed non-stress layers without mixing them into stress transport claims.</p>
+            </button>
+            <button type="button" class="explorer-path" data-filter-value="portable" aria-pressed="false">
+              <span class="mini">Portable transport</span>
+              <strong>Inspect what still travels across cohorts.</strong>
+              <p>Filter to the surfaces that matter when the question is transport readiness rather than within-cohort fit.</p>
+            </button>
           </div>
-          <p>The index below keeps the analytical surfaces legible before you drop into the full dashboard view.</p>
-        </div>
-        <article class="figure-panel overview-panel"><article class="index-row" tabindex="0" data-filter-tags="stress">
+
+          <div class="explorer-columns">
+            <article class="figure-panel overview-panel" id="surface-index">
+              <div class="figure-head">
+                <p class="section-eyebrow">Surface index</p>
+                <h3>Each live layer should be reachable in one move.</h3>
+              </div>
+              <article class="index-row" tabindex="0" data-filter-tags="stress">
               <div class="index-copy">
                 <strong>Night Layer</strong>
                 <span>12 visible units</span>
@@ -1207,18 +1317,32 @@
                 <span class="chip chip-muted">2 support</span>
               </div>
               <a class="index-link" href="/nonstress-families/">Open layer</a>
-            </article></article>
-      </section>
+            </article>
+            </article>
 
-      <section class="section">
-        <div class="section-header">
-          <div>
-            <p class="section-eyebrow">Dashboards</p>
-            <h2>Open the deeper analytical surfaces.</h2>
+            <article class="figure-panel explorer-guide">
+              <div class="figure-head">
+                <p class="section-eyebrow">Guardrails</p>
+                <h3>Keep the lane explicit before you open a dashboard.</h3>
+              </div>
+              <ul class="view-list">
+                <li><strong>Stress interpretation surfaces</strong><span>Night Layer and Daily Challenge stay inside governed interpretation and cohort-specific signal, even when they support participant or professional rendering later.</span></li>
+                <li><strong>Portable transport surfaces</strong><span>Event Layer and Non-Stress Portable Families matter when the question is transport. They should not be read as next-day sleep interpretation layers.</span></li>
+                <li><strong>Supportive non-stress surfaces</strong><span>Non-Stress Daily keeps anxiety, mood, fatigue, and somatic context visible without claiming strong portability across cohorts.</span></li>
+                <li><strong>Output surfaces</strong><span>Participant and institutional pages are reporting layers built on top of approved routes, not separate model families.</span></li>
+              </ul>
+            </article>
           </div>
-          <p>These cards preserve each layer’s own status, best visible signal, and route to the underlying dashboard.</p>
-        </div>
-        <div class="layer-grid"><article class="layer-card" data-filter-tags="stress">
+
+          <div class="surface-stack">
+            <div class="section-header">
+              <div>
+                <p class="section-eyebrow">Live dashboards</p>
+                <h2>Open the deeper analytical surface once the lane is clear.</h2>
+              </div>
+              <p>These cards preserve each layer’s own status, best visible signal, and direct route to the underlying dashboard without collapsing the stack into a single generic view.</p>
+            </div>
+            <div class="layer-grid"><article class="layer-card" data-filter-tags="stress">
               <div class="layer-head">
                 <div>
                   <p class="section-eyebrow">night</p>
@@ -1324,55 +1448,31 @@
                 <a href="/nonstress-families/">Open layer dashboard</a>
               </div>
             </article></div>
+          </div>
+        </div>
       </section>
 
       <section class="section">
         <div class="section-header">
           <div>
-            <p class="section-eyebrow">Direct access</p>
-            <h2>Fast entry to each live dashboard.</h2>
+            <p class="section-eyebrow">Adjacent surfaces</p>
+            <h2>Keep the reporting and governance surfaces close to the explorer.</h2>
           </div>
-          <p>Use these cards when the layer is already clear and you want to move straight into the analytical surface.</p>
+          <p>Views is the live dashboard atlas. These companion surfaces keep the broader project legible: public guardrails, participant-facing outputs, and institutional material for collaboration or pilots.</p>
         </div>
-        <div class="page-grid"><article class="page-card">
-          <p class="section-eyebrow">Live layer</p>
-          <h3>Night Layer</h3>
-          <p>Open the dedicated dashboard for this layer without passing through the broader public narrative.</p>
-          <a href="/nightly/">Open dashboard</a>
-        </article><article class="page-card">
-          <p class="section-eyebrow">Live layer</p>
-          <h3>Event Layer</h3>
-          <p>Open the dedicated dashboard for this layer without passing through the broader public narrative.</p>
-          <a href="/events/">Open dashboard</a>
-        </article><article class="page-card">
-          <p class="section-eyebrow">Live layer</p>
-          <h3>Daily Challenge Layer</h3>
-          <p>Open the dedicated dashboard for this layer without passing through the broader public narrative.</p>
-          <a href="/daily/">Open dashboard</a>
-        </article><article class="page-card">
-          <p class="section-eyebrow">Live layer</p>
-          <h3>Non-Stress Daily Layer</h3>
-          <p>Open the dedicated dashboard for this layer without passing through the broader public narrative.</p>
-          <a href="/nonstress-daily/">Open dashboard</a>
-        </article><article class="page-card">
-          <p class="section-eyebrow">Live layer</p>
-          <h3>Non-Stress Family Layer</h3>
-          <p>Open the dedicated dashboard for this layer without passing through the broader public narrative.</p>
-          <a href="/nonstress-families/">Open dashboard</a>
-        </article></div>
-      </section>
-
-      <section class="section">
-        <div class="section-header">
-          <div>
-            <p class="section-eyebrow">Participant-facing access</p>
-            <h2>The same engine now exposes a participant research-return surface.</h2>
-          </div>
-          <p>This is not a separate consumer product. It is a weekly longitudinal rendering layer built on top of approved nightly stress routes and the same structured report engine used elsewhere in the stack.</p>
-        </div>
-        <div class="page-grid">
+        <div class="adjacent-grid">
           <article class="validation-card">
-            <h3>Participant-facing materials</h3>
+            <h3>Guardrails before interpretation</h3>
+            <ul class="view-list">
+              <li><strong>Project overview</strong><span><a href="/overview/">Open the overview surface</a> to re-anchor what Butterfly Effect is and is not trying to do.</span></li>
+              <li><strong>Validation boundary</strong><span><a href="/validation/">Open validation</a> when you need to check held-out performance, transport limits, and route approval status.</span></li>
+              <li><strong>Evidence layer</strong><span><a href="/evidence/">Open evidence</a> when you need the literature or intervention side, not just model output.</span></li>
+              <li><strong>Participant logic</strong><span><a href="/participant/">Open participant</a> to see how approved nightly routes turn into governed participant-facing return.</span></li>
+            </ul>
+          </article>
+          <article class="validation-card">
+            <h3>Participant-facing access</h3>
+            <p>This is not a separate consumer product. It is a longitudinal reporting layer built on top of approved routes and the same governed interpretation logic used elsewhere in the stack.</p>
             <ul class="view-list">
               <li><strong>Layer index</strong><span><a href="/participant-layer/">Open the participant-facing directory</a></span></li>
               <li><strong>Blueprint</strong><span><a href="/participant-layer/">Open the layer specification</a></span></li>
@@ -1386,20 +1486,8 @@
             </ul>
           </article>
           <article class="validation-card">
-            <h3>Why it matters</h3>
-            <ul class="view-list">
-              <li><strong>Same core engine</strong><span>The surface reuses route scoring, baseline logic, caveats, and provenance rather than inventing a separate app layer.</span></li>
-              <li><strong>Longitudinal only</strong><span>The current form is weekly, not reactive to a single night.</span></li>
-              <li><strong>Governed scope</strong><span>Only participant-facing approved routes can be rendered in this format.</span></li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="page-grid">
-          <article class="validation-card">
             <h3>Institutional materials</h3>
+            <p>These surfaces package the same system for pilots, collaborators, and data partners without pretending the public landing is already a clinical product.</p>
             <ul class="view-list">
               <li><strong>Institutional entry</strong><span><a href="/institution/">Open the one-pager surface</a></span></li>
               <li><strong>Hospital / university / wearable</strong><span>Partner-specific one-pagers are prepared for first outreach.</span></li>
@@ -1411,23 +1499,13 @@
               <li><strong>Print version</strong><span><a href="/institution/print/">Open print / PDF-ready page</a></span></li>
             </ul>
           </article>
-          <article class="validation-card">
-            <h3>What changed today</h3>
-            <ul class="view-list">
-              <li><strong>Intro</strong><span>Butterfly now uses separated wing pieces and sculptural depth animation.</span></li>
-              <li><strong>Institution-facing layer</strong><span>One-pagers, technical data requirements, a field-level variable shortlist, a pilot protocol, an intake checklist, outreach templates, and a target shortlist are now live.</span></li>
-              <li><strong>Participant-facing layer</strong><span>A weekly research-return report now exists on top of approved nightly stress routes.</span></li>
-              <li><strong>Portable-family contract</strong><span>`stress_d1` now runs on a governed blend contract; `stress_d0` was re-probed and left unchanged because the blend added no material gain.</span></li>
-              <li><strong>Public surface</strong><span>Cross-page links and narrative now reflect the research stack, the institutional pack, and the new nightly portable-family blend support.</span></li>
-            </ul>
-          </article>
         </div>
       </section>
     </main>
     
     <footer class="footer">
       <div class="footer-inner">
-        <span>Generated from the Butterfly Effect research surface summary on 2026-03-27.</span>
+        <span>Generated from the Butterfly Effect research surface bundle on 2026-03-27.</span>
         <span>Butterfly Effect · research surface · not diagnostic · 2026</span>
       </div>
     </footer>
