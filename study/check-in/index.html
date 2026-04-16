@@ -291,10 +291,65 @@
     }
     .dashboard-shell {
       display: grid;
-      gap: 0;
+      gap: 20px;
     }
     .dashboard-intro {
       margin-bottom: 0;
+    }
+    .dashboard-hero-card {
+      display: grid;
+      gap: 16px;
+    }
+    .dashboard-hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.72fr);
+      gap: 18px;
+      align-items: start;
+    }
+    .dashboard-hero-main {
+      display: grid;
+      gap: 12px;
+    }
+    .dashboard-primary-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .dashboard-cue-stack {
+      display: grid;
+      gap: 12px;
+    }
+    .dashboard-cue strong {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .dashboard-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .dashboard-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+      gap: 20px;
+      align-items: start;
+    }
+    .dashboard-sidebar-card {
+      display: grid;
+      gap: 16px;
+    }
+    .panel-section {
+      display: grid;
+      gap: 12px;
+    }
+    .panel-section + .panel-section {
+      padding-top: 16px;
+      border-top: 1px solid rgba(74, 64, 56, 0.45);
+    }
+    .form-guidance {
+      margin-top: 14px;
     }
     .eyebrow {
       margin: 0 0 10px;
@@ -672,12 +727,18 @@
       font-size: 0.92rem;
       color: var(--muted);
     }
+    @media (max-width: 1200px) {
+      .dashboard-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
     @media (max-width: 1020px) {
       .hero,
       .section-grid,
       .field-grid,
       .boolean-grid,
-      .milestone-grid { grid-template-columns: 1fr; }
+      .milestone-grid,
+      .dashboard-main,
+      .dashboard-hero-grid,
+      .dashboard-strip { grid-template-columns: 1fr; }
       .auth-note-grid { grid-template-columns: 1fr; }
       .access-head { grid-template-columns: 88px minmax(0, 1fr); }
       .access-logo { width: 88px; height: 88px; }
@@ -889,120 +950,64 @@
       </section>
 
       <div id="participant-dashboard" class="dashboard-shell" hidden>
-      <section class="section-grid dashboard-intro" id="progress">
-        <article class="section-card">
-          <div>
-            <p class="eyebrow">Participant dashboard</p>
-            <h2>Your study panel</h2>
-            <p id="dashboard-guidance">This panel opens after sign-in and is meant to be used in the same order each day: confirm your participant identity, record today’s entry, and log change events only when something meaningful changes.</p>
-          </div>
-          <div class="callout" style="margin-top:12px;">
-            <strong style="display:block; color:var(--ink); margin-bottom:4px;">How to use this panel well</strong>
-            <span>Start with the daily entry. Use the change log only for interventions, context shifts, or disruptions that could change sleep, activation, or next-day burden.</span>
-          </div>
-        </article>
-
-        <article class="section-card">
-          <div>
-            <p class="eyebrow">Session</p>
-            <h2>Current access and next step</h2>
-            <p>This block helps you confirm that the correct account and participant code are active before adding new data.</p>
-          </div>
-          <div class="stat-grid">
-            <div class="stat"><strong>Signed-in account</strong><span id="dashboard-user-email">—</span></div>
-            <div class="stat"><strong>Linked participant</strong><span id="dashboard-participant-code">Not linked yet</span></div>
-            <div class="stat"><strong>What to do next</strong><span id="dashboard-next-step">Link your participant code first if it is not already attached to this account.</span></div>
-          </div>
-          <div class="actions">
-            <button class="mini-button" type="button" id="dashboard-sign-out-button">Sign out</button>
-          </div>
-        </article>
-      </section>
-
-      <section class="section-grid">
-        <article class="section-card">
-          <div>
-            <p class="eyebrow">Participant profile</p>
-            <h2>Study identity</h2>
-            <p>If your study link already includes a participant code, it will appear here automatically. Save it once so future daily entries and change events stay tied to the correct study record.</p>
-          </div>
-          <div class="field-grid">
-            <div class="field">
-              <label for="participant_code">Participant code</label>
-              <input id="participant_code" type="text" placeholder="be-pilot-001">
+      <section class="section-card dashboard-hero-card" id="progress">
+        <div class="dashboard-hero-grid">
+          <div class="dashboard-hero-main">
+            <div>
+              <p class="eyebrow">Today</p>
+              <h2 id="dashboard-action-title">Complete one check-in for last night.</h2>
             </div>
-            <div class="field">
-              <label for="participant_label">Optional local label</label>
-              <input id="participant_label" type="text" placeholder="Optional personal label">
+            <p id="dashboard-guidance">This panel is designed to be used in a simple sequence: confirm your participant identity, complete one daily follow-up for the last night, and only then log meaningful changes if something actually started, stopped, or shifted.</p>
+            <div class="dashboard-primary-actions">
+              <a class="button" href="#checkin">Open today’s check-in</a>
+              <a class="ghost-button" href="#history">Review previous days</a>
+              <a class="ghost-button" href="#event-log">Log a meaningful change</a>
             </div>
           </div>
-          <div class="actions">
-            <button class="button" type="button" id="save-profile-button">Link participant code</button>
+          <div class="dashboard-cue-stack">
+            <div class="callout dashboard-cue">
+              <strong>When to fill it</strong>
+              <span id="dashboard-when-to-fill">Fill one check-in per day, ideally in the morning after waking. The form defaults to the date of last night.</span>
+            </div>
+            <div class="callout dashboard-cue">
+              <strong>Next step</strong>
+              <span id="dashboard-next-step">Link your participant code first if it is not already attached to this account.</span>
+            </div>
           </div>
-          <div id="profile-status" class="status"></div>
-          <div class="callout">
-            <strong style="display:block; color:var(--ink); margin-bottom:4px;">Current participant</strong>
-            <div id="profile-summary">No participant code linked to this account yet.</div>
-          </div>
-        </article>
+        </div>
 
-        <article class="section-card">
-          <div>
-            <p class="eyebrow">Progress</p>
-            <h2>Your follow-up window</h2>
-            <p>These markers do not interpret symptoms. They simply show how much usable follow-up has accumulated and when the study reaches more stable review windows.</p>
-          </div>
-          <div class="stat-grid">
-            <div class="stat"><strong>Total check-ins</strong><span id="metric-total">0</span></div>
-            <div class="stat"><strong>Most recent day</strong><span id="metric-latest">—</span></div>
-            <div class="stat"><strong>Current streak</strong><span id="metric-streak">0 days</span></div>
-            <div class="stat"><strong>Current phase</strong><span id="metric-phase">Starting</span></div>
-          </div>
-          <div class="milestone-grid">
-            <div class="milestone" id="milestone-7"><strong>7-day baseline</strong><span id="milestone-7-text">0 / 7 days completed</span></div>
-            <div class="milestone" id="milestone-14"><strong>14-day pattern review</strong><span id="milestone-14-text">0 / 14 days completed</span></div>
-            <div class="milestone" id="milestone-28"><strong>28-day review-ready window</strong><span id="milestone-28-text">0 / 28 days completed</span></div>
-          </div>
-        </article>
+        <div class="dashboard-strip">
+          <div class="stat"><strong>Signed-in account</strong><span id="dashboard-user-email">—</span></div>
+          <div class="stat"><strong>Linked participant</strong><span id="dashboard-participant-code">Not linked yet</span></div>
+          <div class="stat"><strong>Check-ins recorded</strong><span id="metric-total">0</span></div>
+          <div class="stat"><strong>Current phase</strong><span id="metric-phase">Starting</span></div>
+        </div>
+        <div class="dashboard-strip">
+          <div class="stat"><strong>Most recent night</strong><span id="metric-latest">—</span></div>
+          <div class="stat"><strong>Current streak</strong><span id="metric-streak">0 days</span></div>
+          <div class="stat"><strong>Reports registered</strong><span id="metric-reports">0</span></div>
+          <div class="stat"><strong>Privacy</strong><span>Private by default</span></div>
+        </div>
+        <div class="milestone-grid">
+          <div class="milestone" id="milestone-7"><strong>7-day baseline</strong><span id="milestone-7-text">0 / 7 days completed</span></div>
+          <div class="milestone" id="milestone-14"><strong>14-day pattern review</strong><span id="milestone-14-text">0 / 14 days completed</span></div>
+          <div class="milestone" id="milestone-28"><strong>28-day review-ready window</strong><span id="milestone-28-text">0 / 28 days completed</span></div>
+        </div>
+        <div class="actions">
+          <button class="mini-button" type="button" id="dashboard-sign-out-button">Sign out</button>
+        </div>
       </section>
 
-      <section class="section-grid" style="margin-top:20px;">
-        <article class="section-card">
-          <div>
-            <p class="eyebrow">Reports</p>
-            <h2>Your generated reviews</h2>
-            <p>This section surfaces participant-facing reviews or professional companion outputs once the study pipeline registers them. It is a catalogue of generated outputs, not a live interpretation panel.</p>
-          </div>
-          <div id="reports-status" class="status"></div>
-          <div class="callout">
-            <strong style="display:block; color:var(--ink); margin-bottom:4px;">What should appear here</strong>
-            <span>Participant reviews, professional companions, and other generated study outputs tied to your follow-up window. If this section is empty, it usually means no review has been registered yet in the secure study backend.</span>
-          </div>
-          <div id="reports-body" class="report-list">
-            <div class="report-empty">No generated reviews are registered yet.</div>
-          </div>
-        </article>
-
-        <article class="section-card">
-          <div>
-            <p class="eyebrow">How to read outputs</p>
-            <h2>What these reports are for</h2>
-            <p>Generated reviews are meant to summarize a window of follow-up, not to act as instant daily scores. They become more useful once the study has enough repeated days and, if relevant, clear change anchors.</p>
-          </div>
-          <div class="stat-grid">
-            <div class="stat"><strong>Built from</strong><span>Wearable exports, daily self-report, and event anchors when available.</span></div>
-            <div class="stat"><strong>Useful for</strong><span>Pattern review, professional discussion, and response-to-change reads over time.</span></div>
-            <div class="stat"><strong>Not for</strong><span>Immediate diagnosis or daily over-interpretation from a single night.</span></div>
-          </div>
-        </article>
-      </section>
-
-      <section class="section-grid" style="margin-top:20px;">
+      <section class="dashboard-main">
         <article class="section-card" id="checkin">
           <div>
-            <p class="eyebrow">Daily entry</p>
-            <h2>Record or edit a day</h2>
-            <p>Use the date of the night being interpreted. If the night started late on the 15th and ended on the 16th, the check-in date should still be <strong>2026-04-15</strong>.</p>
+            <p class="eyebrow">Step 1</p>
+            <h2>Complete today’s daily follow-up</h2>
+            <p>Fill this once per day, ideally in the morning after waking and once you have a first sense of how the night and the start of the day felt. The form defaults to the date of the night you are reporting.</p>
+          </div>
+          <div class="callout form-guidance">
+            <strong style="display:block; color:var(--ink); margin-bottom:4px;">Date rule</strong>
+            <span>If the night started late on the 15th and ended on the 16th, the correct check-in date is still <strong>2026-04-15</strong>. This form defaults to last night’s date to reduce mistakes.</span>
           </div>
           <form id="checkin-form">
             <div class="field-grid">
@@ -1056,11 +1061,65 @@
           </form>
         </article>
 
-        <article class="section-card">
+        <aside class="section-card dashboard-sidebar-card">
+          <div class="panel-section">
+            <div>
+              <p class="eyebrow">Study setup</p>
+              <h2>Confirm your participant identity</h2>
+              <p>If your study link already includes a participant code, it should appear here. Save it once so all daily entries and change events stay tied to the correct study record.</p>
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label for="participant_code">Participant code</label>
+                <input id="participant_code" type="text" placeholder="be-pilot-001">
+              </div>
+              <div class="field">
+                <label for="participant_label">Optional local label</label>
+                <input id="participant_label" type="text" placeholder="Optional personal label">
+              </div>
+            </div>
+            <div class="actions">
+              <button class="button" type="button" id="save-profile-button">Link participant code</button>
+            </div>
+            <div id="profile-status" class="status"></div>
+            <div class="callout">
+              <strong style="display:block; color:var(--ink); margin-bottom:4px;">Current participant</strong>
+              <div id="profile-summary">No participant code linked to this account yet.</div>
+            </div>
+          </div>
+
+          <div class="panel-section">
+            <div>
+              <p class="eyebrow">Daily rhythm</p>
+              <h3>What belongs in the daily form</h3>
+              <p>Use one entry per day for the last night. Keep the `Change log` for interventions, disruptions, or context shifts that genuinely change the interpretation window.</p>
+            </div>
+            <div class="callout">
+              <strong style="display:block; color:var(--ink); margin-bottom:4px;">Simple rule</strong>
+              <span>Daily entry first. Change log only when something meaningful started, stopped, or shifted.</span>
+            </div>
+          </div>
+
+          <div class="panel-section">
+            <div>
+              <p class="eyebrow">Reports</p>
+              <h3>What comes back later</h3>
+              <p>Participant reviews and professional companions appear once the study pipeline has enough follow-up and generates a registered output.</p>
+            </div>
+            <div class="callout">
+              <strong style="display:block; color:var(--ink); margin-bottom:4px;">Current report status</strong>
+              <span id="dashboard-report-summary">No generated reviews are registered yet.</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section-grid" style="margin-top:20px;">
+        <article class="section-card" id="history">
           <div>
-            <p class="eyebrow">Recent history</p>
-            <h2>Your study follow-up log</h2>
-            <p>You can review and edit previous entries here. This is a practical audit trail of what has already been recorded, not a diagnostic summary.</p>
+            <p class="eyebrow">Step 2</p>
+            <h2>Review previous check-ins</h2>
+            <p>This is your practical follow-up log. Use it to review or correct older entries, not as a diagnostic scorecard.</p>
           </div>
           <div id="table-status" class="status"></div>
           <div class="table-wrap">
@@ -1085,14 +1144,12 @@
             <span>This participant view writes to the secure study backend after sign-in. Data is private by default and linked to your participant code and account.</span>
           </div>
         </article>
-      </section>
 
-      <section class="section-grid" style="margin-top:20px;">
         <article class="section-card" id="event-log">
           <div>
-            <p class="eyebrow">Change log</p>
-            <h2>Mark interventions, changes, or disruptions</h2>
-            <p>Use this section only when something starts, stops, or changes in a way that could plausibly affect sleep, activation, or next-day burden. These anchors are what later allow pre/post response reads.</p>
+            <p class="eyebrow">Step 3</p>
+            <h2>Log meaningful changes only</h2>
+            <p>Use this section when something starts, stops, or changes in a way that could plausibly affect sleep, activation, or next-day burden. These anchors are what later allow governed before/after reads.</p>
           </div>
           <form id="event-form">
             <div class="field-grid">
@@ -1170,36 +1227,52 @@
             </div>
             <div id="event-status" class="status"></div>
           </form>
-        </article>
 
-        <article class="section-card">
-          <div>
-            <p class="eyebrow">Response anchors</p>
-            <h2>Your logged change windows</h2>
-            <p>These rows do not interpret the response by themselves. They simply show the change windows that the study will later use for before/after comparison.</p>
-          </div>
-          <div id="event-table-status" class="status"></div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Label</th>
-                  <th>Type</th>
-                  <th>Target</th>
-                  <th>Direction</th>
-                  <th>Note</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="events-body"><tr><td colspan="7">No synced change events yet.</td></tr></tbody>
-            </table>
-          </div>
-          <div class="callout">
-            <strong style="display:block; color:var(--ink); margin-bottom:4px;">Why this matters</strong>
-            <span>These event anchors are what let Butterfly Effect move from static pattern description to governed pre/post response analysis.</span>
+          <div class="panel-section">
+            <div>
+              <p class="eyebrow">Logged anchors</p>
+              <h3>Your current change windows</h3>
+              <p>These rows do not interpret the response by themselves. They simply show the windows the study can later compare.</p>
+            </div>
+            <div id="event-table-status" class="status"></div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Label</th>
+                    <th>Type</th>
+                    <th>Target</th>
+                    <th>Direction</th>
+                    <th>Note</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="events-body"><tr><td colspan="7">No synced change events yet.</td></tr></tbody>
+              </table>
+            </div>
+            <div class="callout">
+              <strong style="display:block; color:var(--ink); margin-bottom:4px;">Why this matters</strong>
+              <span>These anchors are what let Butterfly Effect move from static pattern description to governed response-to-change analysis.</span>
+            </div>
           </div>
         </article>
+      </section>
+
+      <section class="section-card" style="margin-top:20px;">
+        <div>
+          <p class="eyebrow">Step 4</p>
+          <h2>Open generated reviews</h2>
+          <p>This section surfaces participant-facing reviews or professional companion outputs once the study pipeline registers them. It is a catalogue of generated outputs, not a live interpretation panel.</p>
+        </div>
+        <div id="reports-status" class="status"></div>
+        <div class="callout">
+          <strong style="display:block; color:var(--ink); margin-bottom:4px;">What should appear here</strong>
+          <span>Participant reviews, professional companions, and other generated study outputs tied to your follow-up window. If this section is empty, it usually means no review has been registered yet in the secure study backend.</span>
+        </div>
+        <div id="reports-body" class="report-list">
+          <div class="report-empty">No generated reviews are registered yet.</div>
+        </div>
       </section>
       </div>
 
@@ -1282,10 +1355,14 @@
     const participantUidInput = document.getElementById("participant_uid");
     const participantCodeInput = document.getElementById("participant_code");
     const participantLabelInput = document.getElementById("participant_label");
+    const dashboardActionTitle = document.getElementById("dashboard-action-title");
     const dashboardGuidance = document.getElementById("dashboard-guidance");
+    const dashboardWhenToFill = document.getElementById("dashboard-when-to-fill");
     const dashboardUserEmail = document.getElementById("dashboard-user-email");
     const dashboardParticipantCode = document.getElementById("dashboard-participant-code");
     const dashboardNextStep = document.getElementById("dashboard-next-step");
+    const dashboardReportSummary = document.getElementById("dashboard-report-summary");
+    const metricReports = document.getElementById("metric-reports");
 
     function queryParams() {
       return new URLSearchParams(window.location.search);
@@ -1310,8 +1387,22 @@
       return queryParams().get("mode") === "recovery" || hashParams().get("type") === "recovery";
     }
 
+    function formatLocalDate(date) {
+      const yyyy = date.getFullYear();
+      const mm = String(date.getMonth() + 1).padStart(2, "0");
+      const dd = String(date.getDate()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
     function todayLocalDate() {
-      return new Date().toISOString().slice(0, 10);
+      return formatLocalDate(new Date());
+    }
+
+    function defaultCheckinDate() {
+      const date = new Date();
+      date.setHours(12, 0, 0, 0);
+      date.setDate(date.getDate() - 1);
+      return formatLocalDate(date);
     }
 
     function localIsoTimestamp() {
@@ -1577,29 +1668,48 @@
     function updateMetrics() {
       const entries = [...state.entries].sort((a, b) => (a.report_date_local > b.report_date_local ? 1 : -1));
       const count = entries.length;
+      const expectedDate = defaultCheckinDate();
+      const hasExpectedEntry = entries.some((entry) => entry.report_date_local === expectedDate);
       document.getElementById("metric-total").textContent = String(count);
       document.getElementById("metric-latest").textContent = count ? entries[count - 1].report_date_local : "—";
       document.getElementById("metric-streak").textContent = `${computeStreak(entries)} day${computeStreak(entries) === 1 ? "" : "s"}`;
       document.getElementById("metric-phase").textContent = phaseFromCount(count);
+      metricReports.textContent = String(state.reports.length);
+      dashboardReportSummary.textContent = state.reports.length
+        ? `${state.reports.length} generated report${state.reports.length === 1 ? " is" : "s are"} registered for this participant.`
+        : "No generated reviews are registered yet.";
       setMilestone("milestone-7", "milestone-7-text", count, 7);
       setMilestone("milestone-14", "milestone-14-text", count, 14);
       setMilestone("milestone-28", "milestone-28-text", count, 28);
       if (!state.user) {
-        dashboardGuidance.textContent = "This panel opens after sign-in and is meant to be used in the same order each day: confirm your participant identity, record today’s entry, and log change events only when something meaningful changes.";
+        dashboardActionTitle.textContent = "Complete one check-in for last night.";
+        dashboardGuidance.textContent = "This panel is designed to be used in a simple sequence: confirm your participant identity, complete one daily follow-up for the last night, and only then log meaningful changes if something actually started, stopped, or shifted.";
+        dashboardWhenToFill.textContent = "Fill one check-in per day, ideally in the morning after waking. The form defaults to the date of last night.";
         dashboardUserEmail.textContent = "—";
         dashboardNextStep.textContent = "Sign in first.";
         return;
       }
       dashboardUserEmail.textContent = state.user.email || "Signed in";
       if (!state.participant) {
-        dashboardGuidance.textContent = "You are signed in, but your participant code still needs to be linked. Do that first so today’s data is attached to the correct study record.";
-        dashboardNextStep.textContent = "Link your participant code in Study identity.";
+        dashboardActionTitle.textContent = "Link your participant code before today’s check-in.";
+        dashboardGuidance.textContent = "You are signed in, but your participant code still needs to be linked. Do that first so daily entries and change events attach to the correct study record.";
+        dashboardWhenToFill.textContent = `Once linked, fill one check-in per day, ideally in the morning after waking. The form will default to ${expectedDate}, which represents last night.`;
+        dashboardNextStep.textContent = "Link your participant code in Study setup.";
       } else if (count === 0) {
-        dashboardGuidance.textContent = "Your account and participant code are ready. The next useful step is to record today’s entry using the date of the night being interpreted.";
-        dashboardNextStep.textContent = "Record your first daily entry.";
+        dashboardActionTitle.textContent = "Start your baseline with the first daily check-in.";
+        dashboardGuidance.textContent = "Your account and participant code are ready. The next useful step is to complete one daily follow-up for the last night before moving on to anything else.";
+        dashboardWhenToFill.textContent = `Best timing: once per day, ideally in the morning after waking. The form defaults to ${expectedDate}, which represents the night you just completed.`;
+        dashboardNextStep.textContent = "Open today’s check-in, confirm the default date, and save your first entry.";
+      } else if (hasExpectedEntry) {
+        dashboardActionTitle.textContent = "Today’s follow-up is already recorded.";
+        dashboardGuidance.textContent = "Your expected daily check-in is already in the study record. Use the lower sections only if you need to correct an earlier day or log a meaningful new change.";
+        dashboardWhenToFill.textContent = "Come back after the next night of sleep, ideally the following morning. If you are correcting an older day, use Previous check-ins instead of creating a duplicate.";
+        dashboardNextStep.textContent = "Review previous days or log a meaningful change only if something actually started, stopped, or shifted.";
       } else {
-        dashboardGuidance.textContent = "Your panel is active. Use Daily entry for today’s follow-up, Recent history to edit prior days, and Change log only for interventions or meaningful context shifts.";
-        dashboardNextStep.textContent = "Record today’s entry or add a new change event if something meaningful changed.";
+        dashboardActionTitle.textContent = "Today’s check-in is due.";
+        dashboardGuidance.textContent = "Record one daily follow-up for the last night before doing anything else in the panel. Keep the change log for real shifts or interventions, not ordinary daily variation.";
+        dashboardWhenToFill.textContent = `Best timing: once you have woken up and have a first sense of the morning. The form defaults to ${expectedDate}, which is the correct date for last night.`;
+        dashboardNextStep.textContent = "Open today’s check-in, confirm the default date, and save one complete entry.";
       }
     }
 
@@ -1789,7 +1899,7 @@
     function resetForm() {
       form.reset();
       participantUidInput.value = state.participant?.participant_code || participantCodeInput.value.trim();
-      reportDateInput.value = todayLocalDate();
+      reportDateInput.value = defaultCheckinDate();
       RANGE_FIELDS.forEach((name) => {
         const input = document.getElementById(name);
         const valueNode = document.querySelector(`[data-range-value="${name}"]`);
@@ -1803,6 +1913,7 @@
     function resetEventForm() {
       eventForm.reset();
       document.getElementById("event_participant_uid").value = state.participant?.participant_code || participantCodeInput.value.trim();
+      document.getElementById("event_date_local").value = todayLocalDate();
       document.getElementById("pre_window_days").value = "14";
       document.getElementById("post_window_days").value = "14";
       state.currentEventEditId = null;
