@@ -268,19 +268,6 @@
   .panel {
     position: relative;
   }
-  .page-intro::before,
-  .hero::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: -18px;
-    width: min(132px, 24vw);
-    height: 2px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--route-accent) 0%, transparent 100%);
-    opacity: 0.9;
-    pointer-events: none;
-  }
   .hero-panel,
   .hero-card:first-of-type,
   .figure-row:first-child,
@@ -289,31 +276,8 @@
   .panel:first-of-type {
     border-color: var(--route-line) !important;
   }
-  .hero-panel::after,
-  .hero-card:first-of-type::after,
-  .figure-row:first-child::after,
-  .layer-card:first-child::after,
-  .section-card:first-of-type::after,
-  .panel:first-of-type::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: min(160px, 42%);
-    height: 1px;
-    background: linear-gradient(90deg, var(--route-accent) 0%, transparent 100%);
-    opacity: 0.82;
-    pointer-events: none;
-  }
   .nav-links a.active {
     color: var(--ink) !important;
-  }
-  @media (max-width: 720px) {
-    .page-intro::before,
-    .hero::before {
-      top: -14px;
-      width: min(96px, 28vw);
-    }
   }
   </style>
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
