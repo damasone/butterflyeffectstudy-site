@@ -974,17 +974,21 @@
   <meta name="twitter:title" content="Butterfly Effect — Participant Return">
   <meta name="twitter:description" content="Participant-facing research return built from the same governed interpretation engine, with explicit limits and no diagnostic overclaim.">
   <meta name="twitter:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
+  <style id="be-no-halo">
+  body::before {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+    opacity: 0 !important;
+  }
+  .nav-links a.active {
+    text-shadow: none !important;
+  }
+  </style>
   <style id="be-route-surface">
   :root {
     --route-accent: #c79d88;
-    --route-glow: rgba(199, 157, 136, 0.10);
-    --route-glow-soft: rgba(199, 157, 136, 0.05);
     --route-line: rgba(199, 157, 136, 0.34);
-  }
-  body::before {
-    background:
-      radial-gradient(circle at 12% 16%, var(--route-glow), transparent 26%),
-      radial-gradient(circle at 86% 10%, var(--route-glow-soft), transparent 22%) !important;
   }
   .eyebrow {
     color: var(--route-accent) !important;
@@ -1038,7 +1042,6 @@
   }
   .nav-links a.active {
     color: var(--ink) !important;
-    text-shadow: 0 0 18px var(--route-glow);
   }
   @media (max-width: 720px) {
     .page-intro::before,

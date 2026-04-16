@@ -31,14 +31,8 @@
       line-height: 1.6;
     }
     body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(circle at 14% 12%, rgba(195, 154, 121, 0.08), transparent 28%),
-        radial-gradient(circle at 86% 10%, rgba(234, 219, 206, 0.05), transparent 32%);
-      pointer-events: none;
-      z-index: 0;
+      content: none;
+      display: none;
     }
     a { color: var(--accent-deep); text-decoration: none; }
     a:hover { text-decoration: underline; }
@@ -326,6 +320,11 @@
       display: grid;
       gap: 12px;
     }
+    .dashboard-cue-primary {
+      border-color: rgba(195, 154, 121, 0.28);
+      background:
+        linear-gradient(180deg, rgba(195, 154, 121, 0.08) 0%, rgba(36, 32, 28, 0.86) 100%);
+    }
     .dashboard-cue strong {
       display: block;
       color: var(--ink);
@@ -373,6 +372,15 @@
       color: var(--accent-deep);
       line-height: 1.55;
     }
+    .dashboard-status-hero {
+      margin-bottom: 8px;
+      color: var(--ink);
+      font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      font-weight: 600;
+      text-wrap: balance;
+    }
     .dashboard-meta-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -410,6 +418,10 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 12px;
     }
+    .dashboard-overview-grid {
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+      margin-top: 20px;
+    }
     .dashboard-main {
       display: grid;
       grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
@@ -430,6 +442,192 @@
     }
     .form-guidance {
       margin-top: 14px;
+    }
+    .adherence-card,
+    .report-highlight-card {
+      display: grid;
+      gap: 16px;
+    }
+    .adherence-head,
+    .report-highlight-head {
+      display: grid;
+      gap: 10px;
+    }
+    .adherence-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .adherence-kpi {
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(74, 64, 56, 0.54);
+      background: rgba(20, 16, 14, 0.42);
+    }
+    .adherence-kpi strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-size: 1.18rem;
+      letter-spacing: -0.02em;
+    }
+    .adherence-kpi span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+    .adherence-calendar-shell {
+      display: grid;
+      gap: 10px;
+    }
+    .adherence-weekdays,
+    .adherence-calendar {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .adherence-weekdays span {
+      color: var(--muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      text-align: center;
+    }
+    .adherence-day {
+      appearance: none;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      min-height: 44px;
+      border-radius: 14px;
+      border: 1px solid rgba(74, 64, 56, 0.54);
+      background: rgba(24, 20, 18, 0.5);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, color 160ms ease;
+    }
+    .adherence-day:hover {
+      transform: translateY(-1px);
+    }
+    .adherence-day span {
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .adherence-day.done {
+      border-color: rgba(158, 202, 179, 0.38);
+      background: rgba(28, 40, 35, 0.78);
+      color: var(--ok);
+    }
+    .adherence-day.missed {
+      border-color: rgba(74, 64, 56, 0.54);
+      background: rgba(33, 28, 24, 0.76);
+      color: #c9beb3;
+    }
+    .adherence-day.due {
+      border-color: rgba(208, 161, 119, 0.42);
+      background: rgba(48, 35, 25, 0.84);
+      color: var(--warn);
+    }
+    .adherence-day.anchor {
+      box-shadow: inset 0 0 0 1px rgba(234, 219, 206, 0.18);
+    }
+    .adherence-day.empty {
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .adherence-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 10px;
+    }
+    .legend-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+    .legend-chip::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border-radius: 4px;
+      border: 1px solid rgba(74, 64, 56, 0.54);
+      background: rgba(24, 20, 18, 0.5);
+    }
+    .legend-chip.done::before {
+      border-color: rgba(158, 202, 179, 0.38);
+      background: rgba(28, 40, 35, 0.78);
+    }
+    .legend-chip.missed::before {
+      border-color: rgba(74, 64, 56, 0.54);
+      background: rgba(33, 28, 24, 0.76);
+    }
+    .legend-chip.due::before {
+      border-color: rgba(208, 161, 119, 0.42);
+      background: rgba(48, 35, 25, 0.84);
+    }
+    .report-highlight-card {
+      position: relative;
+      overflow: hidden;
+      border-color: rgba(195, 154, 121, 0.2);
+      background:
+        linear-gradient(180deg, rgba(195, 154, 121, 0.07) 0%, rgba(28, 24, 21, 0.9) 100%);
+    }
+    .report-highlight-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: min(180px, 48%);
+      height: 1px;
+      background: linear-gradient(90deg, rgba(195, 154, 121, 0.9) 0%, transparent 100%);
+      opacity: 0.82;
+    }
+    .report-highlight-empty {
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px dashed rgba(195, 154, 121, 0.18);
+      color: var(--muted);
+      background: rgba(18, 14, 12, 0.52);
+      line-height: 1.6;
+    }
+    .report-highlight-main {
+      display: grid;
+      gap: 10px;
+    }
+    .report-highlight-main strong {
+      display: block;
+      color: var(--ink);
+      font-size: 1.18rem;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    .report-highlight-main p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .report-highlight-meta {
+      display: grid;
+      gap: 8px;
+    }
+    .report-highlight-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 10px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+    .report-highlight-row strong {
+      color: var(--accent-deep);
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
     .dashboard-edit-banner {
       margin-top: 14px;
@@ -883,6 +1081,7 @@
       .section-grid,
       .field-grid,
       .milestone-grid,
+      .dashboard-overview-grid,
       .dashboard-main,
       .dashboard-hero-grid,
       .dashboard-strip { grid-template-columns: 1fr; }
@@ -954,7 +1153,8 @@
       }
       .dashboard-cue-stack,
       .dashboard-strip,
-      .milestone-grid { gap: 10px; }
+      .milestone-grid,
+      .adherence-kpis { gap: 10px; }
       .dashboard-meta-grid { grid-template-columns: 1fr; }
       .report-item-head { flex-direction: column; }
       .report-badge { align-self: flex-start; }
@@ -967,7 +1167,8 @@
     @media (max-width: 560px) {
       .nav-links { grid-template-columns: 1fr; }
       .dashboard-strip,
-      .boolean-grid { grid-template-columns: 1fr; }
+      .boolean-grid,
+      .adherence-kpis { grid-template-columns: 1fr; }
       .field-grid { grid-template-columns: 1fr; }
       .field-help-card {
         position: static;
@@ -979,6 +1180,9 @@
       .callout,
       .stat,
       .milestone { padding: 12px 14px; }
+      .adherence-weekdays,
+      .adherence-calendar { gap: 6px; }
+      .adherence-day { min-height: 38px; border-radius: 12px; }
     }
     @media (prefers-reduced-motion: reduce) {
       .auth-butterfly,
@@ -1004,6 +1208,17 @@
   <meta name="twitter:description" content="Secure daily participant check-in for Butterfly Effect study follow-up, with account-based access, progress milestones, change-event logging, and later wearable linkage.">
   <meta name="twitter:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
   <meta name="robots" content="noindex, nofollow">
+  <style id="be-no-halo">
+  body::before {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+    opacity: 0 !important;
+  }
+  .nav-links a.active {
+    text-shadow: none !important;
+  }
+  </style>
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -1189,11 +1404,12 @@
             </div>
           </div>
           <div class="dashboard-cue-stack">
-            <div class="callout dashboard-cue">
+            <div class="callout dashboard-cue dashboard-cue-primary">
               <div class="dashboard-status-head">
                 <strong>Today status</strong>
                 <span class="status-pill neutral" id="dashboard-status-pill">Waiting</span>
               </div>
+              <div class="dashboard-status-hero" id="dashboard-status-hero">Waiting for sign-in</div>
               <span class="dashboard-status-copy" id="dashboard-status-text">Sign in first, then link your participant code so today’s follow-up can land in the right study record.</span>
               <div class="dashboard-meta-grid">
                 <div class="dashboard-meta-item">
@@ -1225,6 +1441,60 @@
           <div class="milestone" id="milestone-14"><strong>14-day pattern review</strong><span id="milestone-14-text">0 / 14 days completed</span></div>
           <div class="milestone" id="milestone-28"><strong>28-day review-ready window</strong><span id="milestone-28-text">0 / 28 days completed</span></div>
         </div>
+      </section>
+
+      <section class="section-grid dashboard-overview-grid">
+        <article class="section-card adherence-card" id="adherence">
+          <div class="adherence-head">
+            <div>
+              <p class="eyebrow">Adherence</p>
+              <h2>See the last 28 nights at a glance</h2>
+              <p>This calendar is operational, not diagnostic. It shows which nights in the current visible window are saved, which older nights are still missing, and whether last night is already done or still due.</p>
+            </div>
+            <div class="adherence-kpis">
+              <div class="adherence-kpi">
+                <strong id="adherence-window-count">0 / 28</strong>
+                <span>Nights saved in the visible window</span>
+              </div>
+              <div class="adherence-kpi">
+                <strong id="adherence-week-count">0 / 7</strong>
+                <span>Saved in the last 7 nights</span>
+              </div>
+              <div class="adherence-kpi">
+                <strong id="adherence-missing-count">0</strong>
+                <span>Missing nights in the visible window</span>
+              </div>
+            </div>
+          </div>
+          <div class="adherence-calendar-shell">
+            <div class="adherence-weekdays" aria-hidden="true">
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
+              <span>Sun</span>
+            </div>
+            <div id="adherence-calendar" class="adherence-calendar" aria-label="Recent adherence calendar"></div>
+            <div class="adherence-legend">
+              <span class="legend-chip done">Saved</span>
+              <span class="legend-chip due">Last night due</span>
+              <span class="legend-chip missed">Older night still missing</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="section-card report-highlight-card" id="latest-report">
+          <div class="report-highlight-head">
+            <div>
+              <p class="eyebrow">Latest return</p>
+              <h2>Bring the newest generated review forward</h2>
+              <p>When a participant review or professional companion is registered, the newest one appears here first so this panel feels like a study workspace, not only a data entry form.</p>
+            </div>
+          </div>
+          <div id="latest-report-highlight" class="report-highlight-empty">No generated reviews are registered yet. Once one is registered in the secure study backend, it will appear here with its coverage window and direct access.</div>
+        </article>
       </section>
 
       <section class="dashboard-main">
@@ -1340,12 +1610,12 @@
 
           <div class="panel-section">
             <div>
-              <p class="eyebrow">Reports</p>
-              <h3>What comes back later</h3>
-              <p>Participant reviews and professional companions appear once the study pipeline has enough follow-up and generates a registered output.</p>
+              <p class="eyebrow">Privacy and scope</p>
+              <h3>What this portal does and does not do</h3>
+              <p>This portal records longitudinal follow-up and exposes generated study outputs when they exist. It is not a live clinical interpretation surface and it does not make diagnoses.</p>
             </div>
             <div class="callout">
-              <strong style="display:block; color:var(--ink); margin-bottom:4px;">Current report status</strong>
+              <strong style="display:block; color:var(--ink); margin-bottom:4px;">Current review status</strong>
               <span id="dashboard-report-summary">No generated reviews are registered yet.</span>
             </div>
             <div class="callout">
@@ -1602,6 +1872,7 @@
     const dashboardActionTitle = document.getElementById("dashboard-action-title");
     const dashboardGuidance = document.getElementById("dashboard-guidance");
     const dashboardStatusPill = document.getElementById("dashboard-status-pill");
+    const dashboardStatusHero = document.getElementById("dashboard-status-hero");
     const dashboardStatusText = document.getElementById("dashboard-status-text");
     const dashboardTargetDate = document.getElementById("dashboard-target-date");
     const dashboardLastSave = document.getElementById("dashboard-last-save");
@@ -1609,6 +1880,11 @@
     const dashboardParticipantCode = document.getElementById("dashboard-participant-code");
     const dashboardNextStep = document.getElementById("dashboard-next-step");
     const dashboardReportSummary = document.getElementById("dashboard-report-summary");
+    const adherenceWindowCount = document.getElementById("adherence-window-count");
+    const adherenceWeekCount = document.getElementById("adherence-week-count");
+    const adherenceMissingCount = document.getElementById("adherence-missing-count");
+    const adherenceCalendar = document.getElementById("adherence-calendar");
+    const latestReportHighlight = document.getElementById("latest-report-highlight");
     const editModeBanner = document.getElementById("edit-mode-banner");
     const editModeText = document.getElementById("edit-mode-text");
 
@@ -1640,6 +1916,26 @@
       const mm = String(date.getMonth() + 1).padStart(2, "0");
       const dd = String(date.getDate()).padStart(2, "0");
       return `${yyyy}-${mm}-${dd}`;
+    }
+
+    function parseLocalDate(value) {
+      if (!value) return null;
+      const [yyyy, mm, dd] = String(value).split("-").map((part) => Number(part));
+      if (![yyyy, mm, dd].every(Number.isFinite)) return null;
+      return new Date(yyyy, mm - 1, dd, 12, 0, 0, 0);
+    }
+
+    function addDaysToDateString(value, offsetDays) {
+      const date = parseLocalDate(value);
+      if (!date) return "";
+      date.setDate(date.getDate() + offsetDays);
+      return formatLocalDate(date);
+    }
+
+    function weekdayIndexMonday(value) {
+      const date = value instanceof Date ? value : parseLocalDate(value);
+      if (!date) return 0;
+      return (date.getDay() + 6) % 7;
     }
 
     function todayLocalDate() {
@@ -1740,6 +2036,10 @@
       if (!path) return "Attached file";
       const parts = String(path).split('/').filter(Boolean);
       return parts.length ? parts[parts.length - 1] : path;
+    }
+
+    function latestReport() {
+      return [...state.reports].sort((a, b) => (a.created_at < b.created_at ? 1 : -1))[0] || null;
     }
 
     function seedFromQuery() {
@@ -1961,6 +2261,8 @@
       dashboardLastSave.textContent = latestEntry
         ? `${formatDisplayDate(latestEntry.report_date_local)} · ${formatDisplayTimestamp(latestEntry.checkin_completed_ts_local)}`
         : "No saved check-in yet";
+      renderAdherence(entries, expectedDate);
+      renderLatestReportHighlight();
       setMilestone("milestone-7", "milestone-7-text", count, 7);
       setMilestone("milestone-14", "milestone-14-text", count, 14);
       setMilestone("milestone-28", "milestone-28-text", count, 28);
@@ -1968,6 +2270,7 @@
         dashboardActionTitle.textContent = "Complete one check-in for last night.";
         dashboardGuidance.textContent = "This panel is designed to be used in a simple sequence: confirm your participant identity, complete one daily follow-up for the last night, and only then log meaningful changes if something actually started, stopped, or shifted.";
         setDashboardStatusPill("Waiting", "neutral");
+        dashboardStatusHero.textContent = "Waiting for secure sign-in";
         dashboardStatusText.textContent = "Sign in first, then link your participant code so today’s follow-up can land in the right study record.";
         dashboardSyncState.textContent = "Waiting for secure sign-in.";
         dashboardNextStep.textContent = "Sign in first.";
@@ -1977,27 +2280,96 @@
         dashboardActionTitle.textContent = "Link your participant code before today’s check-in.";
         dashboardGuidance.textContent = "You are signed in, but your participant code still needs to be linked. Do that first so daily entries and change events attach to the correct study record.";
         setDashboardStatusPill("Setup", "warn");
+        dashboardStatusHero.textContent = "Finish study setup";
         dashboardStatusText.textContent = "This account is signed in, but the participant code still needs to be linked before daily data can be stored in the right record.";
         dashboardNextStep.textContent = "Link your participant code in Study setup so the first follow-up starts the study window.";
       } else if (count === 0) {
         dashboardActionTitle.textContent = "Start your baseline with the first daily check-in.";
         dashboardGuidance.textContent = "Your account and participant code are ready. The next useful step is to complete one daily follow-up for the last night before moving on to anything else.";
         setDashboardStatusPill("Start", "warn");
+        dashboardStatusHero.textContent = "First check-in due";
         dashboardStatusText.textContent = `No check-in is stored yet for ${formatDisplayDate(expectedDate)}. Save the first one to begin the baseline window.`;
         dashboardNextStep.textContent = `Open today’s check-in, confirm the default date, and save the first entry. ${nextMilestoneText(count)}`;
       } else if (hasExpectedEntry) {
         dashboardActionTitle.textContent = "Today’s follow-up is already recorded.";
         dashboardGuidance.textContent = "Your expected daily check-in is already in the study record. Use the lower sections only if you need to correct an earlier day or log a meaningful new change.";
         setDashboardStatusPill("Done", "ok");
+        dashboardStatusHero.textContent = "Last night already saved";
         dashboardStatusText.textContent = `The check-in for ${formatDisplayDate(expectedDate)} is already saved. Only return to Step 1 if you need to correct that day.`;
         dashboardNextStep.textContent = `Nothing else is due right now. ${nextMilestoneText(count)}`;
       } else {
         dashboardActionTitle.textContent = "Today’s check-in is due.";
         dashboardGuidance.textContent = "Record one daily follow-up for the last night before doing anything else in the panel. Keep the change log for real shifts or interventions, not ordinary daily variation.";
         setDashboardStatusPill("Due", "warn");
+        dashboardStatusHero.textContent = "Complete last night now";
         dashboardStatusText.textContent = `A daily follow-up is still due for ${formatDisplayDate(expectedDate)}. The form already defaults to the correct date for last night.`;
         dashboardNextStep.textContent = `Open today’s check-in first, then save one complete entry. ${nextMilestoneText(count + 1)}`;
       }
+    }
+
+    function renderAdherence(entries, expectedDate) {
+      const startDate = addDaysToDateString(expectedDate, -27);
+      const visibleDates = Array.from({ length: 28 }, (_, index) => addDaysToDateString(startDate, index));
+      const recordedDates = new Set(entries.map((entry) => entry.report_date_local).filter(Boolean));
+      const savedInWindow = visibleDates.filter((date) => recordedDates.has(date)).length;
+      const savedInLastWeek = visibleDates.slice(-7).filter((date) => recordedDates.has(date)).length;
+      const missingInWindow = visibleDates.filter((date) => !recordedDates.has(date)).length;
+
+      adherenceWindowCount.textContent = `${savedInWindow} / 28`;
+      adherenceWeekCount.textContent = `${savedInLastWeek} / 7`;
+      adherenceMissingCount.textContent = String(missingInWindow);
+
+      const leadingBlanks = weekdayIndexMonday(startDate);
+      const cells = [];
+      for (let index = 0; index < leadingBlanks; index += 1) {
+        cells.push('<span class="adherence-day empty" aria-hidden="true"></span>');
+      }
+
+      visibleDates.forEach((date) => {
+        const isSaved = recordedDates.has(date);
+        const isAnchor = date === expectedDate;
+        const tone = isSaved ? "done" : isAnchor ? "due" : "missed";
+        const dateObject = parseLocalDate(date);
+        const dayLabel = dateObject ? dateObject.getDate() : "·";
+        const stateLabel = isSaved ? "Saved" : isAnchor ? "Due" : "Missing";
+        const title = `${formatDisplayDate(date)} · ${stateLabel}`;
+        cells.push(
+          `<button class="adherence-day ${tone}${isAnchor ? " anchor" : ""}" type="button" data-open-date="${escapeHtml(date)}" title="${escapeHtml(title)}" aria-label="${escapeHtml(title)}"><span>${escapeHtml(dayLabel)}</span></button>`
+        );
+      });
+
+      adherenceCalendar.innerHTML = cells.join("");
+    }
+
+    function renderLatestReportHighlight() {
+      const report = latestReport();
+      if (!report) {
+        latestReportHighlight.className = "report-highlight-empty";
+        latestReportHighlight.innerHTML = "No generated reviews are registered yet. Once one is registered in the secure study backend, it will appear here with its coverage window and direct access.";
+        return;
+      }
+
+      const windowText = report.coverage_date_from || report.coverage_date_to
+        ? `${formatDisplayDate(report.coverage_date_from)} to ${formatDisplayDate(report.coverage_date_to)}`
+        : "Coverage window not attached yet";
+      const locationText = report.storage_bucket && report.storage_path
+        ? `${report.storage_bucket}/${report.storage_path}`
+        : "Storage path not attached yet";
+
+      latestReportHighlight.className = "report-highlight-main";
+      latestReportHighlight.innerHTML = `
+        <strong>${escapeHtml(reportKindLabel(report.report_kind))}</strong>
+        <p>The newest generated output is ready to open from here or from Step 4 below.</p>
+        <div class="report-highlight-meta">
+          <div class="report-highlight-row"><strong>Coverage</strong><span>${escapeHtml(windowText)}</span></div>
+          <div class="report-highlight-row"><strong>Registered</strong><span>${escapeHtml(formatDisplayTimestamp(report.created_at))}</span></div>
+          <div class="report-highlight-row"><strong>File</strong><span>${escapeHtml(fileLabelFromPath(report.storage_path))}</span></div>
+          <div class="report-highlight-row"><strong>Record</strong><span>${escapeHtml(locationText)}</span></div>
+        </div>
+        <div class="actions" style="margin-top:0;">
+          <button class="button" type="button" data-report-open="${escapeHtml(report.id)}">Open latest report</button>
+        </div>
+      `;
     }
 
     function dbRowToEntry(row) {
@@ -2350,6 +2722,17 @@
   <meta name="twitter:description" content="Secure daily participant check-in for Butterfly Effect study follow-up, with account-based access, progress milestones, change-event logging, and later wearable linkage.">
   <meta name="twitter:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
   <meta name="robots" content="noindex, nofollow">
+  <style id="be-no-halo">
+  body::before {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+    opacity: 0 !important;
+  }
+  .nav-links a.active {
+    text-shadow: none !important;
+  }
+  </style>
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -2932,6 +3315,26 @@
     reportsBody.addEventListener("click", (event) => {
       const reportId = event.target.getAttribute("data-report-open");
       if (reportId) openReport(reportId);
+    });
+
+    latestReportHighlight.addEventListener("click", (event) => {
+      const reportId = event.target.getAttribute("data-report-open");
+      if (reportId) openReport(reportId);
+    });
+
+    adherenceCalendar.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-open-date]");
+      if (!button) return;
+      const targetDate = button.getAttribute("data-open-date");
+      const existingEntry = state.entries.find((item) => item.report_date_local === targetDate);
+      if (existingEntry) {
+        fillForm(existingEntry);
+        return;
+      }
+      resetForm();
+      reportDateInput.value = targetDate;
+      setStatus(formStatus, `Selected ${formatDisplayDate(targetDate)}. Fill the form and save to backfill that night.`, "warn");
+      window.scrollTo({ top: document.getElementById("checkin").offsetTop - 80, behavior: "smooth" });
     });
 
     RANGE_FIELDS.forEach((name) => {
