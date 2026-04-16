@@ -1131,6 +1131,31 @@
       window.history.replaceState({}, document.title, `${url.pathname}${url.search}`);
     }
 
+    async function directPasswordSessionLogin(email, password) {
+      const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+        method: "POST",
+        headers: {
+          apikey: SUPABASE_ANON_KEY,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        return {
+          error: {
+            message: payload.msg || payload.error_description || payload.error || "Unable to sign in.",
+          },
+        };
+      }
+      const { error } = await supabaseClient.auth.setSession({
+        access_token: payload.access_token,
+        refresh_token: payload.refresh_token,
+      });
+      if (error) return { error };
+      return { data: payload, error: null };
+    }
+
     function setButtonBusy(button, busyLabel) {
       if (!button) return () => {};
       const originalLabel = button.textContent;
@@ -1571,10 +1596,21 @@
       if (!password) return;
       setStatus(authStatus, "Signing in...", "warn");
       const release = setButtonBusy(signInButton, "Signing in...");
-      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      let result;
+      try {
+        result = await Promise.race([
+          supabaseClient.auth.signInWithPassword({ email, password }),
+          new Promise((resolve) => setTimeout(() => resolve({ timeout: true }), 8000)),
+        ]);
+      } catch (error) {
+        result = { error };
+      }
+      if (result?.timeout) {
+        result = await directPasswordSessionLogin(email, password);
+      }
       release();
-      if (error) {
-        setStatus(authStatus, error.message, "danger");
+      if (result?.error) {
+        setStatus(authStatus, result.error.message, "danger");
         return;
       }
       authPasswordInput.value = "";
