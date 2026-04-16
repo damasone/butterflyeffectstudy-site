@@ -1317,7 +1317,6 @@
     (function () {
       const body = document.body;
       const enterButton = document.getElementById('enter-surface');
-      const replayButton = document.getElementById('replay-intro');
 
       function enterSurface() {
         body.classList.add('surface-live');
@@ -1327,16 +1326,8 @@
         body.classList.remove('surface-live');
       }
 
-      function replayIntro() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        enterSurface();
-      }
-
       if (enterButton) {
         enterButton.addEventListener('click', enterSurface);
-      }
-      if (replayButton) {
-        replayButton.addEventListener('click', replayIntro);
       }
       enterSurface();
     })();
