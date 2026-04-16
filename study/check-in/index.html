@@ -584,6 +584,62 @@
       border-radius: 16px;
       margin-top: 10px;
     }
+    .report-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .report-item {
+      display: grid;
+      gap: 8px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(195, 154, 121, 0.18);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
+        rgba(22, 18, 15, 0.74);
+    }
+    .report-item-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .report-item-head strong {
+      display: block;
+      color: var(--ink);
+      font-size: 0.98rem;
+      letter-spacing: -0.01em;
+    }
+    .report-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 10px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .report-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(195, 154, 121, 0.22);
+      background: rgba(195, 154, 121, 0.12);
+      color: var(--accent-deep);
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+    .report-empty {
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px dashed rgba(195, 154, 121, 0.18);
+      color: var(--muted);
+      background: rgba(18, 14, 12, 0.56);
+      line-height: 1.6;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -911,6 +967,37 @@
       </section>
 
       <section class="section-grid" style="margin-top:20px;">
+        <article class="section-card">
+          <div>
+            <p class="eyebrow">Reports</p>
+            <h2>Your generated reviews</h2>
+            <p>This section surfaces participant-facing reviews or professional companion outputs once the study pipeline registers them. It is a catalogue of generated outputs, not a live interpretation panel.</p>
+          </div>
+          <div id="reports-status" class="status"></div>
+          <div class="callout">
+            <strong style="display:block; color:var(--ink); margin-bottom:4px;">What should appear here</strong>
+            <span>Participant reviews, professional companions, and other generated study outputs tied to your follow-up window. If this section is empty, it usually means no review has been registered yet in the secure study backend.</span>
+          </div>
+          <div id="reports-body" class="report-list">
+            <div class="report-empty">No generated reviews are registered yet.</div>
+          </div>
+        </article>
+
+        <article class="section-card">
+          <div>
+            <p class="eyebrow">How to read outputs</p>
+            <h2>What these reports are for</h2>
+            <p>Generated reviews are meant to summarize a window of follow-up, not to act as instant daily scores. They become more useful once the study has enough repeated days and, if relevant, clear change anchors.</p>
+          </div>
+          <div class="stat-grid">
+            <div class="stat"><strong>Built from</strong><span>Wearable exports, daily self-report, and event anchors when available.</span></div>
+            <div class="stat"><strong>Useful for</strong><span>Pattern review, professional discussion, and response-to-change reads over time.</span></div>
+            <div class="stat"><strong>Not for</strong><span>Immediate diagnosis or daily over-interpretation from a single night.</span></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section-grid" style="margin-top:20px;">
         <article class="section-card" id="checkin">
           <div>
             <p class="eyebrow">Daily entry</p>
@@ -1157,6 +1244,7 @@
       participant: null,
       entries: [],
       events: [],
+      reports: [],
       currentEditId: null,
       currentEventEditId: null,
       recoveryMode: false,
@@ -1188,6 +1276,8 @@
     const eventStatus = document.getElementById("event-status");
     const eventTableStatus = document.getElementById("event-table-status");
     const eventsBody = document.getElementById("events-body");
+    const reportsStatus = document.getElementById("reports-status");
+    const reportsBody = document.getElementById("reports-body");
     const reportDateInput = document.getElementById("report_date_local");
     const participantUidInput = document.getElementById("participant_uid");
     const participantCodeInput = document.getElementById("participant_code");
@@ -1278,6 +1368,33 @@
 
     function eventKey(entry) {
       return entry.id || `${entry.participant_uid || ""}__${entry.event_date_local || ""}__${entry.event_kind || ""}__${entry.event_label || ""}`;
+    }
+
+    function reportKindLabel(kind) {
+      if (kind === "participant_monthly") return "Participant review";
+      if (kind === "professional_companion") return "Professional companion";
+      if (kind === "research_summary") return "Research summary";
+      return kind || "Generated report";
+    }
+
+    function formatDisplayDate(value) {
+      if (!value) return "—";
+      const date = new Date(`${value}T00:00:00`);
+      if (Number.isNaN(date.getTime())) return value;
+      return new Intl.DateTimeFormat(undefined, { year: "numeric", month: "short", day: "numeric" }).format(date);
+    }
+
+    function formatDisplayTimestamp(value) {
+      if (!value) return "—";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return value;
+      return new Intl.DateTimeFormat(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(date);
     }
 
     function seedFromQuery() {
@@ -1533,6 +1650,18 @@
       };
     }
 
+    function dbRowToReport(row) {
+      return {
+        id: row.id,
+        report_kind: row.report_kind || "",
+        storage_bucket: row.storage_bucket || "",
+        storage_path: row.storage_path || "",
+        coverage_date_from: row.coverage_date_from || "",
+        coverage_date_to: row.coverage_date_to || "",
+        created_at: row.created_at || "",
+      };
+    }
+
     function readFormEntry() {
       const data = {};
       for (const name of FIELD_ORDER) {
@@ -1747,6 +1876,40 @@
       }).join("");
     }
 
+    function renderReports() {
+      const reports = [...state.reports].sort((a, b) => (a.created_at < b.created_at ? 1 : -1));
+      if (!reports.length) {
+        reportsBody.innerHTML = '<div class="report-empty">No generated reviews are registered yet. Once the study pipeline creates and registers a participant review or professional companion, it will appear here with its follow-up window.</div>';
+        return;
+      }
+      reportsBody.innerHTML = reports.map((report) => {
+        const windowText = report.coverage_date_from || report.coverage_date_to
+          ? `${formatDisplayDate(report.coverage_date_from)} to ${formatDisplayDate(report.coverage_date_to)}`
+          : 'Coverage window not attached yet';
+        const locationText = report.storage_bucket && report.storage_path
+          ? `${report.storage_bucket}/${report.storage_path}`
+          : 'Storage path not attached yet';
+        return `
+          <article class="report-item">
+            <div class="report-item-head">
+              <div>
+                <strong>${escapeHtml(reportKindLabel(report.report_kind))}</strong>
+                <div class="report-meta">
+                  <span>Coverage: ${escapeHtml(windowText)}</span>
+                  <span>Registered: ${escapeHtml(formatDisplayTimestamp(report.created_at))}</span>
+                </div>
+              </div>
+              <span class="report-badge">Registered</span>
+            </div>
+            <div class="callout" style="margin:0;">
+              <strong style="display:block; color:var(--ink); margin-bottom:4px;">Record reference</strong>
+              <span>${escapeHtml(locationText)}</span>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
     async function refreshParticipant() {
       if (!state.user) {
         state.participant = null;
@@ -1821,7 +1984,8 @@
       }
       const entryCount = state.entries.length;
       const eventCount = state.events.length;
-      syncSummary.textContent = `Secure sync active. ${entryCount} remote check-in${entryCount === 1 ? "" : "s"} and ${eventCount} change event${eventCount === 1 ? "" : "s"} loaded.`;
+      const reportCount = state.reports.length;
+      syncSummary.textContent = `Secure sync active. ${entryCount} remote check-in${entryCount === 1 ? "" : "s"}, ${eventCount} change event${eventCount === 1 ? "" : "s"}, and ${reportCount} registered report${reportCount === 1 ? "" : "s"} loaded.`;
     }
 
     async function loadRemoteEvents() {
@@ -1843,6 +2007,25 @@
       updateSyncSummary();
     }
 
+    async function loadRemoteReports() {
+      if (!state.user || !state.participant) {
+        state.reports = [];
+        renderReports();
+        return;
+      }
+      const { data, error } = await supabaseClient
+        .from("study_generated_reports")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) {
+        setStatus(reportsStatus, error.message, "danger");
+        return;
+      }
+      state.reports = (data || []).map(dbRowToReport);
+      renderReports();
+      updateSyncSummary();
+    }
+
     async function refreshSessionState() {
       const { data: { session } } = await supabaseClient.auth.getSession();
       state.session = session;
@@ -1855,6 +2038,7 @@
       }
       await loadRemoteEntries();
       await loadRemoteEvents();
+      await loadRemoteReports();
       resetForm();
       resetEventForm();
     }
@@ -1987,11 +2171,13 @@
       state.participant = null;
       state.entries = [];
       state.events = [];
+      state.reports = [];
       authPasswordInput.value = "";
       renderAuthState();
       updateProfileSummary();
       renderTable();
       renderEventTable();
+      renderReports();
       resetForm();
       resetEventForm();
       setRecoveryMode(false);
@@ -2203,6 +2389,7 @@
     resetEventForm();
     renderTable();
     renderEventTable();
+    renderReports();
     refreshSessionState();
   </script>
 </body>
