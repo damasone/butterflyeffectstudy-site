@@ -2393,6 +2393,8 @@
       await loadRemoteReports();
       resetForm();
       resetEventForm();
+      // Keep report counters and summary aligned after the full hydration pass.
+      updateMetrics();
     }
 
     async function sendMagicLink() {
