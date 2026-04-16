@@ -46,44 +46,40 @@
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 10;
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-      padding: 18px 28px;
+      gap: 18px;
+      padding: 18px 24px;
       backdrop-filter: blur(16px);
-      background: rgba(17, 14, 12, 0.72);
-      border-bottom: 1px solid rgba(74, 64, 56, 0.55);
-    }
-    .mark {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--ink);
-    }
-    .mark::before {
-      content: "";
-      width: 18px;
-      height: 18px;
-      background: url("/assets/butterfly-mark-accent.png") center / contain no-repeat;
-      display: inline-block;
+      background: rgba(22, 19, 17, 0.82);
+      border-bottom: 1px solid rgba(74, 64, 56, 0.72);
     }
     .nav-links {
       display: flex;
       flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 14px;
-      font-size: 0.96rem;
+      gap: 18px;
+      font-size: 0.92rem;
     }
-    .nav-links a { color: var(--muted); }
-    .nav-links a.active { color: var(--ink); }
+    .nav-links a,
+    .topbar button {
+      border-bottom: 0;
+      color: var(--muted);
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      padding: 0;
+    }
+    .nav-links a.active,
+    .topbar button:hover,
+    .nav-links a:hover { color: var(--ink); }
     .wrap {
-      width: min(1120px, calc(100% - 40px));
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 42px 0 72px;
+      padding: 44px 28px 92px;
+      position: relative;
+      z-index: 1;
     }
     .hero {
       display: grid;
@@ -214,11 +210,9 @@
       .hero, .section-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 720px) {
-      .topbar {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-      .wrap { width: min(100% - 28px, 1120px); }
+      .wrap { padding-inline: 16px; }
+      .topbar { padding: 16px; align-items: flex-start; }
+      .nav-links { gap: 12px; }
       .hero-card, .panel, .section-card { padding: 22px; }
     }
   </style>
