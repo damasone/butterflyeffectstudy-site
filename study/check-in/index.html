@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Daily participant check-in for Butterfly Effect study follow-up, with participant code persistence, progress milestones, and later Apple Health merge.">
+  <meta name="description" content="Secure daily participant check-in for Butterfly Effect study follow-up, with account-based access, progress milestones, change-event logging, and later wearable linkage.">
   <title>Butterfly Effect — Daily Check-In</title>
   <style>
     :root {
@@ -78,6 +78,10 @@
       justify-content: flex-end;
       gap: 14px;
       font-size: 0.96rem;
+    }
+    .nav-links .ghost-button,
+    .nav-links .mini-button {
+      text-decoration: none;
     }
     .nav-links a { color: var(--muted); }
     .nav-links a.active { color: var(--ink); }
@@ -699,6 +703,7 @@
     }
     table {
       width: 100%;
+      min-width: 720px;
       border-collapse: collapse;
       font-size: 0.9rem;
     }
@@ -736,11 +741,11 @@
       .hero,
       .section-grid,
       .field-grid,
-      .boolean-grid,
       .milestone-grid,
       .dashboard-main,
       .dashboard-hero-grid,
       .dashboard-strip { grid-template-columns: 1fr; }
+      .boolean-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .auth-note-grid { grid-template-columns: 1fr; }
       .access-head { grid-template-columns: 88px minmax(0, 1fr); }
       .access-logo { width: 88px; height: 88px; }
@@ -748,17 +753,85 @@
       .portal-butterfly { width: 64px; height: 64px; }
     }
     @media (max-width: 720px) {
-      .topbar { flex-direction: column; align-items: flex-start; }
-      .wrap { width: min(100% - 24px, 1180px); }
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        padding: 14px 16px;
+      }
+      .mark {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .nav-links {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        justify-content: stretch;
+      }
+      .nav-links a,
+      .nav-links .ghost-button,
+      .nav-links .mini-button {
+        width: 100%;
+        min-height: 42px;
+        justify-content: center;
+        padding: 0 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(74, 64, 56, 0.68);
+        background: rgba(35, 29, 25, 0.56);
+      }
+      .nav-links a:hover,
+      .nav-links .ghost-button:hover,
+      .nav-links .mini-button:hover {
+        text-decoration: none;
+      }
+      .wrap { width: min(100% - 20px, 1180px); padding: 20px 0 52px; }
       .hero-card,
       .panel,
       .section-card { padding: 20px; }
+      .auth-screen { min-height: auto; }
+      .auth-hero-card { align-content: start; }
+      h1 { font-size: clamp(1.85rem, 9vw, 2.5rem); }
+      h2 { font-size: 1.16rem; }
+      .lede { font-size: 0.98rem; line-height: 1.6; }
       .auth-primary-actions,
-      .auth-secondary-actions { flex-direction: column; align-items: stretch; }
+      .auth-secondary-actions,
+      .dashboard-primary-actions,
+      .actions { flex-direction: column; align-items: stretch; }
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+      .button,
+      .ghost-button {
+        width: 100%;
+      }
+      .dashboard-primary-actions .button,
+      .dashboard-primary-actions .ghost-button {
+        width: 100%;
+      }
+      .dashboard-cue-stack,
+      .dashboard-strip,
+      .milestone-grid { gap: 10px; }
+      .report-item-head { flex-direction: column; }
+      .report-badge { align-self: flex-start; }
       .access-head { grid-template-columns: 1fr; }
       .access-logo { width: 92px; height: 92px; }
       .access-brand-mark { width: 64px; height: 64px; }
       .portal-butterfly { width: 68px; height: 68px; }
+      th, td { padding: 9px 8px; font-size: 0.84rem; }
+    }
+    @media (max-width: 560px) {
+      .nav-links { grid-template-columns: 1fr; }
+      .dashboard-strip,
+      .boolean-grid { grid-template-columns: 1fr; }
+      .field-grid { grid-template-columns: 1fr; }
+      .table-wrap { border-radius: 14px; }
+      table { min-width: 680px; }
+      .callout,
+      .stat,
+      .milestone { padding: 12px 14px; }
     }
     @media (prefers-reduced-motion: reduce) {
       .auth-butterfly,
@@ -774,14 +847,14 @@
   <meta property="og:site_name" content="Butterfly Effect">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Butterfly Effect — Daily Check-In">
-  <meta property="og:description" content="Daily participant check-in for Butterfly Effect study follow-up, with participant code persistence, progress milestones, and later Apple Health merge.">
+  <meta property="og:description" content="Secure daily participant check-in for Butterfly Effect study follow-up, with account-based access, progress milestones, change-event logging, and later wearable linkage.">
   <meta property="og:url" content="https://butterflyeffectstudy.com/study/check-in/">
   <meta property="og:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Butterfly Effect — Daily Check-In">
-  <meta name="twitter:description" content="Daily participant check-in for Butterfly Effect study follow-up, with participant code persistence, progress milestones, and later Apple Health merge.">
+  <meta name="twitter:description" content="Secure daily participant check-in for Butterfly Effect study follow-up, with account-based access, progress milestones, change-event logging, and later wearable linkage.">
   <meta name="twitter:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
@@ -2050,14 +2123,14 @@
   <meta property="og:site_name" content="Butterfly Effect">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Butterfly Effect — Daily Check-In">
-  <meta property="og:description" content="Daily participant check-in for Butterfly Effect study follow-up, with participant code persistence, progress milestones, and later Apple Health merge.">
+  <meta property="og:description" content="Secure daily participant check-in for Butterfly Effect study follow-up, with account-based access, progress milestones, change-event logging, and later wearable linkage.">
   <meta property="og:url" content="https://butterflyeffectstudy.com/study/check-in/">
   <meta property="og:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Butterfly Effect — Daily Check-In">
-  <meta name="twitter:description" content="Daily participant check-in for Butterfly Effect study follow-up, with participant code persistence, progress milestones, and later Apple Health merge.">
+  <meta name="twitter:description" content="Secure daily participant check-in for Butterfly Effect study follow-up, with account-based access, progress milestones, change-event logging, and later wearable linkage.">
   <meta name="twitter:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
