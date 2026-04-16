@@ -2131,6 +2131,7 @@
       const reports = [...state.reports].sort((a, b) => (a.created_at < b.created_at ? 1 : -1));
       if (!reports.length) {
         reportsBody.innerHTML = '<div class="report-empty">No generated reviews are registered yet. Once the study pipeline creates and registers a participant review or professional companion, it will appear here with its follow-up window.</div>';
+        updateMetrics();
         return;
       }
       reportsBody.innerHTML = reports.map((report) => {
@@ -2163,6 +2164,7 @@
           </article>
         `;
       }).join('');
+      updateMetrics();
     }
 
     async function openReport(reportId) {
@@ -2371,6 +2373,7 @@
       state.reports = (data || []).map(dbRowToReport);
       renderReports();
       updateSyncSummary();
+      updateMetrics();
     }
 
     async function refreshSessionState(sessionOverride = undefined) {
@@ -2539,6 +2542,7 @@
       if (ok) {
         await loadRemoteEntries();
         await loadRemoteEvents();
+        await loadRemoteReports();
         resetForm();
         resetEventForm();
       }
