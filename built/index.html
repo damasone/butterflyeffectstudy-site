@@ -974,6 +974,80 @@
   <meta name="twitter:title" content="Butterfly Effect — Built">
   <meta name="twitter:description" content="Built surfaces, deployed layers, and governed outputs currently materialized in Butterfly Effect.">
   <meta name="twitter:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
+  <style id="be-route-surface">
+  :root {
+    --route-accent: #d2b07b;
+    --route-glow: rgba(210, 176, 123, 0.10);
+    --route-glow-soft: rgba(210, 176, 123, 0.05);
+    --route-line: rgba(210, 176, 123, 0.34);
+  }
+  body::before {
+    background:
+      radial-gradient(circle at 12% 16%, var(--route-glow), transparent 26%),
+      radial-gradient(circle at 86% 10%, var(--route-glow-soft), transparent 22%) !important;
+  }
+  .eyebrow {
+    color: var(--route-accent) !important;
+  }
+  .page-intro,
+  .hero,
+  .hero-card,
+  .hero-panel,
+  .figure-row,
+  .layer-card,
+  .section-card,
+  .panel {
+    position: relative;
+  }
+  .page-intro::before,
+  .hero::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -18px;
+    width: min(132px, 24vw);
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--route-accent) 0%, transparent 100%);
+    opacity: 0.9;
+    pointer-events: none;
+  }
+  .hero-panel,
+  .hero-card:first-of-type,
+  .figure-row:first-child,
+  .layer-card:first-child,
+  .section-card:first-of-type,
+  .panel:first-of-type {
+    border-color: var(--route-line) !important;
+  }
+  .hero-panel::after,
+  .hero-card:first-of-type::after,
+  .figure-row:first-child::after,
+  .layer-card:first-child::after,
+  .section-card:first-of-type::after,
+  .panel:first-of-type::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: min(160px, 42%);
+    height: 1px;
+    background: linear-gradient(90deg, var(--route-accent) 0%, transparent 100%);
+    opacity: 0.82;
+    pointer-events: none;
+  }
+  .nav-links a.active {
+    color: var(--ink) !important;
+    text-shadow: 0 0 18px var(--route-glow);
+  }
+  @media (max-width: 720px) {
+    .page-intro::before,
+    .hero::before {
+      top: -14px;
+      width: min(96px, 28vw);
+    }
+  }
+  </style>
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
