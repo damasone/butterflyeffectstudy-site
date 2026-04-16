@@ -92,6 +92,9 @@
       gap: 20px;
       margin-bottom: 24px;
     }
+    .hidden { display: none !important; }
+    .auth-screen[hidden] { display: none !important; }
+    .dashboard-shell[hidden] { display: none !important; }
     .hero-card,
     .panel,
     .section-card {
@@ -104,6 +107,195 @@
     .hero-card { padding: 30px; }
     .panel,
     .section-card { padding: 24px; }
+    .auth-screen {
+      align-items: stretch;
+      min-height: calc(100vh - 190px);
+    }
+    .auth-hero-card {
+      display: grid;
+      align-content: center;
+      gap: 16px;
+    }
+    .auth-brand-lockup {
+      display: grid;
+      gap: 12px;
+      justify-items: start;
+      margin-bottom: 4px;
+    }
+    .auth-butterfly-shell {
+      display: inline-flex;
+      line-height: 0;
+      flex-shrink: 0;
+    }
+    .auth-butterfly-shell img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transform: translateZ(0);
+      image-rendering: auto;
+    }
+    .auth-butterfly {
+      width: clamp(124px, 11vw, 148px);
+      position: relative;
+      display: block;
+      aspect-ratio: 1 / 1;
+      isolation: isolate;
+      perspective: 1280px;
+      transform-style: preserve-3d;
+      animation: auth-butterfly-float 7.4s ease-in-out infinite;
+    }
+    .auth-butterfly .butterfly-layer {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      display: block;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+    }
+    .auth-butterfly .butterfly-layer img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .auth-butterfly .butterfly-foundation {
+      inset: 0;
+      opacity: 0.09;
+      z-index: 0;
+      transform: translateY(0.8%) scale(1.01);
+      filter: blur(1.2px) brightness(0.78);
+    }
+    .auth-butterfly .butterfly-wing {
+      inset: 0;
+      will-change: transform, filter;
+    }
+    .auth-butterfly .wing-upper-left {
+      z-index: 1;
+      transform-origin: 57% 55%;
+      animation: auth-wing-upper-left-depth 6.3s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+    }
+    .auth-butterfly .wing-upper-right {
+      z-index: 2;
+      transform-origin: 43% 55%;
+      animation: auth-wing-upper-right-depth 6.3s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+    }
+    .auth-butterfly .wing-lower-left {
+      z-index: 3;
+      transform-origin: 60% 34%;
+      animation: auth-wing-lower-left-depth 6.3s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+      animation-delay: -0.24s;
+    }
+    .auth-butterfly .wing-lower-right {
+      z-index: 3;
+      transform-origin: 40% 34%;
+      animation: auth-wing-lower-right-depth 6.3s cubic-bezier(0.45, 0.04, 0.2, 0.98) infinite;
+      animation-delay: -0.24s;
+    }
+    .auth-butterfly .butterfly-body {
+      inset: 0;
+      z-index: 4;
+      animation: auth-butterfly-body-hover 6.3s ease-in-out infinite;
+    }
+    .auth-butterfly .butterfly-body img { width: 100%; }
+    @keyframes auth-wing-upper-left-depth {
+      0%, 100% {
+        transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
+        filter: drop-shadow(-1px 4px 5px rgba(0, 0, 0, 0.10)) brightness(0.99);
+      }
+      34% {
+        transform: translateZ(18px) rotateY(24deg) rotateX(-4.5deg) rotateZ(-0.54deg) translateX(-0.8%) translateY(0.28%);
+        filter: drop-shadow(-4px 12px 12px rgba(0, 0, 0, 0.16)) brightness(0.93);
+      }
+      50% {
+        transform: translateZ(34px) rotateY(42deg) rotateX(-7.8deg) rotateZ(-1deg) translateX(-1.45%) translateY(0.52%);
+        filter: drop-shadow(-8px 18px 18px rgba(0, 0, 0, 0.22)) brightness(0.84);
+      }
+      72% {
+        transform: translateZ(11px) rotateY(14deg) rotateX(-2.3deg) rotateZ(-0.26deg) translateX(-0.42%) translateY(0.14%);
+        filter: drop-shadow(-2px 7px 8px rgba(0, 0, 0, 0.12)) brightness(0.96);
+      }
+    }
+    @keyframes auth-wing-upper-right-depth {
+      0%, 100% {
+        transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
+        filter: drop-shadow(1px 4px 5px rgba(0, 0, 0, 0.10)) brightness(0.99);
+      }
+      34% {
+        transform: translateZ(18px) rotateY(-24deg) rotateX(-4.5deg) rotateZ(0.54deg) translateX(0.8%) translateY(0.28%);
+        filter: drop-shadow(4px 12px 12px rgba(0, 0, 0, 0.16)) brightness(0.93);
+      }
+      50% {
+        transform: translateZ(34px) rotateY(-42deg) rotateX(-7.8deg) rotateZ(1deg) translateX(1.45%) translateY(0.52%);
+        filter: drop-shadow(8px 18px 18px rgba(0, 0, 0, 0.22)) brightness(0.84);
+      }
+      72% {
+        transform: translateZ(11px) rotateY(-14deg) rotateX(-2.3deg) rotateZ(0.26deg) translateX(0.42%) translateY(0.14%);
+        filter: drop-shadow(2px 7px 8px rgba(0, 0, 0, 0.12)) brightness(0.96);
+      }
+    }
+    @keyframes auth-wing-lower-left-depth {
+      0%, 100% {
+        transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
+        filter: drop-shadow(-1px 3px 4px rgba(0, 0, 0, 0.09)) brightness(0.99);
+      }
+      38% {
+        transform: translateZ(9px) rotateY(13deg) rotateX(1.9deg) rotateZ(-0.28deg) translateX(-0.28%) translateY(0.13%);
+        filter: drop-shadow(-2px 7px 8px rgba(0, 0, 0, 0.13)) brightness(0.94);
+      }
+      50% {
+        transform: translateZ(18px) rotateY(23deg) rotateX(3.4deg) rotateZ(-0.56deg) translateX(-0.55%) translateY(0.25%);
+        filter: drop-shadow(-4px 11px 12px rgba(0, 0, 0, 0.17)) brightness(0.89);
+      }
+      72% {
+        transform: translateZ(6px) rotateY(8deg) rotateX(1.2deg) rotateZ(-0.16deg) translateX(-0.18%) translateY(0.07%);
+        filter: drop-shadow(-1px 5px 6px rgba(0, 0, 0, 0.10)) brightness(0.96);
+      }
+    }
+    @keyframes auth-wing-lower-right-depth {
+      0%, 100% {
+        transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
+        filter: drop-shadow(1px 3px 4px rgba(0, 0, 0, 0.09)) brightness(0.99);
+      }
+      38% {
+        transform: translateZ(9px) rotateY(-13deg) rotateX(1.9deg) rotateZ(0.28deg) translateX(0.28%) translateY(0.13%);
+        filter: drop-shadow(2px 7px 8px rgba(0, 0, 0, 0.13)) brightness(0.94);
+      }
+      50% {
+        transform: translateZ(18px) rotateY(-23deg) rotateX(3.4deg) rotateZ(0.56deg) translateX(0.55%) translateY(0.25%);
+        filter: drop-shadow(4px 11px 12px rgba(0, 0, 0, 0.17)) brightness(0.89);
+      }
+      72% {
+        transform: translateZ(6px) rotateY(-8deg) rotateX(1.2deg) rotateZ(0.16deg) translateX(0.18%) translateY(0.07%);
+        filter: drop-shadow(1px 5px 6px rgba(0, 0, 0, 0.10)) brightness(0.96);
+      }
+    }
+    @keyframes auth-butterfly-float {
+      0%, 100% { transform: translateY(0) rotateX(0deg) rotateZ(0deg); }
+      50% { transform: translateY(-1.8%) rotateX(1.8deg) rotateZ(-0.25deg); }
+    }
+    @keyframes auth-butterfly-body-hover {
+      0%, 100% {
+        transform: translateZ(0) translateY(0);
+        filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.10));
+      }
+      50% {
+        transform: translateZ(9px) translateY(-0.55%);
+        filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.16));
+      }
+    }
+    .auth-note-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .dashboard-shell {
+      display: grid;
+      gap: 0;
+    }
+    .dashboard-intro {
+      margin-bottom: 0;
+    }
     .eyebrow {
       margin: 0 0 10px;
       color: var(--accent);
@@ -430,6 +622,7 @@
       .field-grid,
       .boolean-grid,
       .milestone-grid { grid-template-columns: 1fr; }
+      .auth-note-grid { grid-template-columns: 1fr; }
       .access-head { grid-template-columns: 88px minmax(0, 1fr); }
       .access-logo { width: 88px; height: 88px; }
       .access-brand-mark { width: 60px; height: 60px; }
@@ -449,6 +642,8 @@
       .portal-butterfly { width: 68px; height: 68px; }
     }
     @media (prefers-reduced-motion: reduce) {
+      .auth-butterfly,
+      .auth-butterfly .butterfly-layer,
       .access-brand-mark,
       .portal-butterfly,
       .portal-butterfly .butterfly-layer {
@@ -535,27 +730,48 @@
     </nav>
 
     <main class="wrap">
-      <section class="hero">
-        <article class="hero-card">
-          <p class="eyebrow">Participant check-in</p>
-          <h1>One short check-in a day.</h1>
-          <p class="lede">This page is designed for repeated follow-up, not for interpretation after a single day. Once you sign in, entries are stored in the secure study backend and later linked back to your wearable history.</p>
-          <div class="hero-actions">
-            <a class="button" href="#checkin">Open today’s check-in</a>
-            <a class="ghost-button" href="#progress">See your progress</a>
+      <section class="hero auth-screen" id="auth-screen">
+        <article class="hero-card auth-hero-card">
+          <div class="auth-brand-lockup">
+            <span class="auth-butterfly-shell auth-butterfly" aria-hidden="true">
+              <span class="butterfly-layer butterfly-foundation">
+                <img src="/assets/butterfly-mark-accent.png" alt="">
+              </span>
+              <span class="butterfly-layer butterfly-wing wing-upper-left">
+                <img src="/assets/butterfly-piece-upper-left.png" alt="">
+              </span>
+              <span class="butterfly-layer butterfly-wing wing-upper-right">
+                <img src="/assets/butterfly-piece-upper-right.png" alt="">
+              </span>
+              <span class="butterfly-layer butterfly-wing wing-lower-left">
+                <img src="/assets/butterfly-piece-lower-left.png" alt="">
+              </span>
+              <span class="butterfly-layer butterfly-wing wing-lower-right">
+                <img src="/assets/butterfly-piece-lower-right.png" alt="">
+              </span>
+              <span class="butterfly-layer butterfly-body">
+                <img src="/assets/butterfly-piece-body.png" alt="">
+              </span>
+            </span>
+            <p class="eyebrow">Participant portal</p>
+          </div>
+          <h1>Secure daily follow-up for your Butterfly Effect study.</h1>
+          <p class="lede">Sign in once, then use the same account each day. This portal is built for repeated longitudinal follow-up, not for one-off interpretation. Your entries stay in the secure study backend and are later linked to your wearable history.</p>
+          <div class="auth-note-grid">
+            <div class="stat">
+              <strong>What you do here</strong>
+              <span>Record one short daily check-in and only log a change event when something meaningful starts, stops, or shifts.</span>
+            </div>
+            <div class="stat">
+              <strong>What happens later</strong>
+              <span>Once enough days accumulate, the study can generate a participant review and a professional companion from the combined wearable and self-report data.</span>
+            </div>
           </div>
         </article>
         <aside class="panel">
-          <div class="access-head">
-            <div class="access-logo" aria-hidden="true">
-              <span class="access-brand-mark"></span>
-            </div>
-            <div class="auth-copy">
-              <p class="eyebrow">Study access</p>
-              <h2>Secure participant account</h2>
-              <p>Use your email and password for daily access. Magic link stays available as a fallback, not as the main entry path.</p>
-            </div>
-          </div>
+          <p class="eyebrow">Study access</p>
+          <h2>Sign in to your participant account</h2>
+          <p>Use your email and password as the main entry path. Magic link stays available as fallback and password reset remains available if needed.</p>
           <div class="auth-stack">
             <div class="field">
               <label for="auth_email">Email address</label>
@@ -616,12 +832,43 @@
         </aside>
       </section>
 
-      <section class="section-grid" id="progress">
+      <div id="participant-dashboard" class="dashboard-shell" hidden>
+      <section class="section-grid dashboard-intro" id="progress">
+        <article class="section-card">
+          <div>
+            <p class="eyebrow">Participant dashboard</p>
+            <h2>Your study panel</h2>
+            <p id="dashboard-guidance">This panel opens after sign-in and is meant to be used in the same order each day: confirm your participant identity, record today’s entry, and log change events only when something meaningful changes.</p>
+          </div>
+          <div class="callout" style="margin-top:12px;">
+            <strong style="display:block; color:var(--ink); margin-bottom:4px;">How to use this panel well</strong>
+            <span>Start with the daily entry. Use the change log only for interventions, context shifts, or disruptions that could change sleep, activation, or next-day burden.</span>
+          </div>
+        </article>
+
+        <article class="section-card">
+          <div>
+            <p class="eyebrow">Session</p>
+            <h2>Current access and next step</h2>
+            <p>This block helps you confirm that the correct account and participant code are active before adding new data.</p>
+          </div>
+          <div class="stat-grid">
+            <div class="stat"><strong>Signed-in account</strong><span id="dashboard-user-email">—</span></div>
+            <div class="stat"><strong>Linked participant</strong><span id="dashboard-participant-code">Not linked yet</span></div>
+            <div class="stat"><strong>What to do next</strong><span id="dashboard-next-step">Link your participant code first if it is not already attached to this account.</span></div>
+          </div>
+          <div class="actions">
+            <button class="mini-button" type="button" id="dashboard-sign-out-button">Sign out</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="section-grid">
         <article class="section-card">
           <div>
             <p class="eyebrow">Participant profile</p>
             <h2>Study identity</h2>
-            <p>If your study link already includes a participant code, it will appear here automatically. Save it after signing in so the code is linked to your secure study account.</p>
+            <p>If your study link already includes a participant code, it will appear here automatically. Save it once so future daily entries and change events stay tied to the correct study record.</p>
           </div>
           <div class="field-grid">
             <div class="field">
@@ -647,7 +894,7 @@
           <div>
             <p class="eyebrow">Progress</p>
             <h2>Your follow-up window</h2>
-            <p>These markers do not interpret symptoms. They only show how far the study window has progressed.</p>
+            <p>These markers do not interpret symptoms. They simply show how much usable follow-up has accumulated and when the study reaches more stable review windows.</p>
           </div>
           <div class="stat-grid">
             <div class="stat"><strong>Total check-ins</strong><span id="metric-total">0</span></div>
@@ -668,7 +915,7 @@
           <div>
             <p class="eyebrow">Daily entry</p>
             <h2>Record or edit a day</h2>
-            <p>Linkage rule: if the night started late on the 15th and ended on the 16th, the check-in date should still be <strong>2026-04-15</strong>.</p>
+            <p>Use the date of the night being interpreted. If the night started late on the 15th and ended on the 16th, the check-in date should still be <strong>2026-04-15</strong>.</p>
           </div>
           <form id="checkin-form">
             <div class="field-grid">
@@ -726,7 +973,7 @@
           <div>
             <p class="eyebrow">Recent history</p>
             <h2>Your study follow-up log</h2>
-            <p>You can review and edit previous entries here. Participant-facing export and backup tools are intentionally hidden.</p>
+            <p>You can review and edit previous entries here. This is a practical audit trail of what has already been recorded, not a diagnostic summary.</p>
           </div>
           <div id="table-status" class="status"></div>
           <div class="table-wrap">
@@ -758,7 +1005,7 @@
           <div>
             <p class="eyebrow">Change log</p>
             <h2>Mark interventions, changes, or disruptions</h2>
-            <p>Use this section when something starts, stops, or changes in a way that could affect sleep or next-day burden. These anchors drive later pre/post response reads.</p>
+            <p>Use this section only when something starts, stops, or changes in a way that could plausibly affect sleep, activation, or next-day burden. These anchors are what later allow pre/post response reads.</p>
           </div>
           <form id="event-form">
             <div class="field-grid">
@@ -842,7 +1089,7 @@
           <div>
             <p class="eyebrow">Response anchors</p>
             <h2>Your logged change windows</h2>
-            <p>These rows do not interpret the response by themselves. They create the anchors the study will later use to compare before and after.</p>
+            <p>These rows do not interpret the response by themselves. They simply show the change windows that the study will later use for before/after comparison.</p>
           </div>
           <div id="event-table-status" class="status"></div>
           <div class="table-wrap">
@@ -867,6 +1114,7 @@
           </div>
         </article>
       </section>
+      </div>
 
       <footer class="footer">
         <span>Butterfly Effect · participant check-in · longitudinal follow-up · not diagnostic · 2026</span>
@@ -919,10 +1167,13 @@
     const authStatus = document.getElementById("auth-status");
     const authSummary = document.getElementById("auth-summary");
     const syncSummary = document.getElementById("sync-summary");
+    const authScreen = document.getElementById("auth-screen");
+    const participantDashboard = document.getElementById("participant-dashboard");
     const signInButton = document.getElementById("sign-in-button");
     const createAccountButton = document.getElementById("create-account-button");
     const resetPasswordButton = document.getElementById("reset-password-button");
     const signOutButton = document.getElementById("sign-out-button");
+    const dashboardSignOutButton = document.getElementById("dashboard-sign-out-button");
     const recoveryPanel = document.getElementById("recovery-panel");
     const recoveryPasswordInput = document.getElementById("recovery_password");
     const recoveryPasswordConfirmInput = document.getElementById("recovery_password_confirm");
@@ -941,6 +1192,10 @@
     const participantUidInput = document.getElementById("participant_uid");
     const participantCodeInput = document.getElementById("participant_code");
     const participantLabelInput = document.getElementById("participant_label");
+    const dashboardGuidance = document.getElementById("dashboard-guidance");
+    const dashboardUserEmail = document.getElementById("dashboard-user-email");
+    const dashboardParticipantCode = document.getElementById("dashboard-participant-code");
+    const dashboardNextStep = document.getElementById("dashboard-next-step");
 
     function queryParams() {
       return new URLSearchParams(window.location.search);
@@ -1064,8 +1319,15 @@
       node.classList.add(count >= threshold ? "ready" : "progressing");
     }
 
+    function renderPortalLayout() {
+      const showDashboard = Boolean(state.user) && !state.recoveryMode;
+      authScreen.hidden = showDashboard;
+      participantDashboard.hidden = !showDashboard;
+    }
+
     function renderAuthState() {
       const signedIn = Boolean(state.user);
+      renderPortalLayout();
       if (!signedIn) {
         authSummary.textContent = state.recoveryMode ? "Recovery session active. Set a new password below." : "Not signed in yet.";
         syncSummary.textContent = "Waiting for secure sign-in.";
@@ -1177,6 +1439,8 @@
       if (!state.participant) {
         participantUidInput.value = "";
         profileSummary.textContent = state.user ? "No participant code linked to this account yet." : "Sign in first, then link your participant code.";
+        dashboardParticipantCode.textContent = "Not linked yet";
+        dashboardNextStep.textContent = state.user ? "Link your participant code first so daily entries and change events land in the correct study record." : "Sign in first.";
         return;
       }
       participantUidInput.value = state.participant.participant_code;
@@ -1184,6 +1448,7 @@
       participantLabelInput.value = state.participant.display_label || "";
       profileSummary.innerHTML = `<strong style="display:block; color:var(--ink); margin-bottom:4px;">${escapeHtml(state.participant.participant_code)}</strong><span>${escapeHtml(state.participant.display_label || "No local label")}</span><br><span>${escapeHtml(state.participant.study_label || "No study label")}</span>`;
       document.getElementById("event_participant_uid").value = state.participant.participant_code;
+      dashboardParticipantCode.textContent = state.participant.participant_code;
     }
 
     function updateMetrics() {
@@ -1196,6 +1461,23 @@
       setMilestone("milestone-7", "milestone-7-text", count, 7);
       setMilestone("milestone-14", "milestone-14-text", count, 14);
       setMilestone("milestone-28", "milestone-28-text", count, 28);
+      if (!state.user) {
+        dashboardGuidance.textContent = "This panel opens after sign-in and is meant to be used in the same order each day: confirm your participant identity, record today’s entry, and log change events only when something meaningful changes.";
+        dashboardUserEmail.textContent = "—";
+        dashboardNextStep.textContent = "Sign in first.";
+        return;
+      }
+      dashboardUserEmail.textContent = state.user.email || "Signed in";
+      if (!state.participant) {
+        dashboardGuidance.textContent = "You are signed in, but your participant code still needs to be linked. Do that first so today’s data is attached to the correct study record.";
+        dashboardNextStep.textContent = "Link your participant code in Study identity.";
+      } else if (count === 0) {
+        dashboardGuidance.textContent = "Your account and participant code are ready. The next useful step is to record today’s entry using the date of the night being interpreted.";
+        dashboardNextStep.textContent = "Record your first daily entry.";
+      } else {
+        dashboardGuidance.textContent = "Your panel is active. Use Daily entry for today’s follow-up, Recent history to edit prior days, and Change log only for interventions or meaningful context shifts.";
+        dashboardNextStep.textContent = "Record today’s entry or add a new change event if something meaningful changed.";
+      }
     }
 
     function dbRowToEntry(row) {
@@ -1869,6 +2151,7 @@
       }
     });
     signOutButton.addEventListener("click", signOut);
+    dashboardSignOutButton.addEventListener("click", signOut);
     document.getElementById("save-profile-button").addEventListener("click", handleSaveProfile);
     form.addEventListener("submit", handleSave);
     eventForm.addEventListener("submit", handleSaveEvent);
