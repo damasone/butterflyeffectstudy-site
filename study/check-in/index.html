@@ -2567,11 +2567,20 @@
       let error = null;
       let degraded = false;
       if (state.currentEditId) {
-        const response = await supabaseClient
+        let response = await supabaseClient
           .from("study_daily_checkins")
           .update(payload)
           .eq("id", state.currentEditId);
         error = response.error;
+        if (error) {
+          const legacyPayload = legacyPayloadFromEntry(entry);
+          response = await supabaseClient
+            .from("study_daily_checkins")
+            .update(legacyPayload)
+            .eq("id", state.currentEditId);
+          error = response.error;
+          degraded = !error;
+        }
       } else {
         let response = await supabaseClient
           .from("study_daily_checkins")
