@@ -1131,6 +1131,17 @@
       window.history.replaceState({}, document.title, `${url.pathname}${url.search}`);
     }
 
+    function setButtonBusy(button, busyLabel) {
+      if (!button) return () => {};
+      const originalLabel = button.textContent;
+      button.disabled = true;
+      button.textContent = busyLabel;
+      return () => {
+        button.disabled = false;
+        button.textContent = originalLabel;
+      };
+    }
+
     function updateProfileSummary() {
       if (!state.participant) {
         participantUidInput.value = "";
@@ -1538,11 +1549,14 @@
     async function sendMagicLink() {
       const email = ensureEmail();
       if (!email) return;
+      setStatus(authStatus, "Sending magic link...", "warn");
+      const release = setButtonBusy(document.getElementById("send-link-button"), "Sending...");
       const redirect = currentPortalUrl();
       const { error } = await supabaseClient.auth.signInWithOtp({
         email,
         options: { emailRedirectTo: redirect },
       });
+      release();
       if (error) {
         setStatus(authStatus, error.message, "danger");
         return;
@@ -1555,7 +1569,10 @@
       if (!email) return;
       const password = ensurePassword();
       if (!password) return;
+      setStatus(authStatus, "Signing in...", "warn");
+      const release = setButtonBusy(signInButton, "Signing in...");
       const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      release();
       if (error) {
         setStatus(authStatus, error.message, "danger");
         return;
@@ -1573,6 +1590,8 @@
         setStatus(authStatus, "Use a password with at least 8 characters.", "danger");
         return;
       }
+      setStatus(authStatus, "Creating account...", "warn");
+      const release = setButtonBusy(createAccountButton, "Creating...");
       const { data, error } = await supabaseClient.auth.signUp({
         email,
         password,
@@ -1580,6 +1599,7 @@
           emailRedirectTo: currentPortalUrl(),
         },
       });
+      release();
       if (error) {
         setStatus(authStatus, error.message, "danger");
         return;
@@ -1595,9 +1615,12 @@
     async function sendPasswordReset() {
       const email = ensureEmail();
       if (!email) return;
+      setStatus(authStatus, "Sending password reset email...", "warn");
+      const release = setButtonBusy(resetPasswordButton, "Sending...");
       const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
         redirectTo: currentPortalUrl({ mode: "recovery" }),
       });
+      release();
       if (error) {
         setStatus(authStatus, error.message, "danger");
         return;
@@ -1620,7 +1643,10 @@
         setStatus(recoveryStatus, "Passwords do not match.", "danger");
         return;
       }
+      setStatus(recoveryStatus, "Updating password...", "warn");
+      const release = setButtonBusy(document.getElementById("update-password-button"), "Saving...");
       const { error } = await supabaseClient.auth.updateUser({ password });
+      release();
       if (error) {
         setStatus(recoveryStatus, error.message, "danger");
         return;
