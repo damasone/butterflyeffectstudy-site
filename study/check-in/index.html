@@ -1397,6 +1397,12 @@
       }).format(date);
     }
 
+    function fileLabelFromPath(path) {
+      if (!path) return "Attached file";
+      const parts = String(path).split('/').filter(Boolean);
+      return parts.length ? parts[parts.length - 1] : path;
+    }
+
     function seedFromQuery() {
       const params = queryParams();
       const pid = (params.get("pid") || "").trim();
@@ -1905,9 +1911,32 @@
               <strong style="display:block; color:var(--ink); margin-bottom:4px;">Record reference</strong>
               <span>${escapeHtml(locationText)}</span>
             </div>
+            <div class="actions" style="margin-top:0;">
+              <button class="mini-button" type="button" data-report-open="${escapeHtml(report.id)}">Open report</button>
+              <span style="font-size:0.82rem; color:var(--muted);">${escapeHtml(fileLabelFromPath(report.storage_path))}</span>
+            </div>
           </article>
         `;
       }).join('');
+    }
+
+    async function openReport(reportId) {
+      const report = state.reports.find((item) => item.id === reportId);
+      if (!report) return;
+      setStatus(reportsStatus, 'Preparing secure file access...', 'warn');
+      const { data, error } = await supabaseClient.storage
+        .from(report.storage_bucket)
+        .createSignedUrl(report.storage_path, 300);
+      if (error || !data?.signedUrl) {
+        setStatus(reportsStatus, error?.message || 'Unable to open the report.', 'danger');
+        return;
+      }
+      const absoluteUrl = data.signedUrl.startsWith('http')
+        ? data.signedUrl
+        : `${SUPABASE_URL}/storage/v1${data.signedUrl}`;
+      const opened = window.open(absoluteUrl, '_blank', 'noopener');
+      if (!opened) window.location.assign(absoluteUrl);
+      setStatus(reportsStatus, 'Secure report link opened in a new tab.', 'ok');
     }
 
     async function refreshParticipant() {
@@ -2366,6 +2395,11 @@
       if (deleteKey) {
         handleDeleteEvent(deleteKey);
       }
+    });
+
+    reportsBody.addEventListener("click", (event) => {
+      const reportId = event.target.getAttribute("data-report-open");
+      if (reportId) openReport(reportId);
     });
 
     RANGE_FIELDS.forEach((name) => {
