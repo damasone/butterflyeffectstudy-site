@@ -2041,19 +2041,91 @@
     async function openReport(reportId) {
       const report = state.reports.find((item) => item.id === reportId);
       if (!report) return;
+      const reportWindow = window.open("", "_blank", "noopener");
+      if (!reportWindow) {
+        setStatus(reportsStatus, "Your browser blocked the new tab. Allow pop-ups for this site to open reports.", "danger");
+        return;
+      }
+      reportWindow.document.write(`<!doctype html><html><head><title>Butterfly Effect report</title><style>body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#161311;color:#f3ede7;display:grid;place-items:center;min-height:100vh}div{padding:24px 28px;border:1px solid rgba(195,154,121,.18);border-radius:18px;background:rgba(28,24,21,.92);max-width:420px}strong{display:block;margin-bottom:8px;color:#eadbce}</style>  <link rel="canonical" href="https://butterflyeffectstudy.com/study/check-in/">
+  <meta property="og:site_name" content="Butterfly Effect">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Butterfly Effect — Daily Check-In">
+  <meta property="og:description" content="Daily participant check-in for Butterfly Effect study follow-up, with participant code persistence, progress milestones, and later Apple Health merge.">
+  <meta property="og:url" content="https://butterflyeffectstudy.com/study/check-in/">
+  <meta property="og:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Butterfly Effect — Daily Check-In">
+  <meta name="twitter:description" content="Daily participant check-in for Butterfly Effect study follow-up, with participant code persistence, progress milestones, and later Apple Health merge.">
+  <meta name="twitter:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#2a1f18">
+  <style id="be-brand-lockup">
+  .topbar .mark,
+  .topbar .brand,
+  .topbar-inner .brand {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    color: #f3ede7 !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+    letter-spacing: -0.01em !important;
+    text-decoration: none !important;
+  }
+  .topbar .mark::before,
+  .topbar .brand::before,
+  .topbar-inner .brand::before {
+    content: "" !important;
+    width: 40px !important;
+    height: 40px !important;
+    flex: 0 0 40px !important;
+    display: inline-block !important;
+    background: url("/assets/brand-mark-tight.png") center / contain no-repeat !important;
+    transform: translateY(-1px) !important;
+  }
+  .topbar .mark span,
+  .topbar .brand span,
+  .topbar-inner .brand span {
+    display: inline-block;
+    transform: none;
+    line-height: 1.02;
+  }
+  @media (max-width: 720px) {
+    .topbar .mark,
+    .topbar .brand,
+    .topbar-inner .brand {
+      font-size: 1.03rem !important;
+      gap: 12px !important;
+    }
+    .topbar .mark::before,
+    .topbar .brand::before,
+    .topbar-inner .brand::before {
+      width: 32px !important;
+      height: 32px !important;
+      flex-basis: 32px !important;
+    }
+  }
+  </style>
+</head><body><div><strong>Preparing report…</strong><span>The secure file is being opened in this tab.</span></div></body></html>`);
+      reportWindow.document.close();
       setStatus(reportsStatus, 'Preparing secure file access...', 'warn');
       const { data, error } = await supabaseClient.storage
         .from(report.storage_bucket)
         .createSignedUrl(report.storage_path, 300);
       if (error || !data?.signedUrl) {
+        reportWindow.close();
         setStatus(reportsStatus, error?.message || 'Unable to open the report.', 'danger');
         return;
       }
       const absoluteUrl = data.signedUrl.startsWith('http')
         ? data.signedUrl
         : `${SUPABASE_URL}/storage/v1${data.signedUrl}`;
-      const opened = window.open(absoluteUrl, '_blank', 'noopener');
-      if (!opened) window.location.assign(absoluteUrl);
+      reportWindow.location.replace(absoluteUrl);
       setStatus(reportsStatus, 'Secure report link opened in a new tab.', 'ok');
     }
 
