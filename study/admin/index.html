@@ -821,17 +821,11 @@
     </main>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/vendor/supabase-js.min.js"></script>
   <script>
     const SUPABASE_URL = "https://cssmtjtfyvkdlfvnjthj.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzc210anRmeXZrZGxmdm5qdGhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyNzMzODEsImV4cCI6MjA5MTg0OTM4MX0.55GiAhSex58x03B0LE9Eu5rWYKcsrgo0r4zMMrq61lI";
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-      auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true,
-      },
-    });
+    let supabaseClient = null;
 
     const state = {
       session: null,
@@ -880,6 +874,28 @@
     const wearableUploadForm = document.getElementById("wearable-upload-form");
     const wearableUploadStatus = document.getElementById("wearable-upload-status");
     const wearableFileInput = document.getElementById("wearable-file");
+
+    function ensureSupabaseClient() {
+      const supabaseLib = window.supabase;
+      if (supabaseClient) return true;
+      if (!supabaseLib || typeof supabaseLib.createClient !== "function") {
+        showAuthShell();
+        authSummary.textContent = "The secure admin client did not initialize, so authentication and data access are temporarily unavailable.";
+        setStatus(authStatus, "Secure admin client could not load. Refresh once. If it persists, contact the study operator.", "danger");
+        [signInButton, resetPasswordButton, topbarSignOutButton, topbarRefreshButton].forEach((button) => {
+          if (button) button.disabled = true;
+        });
+        return false;
+      }
+      supabaseClient = supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        auth: {
+          persistSession: true,
+          autoRefreshToken: true,
+          detectSessionInUrl: true,
+        },
+      });
+      return true;
+    }
 
     function escapeHtml(value) {
       return String(value ?? "")
@@ -1604,19 +1620,8 @@
     selectedParticipantForm.addEventListener("submit", handleSaveSelectedParticipant);
     wearableUploadForm.addEventListener("submit", handleWearableUpload);
 
-    supabaseClient.auth.onAuthStateChange((eventName, session) => {
-      window.setTimeout(async () => {
-        state.session = session || null;
-        state.user = session?.user || null;
-        if (!state.user) {
-          showAuthShell();
-          return;
-        }
-        await refreshAdminData();
-      }, 0);
-    });
-
     async function init() {
+      if (!ensureSupabaseClient()) return;
       const { data, error } = await supabaseClient.auth.getSession();
       if (error) {
         setStatus(authStatus, error.message || "Unable to read session.", "danger");
@@ -1629,6 +1634,20 @@
       } else {
         showAuthShell();
       }
+    }
+
+    if (ensureSupabaseClient()) {
+      supabaseClient.auth.onAuthStateChange((eventName, session) => {
+        window.setTimeout(async () => {
+          state.session = session || null;
+          state.user = session?.user || null;
+          if (!state.user) {
+            showAuthShell();
+            return;
+          }
+          await refreshAdminData();
+        }, 0);
+      });
     }
 
     init();

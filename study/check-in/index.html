@@ -1795,17 +1795,11 @@
     </main>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/vendor/supabase-js.min.js"></script>
   <script>
     const SUPABASE_URL = "https://cssmtjtfyvkdlfvnjthj.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzc210anRmeXZrZGxmdm5qdGhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyNzMzODEsImV4cCI6MjA5MTg0OTM4MX0.55GiAhSex58x03B0LE9Eu5rWYKcsrgo0r4zMMrq61lI";
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-      auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true,
-      },
-    });
+    let supabaseClient = null;
 
     const FIELD_ORDER = [
       "participant_uid","report_date_local","checkin_completed_ts_local","sleep_quality_0_10","stress_0_10","anxiety_0_10",
@@ -1885,6 +1879,29 @@
     const adherenceMissingCount = document.getElementById("adherence-missing-count");
     const adherenceCalendar = document.getElementById("adherence-calendar");
     const latestReportHighlight = document.getElementById("latest-report-highlight");
+
+    function ensureSupabaseClient() {
+      const supabaseLib = window.supabase;
+      if (supabaseClient) return true;
+      if (!supabaseLib || typeof supabaseLib.createClient !== "function") {
+        participantDashboard.hidden = true;
+        authScreen.hidden = false;
+        authSummary.textContent = "The secure study client did not initialize, so sign-in and data sync are temporarily unavailable.";
+        setStatus(authStatus, "Secure study client could not load. Refresh once. If it persists, contact the study team.", "danger");
+        [signInButton, createAccountButton, resetPasswordButton, topbarSignOutButton].forEach((button) => {
+          if (button) button.disabled = true;
+        });
+        return false;
+      }
+      supabaseClient = supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        auth: {
+          persistSession: true,
+          autoRefreshToken: true,
+          detectSessionInUrl: true,
+        },
+      });
+      return true;
+    }
     const editModeBanner = document.getElementById("edit-mode-banner");
     const editModeText = document.getElementById("edit-mode-text");
 
@@ -3343,18 +3360,6 @@
       input.addEventListener("input", () => { valueNode.textContent = input.value; });
     });
 
-    supabaseClient.auth.onAuthStateChange((event, session) => {
-      if (event === "PASSWORD_RECOVERY") {
-        setRecoveryMode(true);
-        setStatus(recoveryStatus, "Recovery session active. Set a new password below.", "warn");
-      }
-      window.setTimeout(() => {
-        refreshSessionState(session).catch((error) => {
-          setStatus(authStatus, error?.message || "Unable to refresh session state.", "danger");
-        });
-      }, 0);
-    });
-
     seedFromQuery();
     renderAuthState();
     updateProfileSummary();
@@ -3363,7 +3368,20 @@
     renderTable();
     renderEventTable();
     renderReports();
-    refreshSessionState();
+    if (ensureSupabaseClient()) {
+      supabaseClient.auth.onAuthStateChange((event, session) => {
+        if (event === "PASSWORD_RECOVERY") {
+          setRecoveryMode(true);
+          setStatus(recoveryStatus, "Recovery session active. Set a new password below.", "warn");
+        }
+        window.setTimeout(() => {
+          refreshSessionState(session).catch((error) => {
+            setStatus(authStatus, error?.message || "Unable to refresh session state.", "danger");
+          });
+        }, 0);
+      });
+      refreshSessionState();
+    }
   </script>
 </body>
 </html>
