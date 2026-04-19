@@ -91,6 +91,70 @@
     }
   }
   </style>
+  <style id="be-public-footer">
+  .footer {
+    display: block !important;
+  }
+  .footer .be-footer {
+    display: grid;
+    gap: 14px;
+    width: 100%;
+  }
+  .footer .be-footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px 20px;
+  }
+  .footer .be-footer-brand {
+    display: grid;
+    gap: 4px;
+  }
+  .footer .be-footer-brand strong {
+    color: var(--ink);
+    font-size: 0.98rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .footer .be-footer-brand span {
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .footer .be-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+  }
+  .footer .be-footer-links a {
+    color: var(--muted);
+    border-bottom: 0 !important;
+    text-decoration: none;
+  }
+  .footer .be-footer-links a:hover {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .footer .be-footer-meta {
+    color: var(--muted);
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.45;
+  }
+  @media (max-width: 860px) {
+    .footer .be-footer-top {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    .footer .be-footer-links {
+      gap: 8px 14px;
+    }
+    .footer .be-footer-meta {
+      letter-spacing: 0.12em;
+    }
+  }
+  </style>
 </head>
 <body>
   <main class="wrap">
