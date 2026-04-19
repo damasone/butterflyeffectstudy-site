@@ -287,6 +287,174 @@
     letter-spacing: 0.16em !important;
   }
   </style>
+  <style id="be-public-mobile">
+  @media (max-width: 860px) {
+    .topbar {
+      padding: 14px 16px !important;
+      gap: 14px !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+    }
+    .topbar-inner {
+      gap: 14px !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+    }
+    .topbar .mark,
+    .topbar .brand,
+    .topbar-inner .brand {
+      width: 100% !important;
+      justify-content: flex-start !important;
+    }
+    .nav-links {
+      width: 100% !important;
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      justify-content: flex-start !important;
+      gap: 10px !important;
+      overflow-x: auto !important;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 2px !important;
+    }
+    .nav-links::-webkit-scrollbar {
+      display: none;
+    }
+    .topbar .nav,
+    .topbar-inner .nav {
+      width: 100% !important;
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      justify-content: flex-start !important;
+      gap: 10px !important;
+      overflow-x: auto !important;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 2px !important;
+    }
+    .topbar .nav::-webkit-scrollbar,
+    .topbar-inner .nav::-webkit-scrollbar {
+      display: none;
+    }
+    .nav-links a,
+    .topbar .nav a,
+    .topbar-inner .nav a,
+    .topbar button {
+      flex: 0 0 auto !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 38px !important;
+      padding: 9px 12px !important;
+      white-space: nowrap !important;
+      border: 1px solid rgba(74, 64, 56, 0.62) !important;
+      border-radius: 999px !important;
+      background: rgba(36, 32, 28, 0.78) !important;
+    }
+    .nav-links a.active {
+      background: rgba(195, 154, 121, 0.16) !important;
+      border-color: rgba(195, 154, 121, 0.46) !important;
+    }
+    .wrap {
+      padding: 28px 16px 72px !important;
+    }
+    .hero,
+    .page-intro {
+      gap: 20px !important;
+      padding-top: 28px !important;
+      padding-bottom: 18px !important;
+    }
+    .page-intro h1,
+    .hero h1,
+    .hero h2,
+    .intro-title {
+      font-size: clamp(2rem, 11vw, 3rem) !important;
+      max-width: none !important;
+    }
+    .page-intro p,
+    .hero-quote,
+    .lede,
+    .intro-subtitle {
+      font-size: 0.98rem !important;
+      line-height: 1.64 !important;
+    }
+    .hero-actions {
+      flex-direction: column !important;
+      align-items: stretch !important;
+    }
+    .hero-actions a,
+    .hero-actions .button,
+    .hero-actions .ghost-button {
+      width: 100% !important;
+      justify-content: center !important;
+    }
+    .hero-panel,
+    .metric-card,
+    .principle-card,
+    .system-card,
+    .evidence-card,
+    .layer-card,
+    .validation-card,
+    .page-card,
+    .figure-panel,
+    .hero-card,
+    .panel,
+    .section-card,
+    .stat,
+    .list li {
+      padding: 20px !important;
+      border-radius: 18px !important;
+    }
+    .metric-grid,
+    .principles-grid,
+    .system-grid,
+    .evidence-grid,
+    .validation-grid,
+    .page-grid,
+    .layer-grid,
+    .figure-grid,
+    .section-grid,
+    .summary-grid,
+    .stat-grid,
+    .hero-grid,
+    .adjacent-grid,
+    .explorer-columns,
+    .explorer-path-grid,
+    .target-grid,
+    .requirement-grid,
+    .pilot-grid,
+    .governance-grid,
+    .variant-grid,
+    .collab-grid,
+    .category-grid,
+    .surface-grid,
+    .grid-2,
+    .grid-3,
+    .pipeline,
+    .metric-strip {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+    .figure-row {
+      padding: 20px !important;
+      grid-template-columns: 1fr !important;
+      gap: 14px !important;
+    }
+    .section-stack,
+    .surface-stack,
+    .page-index {
+      gap: 16px !important;
+    }
+    .intro-copy {
+      padding: 18px !important;
+    }
+    .intro-copy-inner {
+      max-width: 100% !important;
+    }
+  }
+  </style>
   <style id="be-route-surface">
   :root {
     --route-accent: #d0aa83;
