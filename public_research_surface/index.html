@@ -121,7 +121,7 @@
       isolation: isolate;
       perspective: 1440px;
       transform-style: preserve-3d;
-      animation: butterfly-float 10.6s cubic-bezier(0.42, 0.08, 0.22, 0.98) infinite;
+      animation: butterfly-float 11.8s cubic-bezier(0.4, 0.02, 0.2, 1) infinite;
     }
     .intro-butterfly .butterfly-layer {
       position: absolute;
@@ -144,7 +144,7 @@
       z-index: 0;
       transform: translateY(0.8%) scale(1.01);
       filter: blur(1.2px) brightness(0.78);
-      animation: butterfly-foundation-breath 10.6s ease-in-out infinite;
+      animation: butterfly-foundation-breath 11.8s cubic-bezier(0.42, 0.06, 0.24, 1) infinite;
     }
     .intro-butterfly .butterfly-wing {
       inset: 0;
@@ -153,308 +153,292 @@
     .intro-butterfly .wing-upper-left {
       z-index: 1;
       transform-origin: 58% 54%;
-      animation: wing-upper-left-depth 5.8s cubic-bezier(0.55, 0.08, 0.24, 0.98) infinite;
+      animation: wing-upper-left-depth 6.6s cubic-bezier(0.42, 0.02, 0.2, 1) infinite;
     }
     .intro-butterfly .wing-upper-right {
       z-index: 2;
       transform-origin: 42% 54%;
-      animation: wing-upper-right-depth 5.8s cubic-bezier(0.55, 0.08, 0.24, 0.98) infinite;
-      animation-delay: -0.05s;
+      animation: wing-upper-right-depth 6.6s cubic-bezier(0.42, 0.02, 0.2, 1) infinite;
+      animation-delay: -0.08s;
     }
     .intro-butterfly .wing-lower-left {
       z-index: 3;
       transform-origin: 61% 34%;
-      animation: wing-lower-left-depth 5.8s cubic-bezier(0.55, 0.08, 0.24, 0.98) infinite;
-      animation-delay: -0.18s;
+      animation: wing-lower-left-depth 6.6s cubic-bezier(0.42, 0.02, 0.2, 1) infinite;
+      animation-delay: -0.16s;
     }
     .intro-butterfly .wing-lower-right {
       z-index: 3;
       transform-origin: 39% 34%;
-      animation: wing-lower-right-depth 5.8s cubic-bezier(0.55, 0.08, 0.24, 0.98) infinite;
-      animation-delay: -0.23s;
+      animation: wing-lower-right-depth 6.6s cubic-bezier(0.42, 0.02, 0.2, 1) infinite;
+      animation-delay: -0.22s;
     }
     .intro-butterfly .wing-upper-left img {
       transform-origin: 62% 52%;
-      animation: wing-surface-upper-left 5.8s cubic-bezier(0.55, 0.08, 0.24, 0.98) infinite;
+      animation: wing-surface-upper-left 6.6s cubic-bezier(0.42, 0.02, 0.2, 1) infinite;
     }
     .intro-butterfly .wing-upper-right img {
       transform-origin: 38% 52%;
-      animation: wing-surface-upper-right 5.8s cubic-bezier(0.55, 0.08, 0.24, 0.98) infinite;
-      animation-delay: -0.05s;
+      animation: wing-surface-upper-right 6.6s cubic-bezier(0.42, 0.02, 0.2, 1) infinite;
+      animation-delay: -0.08s;
     }
     .intro-butterfly .wing-lower-left img {
       transform-origin: 63% 36%;
-      animation: wing-surface-lower-left 5.8s cubic-bezier(0.55, 0.08, 0.24, 0.98) infinite;
-      animation-delay: -0.18s;
+      animation: wing-surface-lower-left 6.6s cubic-bezier(0.42, 0.02, 0.2, 1) infinite;
+      animation-delay: -0.16s;
     }
     .intro-butterfly .wing-lower-right img {
       transform-origin: 37% 36%;
-      animation: wing-surface-lower-right 5.8s cubic-bezier(0.55, 0.08, 0.24, 0.98) infinite;
-      animation-delay: -0.23s;
+      animation: wing-surface-lower-right 6.6s cubic-bezier(0.42, 0.02, 0.2, 1) infinite;
+      animation-delay: -0.22s;
     }
     .intro-butterfly .butterfly-body {
       inset: 0;
       z-index: 4;
-      animation: butterfly-body-hover 5.8s ease-in-out infinite;
+      animation: butterfly-body-hover 6.6s cubic-bezier(0.4, 0.02, 0.2, 1) infinite;
     }
     .intro-butterfly .butterfly-body img {
       width: 100%;
-      animation: butterfly-body-core 5.8s ease-in-out infinite;
+      animation: butterfly-body-core 6.6s cubic-bezier(0.4, 0.02, 0.2, 1) infinite;
     }
     @keyframes wing-upper-left-depth {
-      0%, 10%, 100% {
+      0%, 100% {
         transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
         filter: drop-shadow(-1px 4px 5px rgba(0, 0, 0, 0.10)) brightness(0.99);
       }
-      15% {
-        transform: translateZ(8px) rotateY(11deg) rotateX(-2deg) rotateZ(-0.22deg) translateX(-0.3%) translateY(0.1%);
-        filter: drop-shadow(-2px 7px 8px rgba(0, 0, 0, 0.12)) brightness(0.96);
+      12% {
+        transform: translateZ(4px) rotateY(6deg) rotateX(-1.2deg) rotateZ(-0.12deg) translateX(-0.18%) translateY(0.06%);
+        filter: drop-shadow(-2px 6px 7px rgba(0, 0, 0, 0.11)) brightness(0.975);
       }
-      22% {
-        transform: translateZ(28px) rotateY(36deg) rotateX(-7.1deg) rotateZ(-0.92deg) translateX(-1.2%) translateY(0.42%);
-        filter: drop-shadow(-7px 18px 18px rgba(0, 0, 0, 0.22)) brightness(0.85);
+      24% {
+        transform: translateZ(22px) rotateY(28deg) rotateX(-5.5deg) rotateZ(-0.58deg) translateX(-0.9%) translateY(0.32%);
+        filter: drop-shadow(-6px 16px 16px rgba(0, 0, 0, 0.2)) brightness(0.89);
       }
-      29% {
-        transform: translateZ(13px) rotateY(17deg) rotateX(-3.1deg) rotateZ(-0.34deg) translateX(-0.52%) translateY(0.18%);
-        filter: drop-shadow(-2px 7px 8px rgba(0, 0, 0, 0.12)) brightness(0.96);
-      }
-      35% {
-        transform: translateZ(24px) rotateY(30deg) rotateX(-5.8deg) rotateZ(-0.72deg) translateX(-0.95%) translateY(0.34%);
-        filter: drop-shadow(-5px 14px 14px rgba(0, 0, 0, 0.18)) brightness(0.89);
-      }
-      46% {
-        transform: translateZ(4px) rotateY(5deg) rotateX(-1deg) rotateZ(-0.12deg) translateX(-0.16%) translateY(0.04%);
-        filter: drop-shadow(-1px 5px 6px rgba(0, 0, 0, 0.1)) brightness(0.98);
-      }
-      61% {
-        transform: translateZ(10px) rotateY(12deg) rotateX(-2.2deg) rotateZ(-0.24deg) translateX(-0.34%) translateY(0.11%);
+      38% {
+        transform: translateZ(10px) rotateY(12deg) rotateX(-2.2deg) rotateZ(-0.22deg) translateX(-0.34%) translateY(0.12%);
         filter: drop-shadow(-2px 7px 8px rgba(0, 0, 0, 0.12)) brightness(0.95);
       }
-      74% {
-        transform: translateZ(2px) rotateY(2deg) rotateX(-0.4deg) rotateZ(-0.06deg) translateX(-0.08%) translateY(0.02%);
+      52% {
+        transform: translateZ(16px) rotateY(20deg) rotateX(-3.8deg) rotateZ(-0.4deg) translateX(-0.62%) translateY(0.23%);
+        filter: drop-shadow(-4px 11px 12px rgba(0, 0, 0, 0.16)) brightness(0.92);
+      }
+      68% {
+        transform: translateZ(6px) rotateY(7deg) rotateX(-1.2deg) rotateZ(-0.12deg) translateX(-0.22%) translateY(0.08%);
+        filter: drop-shadow(-1px 5px 6px rgba(0, 0, 0, 0.1)) brightness(0.975);
+      }
+      84% {
+        transform: translateZ(2px) rotateY(2deg) rotateX(-0.35deg) rotateZ(-0.04deg) translateX(-0.06%) translateY(0.02%);
         filter: drop-shadow(-1px 4px 5px rgba(0, 0, 0, 0.1)) brightness(0.99);
       }
     }
     @keyframes wing-upper-right-depth {
-      0%, 10%, 100% {
+      0%, 100% {
         transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
         filter: drop-shadow(1px 4px 5px rgba(0, 0, 0, 0.10)) brightness(0.99);
       }
-      16% {
-        transform: translateZ(7px) rotateY(-10deg) rotateX(-1.8deg) rotateZ(0.2deg) translateX(0.26%) translateY(0.1%);
-        filter: drop-shadow(2px 7px 8px rgba(0, 0, 0, 0.12)) brightness(0.96);
+      13% {
+        transform: translateZ(4px) rotateY(-5.5deg) rotateX(-1.1deg) rotateZ(0.1deg) translateX(0.16%) translateY(0.06%);
+        filter: drop-shadow(2px 6px 7px rgba(0, 0, 0, 0.11)) brightness(0.976);
       }
-      23% {
-        transform: translateZ(27px) rotateY(-35deg) rotateX(-6.8deg) rotateZ(0.88deg) translateX(1.12%) translateY(0.4%);
-        filter: drop-shadow(7px 18px 18px rgba(0, 0, 0, 0.22)) brightness(0.85);
+      25% {
+        transform: translateZ(21px) rotateY(-27deg) rotateX(-5.2deg) rotateZ(0.54deg) translateX(0.84%) translateY(0.3%);
+        filter: drop-shadow(6px 15px 16px rgba(0, 0, 0, 0.19)) brightness(0.895);
       }
-      30% {
-        transform: translateZ(12px) rotateY(-16deg) rotateX(-2.9deg) rotateZ(0.32deg) translateX(0.5%) translateY(0.18%);
-        filter: drop-shadow(2px 7px 8px rgba(0, 0, 0, 0.12)) brightness(0.96);
-      }
-      36% {
-        transform: translateZ(23px) rotateY(-29deg) rotateX(-5.6deg) rotateZ(0.68deg) translateX(0.9%) translateY(0.32%);
-        filter: drop-shadow(5px 14px 14px rgba(0, 0, 0, 0.18)) brightness(0.9);
-      }
-      47% {
-        transform: translateZ(4px) rotateY(-5deg) rotateX(-0.9deg) rotateZ(0.1deg) translateX(0.15%) translateY(0.04%);
-        filter: drop-shadow(1px 5px 6px rgba(0, 0, 0, 0.1)) brightness(0.98);
-      }
-      62% {
-        transform: translateZ(9px) rotateY(-11deg) rotateX(-2deg) rotateZ(0.22deg) translateX(0.3%) translateY(0.1%);
+      39% {
+        transform: translateZ(10px) rotateY(-12deg) rotateX(-2.1deg) rotateZ(0.2deg) translateX(0.32%) translateY(0.11%);
         filter: drop-shadow(2px 7px 8px rgba(0, 0, 0, 0.12)) brightness(0.95);
       }
-      75% {
-        transform: translateZ(2px) rotateY(-2deg) rotateX(-0.4deg) rotateZ(0.05deg) translateX(0.08%) translateY(0.02%);
+      53% {
+        transform: translateZ(15px) rotateY(-19deg) rotateX(-3.5deg) rotateZ(0.36deg) translateX(0.56%) translateY(0.2%);
+        filter: drop-shadow(4px 11px 12px rgba(0, 0, 0, 0.16)) brightness(0.925);
+      }
+      69% {
+        transform: translateZ(6px) rotateY(-7deg) rotateX(-1.1deg) rotateZ(0.1deg) translateX(0.2%) translateY(0.07%);
+        filter: drop-shadow(1px 5px 6px rgba(0, 0, 0, 0.1)) brightness(0.976);
+      }
+      85% {
+        transform: translateZ(2px) rotateY(-2deg) rotateX(-0.35deg) rotateZ(0.04deg) translateX(0.06%) translateY(0.02%);
         filter: drop-shadow(1px 4px 5px rgba(0, 0, 0, 0.1)) brightness(0.99);
       }
     }
     @keyframes wing-lower-left-depth {
-      0%, 11%, 100% {
+      0%, 100% {
         transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
         filter: drop-shadow(-1px 3px 4px rgba(0, 0, 0, 0.09)) brightness(0.99);
       }
-      18% {
-        transform: translateZ(5px) rotateY(7deg) rotateX(1deg) rotateZ(-0.12deg) translateX(-0.16%) translateY(0.06%);
-        filter: drop-shadow(-1px 5px 6px rgba(0, 0, 0, 0.1)) brightness(0.97);
+      14% {
+        transform: translateZ(3px) rotateY(5deg) rotateX(0.8deg) rotateZ(-0.08deg) translateX(-0.12%) translateY(0.04%);
+        filter: drop-shadow(-1px 4px 5px rgba(0, 0, 0, 0.1)) brightness(0.975);
       }
-      24% {
-        transform: translateZ(14px) rotateY(18deg) rotateX(3deg) rotateZ(-0.46deg) translateX(-0.48%) translateY(0.22%);
-        filter: drop-shadow(-3px 10px 11px rgba(0, 0, 0, 0.17)) brightness(0.9);
+      26% {
+        transform: translateZ(12px) rotateY(15deg) rotateX(2.5deg) rotateZ(-0.28deg) translateX(-0.4%) translateY(0.18%);
+        filter: drop-shadow(-3px 9px 10px rgba(0, 0, 0, 0.15)) brightness(0.92);
       }
-      31% {
-        transform: translateZ(7px) rotateY(9deg) rotateX(1.5deg) rotateZ(-0.2deg) translateX(-0.24%) translateY(0.09%);
-        filter: drop-shadow(-1px 5px 6px rgba(0, 0, 0, 0.10)) brightness(0.96);
-      }
-      37% {
-        transform: translateZ(11px) rotateY(14deg) rotateX(2.3deg) rotateZ(-0.34deg) translateX(-0.34%) translateY(0.14%);
-        filter: drop-shadow(-2px 8px 9px rgba(0, 0, 0, 0.14)) brightness(0.93);
-      }
-      48% {
-        transform: translateZ(2px) rotateY(3deg) rotateX(0.5deg) rotateZ(-0.06deg) translateX(-0.08%) translateY(0.03%);
-        filter: drop-shadow(-1px 4px 5px rgba(0, 0, 0, 0.1)) brightness(0.98);
-      }
-      63% {
-        transform: translateZ(5px) rotateY(7deg) rotateX(1.1deg) rotateZ(-0.12deg) translateX(-0.16%) translateY(0.06%);
+      40% {
+        transform: translateZ(6px) rotateY(8deg) rotateX(1.2deg) rotateZ(-0.14deg) translateX(-0.22%) translateY(0.08%);
         filter: drop-shadow(-1px 5px 6px rgba(0, 0, 0, 0.1)) brightness(0.96);
+      }
+      54% {
+        transform: translateZ(9px) rotateY(11deg) rotateX(1.8deg) rotateZ(-0.2deg) translateX(-0.28%) translateY(0.11%);
+        filter: drop-shadow(-2px 7px 8px rgba(0, 0, 0, 0.12)) brightness(0.945);
+      }
+      70% {
+        transform: translateZ(4px) rotateY(5deg) rotateX(0.8deg) rotateZ(-0.08deg) translateX(-0.12%) translateY(0.05%);
+        filter: drop-shadow(-1px 4px 5px rgba(0, 0, 0, 0.1)) brightness(0.975);
+      }
+      86% {
+        transform: translateZ(1px) rotateY(1.5deg) rotateX(0.25deg) rotateZ(-0.02deg) translateX(-0.04%) translateY(0.01%);
+        filter: drop-shadow(-1px 3px 4px rgba(0, 0, 0, 0.09)) brightness(0.99);
       }
     }
     @keyframes wing-lower-right-depth {
-      0%, 11%, 100% {
+      0%, 100% {
         transform: translateZ(0) rotateY(0deg) rotateZ(0deg) translateX(0) translateY(0);
         filter: drop-shadow(1px 3px 4px rgba(0, 0, 0, 0.09)) brightness(0.99);
       }
-      19% {
-        transform: translateZ(5px) rotateY(-7deg) rotateX(1deg) rotateZ(0.12deg) translateX(0.16%) translateY(0.06%);
-        filter: drop-shadow(1px 5px 6px rgba(0, 0, 0, 0.1)) brightness(0.97);
+      15% {
+        transform: translateZ(3px) rotateY(-5deg) rotateX(0.8deg) rotateZ(0.08deg) translateX(0.12%) translateY(0.04%);
+        filter: drop-shadow(1px 4px 5px rgba(0, 0, 0, 0.1)) brightness(0.975);
       }
-      25% {
-        transform: translateZ(13px) rotateY(-17deg) rotateX(2.8deg) rotateZ(0.42deg) translateX(0.44%) translateY(0.2%);
-        filter: drop-shadow(3px 10px 11px rgba(0, 0, 0, 0.17)) brightness(0.9);
+      27% {
+        transform: translateZ(11px) rotateY(-14deg) rotateX(2.4deg) rotateZ(0.26deg) translateX(0.36%) translateY(0.16%);
+        filter: drop-shadow(3px 8px 10px rgba(0, 0, 0, 0.15)) brightness(0.925);
       }
-      32% {
-        transform: translateZ(7px) rotateY(-9deg) rotateX(1.5deg) rotateZ(0.18deg) translateX(0.22%) translateY(0.09%);
-        filter: drop-shadow(1px 5px 6px rgba(0, 0, 0, 0.10)) brightness(0.96);
-      }
-      38% {
-        transform: translateZ(10px) rotateY(-13deg) rotateX(2.1deg) rotateZ(0.3deg) translateX(0.3%) translateY(0.13%);
-        filter: drop-shadow(2px 8px 9px rgba(0, 0, 0, 0.14)) brightness(0.93);
-      }
-      49% {
-        transform: translateZ(2px) rotateY(-3deg) rotateX(0.5deg) rotateZ(0.06deg) translateX(0.08%) translateY(0.03%);
-        filter: drop-shadow(1px 4px 5px rgba(0, 0, 0, 0.1)) brightness(0.98);
-      }
-      64% {
-        transform: translateZ(5px) rotateY(-7deg) rotateX(1deg) rotateZ(0.12deg) translateX(0.16%) translateY(0.06%);
+      41% {
+        transform: translateZ(6px) rotateY(-8deg) rotateX(1.2deg) rotateZ(0.14deg) translateX(0.2%) translateY(0.08%);
         filter: drop-shadow(1px 5px 6px rgba(0, 0, 0, 0.1)) brightness(0.96);
+      }
+      55% {
+        transform: translateZ(9px) rotateY(-10.5deg) rotateX(1.7deg) rotateZ(0.18deg) translateX(0.26%) translateY(0.1%);
+        filter: drop-shadow(2px 7px 8px rgba(0, 0, 0, 0.12)) brightness(0.947);
+      }
+      71% {
+        transform: translateZ(4px) rotateY(-5deg) rotateX(0.8deg) rotateZ(0.08deg) translateX(0.12%) translateY(0.05%);
+        filter: drop-shadow(1px 4px 5px rgba(0, 0, 0, 0.1)) brightness(0.975);
+      }
+      87% {
+        transform: translateZ(1px) rotateY(-1.5deg) rotateX(0.25deg) rotateZ(0.02deg) translateX(0.04%) translateY(0.01%);
+        filter: drop-shadow(1px 3px 4px rgba(0, 0, 0, 0.09)) brightness(0.99);
       }
     }
     @keyframes wing-surface-upper-left {
-      0%, 10%, 100% {
+      0%, 100% {
+        transform: scaleX(1) scaleY(1) skewY(0deg) rotateZ(0deg);
+        filter: saturate(1) brightness(1);
+      }
+      12% {
+        transform: scaleX(0.996) scaleY(1.004) skewY(-0.14deg) rotateZ(-0.04deg);
+        filter: saturate(0.992) brightness(0.988);
+      }
+      24% {
+        transform: scaleX(0.981) scaleY(1.015) skewY(-0.56deg) rotateZ(-0.14deg);
+        filter: saturate(0.972) brightness(0.955);
+      }
+      38% {
+        transform: scaleX(0.992) scaleY(1.007) skewY(-0.2deg) rotateZ(-0.06deg);
+        filter: saturate(0.989) brightness(0.978);
+      }
+      52% {
+        transform: scaleX(0.986) scaleY(1.011) skewY(-0.34deg) rotateZ(-0.09deg);
+        filter: saturate(0.98) brightness(0.965);
+      }
+      68% {
+        transform: scaleX(0.994) scaleY(1.005) skewY(-0.12deg) rotateZ(-0.04deg);
+        filter: saturate(0.992) brightness(0.984);
+      }
+      84% {
+        transform: scaleX(0.998) scaleY(1.002) skewY(-0.04deg) rotateZ(-0.01deg);
+        filter: saturate(0.998) brightness(0.993);
+      }
+    }
+    @keyframes wing-surface-upper-right {
+      0%, 100% {
+        transform: scaleX(1) scaleY(1) skewY(0deg) rotateZ(0deg);
+        filter: saturate(1) brightness(1);
+      }
+      13% {
+        transform: scaleX(0.996) scaleY(1.004) skewY(0.13deg) rotateZ(0.04deg);
+        filter: saturate(0.992) brightness(0.988);
+      }
+      25% {
+        transform: scaleX(0.982) scaleY(1.015) skewY(0.52deg) rotateZ(0.13deg);
+        filter: saturate(0.973) brightness(0.958);
+      }
+      39% {
+        transform: scaleX(0.992) scaleY(1.007) skewY(0.18deg) rotateZ(0.05deg);
+        filter: saturate(0.989) brightness(0.978);
+      }
+      53% {
+        transform: scaleX(0.987) scaleY(1.011) skewY(0.3deg) rotateZ(0.08deg);
+        filter: saturate(0.981) brightness(0.967);
+      }
+      69% {
+        transform: scaleX(0.994) scaleY(1.005) skewY(0.11deg) rotateZ(0.04deg);
+        filter: saturate(0.992) brightness(0.984);
+      }
+      85% {
+        transform: scaleX(0.998) scaleY(1.002) skewY(0.04deg) rotateZ(0.01deg);
+        filter: saturate(0.998) brightness(0.993);
+      }
+    }
+    @keyframes wing-surface-lower-left {
+      0%, 100% {
+        transform: scaleX(1) scaleY(1) skewY(0deg) rotateZ(0deg);
+        filter: saturate(1) brightness(1);
+      }
+      14% {
+        transform: scaleX(0.996) scaleY(1.003) skewY(-0.1deg) rotateZ(-0.04deg);
+        filter: saturate(0.994) brightness(0.988);
+      }
+      26% {
+        transform: scaleX(0.988) scaleY(1.009) skewY(-0.26deg) rotateZ(-0.08deg);
+        filter: saturate(0.983) brightness(0.968);
+      }
+      40% {
+        transform: scaleX(0.993) scaleY(1.005) skewY(-0.12deg) rotateZ(-0.04deg);
+        filter: saturate(0.99) brightness(0.981);
+      }
+      54% {
+        transform: scaleX(0.99) scaleY(1.007) skewY(-0.18deg) rotateZ(-0.06deg);
+        filter: saturate(0.986) brightness(0.973);
+      }
+      70% {
+        transform: scaleX(0.995) scaleY(1.004) skewY(-0.09deg) rotateZ(-0.03deg);
+        filter: saturate(0.993) brightness(0.986);
+      }
+      86% {
+        transform: scaleX(0.998) scaleY(1.001) skewY(-0.03deg) rotateZ(-0.01deg);
+        filter: saturate(0.998) brightness(0.993);
+      }
+    }
+    @keyframes wing-surface-lower-right {
+      0%, 100% {
         transform: scaleX(1) scaleY(1) skewY(0deg) rotateZ(0deg);
         filter: saturate(1) brightness(1);
       }
       15% {
-        transform: scaleX(0.995) scaleY(1.004) skewY(-0.18deg) rotateZ(-0.06deg);
-        filter: saturate(0.99) brightness(0.985);
+        transform: scaleX(0.996) scaleY(1.003) skewY(0.09deg) rotateZ(0.04deg);
+        filter: saturate(0.994) brightness(0.988);
       }
-      22% {
-        transform: scaleX(0.976) scaleY(1.018) skewY(-0.8deg) rotateZ(-0.22deg);
-        filter: saturate(0.96) brightness(0.94);
+      27% {
+        transform: scaleX(0.989) scaleY(1.009) skewY(0.24deg) rotateZ(0.07deg);
+        filter: saturate(0.984) brightness(0.97);
       }
-      29% {
-        transform: scaleX(0.99) scaleY(1.007) skewY(-0.28deg) rotateZ(-0.08deg);
-        filter: saturate(0.99) brightness(0.98);
+      41% {
+        transform: scaleX(0.993) scaleY(1.005) skewY(0.11deg) rotateZ(0.04deg);
+        filter: saturate(0.99) brightness(0.981);
       }
-      35% {
-        transform: scaleX(0.982) scaleY(1.014) skewY(-0.62deg) rotateZ(-0.16deg);
-        filter: saturate(0.97) brightness(0.955);
+      55% {
+        transform: scaleX(0.99) scaleY(1.007) skewY(0.17deg) rotateZ(0.05deg);
+        filter: saturate(0.986) brightness(0.974);
       }
-      46% {
-        transform: scaleX(0.997) scaleY(1.003) skewY(-0.1deg) rotateZ(-0.03deg);
-        filter: saturate(0.995) brightness(0.99);
+      71% {
+        transform: scaleX(0.995) scaleY(1.004) skewY(0.09deg) rotateZ(0.03deg);
+        filter: saturate(0.993) brightness(0.986);
       }
-      61% {
-        transform: scaleX(0.992) scaleY(1.006) skewY(-0.22deg) rotateZ(-0.07deg);
-        filter: saturate(0.99) brightness(0.975);
-      }
-      74% {
-        transform: scaleX(0.998) scaleY(1.002) skewY(-0.06deg) rotateZ(-0.02deg);
-        filter: saturate(0.998) brightness(0.992);
-      }
-    }
-    @keyframes wing-surface-upper-right {
-      0%, 10%, 100% {
-        transform: scaleX(1) scaleY(1) skewY(0deg) rotateZ(0deg);
-        filter: saturate(1) brightness(1);
-      }
-      16% {
-        transform: scaleX(0.995) scaleY(1.004) skewY(0.16deg) rotateZ(0.05deg);
-        filter: saturate(0.99) brightness(0.985);
-      }
-      23% {
-        transform: scaleX(0.977) scaleY(1.017) skewY(0.76deg) rotateZ(0.2deg);
-        filter: saturate(0.96) brightness(0.942);
-      }
-      30% {
-        transform: scaleX(0.991) scaleY(1.007) skewY(0.26deg) rotateZ(0.07deg);
-        filter: saturate(0.99) brightness(0.98);
-      }
-      36% {
-        transform: scaleX(0.983) scaleY(1.013) skewY(0.58deg) rotateZ(0.14deg);
-        filter: saturate(0.97) brightness(0.958);
-      }
-      47% {
-        transform: scaleX(0.997) scaleY(1.003) skewY(0.1deg) rotateZ(0.03deg);
-        filter: saturate(0.995) brightness(0.99);
-      }
-      62% {
-        transform: scaleX(0.992) scaleY(1.006) skewY(0.2deg) rotateZ(0.06deg);
-        filter: saturate(0.99) brightness(0.975);
-      }
-      75% {
-        transform: scaleX(0.998) scaleY(1.002) skewY(0.05deg) rotateZ(0.02deg);
-        filter: saturate(0.998) brightness(0.992);
-      }
-    }
-    @keyframes wing-surface-lower-left {
-      0%, 11%, 100% {
-        transform: scaleX(1) scaleY(1) skewY(0deg) rotateZ(0deg);
-        filter: saturate(1) brightness(1);
-      }
-      18% {
-        transform: scaleX(0.994) scaleY(1.004) skewY(-0.14deg) rotateZ(-0.05deg);
-        filter: saturate(0.992) brightness(0.985);
-      }
-      24% {
-        transform: scaleX(0.984) scaleY(1.011) skewY(-0.38deg) rotateZ(-0.11deg);
-        filter: saturate(0.975) brightness(0.955);
-      }
-      31% {
-        transform: scaleX(0.991) scaleY(1.006) skewY(-0.16deg) rotateZ(-0.05deg);
-        filter: saturate(0.99) brightness(0.98);
-      }
-      37% {
-        transform: scaleX(0.987) scaleY(1.009) skewY(-0.28deg) rotateZ(-0.08deg);
-        filter: saturate(0.982) brightness(0.968);
-      }
-      48% {
-        transform: scaleX(0.997) scaleY(1.002) skewY(-0.08deg) rotateZ(-0.02deg);
-        filter: saturate(0.996) brightness(0.99);
-      }
-      63% {
-        transform: scaleX(0.993) scaleY(1.004) skewY(-0.12deg) rotateZ(-0.04deg);
-        filter: saturate(0.99) brightness(0.982);
-      }
-    }
-    @keyframes wing-surface-lower-right {
-      0%, 11%, 100% {
-        transform: scaleX(1) scaleY(1) skewY(0deg) rotateZ(0deg);
-        filter: saturate(1) brightness(1);
-      }
-      19% {
-        transform: scaleX(0.994) scaleY(1.004) skewY(0.13deg) rotateZ(0.05deg);
-        filter: saturate(0.992) brightness(0.985);
-      }
-      25% {
-        transform: scaleX(0.984) scaleY(1.011) skewY(0.36deg) rotateZ(0.1deg);
-        filter: saturate(0.975) brightness(0.955);
-      }
-      32% {
-        transform: scaleX(0.991) scaleY(1.006) skewY(0.15deg) rotateZ(0.05deg);
-        filter: saturate(0.99) brightness(0.98);
-      }
-      38% {
-        transform: scaleX(0.987) scaleY(1.009) skewY(0.26deg) rotateZ(0.08deg);
-        filter: saturate(0.982) brightness(0.968);
-      }
-      49% {
-        transform: scaleX(0.997) scaleY(1.002) skewY(0.08deg) rotateZ(0.02deg);
-        filter: saturate(0.996) brightness(0.99);
-      }
-      64% {
-        transform: scaleX(0.993) scaleY(1.004) skewY(0.12deg) rotateZ(0.04deg);
-        filter: saturate(0.99) brightness(0.982);
+      87% {
+        transform: scaleX(0.998) scaleY(1.001) skewY(0.03deg) rotateZ(0.01deg);
+        filter: saturate(0.998) brightness(0.993);
       }
     }
     @keyframes butterfly-foundation-breath {
@@ -464,19 +448,19 @@
         filter: blur(1.2px) brightness(0.78);
       }
       24% {
-        opacity: 0.12;
-        transform: translateY(1.2%) scale(1.022);
-        filter: blur(1.55px) brightness(0.74);
+        opacity: 0.118;
+        transform: translateY(1.08%) scale(1.02);
+        filter: blur(1.45px) brightness(0.75);
       }
-      56% {
-        opacity: 0.08;
-        transform: translateY(0.5%) scale(1.005);
-        filter: blur(1.1px) brightness(0.8);
+      52% {
+        opacity: 0.084;
+        transform: translateY(0.48%) scale(1.006);
+        filter: blur(1.08px) brightness(0.8);
       }
-      76% {
-        opacity: 0.1;
-        transform: translateY(0.95%) scale(1.016);
-        filter: blur(1.35px) brightness(0.77);
+      78% {
+        opacity: 0.102;
+        transform: translateY(0.86%) scale(1.014);
+        filter: blur(1.28px) brightness(0.775);
       }
     }
     @keyframes butterfly-float {
@@ -484,76 +468,79 @@
         transform: translateY(0) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
       }
       18% {
-        transform: translateY(-0.42%) rotateX(0.85deg) rotateY(-1.2deg) rotateZ(-0.14deg);
+        transform: translateY(-0.35%) rotateX(0.6deg) rotateY(-0.9deg) rotateZ(-0.08deg);
       }
-      36% {
-        transform: translateY(-1.7%) rotateX(1.9deg) rotateY(-2.1deg) rotateZ(-0.28deg);
+      34% {
+        transform: translateY(-1.25%) rotateX(1.45deg) rotateY(-1.5deg) rotateZ(-0.18deg);
       }
-      56% {
-        transform: translateY(-0.68%) rotateX(0.65deg) rotateY(1.25deg) rotateZ(0.16deg);
+      52% {
+        transform: translateY(-0.72%) rotateX(0.75deg) rotateY(0.65deg) rotateZ(0.1deg);
       }
-      78% {
-        transform: translateY(-1.05%) rotateX(1.25deg) rotateY(-0.9deg) rotateZ(-0.1deg);
+      72% {
+        transform: translateY(-1.08%) rotateX(1deg) rotateY(1.05deg) rotateZ(0.12deg);
+      }
+      88% {
+        transform: translateY(-0.3%) rotateX(0.3deg) rotateY(0.2deg) rotateZ(0.04deg);
       }
     }
     @keyframes butterfly-body-hover {
-      0%, 10%, 100% {
+      0%, 100% {
         transform: translateZ(0) translateY(0) rotateX(0deg) rotateZ(0deg);
         filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.10));
       }
-      17% {
-        transform: translateZ(2px) translateY(-0.12%) rotateX(0.5deg) rotateZ(-0.05deg);
+      14% {
+        transform: translateZ(2px) translateY(-0.1%) rotateX(0.35deg) rotateZ(-0.04deg);
         filter: drop-shadow(0 5px 6px rgba(0, 0, 0, 0.11));
       }
-      23% {
-        transform: translateZ(10px) translateY(-1.05%) rotateX(2.4deg) rotateZ(-0.3deg);
-        filter: drop-shadow(0 9px 11px rgba(0, 0, 0, 0.16));
-      }
-      31% {
-        transform: translateZ(5px) translateY(-0.38%) rotateX(1deg) rotateZ(0.1deg);
-        filter: drop-shadow(0 6px 7px rgba(0, 0, 0, 0.12));
-      }
-      37% {
-        transform: translateZ(8px) translateY(-0.72%) rotateX(1.7deg) rotateZ(-0.18deg);
+      24% {
+        transform: translateZ(8px) translateY(-0.72%) rotateX(1.6deg) rotateZ(-0.18deg);
         filter: drop-shadow(0 8px 9px rgba(0, 0, 0, 0.15));
       }
-      48% {
-        transform: translateZ(1px) translateY(-0.08%) rotateX(0.2deg) rotateZ(0.04deg);
-        filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.11));
-      }
-      63% {
-        transform: translateZ(4px) translateY(-0.3%) rotateX(0.7deg) rotateZ(-0.1deg);
+      38% {
+        transform: translateZ(4px) translateY(-0.26%) rotateX(0.8deg) rotateZ(0.04deg);
         filter: drop-shadow(0 6px 7px rgba(0, 0, 0, 0.12));
+      }
+      52% {
+        transform: translateZ(6px) translateY(-0.46%) rotateX(1.15deg) rotateZ(-0.1deg);
+        filter: drop-shadow(0 7px 8px rgba(0, 0, 0, 0.13));
+      }
+      70% {
+        transform: translateZ(2px) translateY(-0.12%) rotateX(0.4deg) rotateZ(-0.03deg);
+        filter: drop-shadow(0 5px 6px rgba(0, 0, 0, 0.11));
+      }
+      86% {
+        transform: translateZ(1px) translateY(-0.03%) rotateX(0.12deg) rotateZ(0.02deg);
+        filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.105));
       }
     }
     @keyframes butterfly-body-core {
-      0%, 10%, 100% {
+      0%, 100% {
         transform: translateY(0) scaleX(1) scaleY(1) rotateZ(0deg);
         filter: brightness(1) saturate(1);
       }
-      18% {
-        transform: translateY(-0.05%) scaleX(0.998) scaleY(1.004) rotateZ(-0.05deg);
-        filter: brightness(0.99) saturate(0.995);
-      }
-      23% {
-        transform: translateY(-0.18%) scaleX(0.995) scaleY(1.012) rotateZ(-0.12deg);
-        filter: brightness(0.97) saturate(0.985);
-      }
-      31% {
-        transform: translateY(-0.08%) scaleX(0.998) scaleY(1.006) rotateZ(0.04deg);
-        filter: brightness(0.988) saturate(0.994);
-      }
-      37% {
-        transform: translateY(-0.12%) scaleX(0.996) scaleY(1.009) rotateZ(-0.08deg);
-        filter: brightness(0.975) saturate(0.988);
-      }
-      48% {
-        transform: translateY(-0.03%) scaleX(0.999) scaleY(1.002) rotateZ(0.02deg);
+      14% {
+        transform: translateY(-0.03%) scaleX(0.999) scaleY(1.003) rotateZ(-0.03deg);
         filter: brightness(0.992) saturate(0.996);
       }
-      63% {
-        transform: translateY(-0.06%) scaleX(0.997) scaleY(1.005) rotateZ(-0.06deg);
-        filter: brightness(0.985) saturate(0.992);
+      24% {
+        transform: translateY(-0.12%) scaleX(0.996) scaleY(1.009) rotateZ(-0.09deg);
+        filter: brightness(0.977) saturate(0.989);
+      }
+      38% {
+        transform: translateY(-0.05%) scaleX(0.998) scaleY(1.004) rotateZ(0.03deg);
+        filter: brightness(0.989) saturate(0.994);
+      }
+      52% {
+        transform: translateY(-0.08%) scaleX(0.997) scaleY(1.006) rotateZ(-0.06deg);
+        filter: brightness(0.984) saturate(0.991);
+      }
+      70% {
+        transform: translateY(-0.03%) scaleX(0.999) scaleY(1.003) rotateZ(-0.02deg);
+        filter: brightness(0.992) saturate(0.996);
+      }
+      86% {
+        transform: translateY(-0.01%) scaleX(1) scaleY(1.001) rotateZ(0.01deg);
+        filter: brightness(0.996) saturate(0.998);
       }
     }
     .hero-logo {
