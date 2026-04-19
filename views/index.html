@@ -1367,6 +1367,70 @@
     }
   }
   </style>
+  <style id="be-public-footer">
+  .footer {
+    display: block !important;
+  }
+  .footer .be-footer {
+    display: grid;
+    gap: 14px;
+    width: 100%;
+  }
+  .footer .be-footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px 20px;
+  }
+  .footer .be-footer-brand {
+    display: grid;
+    gap: 4px;
+  }
+  .footer .be-footer-brand strong {
+    color: var(--ink);
+    font-size: 0.98rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .footer .be-footer-brand span {
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .footer .be-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+  }
+  .footer .be-footer-links a {
+    color: var(--muted);
+    border-bottom: 0 !important;
+    text-decoration: none;
+  }
+  .footer .be-footer-links a:hover {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .footer .be-footer-meta {
+    color: var(--muted);
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.45;
+  }
+  @media (max-width: 860px) {
+    .footer .be-footer-top {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    .footer .be-footer-links {
+      gap: 8px 14px;
+    }
+    .footer .be-footer-meta {
+      letter-spacing: 0.12em;
+    }
+  }
+  </style>
 </head>
 <body class="surface-live page-views">
 
@@ -1676,9 +1740,20 @@
     </main>
     
     <footer class="footer">
-      <div class="footer-inner">
-        <span>Generated from the Butterfly Effect research surface bundle on 2026-03-27.</span>
-        <span>Butterfly Effect · research surface · not diagnostic · 2026</span>
+      <div class="be-footer">
+        <div class="be-footer-top">
+          <div class="be-footer-brand">
+            <strong>Butterfly Effect</strong>
+            <span>Research-grade longitudinal sleep interpretation.</span>
+          </div>
+          <div class="be-footer-links">
+            <a href="/overview/">Overview</a>
+            <a href="/participant/">Participant</a>
+            <a href="/institution/">Institution</a>
+            <a href="/study/">Study</a>
+          </div>
+        </div>
+        <div class="be-footer-meta">Research only · Not diagnostic · 2026</div>
       </div>
     </footer>
   </div>
