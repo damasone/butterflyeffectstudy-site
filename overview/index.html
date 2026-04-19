@@ -113,6 +113,8 @@
     }
     .intro-logo {
       width: clamp(112px, 10.4vw, 148px);
+      animation: intro-butterfly-ambient 27.8s cubic-bezier(0.42, 0.08, 0.24, 1) infinite;
+      will-change: transform, filter;
     }
     .intro-butterfly {
       position: relative;
@@ -144,7 +146,7 @@
       z-index: 0;
       transform: translateY(0.8%) scale(1.01);
       filter: blur(1.2px) brightness(0.78);
-      animation: butterfly-foundation-breath 11.8s cubic-bezier(0.42, 0.06, 0.24, 1) infinite;
+      animation: butterfly-foundation-breath 6.6s cubic-bezier(0.42, 0.02, 0.2, 1) infinite;
     }
     .intro-butterfly .butterfly-wing {
       inset: 0;
@@ -447,20 +449,62 @@
         transform: translateY(0.8%) scale(1.01);
         filter: blur(1.2px) brightness(0.78);
       }
+      14% {
+        opacity: 0.102;
+        transform: translateY(0.9%) scale(1.015);
+        filter: blur(1.28px) brightness(0.768);
+      }
       24% {
         opacity: 0.118;
         transform: translateY(1.08%) scale(1.02);
         filter: blur(1.45px) brightness(0.75);
       }
+      38% {
+        opacity: 0.094;
+        transform: translateY(0.74%) scale(1.012);
+        filter: blur(1.22px) brightness(0.782);
+      }
       52% {
-        opacity: 0.084;
-        transform: translateY(0.48%) scale(1.006);
-        filter: blur(1.08px) brightness(0.8);
+        opacity: 0.108;
+        transform: translateY(0.98%) scale(1.017);
+        filter: blur(1.34px) brightness(0.762);
+      }
+      70% {
+        opacity: 0.086;
+        transform: translateY(0.52%) scale(1.006);
+        filter: blur(1.1px) brightness(0.798);
       }
       78% {
         opacity: 0.102;
         transform: translateY(0.86%) scale(1.014);
         filter: blur(1.28px) brightness(0.775);
+      }
+      90% {
+        opacity: 0.093;
+        transform: translateY(0.7%) scale(1.011);
+        filter: blur(1.18px) brightness(0.786);
+      }
+    }
+    @keyframes intro-butterfly-ambient {
+      0%, 100% {
+        transform: translateX(0) translateY(0) rotateZ(0deg) scale(1);
+        filter: none;
+      }
+      18% {
+        transform: translateX(0.08%) translateY(-0.22%) rotateZ(-0.08deg) scale(1.005);
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06));
+      }
+      41% {
+        transform: translateX(-0.12%) translateY(0.12%) rotateZ(0.06deg) scale(0.998);
+        filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.05));
+      }
+      63% {
+        transform: translateX(0.05%) translateY(-0.16%) rotateZ(-0.04deg) scale(1.003);
+        filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.065));
+      }
+      81% {
+        transform: translateX(0.12%) translateY(0.06%) rotateZ(0.05deg) scale(1);
+        filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.045));
       }
     }
     @keyframes butterfly-float {
@@ -1195,6 +1239,7 @@
       .intro,
       .button,
       .ghost-button,
+      .intro-logo,
       .intro-butterfly .butterfly-layer,
       .intro-butterfly .butterfly-layer img { transition: none; animation: none; }
     }
