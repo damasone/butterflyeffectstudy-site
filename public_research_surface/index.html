@@ -662,6 +662,16 @@
         filter: brightness(0.996) saturate(0.998);
       }
     }
+    @keyframes intro-mobile-mark-breathe {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.14));
+      }
+      50% {
+        transform: translateY(-1.8%) scale(1.018);
+        filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.18));
+      }
+    }
     .hero-logo {
       width: 88px;
     }
@@ -1332,6 +1342,25 @@
       .topbar { padding: 16px; align-items: flex-start; }
       .nav-links { gap: 12px; }
       .intro-copy { padding: 20px; }
+      .intro-logo {
+        width: clamp(108px, 26vw, 132px);
+      }
+      .intro-butterfly {
+        perspective: none;
+        transform-style: flat;
+        animation: butterfly-float 10.8s cubic-bezier(0.4, 0.02, 0.2, 1) infinite;
+      }
+      .intro-butterfly .butterfly-foundation {
+        opacity: 1;
+        inset: 0;
+        transform: none;
+        filter: none;
+        animation: intro-mobile-mark-breathe 7.2s ease-in-out infinite;
+      }
+      .intro-butterfly .butterfly-wing,
+      .intro-butterfly .butterfly-body {
+        display: none;
+      }
       .layer-head { flex-direction: column; }
       .hero-logo { width: 76px; }
       .page-logo { width: 52px; }
