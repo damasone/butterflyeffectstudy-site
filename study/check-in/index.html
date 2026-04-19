@@ -1062,6 +1062,82 @@
     }
     td { color: var(--muted); }
     td.wrap { white-space: normal; min-width: 220px; }
+    .history-date-cell {
+      display: grid;
+      gap: 6px;
+      min-width: 180px;
+    }
+    .history-date-cell strong {
+      color: var(--ink);
+      font-size: 0.94rem;
+      line-height: 1.35;
+    }
+    .history-date-cell span {
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
+    .history-summary {
+      display: grid;
+      gap: 12px;
+      min-width: 640px;
+      white-space: normal;
+    }
+    .history-section {
+      display: grid;
+      gap: 8px;
+    }
+    .history-section-label {
+      color: var(--accent);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+    .history-chip-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .history-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 30px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(74, 64, 56, 0.54);
+      background: rgba(24, 20, 18, 0.56);
+      color: var(--accent-deep);
+      line-height: 1.25;
+    }
+    .history-chip strong {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+    .history-chip span {
+      color: var(--ink);
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+    .history-note {
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(74, 64, 56, 0.44);
+      background: rgba(20, 16, 14, 0.44);
+      color: var(--accent-deep);
+      font-size: 0.88rem;
+      line-height: 1.55;
+      white-space: normal;
+    }
+    .history-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+      min-width: 118px;
+    }
     .footer {
       margin-top: 26px;
       padding-top: 20px;
@@ -1177,6 +1253,7 @@
       }
       .table-wrap { border-radius: 14px; }
       table { min-width: 680px; }
+      .history-summary { min-width: 560px; }
       .callout,
       .stat,
       .milestone { padding: 12px 14px; }
@@ -1639,16 +1716,11 @@
               <thead>
                 <tr>
                   <th>Date</th>
-                  <th>Sleep</th>
-                  <th>Stress</th>
-                  <th>Anxiety</th>
-                  <th>Fatigue</th>
-                  <th>Context</th>
-                  <th>Note</th>
+                  <th>Daily entry details</th>
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody id="entries-body"><tr><td colspan="8">No local entries yet.</td></tr></tbody>
+              <tbody id="entries-body"><tr><td colspan="3">No synced entries yet.</td></tr></tbody>
             </table>
           </div>
           <div class="callout">
@@ -2576,6 +2648,77 @@
       return value === null || value === undefined ? "" : String(value);
     }
 
+    function hasDisplayValue(value) {
+      return value !== null && value !== undefined && String(value) !== "";
+    }
+
+    function yesNoChip(value) {
+      return value === "1" ? "Yes" : "No";
+    }
+
+    function historyChip(label, value) {
+      return `<span class="history-chip"><strong>${escapeHtml(label)}</strong><span>${escapeHtml(hasDisplayValue(value) ? value : "—")}</span></span>`;
+    }
+
+    function renderEntrySummary(entry) {
+      const scales = [
+        historyChip("Sleep", entry.sleep_quality_0_10),
+        historyChip("Stress", entry.stress_0_10),
+        historyChip("Anxiety", entry.anxiety_0_10),
+        historyChip("Low mood", entry.depression_0_10),
+        historyChip("Mood", entry.mood_valence_0_10),
+        historyChip("Positive affect", entry.positive_affect_0_10),
+        historyChip("Negative affect", entry.negative_affect_0_10),
+        historyChip("Fatigue", entry.fatigue_0_10),
+        historyChip("Energy", entry.energy_0_10),
+        historyChip("Pain", entry.pain_0_10),
+        historyChip("Tension", entry.muscle_tension_0_10),
+      ].join("");
+
+      const quantities = [
+        historyChip("Caffeine", hasDisplayValue(entry.caffeine_mg) ? `${entry.caffeine_mg} mg` : ""),
+        historyChip("Alcohol", hasDisplayValue(entry.alcohol_units) ? `${entry.alcohol_units} units` : ""),
+        historyChip("Nap", hasDisplayValue(entry.nap_minutes) ? `${entry.nap_minutes} min` : ""),
+        historyChip("Exercise", hasDisplayValue(entry.exercise_minutes) ? `${entry.exercise_minutes} min` : ""),
+        historyChip("Cycle", entry.menstrual_cycle_phase),
+      ].join("");
+
+      const flags = [
+        historyChip("Major stressor", yesNoChip(entry.major_stressor_flag)),
+        historyChip("Dream recall", yesNoChip(entry.dream_recall_flag)),
+        historyChip("Late caffeine", yesNoChip(entry.caffeine_late_flag)),
+        historyChip("Evening alcohol", yesNoChip(entry.alcohol_evening_flag)),
+        historyChip("Late exercise", yesNoChip(entry.exercise_late_flag)),
+        historyChip("Illness", yesNoChip(entry.acute_illness_flag)),
+        historyChip("Medication change", yesNoChip(entry.medication_change_flag)),
+        historyChip("Travel", yesNoChip(entry.travel_flag)),
+        historyChip("Schedule disruption", yesNoChip(entry.major_schedule_disruption_flag)),
+      ].join("");
+
+      const note = hasDisplayValue(entry.free_text_note) ? escapeHtml(entry.free_text_note) : "No note recorded.";
+
+      return `
+        <div class="history-summary">
+          <div class="history-section">
+            <div class="history-section-label">Ratings</div>
+            <div class="history-chip-grid">${scales}</div>
+          </div>
+          <div class="history-section">
+            <div class="history-section-label">Quantities and context</div>
+            <div class="history-chip-grid">${quantities}</div>
+          </div>
+          <div class="history-section">
+            <div class="history-section-label">Flags</div>
+            <div class="history-chip-grid">${flags}</div>
+          </div>
+          <div class="history-section">
+            <div class="history-section-label">Note</div>
+            <div class="history-note">${note}</div>
+          </div>
+        </div>
+      `;
+    }
+
     function resetForm() {
       form.reset();
       participantUidInput.value = state.participant?.participant_code || participantCodeInput.value.trim();
@@ -2645,20 +2788,30 @@
     function renderTable() {
       const entries = [...state.entries].sort((a, b) => (a.report_date_local < b.report_date_local ? 1 : -1));
       if (!entries.length) {
-        entriesBody.innerHTML = '<tr><td colspan="8">No synced entries yet.</td></tr>';
+        entriesBody.innerHTML = '<tr><td colspan="3">No synced entries yet.</td></tr>';
         updateMetrics();
         return;
       }
       entriesBody.innerHTML = entries.map((entry) => {
-        const context = [
-          entry.major_stressor_flag === "1" ? "major stressor" : "",
-          entry.caffeine_late_flag === "1" ? "late caffeine" : "",
-          entry.alcohol_evening_flag === "1" ? "evening alcohol" : "",
-          entry.exercise_late_flag === "1" ? "late exercise" : "",
-          entry.travel_flag === "1" ? "travel" : ""
-        ].filter(Boolean).join(", ");
         const key = entryKey(entry);
-        return `<tr><td>${escapeHtml(entry.report_date_local)}</td><td>${escapeHtml(entry.sleep_quality_0_10 || "")}</td><td>${escapeHtml(entry.stress_0_10 || "")}</td><td>${escapeHtml(entry.anxiety_0_10 || "")}</td><td>${escapeHtml(entry.fatigue_0_10 || "")}</td><td class="wrap">${escapeHtml(context || "—")}</td><td class="wrap">${escapeHtml(entry.free_text_note || "—")}</td><td><div style="display:flex; gap:8px;"><button class="mini-button" type="button" data-edit="${escapeHtml(key)}">Edit</button><button class="mini-button" type="button" data-delete="${escapeHtml(key)}">Delete</button></div></td></tr>`;
+        return `
+          <tr>
+            <td>
+              <div class="history-date-cell">
+                <strong>${escapeHtml(formatDisplayDate(entry.report_date_local))}</strong>
+                <span>Study date: ${escapeHtml(entry.report_date_local || "—")}</span>
+                <span>Saved: ${escapeHtml(formatDisplayTimestamp(entry.checkin_completed_ts_local))}</span>
+              </div>
+            </td>
+            <td>${renderEntrySummary(entry)}</td>
+            <td>
+              <div class="history-actions">
+                <button class="mini-button" type="button" data-edit="${escapeHtml(key)}">Edit</button>
+                <button class="mini-button" type="button" data-delete="${escapeHtml(key)}">Delete</button>
+              </div>
+            </td>
+          </tr>
+        `;
       }).join("");
       updateMetrics();
     }
@@ -3306,8 +3459,10 @@
     document.getElementById("reset-event-button").addEventListener("click", resetEventForm);
 
     entriesBody.addEventListener("click", (event) => {
-      const editKey = event.target.getAttribute("data-edit");
-      const deleteKey = event.target.getAttribute("data-delete");
+      const editButton = event.target.closest("[data-edit]");
+      const deleteButton = event.target.closest("[data-delete]");
+      const editKey = editButton?.getAttribute("data-edit");
+      const deleteKey = deleteButton?.getAttribute("data-delete");
       if (editKey) {
         const entry = state.entries.find((item) => entryKey(item) === editKey);
         if (entry) fillForm(entry);
@@ -3318,8 +3473,10 @@
     });
 
     eventsBody.addEventListener("click", (event) => {
-      const editKey = event.target.getAttribute("data-event-edit");
-      const deleteKey = event.target.getAttribute("data-event-delete");
+      const editButton = event.target.closest("[data-event-edit]");
+      const deleteButton = event.target.closest("[data-event-delete]");
+      const editKey = editButton?.getAttribute("data-event-edit");
+      const deleteKey = deleteButton?.getAttribute("data-event-delete");
       if (editKey) {
         const entry = state.events.find((item) => eventKey(item) === editKey);
         if (entry) fillEventForm(entry);
