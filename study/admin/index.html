@@ -397,7 +397,7 @@
       .wrap { width: min(100% - 20px, 1260px); padding: 20px 0 52px; }
       .hero-card,
       .panel,
-      .section-card { padding: 20px; }
+      .section-card { padding: 18px; border-radius: 20px; }
       .actions,
       .hero-actions,
       .inline-actions { flex-direction: column; align-items: stretch; }
@@ -408,6 +408,27 @@
         height: 30px;
         flex-basis: 30px;
       }
+    }
+    @media (max-width: 560px) {
+      .topbar { gap: 12px; padding: 12px 14px; }
+      .mark { font-size: 0.95rem; }
+      .wrap { width: min(100% - 16px, 1260px); padding: 16px 0 44px; }
+      .hero-card,
+      .panel,
+      .section-card { padding: 16px; }
+      h1 { font-size: clamp(1.78rem, 9vw, 2.3rem); }
+      h2 { font-size: 1.12rem; }
+      .lede,
+      .hero-card p,
+      .panel p,
+      .section-card p { font-size: 0.94rem; line-height: 1.58; }
+      .hero-actions .button,
+      .hero-actions .ghost-button,
+      .actions .button,
+      .actions .ghost-button,
+      .inline-actions .button,
+      .inline-actions .ghost-button,
+      .inline-actions .mini-button { width: 100%; }
     }
   </style>
   <link rel="canonical" href="https://butterflyeffectstudy.com/study/admin/">
