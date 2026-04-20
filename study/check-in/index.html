@@ -3410,6 +3410,7 @@
       const { data, error } = await supabaseClient
         .from("study_daily_checkins")
         .select("*")
+        .eq("participant_id", state.participant.id)
         .order("report_date_local", { ascending: false });
       if (error) {
         setStatus(tableStatus, error.message, "danger");
@@ -3453,6 +3454,7 @@
       const { data, error } = await supabaseClient
         .from("study_intervention_events")
         .select("*")
+        .eq("participant_id", state.participant.id)
         .order("event_date_local", { ascending: false });
       if (error) {
         setStatus(eventTableStatus, error.message, "danger");
@@ -3472,6 +3474,7 @@
       const { data, error } = await supabaseClient
         .from("study_generated_reports")
         .select("*")
+        .eq("participant_id", state.participant.id)
         .order("created_at", { ascending: false });
       if (error) {
         setStatus(reportsStatus, error.message, "danger");
