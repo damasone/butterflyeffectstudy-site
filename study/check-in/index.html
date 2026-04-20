@@ -317,11 +317,12 @@
     .dashboard-greeting {
       margin: 0;
       color: var(--accent-deep);
-      font-family: "Snell Roundhand", "Savoye LET", "Apple Chancery", "URW Chancery L", "Palatino Linotype", cursive;
-      font-size: clamp(1.46rem, 2.1vw, 1.78rem);
-      font-weight: 600;
-      letter-spacing: 0.012em;
-      line-height: 1.02;
+      font-family: "Iowan Old Style", "Baskerville", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      font-style: italic;
+      font-size: clamp(1.34rem, 1.85vw, 1.64rem);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      line-height: 1.08;
       text-wrap: balance;
       opacity: 0.94;
     }
@@ -982,21 +983,21 @@
     }
     .tri-field {
       display: grid;
-      gap: 8px;
-      padding: 12px;
+      gap: 7px;
+      padding: 11px;
       border: 1px solid var(--line);
       border-radius: 14px;
       background: rgba(255,255,255,0.03);
     }
     .tri-field-label {
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       color: var(--ink);
       letter-spacing: 0.01em;
     }
     .tri-choice-group {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 8px;
+      gap: 6px;
     }
     .tri-choice-group input {
       position: absolute;
@@ -1009,13 +1010,15 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 38px;
-      padding: 9px 10px;
+      min-height: 34px;
+      padding: 7px 8px;
       border: 1px solid rgba(74, 64, 56, 0.72);
       border-radius: 999px;
       background: rgba(255,255,255,0.02);
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: 0.8rem;
+      line-height: 1.1;
+      text-align: center;
       cursor: pointer;
       transition: border-color 140ms ease, background 140ms ease, color 140ms ease, transform 140ms ease;
       user-select: none;
@@ -1309,8 +1312,26 @@
         margin-bottom: 12px;
       }
       .dashboard-greeting {
-        font-size: clamp(1.24rem, 7.4vw, 1.58rem);
-        line-height: 1.04;
+        font-size: clamp(1.18rem, 6.8vw, 1.42rem);
+        line-height: 1.08;
+      }
+      .boolean-grid {
+        grid-template-columns: 1fr;
+      }
+      .tri-field {
+        padding: 10px;
+        gap: 6px;
+      }
+      .tri-field-label {
+        font-size: 0.84rem;
+      }
+      .tri-choice-group {
+        gap: 6px;
+      }
+      .tri-choice {
+        min-height: 32px;
+        padding: 6px 6px;
+        font-size: 0.76rem;
       }
       .dashboard-status-head {
         flex-direction: column;
