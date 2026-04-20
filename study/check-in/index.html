@@ -942,18 +942,79 @@
       gap: 10px;
       align-items: center;
     }
-    .range-value { min-width: 34px; text-align: right; color: var(--accent-deep); font-weight: 700; }
-    .checkbox {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 10px 12px;
-      background: rgba(255,255,255,0.03);
-      color: var(--muted);
+    .range-row.unanswered input[type="range"] {
+      opacity: 0.56;
     }
-    .checkbox input { width: auto; margin: 0; }
+    .range-value {
+      min-width: 92px;
+      text-align: right;
+      color: var(--accent-deep);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .range-value.unanswered {
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .field.range-field-missing .label-row label {
+      color: var(--danger);
+    }
+    .field.range-field-missing .range-row {
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(200, 111, 85, 0.48);
+      background: rgba(200, 111, 85, 0.06);
+    }
+    .tri-field {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.03);
+    }
+    .tri-field-label {
+      font-size: 0.92rem;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+    }
+    .tri-choice-group {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .tri-choice-group input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      width: 0;
+      height: 0;
+    }
+    .tri-choice {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 9px 10px;
+      border: 1px solid rgba(74, 64, 56, 0.72);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.02);
+      color: var(--muted);
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: border-color 140ms ease, background 140ms ease, color 140ms ease, transform 140ms ease;
+      user-select: none;
+    }
+    .tri-choice:hover {
+      border-color: rgba(195, 154, 121, 0.48);
+      color: var(--accent-deep);
+      transform: translateY(-1px);
+    }
+    .tri-choice-group input:checked + .tri-choice {
+      border-color: rgba(195, 154, 121, 0.68);
+      background: rgba(195, 154, 121, 0.12);
+      color: var(--ink);
+    }
     .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
     .status {
       min-height: 22px;
@@ -1674,6 +1735,10 @@
             <strong style="display:block; color:var(--ink); margin-bottom:4px;">Date rule</strong>
             <span>If the night started late on the 15th and ended on the 16th, the correct check-in date is still <strong>2026-04-15</strong>. This form defaults to last night’s date to reduce mistakes.</span>
           </div>
+          <div class="callout form-guidance">
+            <strong style="display:block; color:var(--ink); margin-bottom:4px;">Answer rule</strong>
+            <span>Each 0 to 10 scale starts as <strong>Not answered</strong>. It only counts once you tap or drag that scale, even if the right answer is the value already shown on the slider.</span>
+          </div>
           <div class="callout dashboard-edit-banner" id="edit-mode-banner" hidden>
             <strong>Editing an existing check-in</strong>
             <span id="edit-mode-text">You are editing a previously saved day. Save again to update the secure study record, or reset the form to return to today’s default check-in.</span>
@@ -1710,15 +1775,78 @@
             <div style="margin-top:18px;">
               <p class="eyebrow">Binary context</p>
               <div class="boolean-grid">
-                <label class="checkbox"><input id="major_stressor_flag" name="major_stressor_flag" type="checkbox"> Major stressor that day</label>
-                <label class="checkbox"><input id="dream_recall_flag" name="dream_recall_flag" type="checkbox"> Dream recall</label>
-                <label class="checkbox"><input id="caffeine_late_flag" name="caffeine_late_flag" type="checkbox"> Late caffeine</label>
-                <label class="checkbox"><input id="alcohol_evening_flag" name="alcohol_evening_flag" type="checkbox"> Evening alcohol</label>
-                <label class="checkbox"><input id="exercise_late_flag" name="exercise_late_flag" type="checkbox"> Late exercise</label>
-                <label class="checkbox"><input id="acute_illness_flag" name="acute_illness_flag" type="checkbox"> Acute illness</label>
-                <label class="checkbox"><input id="medication_change_flag" name="medication_change_flag" type="checkbox"> Medication change</label>
-                <label class="checkbox"><input id="travel_flag" name="travel_flag" type="checkbox"> Travel</label>
-                <label class="checkbox"><input id="major_schedule_disruption_flag" name="major_schedule_disruption_flag" type="checkbox"> Major schedule disruption</label>
+                <div class="tri-field">
+                  <div class="tri-field-label">Major stressor that day</div>
+                  <div class="tri-choice-group" role="radiogroup" aria-label="Major stressor that day">
+                    <input id="major_stressor_flag_unset" name="major_stressor_flag" type="radio" value="" checked><label class="tri-choice" for="major_stressor_flag_unset">Not answered</label>
+                    <input id="major_stressor_flag_no" name="major_stressor_flag" type="radio" value="0"><label class="tri-choice" for="major_stressor_flag_no">No</label>
+                    <input id="major_stressor_flag_yes" name="major_stressor_flag" type="radio" value="1"><label class="tri-choice" for="major_stressor_flag_yes">Yes</label>
+                  </div>
+                </div>
+                <div class="tri-field">
+                  <div class="tri-field-label">Dream recall</div>
+                  <div class="tri-choice-group" role="radiogroup" aria-label="Dream recall">
+                    <input id="dream_recall_flag_unset" name="dream_recall_flag" type="radio" value="" checked><label class="tri-choice" for="dream_recall_flag_unset">Not answered</label>
+                    <input id="dream_recall_flag_no" name="dream_recall_flag" type="radio" value="0"><label class="tri-choice" for="dream_recall_flag_no">No</label>
+                    <input id="dream_recall_flag_yes" name="dream_recall_flag" type="radio" value="1"><label class="tri-choice" for="dream_recall_flag_yes">Yes</label>
+                  </div>
+                </div>
+                <div class="tri-field">
+                  <div class="tri-field-label">Late caffeine</div>
+                  <div class="tri-choice-group" role="radiogroup" aria-label="Late caffeine">
+                    <input id="caffeine_late_flag_unset" name="caffeine_late_flag" type="radio" value="" checked><label class="tri-choice" for="caffeine_late_flag_unset">Not answered</label>
+                    <input id="caffeine_late_flag_no" name="caffeine_late_flag" type="radio" value="0"><label class="tri-choice" for="caffeine_late_flag_no">No</label>
+                    <input id="caffeine_late_flag_yes" name="caffeine_late_flag" type="radio" value="1"><label class="tri-choice" for="caffeine_late_flag_yes">Yes</label>
+                  </div>
+                </div>
+                <div class="tri-field">
+                  <div class="tri-field-label">Evening alcohol</div>
+                  <div class="tri-choice-group" role="radiogroup" aria-label="Evening alcohol">
+                    <input id="alcohol_evening_flag_unset" name="alcohol_evening_flag" type="radio" value="" checked><label class="tri-choice" for="alcohol_evening_flag_unset">Not answered</label>
+                    <input id="alcohol_evening_flag_no" name="alcohol_evening_flag" type="radio" value="0"><label class="tri-choice" for="alcohol_evening_flag_no">No</label>
+                    <input id="alcohol_evening_flag_yes" name="alcohol_evening_flag" type="radio" value="1"><label class="tri-choice" for="alcohol_evening_flag_yes">Yes</label>
+                  </div>
+                </div>
+                <div class="tri-field">
+                  <div class="tri-field-label">Late exercise</div>
+                  <div class="tri-choice-group" role="radiogroup" aria-label="Late exercise">
+                    <input id="exercise_late_flag_unset" name="exercise_late_flag" type="radio" value="" checked><label class="tri-choice" for="exercise_late_flag_unset">Not answered</label>
+                    <input id="exercise_late_flag_no" name="exercise_late_flag" type="radio" value="0"><label class="tri-choice" for="exercise_late_flag_no">No</label>
+                    <input id="exercise_late_flag_yes" name="exercise_late_flag" type="radio" value="1"><label class="tri-choice" for="exercise_late_flag_yes">Yes</label>
+                  </div>
+                </div>
+                <div class="tri-field">
+                  <div class="tri-field-label">Acute illness</div>
+                  <div class="tri-choice-group" role="radiogroup" aria-label="Acute illness">
+                    <input id="acute_illness_flag_unset" name="acute_illness_flag" type="radio" value="" checked><label class="tri-choice" for="acute_illness_flag_unset">Not answered</label>
+                    <input id="acute_illness_flag_no" name="acute_illness_flag" type="radio" value="0"><label class="tri-choice" for="acute_illness_flag_no">No</label>
+                    <input id="acute_illness_flag_yes" name="acute_illness_flag" type="radio" value="1"><label class="tri-choice" for="acute_illness_flag_yes">Yes</label>
+                  </div>
+                </div>
+                <div class="tri-field">
+                  <div class="tri-field-label">Medication change</div>
+                  <div class="tri-choice-group" role="radiogroup" aria-label="Medication change">
+                    <input id="medication_change_flag_unset" name="medication_change_flag" type="radio" value="" checked><label class="tri-choice" for="medication_change_flag_unset">Not answered</label>
+                    <input id="medication_change_flag_no" name="medication_change_flag" type="radio" value="0"><label class="tri-choice" for="medication_change_flag_no">No</label>
+                    <input id="medication_change_flag_yes" name="medication_change_flag" type="radio" value="1"><label class="tri-choice" for="medication_change_flag_yes">Yes</label>
+                  </div>
+                </div>
+                <div class="tri-field">
+                  <div class="tri-field-label">Travel</div>
+                  <div class="tri-choice-group" role="radiogroup" aria-label="Travel">
+                    <input id="travel_flag_unset" name="travel_flag" type="radio" value="" checked><label class="tri-choice" for="travel_flag_unset">Not answered</label>
+                    <input id="travel_flag_no" name="travel_flag" type="radio" value="0"><label class="tri-choice" for="travel_flag_no">No</label>
+                    <input id="travel_flag_yes" name="travel_flag" type="radio" value="1"><label class="tri-choice" for="travel_flag_yes">Yes</label>
+                  </div>
+                </div>
+                <div class="tri-field">
+                  <div class="tri-field-label">Major schedule disruption</div>
+                  <div class="tri-choice-group" role="radiogroup" aria-label="Major schedule disruption">
+                    <input id="major_schedule_disruption_flag_unset" name="major_schedule_disruption_flag" type="radio" value="" checked><label class="tri-choice" for="major_schedule_disruption_flag_unset">Not answered</label>
+                    <input id="major_schedule_disruption_flag_no" name="major_schedule_disruption_flag" type="radio" value="0"><label class="tri-choice" for="major_schedule_disruption_flag_no">No</label>
+                    <input id="major_schedule_disruption_flag_yes" name="major_schedule_disruption_flag" type="radio" value="1"><label class="tri-choice" for="major_schedule_disruption_flag_yes">Yes</label>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1969,7 +2097,7 @@
       "alcohol_units","alcohol_evening_flag","nap_minutes","exercise_minutes","exercise_late_flag","acute_illness_flag",
       "medication_change_flag","travel_flag","major_schedule_disruption_flag","menstrual_cycle_phase","free_text_note"
     ];
-    const CHECKBOX_FIELDS = new Set([
+    const BOOLEAN_FIELDS = new Set([
       "major_stressor_flag","dream_recall_flag","caffeine_late_flag","alcohol_evening_flag","exercise_late_flag",
       "acute_illness_flag","medication_change_flag","travel_flag","major_schedule_disruption_flag"
     ]);
@@ -1977,6 +2105,7 @@
       "sleep_quality_0_10","stress_0_10","anxiety_0_10","depression_0_10","mood_valence_0_10","positive_affect_0_10",
       "negative_affect_0_10","fatigue_0_10","energy_0_10","pain_0_10","muscle_tension_0_10"
     ];
+    const RANGE_FIELD_SET = new Set(RANGE_FIELDS);
 
     const state = {
       session: null,
@@ -2171,8 +2300,94 @@
       return Number.isNaN(parsed) ? null : parsed;
     }
 
-    function boolString(value) {
-      return value ? "1" : "0";
+    function triStateString(value) {
+      if (value === true) return "1";
+      if (value === false) return "0";
+      return "";
+    }
+
+    function triStateBool(value) {
+      if (value === "1") return true;
+      if (value === "0") return false;
+      return null;
+    }
+
+    function setBooleanFieldValue(name, value) {
+      const nodes = form.elements.namedItem(name);
+      if (!nodes) return;
+      const targetValue = value === null || value === undefined ? "" : String(value);
+      const radioList = typeof nodes.length === "number" ? Array.from(nodes) : [nodes];
+      radioList.forEach((node) => {
+        node.checked = String(node.value) === targetValue;
+      });
+    }
+
+    function rangeInput(name) {
+      return document.getElementById(name);
+    }
+
+    function rangeValueNode(name) {
+      return document.querySelector(`[data-range-value="${name}"]`);
+    }
+
+    function isRangeAnswered(name) {
+      const input = rangeInput(name);
+      return Boolean(input && input.dataset.answered === "1");
+    }
+
+    function syncRangePresentation(name) {
+      const input = rangeInput(name);
+      const valueNode = rangeValueNode(name);
+      if (!input || !valueNode) return;
+      const answered = isRangeAnswered(name);
+      valueNode.textContent = answered ? input.value : "Not answered";
+      valueNode.classList.toggle("unanswered", !answered);
+      const row = input.closest(".range-row");
+      if (row) row.classList.toggle("unanswered", !answered);
+      const field = input.closest(".field");
+      if (field && answered) field.classList.remove("range-field-missing");
+      input.setAttribute("aria-valuetext", answered ? `${input.value} out of 10` : "Not answered");
+    }
+
+    function setRangeAnswered(name, answered) {
+      const input = rangeInput(name);
+      if (!input) return;
+      input.dataset.answered = answered ? "1" : "0";
+      syncRangePresentation(name);
+    }
+
+    function clearRangeValidation() {
+      RANGE_FIELDS.forEach((name) => {
+        const input = rangeInput(name);
+        const field = input ? input.closest(".field") : null;
+        if (field) field.classList.remove("range-field-missing");
+      });
+    }
+
+    function missingRangeFields() {
+      return RANGE_FIELDS.filter((name) => !isRangeAnswered(name));
+    }
+
+    function rangeFieldLabel(name) {
+      const label = document.querySelector(`label[for="${name}"]`);
+      return label ? label.textContent.trim() : name;
+    }
+
+    function bindRangeInputs() {
+      RANGE_FIELDS.forEach((name) => {
+        const input = rangeInput(name);
+        if (!input) return;
+        const markAnswered = () => setRangeAnswered(name, true);
+        input.addEventListener("input", markAnswered);
+        input.addEventListener("change", markAnswered);
+        input.addEventListener("pointerdown", markAnswered);
+        input.addEventListener("keydown", (event) => {
+          if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End", "PageUp", "PageDown"].includes(event.key)) {
+            markAnswered();
+          }
+        });
+        setRangeAnswered(name, false);
+      });
     }
 
     function entryKey(entry) {
@@ -2567,19 +2782,19 @@
         energy_0_10: row.energy_0_10 ?? "",
         pain_0_10: row.pain_0_10 ?? "",
         muscle_tension_0_10: row.muscle_tension_0_10 ?? "",
-        major_stressor_flag: boolString(row.major_stressor_flag),
-        dream_recall_flag: boolString(row.dream_recall_flag),
+        major_stressor_flag: triStateString(row.major_stressor_flag),
+        dream_recall_flag: triStateString(row.dream_recall_flag),
         caffeine_mg: row.caffeine_mg ?? "",
-        caffeine_late_flag: boolString(row.caffeine_late_flag),
+        caffeine_late_flag: triStateString(row.caffeine_late_flag),
         alcohol_units: row.alcohol_units ?? "",
-        alcohol_evening_flag: boolString(row.alcohol_evening_flag),
+        alcohol_evening_flag: triStateString(row.alcohol_evening_flag),
         nap_minutes: row.nap_minutes ?? "",
         exercise_minutes: row.exercise_minutes ?? "",
-        exercise_late_flag: boolString(row.exercise_late_flag),
-        acute_illness_flag: boolString(row.acute_illness_flag),
-        medication_change_flag: boolString(row.medication_change_flag),
-        travel_flag: boolString(row.travel_flag),
-        major_schedule_disruption_flag: boolString(row.major_schedule_disruption_flag),
+        exercise_late_flag: triStateString(row.exercise_late_flag),
+        acute_illness_flag: triStateString(row.acute_illness_flag),
+        medication_change_flag: triStateString(row.medication_change_flag),
+        travel_flag: triStateString(row.travel_flag),
+        major_schedule_disruption_flag: triStateString(row.major_schedule_disruption_flag),
         menstrual_cycle_phase: row.menstrual_cycle_phase ?? "",
         free_text_note: row.free_text_note ?? "",
       };
@@ -2623,7 +2838,15 @@
           data[name] = "";
           continue;
         }
-        data[name] = CHECKBOX_FIELDS.has(name) ? (node.checked ? "1" : "0") : String(node.value || "").trim();
+        if (RANGE_FIELD_SET.has(name) && !isRangeAnswered(name)) {
+          data[name] = "";
+          continue;
+        }
+        if (BOOLEAN_FIELDS.has(name)) {
+          data[name] = String(node.value || "").trim();
+          continue;
+        }
+        data[name] = String(node.value || "").trim();
       }
       data.participant_uid = state.participant?.participant_code || participantCodeInput.value.trim();
       data.checkin_completed_ts_local = localIsoTimestamp();
@@ -2652,20 +2875,20 @@
         pain_0_10: pain,
         muscle_tension_0_10: tension,
         pain_tension_0_10: mergedPainTension,
-        major_stressor_flag: entry.major_stressor_flag === "1",
-        dream_recall_flag: entry.dream_recall_flag === "1",
+        major_stressor_flag: triStateBool(entry.major_stressor_flag),
+        dream_recall_flag: triStateBool(entry.dream_recall_flag),
         caffeine_mg: toOptionalInt(entry.caffeine_mg),
-        caffeine_late_flag: entry.caffeine_late_flag === "1",
+        caffeine_late_flag: triStateBool(entry.caffeine_late_flag),
         alcohol_units: toOptionalFloat(entry.alcohol_units),
-        alcohol_evening_flag: entry.alcohol_evening_flag === "1",
+        alcohol_evening_flag: triStateBool(entry.alcohol_evening_flag),
         nap_minutes: toOptionalInt(entry.nap_minutes),
         nap_flag: (toOptionalInt(entry.nap_minutes) || 0) > 0,
         exercise_minutes: toOptionalInt(entry.exercise_minutes),
-        exercise_late_flag: entry.exercise_late_flag === "1",
-        acute_illness_flag: entry.acute_illness_flag === "1",
-        medication_change_flag: entry.medication_change_flag === "1",
-        travel_flag: entry.travel_flag === "1",
-        major_schedule_disruption_flag: entry.major_schedule_disruption_flag === "1",
+        exercise_late_flag: triStateBool(entry.exercise_late_flag),
+        acute_illness_flag: triStateBool(entry.acute_illness_flag),
+        medication_change_flag: triStateBool(entry.medication_change_flag),
+        travel_flag: triStateBool(entry.travel_flag),
+        major_schedule_disruption_flag: triStateBool(entry.major_schedule_disruption_flag),
         menstrual_cycle_phase: entry.menstrual_cycle_phase || null,
         free_text_note: entry.free_text_note || null,
         source: "participant_portal",
@@ -2687,12 +2910,12 @@
         mood_0_10: toOptionalInt(entry.mood_valence_0_10),
         fatigue_0_10: toOptionalInt(entry.fatigue_0_10),
         pain_tension_0_10: mergedPainTension,
-        caffeine_late_flag: entry.caffeine_late_flag === "1",
-        alcohol_evening_flag: entry.alcohol_evening_flag === "1",
+        caffeine_late_flag: triStateBool(entry.caffeine_late_flag),
+        alcohol_evening_flag: triStateBool(entry.alcohol_evening_flag),
         nap_flag: (toOptionalInt(entry.nap_minutes) || 0) > 0,
-        exercise_late_flag: entry.exercise_late_flag === "1",
-        major_stressor_flag: entry.major_stressor_flag === "1",
-        travel_flag: entry.travel_flag === "1",
+        exercise_late_flag: triStateBool(entry.exercise_late_flag),
+        major_stressor_flag: triStateBool(entry.major_stressor_flag),
+        travel_flag: triStateBool(entry.travel_flag),
         free_text_note: entry.free_text_note || null,
         source: "participant_portal",
       };
@@ -2741,8 +2964,10 @@
       return value !== null && value !== undefined && String(value) !== "";
     }
 
-    function yesNoChip(value) {
-      return value === "1" ? "Yes" : "No";
+    function triStateChip(value) {
+      if (value === "1") return "Yes";
+      if (value === "0") return "No";
+      return "Not answered";
     }
 
     function historyChip(label, value) {
@@ -2773,15 +2998,15 @@
       ].join("");
 
       const flags = [
-        historyChip("Major stressor", yesNoChip(entry.major_stressor_flag)),
-        historyChip("Dream recall", yesNoChip(entry.dream_recall_flag)),
-        historyChip("Late caffeine", yesNoChip(entry.caffeine_late_flag)),
-        historyChip("Evening alcohol", yesNoChip(entry.alcohol_evening_flag)),
-        historyChip("Late exercise", yesNoChip(entry.exercise_late_flag)),
-        historyChip("Illness", yesNoChip(entry.acute_illness_flag)),
-        historyChip("Medication change", yesNoChip(entry.medication_change_flag)),
-        historyChip("Travel", yesNoChip(entry.travel_flag)),
-        historyChip("Schedule disruption", yesNoChip(entry.major_schedule_disruption_flag)),
+        historyChip("Major stressor", triStateChip(entry.major_stressor_flag)),
+        historyChip("Dream recall", triStateChip(entry.dream_recall_flag)),
+        historyChip("Late caffeine", triStateChip(entry.caffeine_late_flag)),
+        historyChip("Evening alcohol", triStateChip(entry.alcohol_evening_flag)),
+        historyChip("Late exercise", triStateChip(entry.exercise_late_flag)),
+        historyChip("Illness", triStateChip(entry.acute_illness_flag)),
+        historyChip("Medication change", triStateChip(entry.medication_change_flag)),
+        historyChip("Travel", triStateChip(entry.travel_flag)),
+        historyChip("Schedule disruption", triStateChip(entry.major_schedule_disruption_flag)),
       ].join("");
 
       const note = hasDisplayValue(entry.free_text_note) ? escapeHtml(entry.free_text_note) : "No note recorded.";
@@ -2812,11 +3037,8 @@
       form.reset();
       participantUidInput.value = state.participant?.participant_code || participantCodeInput.value.trim();
       reportDateInput.value = defaultCheckinDate();
-      RANGE_FIELDS.forEach((name) => {
-        const input = document.getElementById(name);
-        const valueNode = document.querySelector(`[data-range-value="${name}"]`);
-        if (input && valueNode) valueNode.textContent = input.value;
-      });
+      clearRangeValidation();
+      RANGE_FIELDS.forEach((name) => setRangeAnswered(name, false));
       state.currentEditId = null;
       document.getElementById("save-button").textContent = "Save today’s check-in";
       editModeBanner.hidden = true;
@@ -2836,17 +3058,22 @@
     }
 
     function fillForm(entry) {
+      clearRangeValidation();
       for (const name of FIELD_ORDER) {
         const node = form.elements.namedItem(name);
         if (!node) continue;
-        if (CHECKBOX_FIELDS.has(name)) node.checked = entry[name] === "1";
-        else node.value = inputValue(entry[name]);
+        if (BOOLEAN_FIELDS.has(name)) {
+          setBooleanFieldValue(name, entry[name]);
+          continue;
+        }
+        if (RANGE_FIELD_SET.has(name)) {
+          const hasValue = entry[name] !== null && entry[name] !== undefined && String(entry[name]) !== "";
+          if (hasValue) node.value = inputValue(entry[name]);
+          setRangeAnswered(name, hasValue);
+          continue;
+        }
+        node.value = inputValue(entry[name]);
       }
-      RANGE_FIELDS.forEach((name) => {
-        const input = document.getElementById(name);
-        const valueNode = document.querySelector(`[data-range-value="${name}"]`);
-        if (input && valueNode) valueNode.textContent = input.value;
-      });
       state.currentEditId = entry.id || null;
       document.getElementById("save-button").textContent = "Save changes";
       editModeBanner.hidden = false;
@@ -3449,6 +3676,21 @@
         setStatus(formStatus, "The check-in date is required.", "danger");
         return;
       }
+      const missingRanges = missingRangeFields();
+      if (missingRanges.length) {
+        missingRanges.forEach((name) => {
+          const input = rangeInput(name);
+          const field = input ? input.closest(".field") : null;
+          if (field) field.classList.add("range-field-missing");
+        });
+        const labels = missingRanges.map(rangeFieldLabel);
+        const preview = labels.slice(0, 3).join(", ");
+        const suffix = labels.length > 3 ? `, and ${labels.length - 3} more.` : ".";
+        setStatus(formStatus, `Complete every 0 to 10 scale before saving. Still missing: ${preview}${suffix}`, "danger");
+        const firstMissing = rangeInput(missingRanges[0]);
+        if (firstMissing) firstMissing.focus();
+        return;
+      }
       const payload = entryToPayload(entry);
       let error = null;
       let degraded = false;
@@ -3482,6 +3724,11 @@
         }
       }
       if (error) {
+        const hasUnansweredBooleans = Array.from(BOOLEAN_FIELDS).some((name) => entry[name] === "");
+        if (hasUnansweredBooleans && /null value/i.test(error.message || "")) {
+          setStatus(formStatus, "This study backend still needs the tri-state boolean migration. For now, answer each binary context field as Yes or No, or apply the migration before using Not answered.", "danger");
+          return;
+        }
         setStatus(formStatus, error.message, "danger");
         return;
       }
@@ -3664,11 +3911,7 @@
       window.scrollTo({ top: document.getElementById("checkin").offsetTop - 80, behavior: "smooth" });
     });
 
-    RANGE_FIELDS.forEach((name) => {
-      const input = document.getElementById(name);
-      const valueNode = document.querySelector(`[data-range-value="${name}"]`);
-      input.addEventListener("input", () => { valueNode.textContent = input.value; });
-    });
+    bindRangeInputs();
 
     seedFromQuery();
     renderAuthState();
