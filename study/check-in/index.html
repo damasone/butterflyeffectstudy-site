@@ -1237,12 +1237,54 @@
       margin-top: 26px;
       padding-top: 20px;
       border-top: 1px solid rgba(74, 64, 56, 0.55);
+      display: block;
+    }
+    .footer .be-footer {
+      display: grid;
+      gap: 14px;
+      width: 100%;
+    }
+    .footer .be-footer-top {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px 18px;
+      align-items: baseline;
       justify-content: space-between;
-      font-size: 0.92rem;
+      gap: 10px 20px;
+    }
+    .footer .be-footer-brand {
+      display: grid;
+      gap: 4px;
+    }
+    .footer .be-footer-brand strong {
+      color: var(--ink);
+      font-size: 0.98rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .footer .be-footer-brand span {
       color: var(--muted);
+      line-height: 1.55;
+    }
+    .footer .be-footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+    }
+    .footer .be-footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 0;
+    }
+    .footer .be-footer-links a:hover {
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .footer .be-footer-meta {
+      color: var(--muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      line-height: 1.45;
     }
     @media (max-width: 1200px) {
       .dashboard-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1377,6 +1419,16 @@
       .access-brand-mark { width: 64px; height: 64px; }
       .portal-butterfly { width: 68px; height: 68px; }
       th, td { padding: 9px 8px; font-size: 0.84rem; }
+      .footer .be-footer-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .footer .be-footer-links {
+        gap: 8px 14px;
+      }
+      .footer .be-footer-meta {
+        letter-spacing: 0.12em;
+      }
     }
     @media (max-width: 560px) {
       .nav-links { grid-template-columns: 1fr; }
@@ -2143,8 +2195,21 @@
       </div>
 
       <footer class="footer">
-        <span>Butterfly Effect · participant check-in · longitudinal follow-up · not diagnostic · 2026</span>
-        <span>Participant data is private by default and stored in the study backend after sign-in.</span>
+        <div class="be-footer">
+          <div class="be-footer-top">
+            <div class="be-footer-brand">
+              <strong>Butterfly Effect</strong>
+              <span>Research-grade longitudinal sleep interpretation.</span>
+            </div>
+            <div class="be-footer-links">
+              <a href="/overview/" target="_blank" rel="noopener noreferrer">Overview</a>
+              <a href="/participant/" target="_blank" rel="noopener noreferrer">Participant</a>
+              <a href="/institution/" target="_blank" rel="noopener noreferrer">Institution</a>
+              <a href="/study/" target="_blank" rel="noopener noreferrer">Study</a>
+            </div>
+          </div>
+          <div class="be-footer-meta">Research only · Not diagnostic · 2026</div>
+        </div>
       </footer>
     </main>
   </div>
