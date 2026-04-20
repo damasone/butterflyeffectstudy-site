@@ -893,6 +893,12 @@
     .boolean-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .field { display: flex; flex-direction: column; gap: 6px; }
     .field.wide { grid-column: 1 / -1; }
+    #checkin-form > .field-grid:first-child {
+      margin-top: 12px;
+    }
+    #checkin-form > .field-grid:first-child .field {
+      gap: 8px;
+    }
     label { font-size: 0.9rem; color: var(--accent-deep); }
     .label-row {
       display: flex;
