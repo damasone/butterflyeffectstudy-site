@@ -310,6 +310,14 @@
       display: grid;
       gap: 12px;
     }
+    .dashboard-greeting {
+      margin: 0 0 4px;
+      color: var(--accent-deep);
+      font-size: clamp(1.28rem, 2vw, 1.56rem);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      line-height: 1.18;
+    }
     .dashboard-primary-actions {
       display: flex;
       flex-wrap: wrap;
@@ -1620,6 +1628,7 @@
         <div class="dashboard-hero-grid">
           <div class="dashboard-hero-main">
             <div>
+              <p id="dashboard-greeting" class="dashboard-greeting">Good morning.</p>
               <p class="eyebrow">Today</p>
               <h2 id="dashboard-action-title">Complete one check-in for last night.</h2>
             </div>
@@ -2153,6 +2162,7 @@
     const participantUidInput = document.getElementById("participant_uid");
     const participantCodeInput = document.getElementById("participant_code");
     const participantLabelInput = document.getElementById("participant_label");
+    const dashboardGreeting = document.getElementById("dashboard-greeting");
     const dashboardActionTitle = document.getElementById("dashboard-action-title");
     const dashboardGuidance = document.getElementById("dashboard-guidance");
     const dashboardStatusPill = document.getElementById("dashboard-status-pill");
@@ -2539,6 +2549,7 @@
       authPasswordInput.disabled = true;
       document.getElementById("auth-password-row").style.display = state.recoveryMode ? "none" : "block";
       if (state.user.email) authEmailInput.value = state.user.email;
+      updateDashboardGreeting();
     }
 
     function setRecoveryMode(enabled) {
@@ -2628,6 +2639,7 @@
         profileSummary.textContent = state.user ? "No participant code linked to this account yet." : "Sign in first, then link your participant code.";
         dashboardParticipantCode.textContent = "Not linked yet";
         dashboardNextStep.textContent = state.user ? "Link your participant code first so daily entries and change events land in the correct study record." : "Sign in first.";
+        updateDashboardGreeting();
         return;
       }
       participantUidInput.value = state.participant.participant_code;
@@ -2636,6 +2648,38 @@
       profileSummary.innerHTML = `<strong style="display:block; color:var(--ink); margin-bottom:4px;">${escapeHtml(state.participant.participant_code)}</strong><span>${escapeHtml(state.participant.display_label || "No local label")}</span><br><span>${escapeHtml(state.participant.study_label || "No study label")}</span>`;
       document.getElementById("event_participant_uid").value = state.participant.participant_code;
       dashboardParticipantCode.textContent = state.participant.participant_code;
+      updateDashboardGreeting();
+    }
+
+    function madridHour24() {
+      const formatter = new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Europe/Madrid",
+        hour: "2-digit",
+        hour12: false,
+      });
+      return Number.parseInt(formatter.format(new Date()), 10);
+    }
+
+    function greetingByMadridHour() {
+      const hour = madridHour24();
+      if (Number.isNaN(hour)) return "Good day";
+      if (hour < 12) return "Good morning";
+      if (hour < 20) return "Good afternoon";
+      return "Good evening";
+    }
+
+    function participantGreetingName() {
+      const raw = String(state.participant?.display_label || "").trim();
+      if (!raw) return "";
+      if (/^be-pilot-/i.test(raw)) return "";
+      return raw;
+    }
+
+    function updateDashboardGreeting() {
+      if (!dashboardGreeting) return;
+      const greeting = greetingByMadridHour();
+      const name = participantGreetingName();
+      dashboardGreeting.textContent = name ? `${greeting}, ${name}.` : `${greeting}.`;
     }
 
     function updateMetrics() {
@@ -3919,11 +3963,13 @@
     seedFromQuery();
     renderAuthState();
     updateProfileSummary();
+    updateDashboardGreeting();
     resetForm();
     resetEventForm();
     renderTable();
     renderEventTable();
     renderReports();
+    window.setInterval(updateDashboardGreeting, 60 * 1000);
     if (ensureSupabaseClient()) {
       supabaseClient.auth.onAuthStateChange((event, session) => {
         if (event === "PASSWORD_RECOVERY") {
