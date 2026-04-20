@@ -881,6 +881,12 @@
       align-items: start;
       margin-top: 18px;
     }
+    .dashboard-log-grid {
+      align-items: stretch;
+    }
+    .dashboard-log-grid > .section-card {
+      min-height: 100%;
+    }
     .stat-grid,
     .milestone-grid { margin-top: 12px; }
     .field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1063,6 +1069,16 @@
       border-radius: 16px;
       margin-top: 10px;
     }
+    #history {
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr) auto;
+      align-items: start;
+    }
+    #history .table-wrap {
+      min-height: 0;
+      height: 100%;
+      max-height: 980px;
+    }
     .report-list {
       display: grid;
       gap: 12px;
@@ -1241,6 +1257,7 @@
       .dashboard-hero-grid,
       .dashboard-strip { grid-template-columns: 1fr; }
       .boolean-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #history .table-wrap { max-height: 680px; }
       .auth-note-grid { grid-template-columns: 1fr; }
       .access-head { grid-template-columns: 88px minmax(0, 1fr); }
       .access-logo { width: 88px; height: 88px; }
@@ -1307,6 +1324,7 @@
       }
       .dashboard-hero-card { gap: 14px; }
       .dashboard-hero-main { gap: 10px; }
+      #history .table-wrap { max-height: 520px; }
       .dashboard-greeting-row {
         padding: 0 2px;
         margin-bottom: 12px;
@@ -1967,7 +1985,7 @@
         </aside>
       </section>
 
-      <section class="section-grid" style="margin-top:20px;">
+      <section class="section-grid dashboard-log-grid" style="margin-top:20px;">
         <article class="section-card" id="history">
           <div>
             <p class="eyebrow">Step 2</p>
