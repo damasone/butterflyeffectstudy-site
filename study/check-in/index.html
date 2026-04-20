@@ -293,6 +293,9 @@
       display: grid;
       gap: 20px;
     }
+    .dashboard-greeting-row {
+      padding: 2px 6px 0;
+    }
     .dashboard-intro {
       margin-bottom: 0;
     }
@@ -311,14 +314,15 @@
       gap: 12px;
     }
     .dashboard-greeting {
-      margin: 0 0 4px;
+      margin: 0;
       color: var(--accent-deep);
-      font-family: "Snell Roundhand", "Apple Chancery", "URW Chancery L", "Palatino Linotype", cursive;
-      font-size: clamp(1.5rem, 2.3vw, 1.9rem);
+      font-family: "Snell Roundhand", "Savoye LET", "Apple Chancery", "URW Chancery L", "Palatino Linotype", cursive;
+      font-size: clamp(1.46rem, 2.1vw, 1.78rem);
       font-weight: 600;
-      letter-spacing: 0.01em;
-      line-height: 1.08;
+      letter-spacing: 0.012em;
+      line-height: 1.02;
       text-wrap: balance;
+      opacity: 0.94;
     }
     .dashboard-primary-actions {
       display: flex;
@@ -1299,10 +1303,12 @@
       }
       .dashboard-hero-card { gap: 14px; }
       .dashboard-hero-main { gap: 10px; }
+      .dashboard-greeting-row {
+        padding: 0 2px;
+      }
       .dashboard-greeting {
-        font-size: clamp(1.3rem, 7vw, 1.7rem);
-        line-height: 1.06;
-        margin-bottom: 6px;
+        font-size: clamp(1.24rem, 7.4vw, 1.58rem);
+        line-height: 1.04;
       }
       .dashboard-status-head {
         flex-direction: column;
@@ -1631,11 +1637,13 @@
       </section>
 
       <div id="participant-dashboard" class="dashboard-shell" hidden>
+      <div class="dashboard-greeting-row">
+        <p id="dashboard-greeting" class="dashboard-greeting">Good morning.</p>
+      </div>
       <section class="section-card dashboard-hero-card" id="progress">
         <div class="dashboard-hero-grid">
           <div class="dashboard-hero-main">
             <div>
-              <p id="dashboard-greeting" class="dashboard-greeting">Good morning.</p>
               <p class="eyebrow">Today</p>
               <h2 id="dashboard-action-title">Complete one check-in for last night.</h2>
             </div>
