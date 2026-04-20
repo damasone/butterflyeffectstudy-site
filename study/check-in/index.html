@@ -313,10 +313,12 @@
     .dashboard-greeting {
       margin: 0 0 4px;
       color: var(--accent-deep);
-      font-size: clamp(1.28rem, 2vw, 1.56rem);
+      font-family: "Snell Roundhand", "Apple Chancery", "URW Chancery L", "Palatino Linotype", cursive;
+      font-size: clamp(1.5rem, 2.3vw, 1.9rem);
       font-weight: 600;
       letter-spacing: 0.01em;
-      line-height: 1.18;
+      line-height: 1.08;
+      text-wrap: balance;
     }
     .dashboard-primary-actions {
       display: flex;
@@ -1297,6 +1299,11 @@
       }
       .dashboard-hero-card { gap: 14px; }
       .dashboard-hero-main { gap: 10px; }
+      .dashboard-greeting {
+        font-size: clamp(1.3rem, 7vw, 1.7rem);
+        line-height: 1.06;
+        margin-bottom: 6px;
+      }
       .dashboard-status-head {
         flex-direction: column;
         align-items: flex-start;
