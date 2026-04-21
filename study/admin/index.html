@@ -1427,31 +1427,42 @@
       ];
     }
 
+    function eventProfile(eventEntry) {
+      const target = `${eventEntry.response_target || ""} ${eventEntry.domain || ""} ${eventEntry.event_label || ""} ${eventEntry.event_kind || ""}`.toLowerCase();
+      if (target.includes("caffeine") || target.includes("coffee")) return { type: "caffeine", text: target };
+      if (target.includes("alcohol") || target.includes("drink")) return { type: "alcohol", text: target };
+      if (target.includes("exercise") || target.includes("workout") || target.includes("activity")) return { type: "exercise", text: target };
+      if (target.includes("schedule") || target.includes("timing") || target.includes("wake") || target.includes("bed") || target.includes("circadian") || target.includes("travel") || target.includes("jetlag")) return { type: "schedule", text: target };
+      if (target.includes("illness") || target.includes("sick") || target.includes("infection")) return { type: "illness", text: target };
+      if (target.includes("medication") || target.includes("pharma") || target.includes("dose")) return { type: "medication", text: target };
+      if (target.includes("stress") || target.includes("anxiety") || target.includes("worry") || target.includes("arousal")) return { type: "stress", text: target };
+      if (target.includes("pain") || target.includes("tension") || target.includes("somatic")) return { type: "somatic", text: target };
+      if (target.includes("fatigue") || target.includes("energy") || target.includes("daytime") || target.includes("burden")) return { type: "fatigue", text: target };
+      if (target.includes("mood") || target.includes("depression") || target.includes("affect")) return { type: "mood", text: target };
+      if (target.includes("sleep") || target.includes("night") || target.includes("insomnia") || target.includes("rest")) return { type: "sleep", text: target };
+      return { type: "general", text: target };
+    }
+
     function metricsForEvent(eventEntry) {
-      const target = `${eventEntry.response_target || ""} ${eventEntry.domain || ""} ${eventEntry.event_label || ""}`.toLowerCase();
       const catalog = metricCatalog();
+      const profile = eventProfile(eventEntry);
       const priorityFields = [];
       const addPriority = (...fields) => fields.forEach((field) => {
         if (!priorityFields.includes(field)) priorityFields.push(field);
       });
 
-      if (target.includes("sleep") || target.includes("night") || target.includes("insomnia") || target.includes("rest")) {
-        addPriority("sleep_quality_0_10", "fatigue_0_10", "energy_0_10", "stress_0_10");
-      }
-      if (target.includes("stress") || target.includes("anxiety") || target.includes("worry") || target.includes("arousal")) {
-        addPriority("stress_0_10", "anxiety_0_10", "negative_affect_0_10", "sleep_quality_0_10");
-      }
-      if (target.includes("fatigue") || target.includes("energy") || target.includes("daytime") || target.includes("burden")) {
-        addPriority("fatigue_0_10", "energy_0_10", "sleep_quality_0_10", "stress_0_10");
-      }
-      if (target.includes("mood") || target.includes("depression") || target.includes("affect")) {
-        addPriority("mood_valence_0_10", "positive_affect_0_10", "negative_affect_0_10", "sleep_quality_0_10");
-      }
-      if (target.includes("pain") || target.includes("tension") || target.includes("somatic")) {
-        addPriority("pain_0_10", "muscle_tension_0_10", "sleep_quality_0_10", "fatigue_0_10");
-      }
+      if (profile.type === "sleep") addPriority("sleep_quality_0_10", "fatigue_0_10", "energy_0_10", "stress_0_10");
+      if (profile.type === "stress") addPriority("stress_0_10", "anxiety_0_10", "negative_affect_0_10", "sleep_quality_0_10");
+      if (profile.type === "fatigue") addPriority("fatigue_0_10", "energy_0_10", "sleep_quality_0_10", "stress_0_10");
+      if (profile.type === "mood") addPriority("mood_valence_0_10", "positive_affect_0_10", "negative_affect_0_10", "sleep_quality_0_10");
+      if (profile.type === "somatic" || profile.type === "illness") addPriority("pain_0_10", "muscle_tension_0_10", "fatigue_0_10", "sleep_quality_0_10");
+      if (profile.type === "caffeine") addPriority("sleep_quality_0_10", "anxiety_0_10", "stress_0_10", "fatigue_0_10");
+      if (profile.type === "alcohol") addPriority("sleep_quality_0_10", "fatigue_0_10", "stress_0_10", "anxiety_0_10");
+      if (profile.type === "exercise") addPriority("energy_0_10", "fatigue_0_10", "sleep_quality_0_10", "stress_0_10");
+      if (profile.type === "schedule") addPriority("sleep_quality_0_10", "fatigue_0_10", "anxiety_0_10", "stress_0_10");
+      if (profile.type === "medication") addPriority("sleep_quality_0_10", "fatigue_0_10", "anxiety_0_10", "mood_valence_0_10");
 
-      const matches = catalog.filter((metric) => metric.targets.some((token) => target.includes(token)));
+      const matches = catalog.filter((metric) => metric.targets.some((token) => profile.text.includes(token)));
       const orderedFields = [
         ...priorityFields,
         ...matches.map((metric) => metric.field),
@@ -1504,6 +1515,124 @@
       return `Pre ${formatDisplayDate(preStart)} to ${formatDisplayDate(preEnd)} (${preEntries.length} check-ins) vs post ${formatDisplayDate(postStart)} to ${formatDisplayDate(postEnd)} (${postEntries.length} check-ins).`;
     }
 
+    function averageOrNull(entries, field) {
+      const values = numericValues(entries, field);
+      return values.length ? mean(values) : null;
+    }
+
+    function countTrueBetween(entries, field) {
+      return entries.filter((entry) => entry[field] === true).length;
+    }
+
+    function formatCompactMetric(value, suffix = "") {
+      if (!Number.isFinite(value)) return "—";
+      return `${Number.isInteger(value) ? value : value.toFixed(1)}${suffix}`;
+    }
+
+    function buildEventExposureShift(eventEntry, preEntries, postEntries) {
+      const profile = eventProfile(eventEntry);
+      const pair = (label, preValue, postValue, shiftedHelpful) => ({
+        label,
+        preValue,
+        postValue,
+        shiftedHelpful,
+        summary: `${label} ${formatCompactMetric(preValue)} to ${formatCompactMetric(postValue)}`,
+      });
+
+      if (profile.type === "caffeine") {
+        const preLate = countTrueBetween(preEntries, "caffeine_late_flag");
+        const postLate = countTrueBetween(postEntries, "caffeine_late_flag");
+        const preMg = averageOrNull(preEntries, "caffeine_mg");
+        const postMg = averageOrNull(postEntries, "caffeine_mg");
+        const shiftedHelpful = (Number.isFinite(preLate) && Number.isFinite(postLate) && postLate < preLate) || (Number.isFinite(preMg) && Number.isFinite(postMg) && postMg < preMg);
+        return {
+          type: profile.type,
+          actionable: true,
+          shiftedHelpful,
+          summaries: [
+            pair("late caffeine nights", preLate, postLate, postLate < preLate),
+            pair("mean caffeine mg", preMg, postMg, Number.isFinite(preMg) && Number.isFinite(postMg) && postMg < preMg),
+          ].filter((item) => Number.isFinite(item.preValue) || Number.isFinite(item.postValue)),
+        };
+      }
+      if (profile.type === "alcohol") {
+        const preEvenings = countTrueBetween(preEntries, "alcohol_evening_flag");
+        const postEvenings = countTrueBetween(postEntries, "alcohol_evening_flag");
+        const preUnits = averageOrNull(preEntries, "alcohol_units");
+        const postUnits = averageOrNull(postEntries, "alcohol_units");
+        return {
+          type: profile.type,
+          actionable: true,
+          shiftedHelpful: postEvenings < preEvenings || (Number.isFinite(preUnits) && Number.isFinite(postUnits) && postUnits < preUnits),
+          summaries: [
+            pair("alcohol evenings", preEvenings, postEvenings, postEvenings < preEvenings),
+            pair("mean alcohol units", preUnits, postUnits, Number.isFinite(preUnits) && Number.isFinite(postUnits) && postUnits < preUnits),
+          ].filter((item) => Number.isFinite(item.preValue) || Number.isFinite(item.postValue)),
+        };
+      }
+      if (profile.type === "exercise") {
+        const preLate = countTrueBetween(preEntries, "exercise_late_flag");
+        const postLate = countTrueBetween(postEntries, "exercise_late_flag");
+        const preMinutes = averageOrNull(preEntries, "exercise_minutes");
+        const postMinutes = averageOrNull(postEntries, "exercise_minutes");
+        return {
+          type: profile.type,
+          actionable: true,
+          shiftedHelpful: postLate < preLate || (Number.isFinite(preMinutes) && Number.isFinite(postMinutes) && postMinutes > preMinutes),
+          summaries: [
+            pair("late exercise days", preLate, postLate, postLate < preLate),
+            pair("mean exercise minutes", preMinutes, postMinutes, Number.isFinite(preMinutes) && Number.isFinite(postMinutes) && postMinutes > preMinutes),
+          ].filter((item) => Number.isFinite(item.preValue) || Number.isFinite(item.postValue)),
+        };
+      }
+      if (profile.type === "schedule") {
+        const preDisruption = countTrueBetween(preEntries, "major_schedule_disruption_flag");
+        const postDisruption = countTrueBetween(postEntries, "major_schedule_disruption_flag");
+        const preTravel = countTrueBetween(preEntries, "travel_flag");
+        const postTravel = countTrueBetween(postEntries, "travel_flag");
+        return {
+          type: profile.type,
+          actionable: true,
+          shiftedHelpful: postDisruption < preDisruption || postTravel < preTravel,
+          summaries: [
+            pair("schedule disruption days", preDisruption, postDisruption, postDisruption < preDisruption),
+            pair("travel days", preTravel, postTravel, postTravel < preTravel),
+          ],
+        };
+      }
+      if (profile.type === "stress") {
+        const preStressors = countTrueBetween(preEntries, "major_stressor_flag");
+        const postStressors = countTrueBetween(postEntries, "major_stressor_flag");
+        return {
+          type: profile.type,
+          actionable: true,
+          shiftedHelpful: postStressors < preStressors,
+          summaries: [pair("major stressor days", preStressors, postStressors, postStressors < preStressors)],
+        };
+      }
+      if (profile.type === "illness") {
+        const preIllness = countTrueBetween(preEntries, "acute_illness_flag");
+        const postIllness = countTrueBetween(postEntries, "acute_illness_flag");
+        return {
+          type: profile.type,
+          actionable: true,
+          shiftedHelpful: postIllness < preIllness,
+          summaries: [pair("illness-affected days", preIllness, postIllness, postIllness < preIllness)],
+        };
+      }
+      if (profile.type === "medication") {
+        const preMedication = countTrueBetween(preEntries, "medication_change_flag");
+        const postMedication = countTrueBetween(postEntries, "medication_change_flag");
+        return {
+          type: profile.type,
+          actionable: false,
+          shiftedHelpful: null,
+          summaries: [pair("medication-change days", preMedication, postMedication, null)],
+        };
+      }
+      return { type: profile.type, actionable: false, shiftedHelpful: null, summaries: [] };
+    }
+
     function buildResponseVerdict(readableMetrics, expectedDirection) {
       const helpfulCount = readableMetrics.filter((metric) => metric.classification === "helpful").length;
       const againstCount = readableMetrics.filter((metric) => metric.classification === "against").length;
@@ -1532,6 +1661,49 @@
       return { tone: "warn", heading: "Mixed signal across the window" };
     }
 
+    function wearableSupport(record) {
+      const upload = record.latestUpload;
+      if (!upload) {
+        return {
+          tone: "warn",
+          summary: "No wearable export is registered yet, so this remains a check-in-first read.",
+          detail: "Register a wearable export when the current window closes if multimodal corroboration is needed.",
+          ready: false,
+        };
+      }
+      const status = upload.upload_status || "uploaded";
+      if (status === "linked") {
+        return {
+          tone: "ok",
+          summary: `A linked wearable export is registered (${upload.original_filename || fileLabelFromPath(upload.storage_path)}).`,
+          detail: "Multimodal corroboration is available for generated outputs and should be carried into professional review.",
+          ready: true,
+        };
+      }
+      if (status === "processing") {
+        return {
+          tone: "warn",
+          summary: `A wearable export is registered and still processing (${upload.original_filename || fileLabelFromPath(upload.storage_path)}).`,
+          detail: "Do not treat it as corroboration yet. Re-open once processing completes or a linked artifact appears.",
+          ready: false,
+        };
+      }
+      if (status === "failed") {
+        return {
+          tone: "danger",
+          summary: `The latest wearable export failed (${upload.original_filename || fileLabelFromPath(upload.storage_path)}).`,
+          detail: "This case should not be described as multimodal until a valid wearable export is uploaded and linked.",
+          ready: false,
+        };
+      }
+      return {
+        tone: "warn",
+        summary: `A wearable file is present (${upload.original_filename || fileLabelFromPath(upload.storage_path)}), but it is not linked yet.`,
+        detail: "Treat this as uploaded logistics rather than usable corroboration inside the current professional read.",
+        ready: false,
+      };
+    }
+
     function latestResponseSummary(responseAnalyses) {
       const meaningful = responseAnalyses.find((item) => item.response.heading !== "Insufficient window");
       if (!meaningful) return "No event currently has enough pre/post coverage for a serious response read.";
@@ -1546,7 +1718,7 @@
       const lateCaffeineCount = countTrue(record.checkins, "caffeine_late_flag");
       const alcoholCount = countTrue(record.checkins, "alcohol_evening_flag");
       const eventCount = record.events.length;
-      const hasWearable = Boolean(record.latestUpload);
+      const wearable = wearableSupport(record);
 
       const dominantPattern = averageSleep <= 4.5
         ? "Sleep quality is carrying most of the visible burden in the current window."
@@ -1568,23 +1740,23 @@
         lateCaffeineCount ? `${formatCountLabel(lateCaffeineCount, "late-caffeine night", "late-caffeine nights")} are already recorded.` : null,
         alcoholCount ? `${formatCountLabel(alcoholCount, "alcohol evening", "alcohol evenings")} are present in the current window.` : null,
         eventCount ? `${formatCountLabel(eventCount, "event anchor", "event anchors")} support before/after review.` : "No explicit event anchor is logged yet.",
-        hasWearable ? "A wearable export is registered, so multimodal review can be aligned to the same case." : "No wearable export is registered yet, so this is still a check-in-first read.",
+        wearable.summary,
       ].filter(Boolean).join(" ");
 
       const nextStep = record.window28 < 14
         ? "Extend the nightly window before making any strong professional claim."
         : !eventCount
           ? "Log at least one meaningful intervention or disruption so response-to-change can be reviewed."
-          : !hasWearable
-            ? "Register the wearable export when the window closes to strengthen the case beyond self-report."
+          : !wearable.ready
+            ? "Move the wearable export to a linked state before describing the case as multimodal."
             : "Open the registered output and compare it against this live summary before discussing the case clinically.";
 
       const currentLimit = record.window28 < 14
         ? "The longitudinal window is still short."
         : !eventCount
           ? "There is no explicit event anchor yet."
-          : !hasWearable
-            ? "The current read still lacks wearable corroboration."
+          : !wearable.ready
+            ? "The current read still lacks usable wearable corroboration."
             : "The case is readable, but any conclusion should stay framed as longitudinal interpretation rather than diagnosis.";
 
       return {
@@ -1593,6 +1765,7 @@
           { title: "Working interpretation", body: workingRead },
           { title: "Context worth carrying into review", body: contextRead },
           { title: "Response to change", body: latestResponseSummary(responseAnalyses) },
+          { title: "Wearable corroboration", body: wearable.detail },
           { title: "Next review step", body: nextStep },
         ],
         limit: currentLimit,
@@ -1635,6 +1808,7 @@
       const preEntries = checkinsBetween(checkins, preStart, preEnd);
       const postEntries = checkinsBetween(checkins, postStart, postEnd);
       const metrics = metricsForEvent(eventEntry);
+      const exposureShift = buildEventExposureShift(eventEntry, preEntries, postEntries);
       const deltas = metrics.map((metric) => {
         const preAverage = averageField(preEntries, metric.field);
         const postAverage = averageField(postEntries, metric.field);
@@ -1643,20 +1817,27 @@
         return { ...metric, preAverage, postAverage, delta, classification };
       });
       const readableMetrics = deltas.filter((metric) => Number.isFinite(metric.delta));
+      const exposureSummary = exposureShift.summaries.length
+        ? ` Exposure shift: ${exposureShift.summaries.map((item) => item.summary).join(" · ")}.`
+        : "";
       if (preEntries.length < 3 || postEntries.length < 3 || readableMetrics.length < 2) {
         return {
           tone: "warn",
           heading: "Insufficient window",
-          body: `${buildWindowDescriptor(preEntries, postEntries, preStart, preEnd, postStart, postEnd)} Keep collecting before reading ${eventEntry.response_target || eventEntry.event_label || "this event"} as response to change.`,
+          body: `${buildWindowDescriptor(preEntries, postEntries, preStart, preEnd, postStart, postEnd)} Keep collecting before reading ${eventEntry.response_target || eventEntry.event_label || "this event"} as response to change.${exposureSummary}`,
           metrics: deltas,
         };
       }
       const verdict = buildResponseVerdict(readableMetrics, eventEntry.expected_direction);
       const summaryParts = readableMetrics.map((metric) => `${metric.label} ${formatSignedDelta(metric.delta)}`);
+      const expectationActive = eventEntry.expected_direction && eventEntry.expected_direction !== "observe" && eventEntry.expected_direction !== "unknown";
+      const exposureCaveat = exposureShift.actionable && expectationActive && exposureShift.shiftedHelpful === false
+        ? " The logged intervention itself does not yet show a clear supportive shift, so treat any outcome movement cautiously."
+        : "";
       return {
         tone: verdict.tone,
         heading: verdict.heading,
-        body: `${buildWindowDescriptor(preEntries, postEntries, preStart, preEnd, postStart, postEnd)} ${summaryParts.join(" · ") || "No readable deltas yet."}`,
+        body: `${buildWindowDescriptor(preEntries, postEntries, preStart, preEnd, postStart, postEnd)} ${summaryParts.join(" · ") || "No readable deltas yet."}.${exposureSummary}${exposureCaveat}`,
         metrics: deltas,
       };
     }
