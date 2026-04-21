@@ -346,11 +346,147 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
     }
+    .admin-tab-shell {
+      margin-top: 22px;
+    }
+    .admin-tab-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .admin-tab-button {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(74, 64, 56, 0.68);
+      background: rgba(35, 29, 25, 0.56);
+      color: var(--muted);
+      cursor: pointer;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, color 160ms ease;
+    }
+    .admin-tab-button.is-active {
+      color: var(--ink);
+      background: rgba(195, 154, 121, 0.14);
+      border-color: rgba(195, 154, 121, 0.4);
+    }
+    .admin-tab-button:hover {
+      transform: translateY(-1px);
+      color: var(--accent-deep);
+    }
+    .admin-tab-panel {
+      display: none;
+      margin-top: 22px;
+    }
+    .admin-tab-panel.is-active {
+      display: block;
+    }
     .summary-line {
       padding: 12px 14px;
       border-radius: 16px;
       border: 1px solid rgba(74, 64, 56, 0.54);
       background: rgba(20, 16, 14, 0.42);
+    }
+    .review-grid,
+    .review-pattern-grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 22px;
+    }
+    .review-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.92fr);
+      align-items: start;
+    }
+    .review-pattern-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .review-card,
+    .timeline-card,
+    .response-card {
+      display: grid;
+      gap: 12px;
+      padding: 18px 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(74, 64, 56, 0.62);
+      background: rgba(20, 16, 14, 0.44);
+    }
+    .review-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .review-kpi {
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(74, 64, 56, 0.54);
+      background: rgba(24, 20, 18, 0.5);
+    }
+    .review-kpi strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-size: 1.2rem;
+      letter-spacing: -0.03em;
+    }
+    .review-kpi span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+    .review-insight-list,
+    .review-timeline-list,
+    .response-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .review-insight-item,
+    .review-timeline-item,
+    .response-item {
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(74, 64, 56, 0.5);
+      background: rgba(24, 20, 18, 0.46);
+    }
+    .review-insight-item strong,
+    .review-timeline-item strong,
+    .response-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+    .review-inline-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 10px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    .review-output-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .review-output-card {
+      display: grid;
+      gap: 10px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(74, 64, 56, 0.54);
+      background: rgba(24, 20, 18, 0.5);
+    }
+    .review-readiness {
+      display: grid;
+      gap: 10px;
+    }
+    .review-readiness .callout {
+      padding: 14px 16px;
     }
     .empty-state {
       padding: 18px;
@@ -380,7 +516,11 @@
       .detail-grid,
       .activity-grid,
       .field-grid,
-      .summary-grid { grid-template-columns: 1fr; }
+      .summary-grid,
+      .review-grid,
+      .review-pattern-grid,
+      .review-output-grid,
+      .review-kpi-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 720px) {
       .topbar {
@@ -428,7 +568,8 @@
       .actions .ghost-button,
       .inline-actions .button,
       .inline-actions .ghost-button,
-      .inline-actions .mini-button { width: 100%; }
+      .inline-actions .mini-button,
+      .admin-tab-button { width: 100%; }
     }
   </style>
   <link rel="canonical" href="https://butterflyeffectstudy.com/study/admin/">
@@ -631,11 +772,11 @@
           <article class="hero-card">
             <p class="eyebrow">Pilot operations</p>
             <h1 id="admin-hero-title">Study admin workspace</h1>
-            <p class="lede" id="admin-hero-copy">Review participant setup, monitor adherence, and keep the pipeline ready for the end-of-window Apple Watch export.</p>
+            <p class="lede" id="admin-hero-copy">Operate participant follow-up, keep the study moving, and review each case professionally without leaving the admin workspace.</p>
             <div class="hero-actions">
-              <a class="button" href="#participants-section">Review participants</a>
-              <a class="ghost-button" href="#new-participant-section">Register participant</a>
-              <a class="ghost-button" href="#wearable-section">Wearable intake</a>
+              <button class="button" type="button" data-admin-tab-link="participants">Review participants</button>
+              <button class="ghost-button" type="button" data-admin-tab-link="professional">Open professional review</button>
+              <button class="ghost-button" type="button" data-admin-tab-link="operations">Wearable intake</button>
             </div>
           </article>
           <aside class="panel admin-stack">
@@ -662,239 +803,359 @@
         </section>
 
         <section id="admin-content" class="hidden">
-          <section class="stats-grid">
-            <div class="stat"><strong>Total participants</strong><div class="stat-value" id="metric-participants">0</div><span>Rows currently registered in `study_participants`.</span></div>
-            <div class="stat"><strong>Active participants</strong><div class="stat-value" id="metric-active">0</div><span>Participants currently marked active.</span></div>
-            <div class="stat"><strong>Due today</strong><div class="stat-value" id="metric-due">0</div><span>Active participants missing the expected nightly follow-up.</span></div>
-            <div class="stat"><strong>Registered outputs</strong><div class="stat-value" id="metric-reports">0</div><span>Participant reviews or professional companions in the study backend.</span></div>
+          <div class="admin-tab-shell">
+            <div class="admin-tab-list" role="tablist" aria-label="Admin workspace sections">
+              <button class="admin-tab-button is-active" type="button" role="tab" aria-selected="true" data-admin-tab-target="overview">Overview</button>
+              <button class="admin-tab-button" type="button" role="tab" aria-selected="false" data-admin-tab-target="participants">Participants</button>
+              <button class="admin-tab-button" type="button" role="tab" aria-selected="false" data-admin-tab-target="operations">Operations</button>
+              <button class="admin-tab-button" type="button" role="tab" aria-selected="false" data-admin-tab-target="professional">Professional review</button>
+            </div>
+          </div>
+
+          <section class="admin-tab-panel is-active" data-admin-tab-panel="overview">
+            <section class="stats-grid">
+              <div class="stat"><strong>Total participants</strong><div class="stat-value" id="metric-participants">0</div><span>Rows currently registered in `study_participants`.</span></div>
+              <div class="stat"><strong>Active participants</strong><div class="stat-value" id="metric-active">0</div><span>Participants currently marked active.</span></div>
+              <div class="stat"><strong>Due today</strong><div class="stat-value" id="metric-due">0</div><span>Active participants missing the expected nightly follow-up.</span></div>
+              <div class="stat"><strong>Registered outputs</strong><div class="stat-value" id="metric-reports">0</div><span>Participant reviews or professional companions in the study backend.</span></div>
+            </section>
+
+            <section class="section-grid">
+              <aside class="section-card" id="operations-summary-section">
+                <div>
+                  <p class="eyebrow">Operations summary</p>
+                  <h2>Keep the pilot moving without guessing</h2>
+                  <p>This view keeps the operational checks visible while participants fill the daily form and before the wearable export arrives.</p>
+                </div>
+                <div class="panel-stack">
+                  <div class="callout"><strong>Expected nightly date</strong><span id="ops-expected-date">-</span></div>
+                  <div class="callout"><strong>Linked participants</strong><span id="ops-linked-count">0 linked accounts across the registry.</span></div>
+                  <div class="callout"><strong>Participants due today</strong><span id="ops-due-list">No active participants are due yet.</span></div>
+                  <div class="callout"><strong>Latest recorded activity</strong><span id="ops-latest-activity">No study activity has been recorded yet.</span></div>
+                </div>
+              </aside>
+
+              <article class="section-card" id="overview-selected-section">
+                <div>
+                  <p class="eyebrow">Selected participant</p>
+                  <h2>Case readiness at a glance</h2>
+                  <p>This summary keeps the currently selected participant visible before you move into operations or professional review.</p>
+                </div>
+                <div id="overview-selected-body" class="empty-state">Select a participant from the Participants tab to surface adherence, outputs, and review readiness here.</div>
+              </article>
+            </section>
           </section>
 
-          <section class="section-grid">
-            <article class="section-card" id="participants-section">
-              <div>
-                <p class="eyebrow">Participants</p>
-                <h2>Registry and adherence overview</h2>
-                <p>Use this table as the operational centre. It keeps setup, adherence, reports, and wearable readiness in one place.</p>
-              </div>
-              <div class="field-grid">
-                <div class="field wide">
-                  <label for="participant-search">Search by code, label, study, or email</label>
-                  <input id="participant-search" type="text" placeholder="Search participants">
+          <section class="admin-tab-panel" data-admin-tab-panel="participants">
+            <section class="section-grid">
+              <article class="section-card" id="participants-section">
+                <div>
+                  <p class="eyebrow">Participants</p>
+                  <h2>Registry and adherence overview</h2>
+                  <p>Use this table as the operational centre. It keeps setup, adherence, reports, and wearable readiness in one place.</p>
                 </div>
-              </div>
-              <div class="table-wrap">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Participant</th>
-                      <th>Status</th>
-                      <th>Linked</th>
-                      <th>Last check-in</th>
-                      <th>7d</th>
-                      <th>28d</th>
-                      <th>Reports</th>
-                      <th>Wearable</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody id="participants-body"><tr><td colspan="9">Sign in to load the registry.</td></tr></tbody>
-                </table>
-              </div>
-              <div id="participants-status" class="status"></div>
-            </article>
-
-            <aside class="section-card" id="new-participant-section">
-              <div>
-                <p class="eyebrow">Onboarding</p>
-                <h2>Register a participant before follow-up starts</h2>
-                <p>Create the participant row and contact details here so the participant can later claim the code from the secure check-in portal.</p>
-              </div>
-              <form id="new-participant-form" class="admin-stack">
                 <div class="field-grid">
-                  <div class="field">
-                    <label for="new_participant_code">Participant code</label>
-                    <input id="new_participant_code" type="text" placeholder="be-pilot-003" required>
-                  </div>
-                  <div class="field">
-                    <label for="new_status">Status</label>
-                    <select id="new_status">
-                      <option value="active">Active</option>
-                      <option value="paused">Paused</option>
-                      <option value="withdrawn">Withdrawn</option>
-                    </select>
-                  </div>
-                  <div class="field">
-                    <label for="new_study_label">Study label</label>
-                    <input id="new_study_label" type="text" placeholder="Spring 2026 pilot">
-                  </div>
-                  <div class="field">
-                    <label for="new_display_label">Display label</label>
-                    <input id="new_display_label" type="text" placeholder="Paula S.">
-                  </div>
-                  <div class="field">
-                    <label for="new_timezone">Timezone</label>
-                    <input id="new_timezone" type="text" placeholder="Europe/Madrid">
-                  </div>
-                  <div class="field">
-                    <label for="new_contact_channel">Preferred contact channel</label>
-                    <input id="new_contact_channel" type="text" placeholder="email, whatsapp, sms...">
-                  </div>
-                  <div class="field">
-                    <label for="new_full_name">Full name</label>
-                    <input id="new_full_name" type="text" placeholder="Optional">
-                  </div>
-                  <div class="field">
-                    <label for="new_email">Email</label>
-                    <input id="new_email" type="email" placeholder="participant@example.com">
-                  </div>
-                  <div class="field">
-                    <label for="new_phone">Phone</label>
-                    <input id="new_phone" type="text" placeholder="Optional">
-                  </div>
                   <div class="field wide">
-                    <label for="new_note">Operational note</label>
-                    <textarea id="new_note" placeholder="Optional enrolment note or operational context."></textarea>
+                    <label for="participant-search">Search by code, label, study, or email</label>
+                    <input id="participant-search" type="text" placeholder="Search participants">
                   </div>
                 </div>
-                <div class="actions">
-                  <button class="button" type="submit">Create participant</button>
-                  <button class="mini-button" type="button" id="suggest-code-button">Suggest next code</button>
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Participant</th>
+                        <th>Status</th>
+                        <th>Linked</th>
+                        <th>Last check-in</th>
+                        <th>7d</th>
+                        <th>28d</th>
+                        <th>Reports</th>
+                        <th>Wearable</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="participants-body"><tr><td colspan="9">Sign in to load the registry.</td></tr></tbody>
+                  </table>
                 </div>
-                <div id="new-participant-status" class="status"></div>
-              </form>
-            </aside>
-          </section>
+                <div id="participants-status" class="status"></div>
+              </article>
 
-          <section class="detail-grid">
-            <article class="section-card" id="selected-participant-section">
-              <div>
-                <p class="eyebrow">Selected participant</p>
-                <h2>Review and update the active record</h2>
-                <p>Use this editor for the participant currently selected from the table above. It is meant for operational fields, not for daily follow-up entry.</p>
-              </div>
-              <div id="selected-participant-empty" class="empty-state">Select a participant from the registry to load contact details, summary, and editable admin fields.</div>
-              <div id="selected-participant-shell" class="hidden admin-stack">
-                <div class="summary-grid">
-                  <div class="summary-line"><strong>Participant code</strong><span id="selected_code">-</span></div>
-                  <div class="summary-line"><strong>Linked account</strong><span id="selected_linked">-</span></div>
-                  <div class="summary-line"><strong>Last check-in</strong><span id="selected_last_checkin">-</span></div>
-                  <div class="summary-line"><strong>Current streak</strong><span id="selected_streak">0 days</span></div>
+              <aside class="section-card" id="new-participant-section">
+                <div>
+                  <p class="eyebrow">Onboarding</p>
+                  <h2>Register a participant before follow-up starts</h2>
+                  <p>Create the participant row and contact details here so the participant can later claim the code from the secure check-in portal.</p>
                 </div>
-                <form id="selected-participant-form" class="admin-stack">
+                <form id="new-participant-form" class="admin-stack">
                   <div class="field-grid">
                     <div class="field">
-                      <label for="selected_status">Status</label>
-                      <select id="selected_status">
+                      <label for="new_participant_code">Participant code</label>
+                      <input id="new_participant_code" type="text" placeholder="be-pilot-003" required>
+                    </div>
+                    <div class="field">
+                      <label for="new_status">Status</label>
+                      <select id="new_status">
                         <option value="active">Active</option>
                         <option value="paused">Paused</option>
                         <option value="withdrawn">Withdrawn</option>
                       </select>
                     </div>
                     <div class="field">
-                      <label for="selected_timezone">Timezone</label>
-                      <input id="selected_timezone" type="text">
+                      <label for="new_study_label">Study label</label>
+                      <input id="new_study_label" type="text" placeholder="Spring 2026 pilot">
                     </div>
                     <div class="field">
-                      <label for="selected_study_label">Study label</label>
-                      <input id="selected_study_label" type="text">
+                      <label for="new_display_label">Display label</label>
+                      <input id="new_display_label" type="text" placeholder="Paula S.">
                     </div>
                     <div class="field">
-                      <label for="selected_display_label">Display label</label>
-                      <input id="selected_display_label" type="text">
+                      <label for="new_timezone">Timezone</label>
+                      <input id="new_timezone" type="text" placeholder="Europe/Madrid">
                     </div>
                     <div class="field">
-                      <label for="selected_full_name">Full name</label>
-                      <input id="selected_full_name" type="text">
+                      <label for="new_contact_channel">Preferred contact channel</label>
+                      <input id="new_contact_channel" type="text" placeholder="email, whatsapp, sms...">
                     </div>
                     <div class="field">
-                      <label for="selected_email">Email</label>
-                      <input id="selected_email" type="email">
+                      <label for="new_full_name">Full name</label>
+                      <input id="new_full_name" type="text" placeholder="Optional">
                     </div>
                     <div class="field">
-                      <label for="selected_phone">Phone</label>
-                      <input id="selected_phone" type="text">
+                      <label for="new_email">Email</label>
+                      <input id="new_email" type="email" placeholder="participant@example.com">
                     </div>
                     <div class="field">
-                      <label for="selected_contact_channel">Preferred contact channel</label>
-                      <input id="selected_contact_channel" type="text">
+                      <label for="new_phone">Phone</label>
+                      <input id="new_phone" type="text" placeholder="Optional">
                     </div>
                     <div class="field wide">
-                      <label for="selected_note">Operational note</label>
-                      <textarea id="selected_note"></textarea>
+                      <label for="new_note">Operational note</label>
+                      <textarea id="new_note" placeholder="Optional enrolment note or operational context."></textarea>
                     </div>
                   </div>
                   <div class="actions">
-                    <button class="button" type="submit">Save participant changes</button>
+                    <button class="button" type="submit">Create participant</button>
+                    <button class="mini-button" type="button" id="suggest-code-button">Suggest next code</button>
                   </div>
-                  <div id="selected-participant-status" class="status"></div>
+                  <div id="new-participant-status" class="status"></div>
                 </form>
-              </div>
-            </article>
+              </aside>
+            </section>
 
-            <aside class="section-card" id="operations-summary-section">
-              <div>
-                <p class="eyebrow">Operations summary</p>
-                <h2>Keep the pilot moving without guessing</h2>
-                <p>This card keeps the small operational checks visible while the participant fills the daily form and before the wearable export arrives.</p>
-              </div>
-              <div class="panel-stack">
-                <div class="callout"><strong>Expected nightly date</strong><span id="ops-expected-date">-</span></div>
-                <div class="callout"><strong>Linked participants</strong><span id="ops-linked-count">0 linked accounts across the registry.</span></div>
-                <div class="callout"><strong>Participants due today</strong><span id="ops-due-list">No active participants are due yet.</span></div>
-                <div class="callout"><strong>Latest recorded activity</strong><span id="ops-latest-activity">No study activity has been recorded yet.</span></div>
-              </div>
-            </aside>
+            <section class="detail-grid">
+              <article class="section-card" id="selected-participant-section">
+                <div>
+                  <p class="eyebrow">Selected participant</p>
+                  <h2>Review and update the active record</h2>
+                  <p>Use this editor for the participant currently selected from the table above. It is meant for operational fields, not for daily follow-up entry.</p>
+                </div>
+                <div id="selected-participant-empty" class="empty-state">Select a participant from the registry to load contact details, summary, and editable admin fields.</div>
+                <div id="selected-participant-shell" class="hidden admin-stack">
+                  <div class="summary-grid">
+                    <div class="summary-line"><strong>Participant code</strong><span id="selected_code">-</span></div>
+                    <div class="summary-line"><strong>Linked account</strong><span id="selected_linked">-</span></div>
+                    <div class="summary-line"><strong>Last check-in</strong><span id="selected_last_checkin">-</span></div>
+                    <div class="summary-line"><strong>Current streak</strong><span id="selected_streak">0 days</span></div>
+                  </div>
+                  <form id="selected-participant-form" class="admin-stack">
+                    <div class="field-grid">
+                      <div class="field">
+                        <label for="selected_status">Status</label>
+                        <select id="selected_status">
+                          <option value="active">Active</option>
+                          <option value="paused">Paused</option>
+                          <option value="withdrawn">Withdrawn</option>
+                        </select>
+                      </div>
+                      <div class="field">
+                        <label for="selected_timezone">Timezone</label>
+                        <input id="selected_timezone" type="text">
+                      </div>
+                      <div class="field">
+                        <label for="selected_study_label">Study label</label>
+                        <input id="selected_study_label" type="text">
+                      </div>
+                      <div class="field">
+                        <label for="selected_display_label">Display label</label>
+                        <input id="selected_display_label" type="text">
+                      </div>
+                      <div class="field">
+                        <label for="selected_full_name">Full name</label>
+                        <input id="selected_full_name" type="text">
+                      </div>
+                      <div class="field">
+                        <label for="selected_email">Email</label>
+                        <input id="selected_email" type="email">
+                      </div>
+                      <div class="field">
+                        <label for="selected_phone">Phone</label>
+                        <input id="selected_phone" type="text">
+                      </div>
+                      <div class="field">
+                        <label for="selected_contact_channel">Preferred contact channel</label>
+                        <input id="selected_contact_channel" type="text">
+                      </div>
+                      <div class="field wide">
+                        <label for="selected_note">Operational note</label>
+                        <textarea id="selected_note"></textarea>
+                      </div>
+                    </div>
+                    <div class="actions">
+                      <button class="button" type="submit">Save participant changes</button>
+                    </div>
+                    <div id="selected-participant-status" class="status"></div>
+                  </form>
+                </div>
+              </article>
+
+              <aside class="section-card">
+                <div>
+                  <p class="eyebrow">Why this tab exists</p>
+                  <h2>Separate setup from professional reading</h2>
+                  <p>This tab is for enrolment, contact details, status, and operational identifiers. Professional interpretation stays in its own tab so the workspace does not mix case reading with logistics.</p>
+                </div>
+                <div class="panel-stack">
+                  <div class="callout"><strong>Use here</strong><span>Participant code, study label, status, contact channel, and operational note.</span></div>
+                  <div class="callout"><strong>Do not use here</strong><span>Clinical interpretation, response-to-change reading, or patient-facing explanations.</span></div>
+                </div>
+              </aside>
+            </section>
           </section>
 
-          <section class="activity-grid">
-            <article class="section-card" id="checkins-section">
-              <div>
-                <p class="eyebrow">Recent nightly follow-up</p>
-                <h2>Latest check-ins for the selected participant</h2>
-                <p>These rows are for operational review only. The participant still edits their own entries from the participant portal.</p>
-              </div>
-              <div id="selected-checkins" class="admin-stack"><div class="empty-state">Select a participant to review recent check-ins.</div></div>
-            </article>
+          <section class="admin-tab-panel" data-admin-tab-panel="operations">
+            <section class="activity-grid">
+              <article class="section-card" id="checkins-section">
+                <div>
+                  <p class="eyebrow">Recent nightly follow-up</p>
+                  <h2>Latest check-ins for the selected participant</h2>
+                  <p>These rows are for operational review only. The participant still edits their own entries from the participant portal.</p>
+                </div>
+                <div id="selected-checkins" class="admin-stack"><div class="empty-state">Select a participant to review recent check-ins.</div></div>
+              </article>
 
-            <article class="section-card" id="events-section">
-              <div>
-                <p class="eyebrow">Change events</p>
-                <h2>Before/after anchors currently registered</h2>
-                <p>These events are what later support response-to-change analysis. If this area is empty, there are no explicit anchors yet.</p>
-              </div>
-              <div id="selected-events" class="admin-stack"><div class="empty-state">Select a participant to review change events.</div></div>
-            </article>
+              <article class="section-card" id="events-section">
+                <div>
+                  <p class="eyebrow">Change events</p>
+                  <h2>Before/after anchors currently registered</h2>
+                  <p>These events are what later support response-to-change analysis. If this area is empty, there are no explicit anchors yet.</p>
+                </div>
+                <div id="selected-events" class="admin-stack"><div class="empty-state">Select a participant to review change events.</div></div>
+              </article>
+            </section>
+
+            <section class="activity-grid">
+              <article class="section-card" id="reports-section">
+                <div>
+                  <p class="eyebrow">Generated outputs</p>
+                  <h2>Reports currently registered for the selected participant</h2>
+                  <p>This is the catalogue of study outputs that already exist in the backend. Use it to open the latest participant review or professional companion directly.</p>
+                </div>
+                <div id="selected-reports" class="admin-stack"><div class="empty-state">Select a participant to review generated outputs.</div></div>
+                <div id="reports-status" class="status"></div>
+              </article>
+
+              <article class="section-card" id="wearable-section">
+                <div>
+                  <p class="eyebrow">Wearable intake</p>
+                  <h2>Prepare and track the final Apple Watch upload</h2>
+                  <p>When the 28-day window ends, upload the participant export here and register the metadata in the secure study backend.</p>
+                </div>
+                <div id="selected-uploads" class="admin-stack"><div class="empty-state">Select a participant to review or upload wearable exports.</div></div>
+                <form id="wearable-upload-form" class="admin-stack hidden">
+                  <div class="field">
+                    <label for="wearable-file">Apple Health export file</label>
+                    <input id="wearable-file" type="file" accept=".zip,.xml,.json,.csv,.gz,.tar,.tar.gz,.txt,application/zip,application/xml,text/xml,application/json,text/csv">
+                  </div>
+                  <div class="actions">
+                    <button class="button" type="submit">Upload export</button>
+                  </div>
+                  <div id="wearable-upload-status" class="status"></div>
+                </form>
+              </article>
+            </section>
           </section>
 
-          <section class="activity-grid">
-            <article class="section-card" id="reports-section">
+          <section class="admin-tab-panel" data-admin-tab-panel="professional">
+            <section class="section-card">
               <div>
-                <p class="eyebrow">Generated outputs</p>
-                <h2>Reports currently registered for the selected participant</h2>
-                <p>This is the catalogue of study outputs that already exist in the backend. Use it to open the latest participant review or professional companion directly.</p>
+                <p class="eyebrow">Professional review</p>
+                <h2>Read one case without mixing it with operations</h2>
+                <p>This tab is for longitudinal review, not logistics. It turns the selected participant into a readable case with pattern, context, timeline, and response-to-change blocks.</p>
               </div>
-              <div id="selected-reports" class="admin-stack"><div class="empty-state">Select a participant to review generated outputs.</div></div>
-              <div id="reports-status" class="status"></div>
-            </article>
+              <div id="professional-review-empty" class="empty-state">Select a participant from the Participants tab to open professional review. This tab is designed to support case reading, not enrolment.</div>
+              <div id="professional-review-shell" class="hidden admin-stack">
+                <section class="review-grid">
+                  <article class="review-card">
+                    <div>
+                      <p class="eyebrow">Case summary</p>
+                      <h3 id="professional-review-title">Selected participant</h3>
+                      <p id="professional-review-copy">No participant selected.</p>
+                    </div>
+                    <div class="review-kpi-grid" id="professional-kpis"></div>
+                  </article>
+                  <aside class="review-readiness" id="professional-readiness"></aside>
+                </section>
 
-            <article class="section-card" id="wearable-section">
-              <div>
-                <p class="eyebrow">Wearable intake</p>
-                <h2>Prepare and track the final Apple Watch upload</h2>
-                <p>When the 28-day window ends, upload the participant export here and register the metadata in the secure study backend.</p>
+                <section class="review-pattern-grid">
+                  <article class="review-card">
+                    <div>
+                      <p class="eyebrow">Pattern review</p>
+                      <h3>Dominant signals in the current window</h3>
+                    </div>
+                    <div id="professional-pattern-list" class="review-insight-list"></div>
+                  </article>
+                  <article class="review-card">
+                    <div>
+                      <p class="eyebrow">Context</p>
+                      <h3>Repeated contributors and operational context</h3>
+                    </div>
+                    <div id="professional-context-list" class="review-insight-list"></div>
+                  </article>
+                  <article class="review-card">
+                    <div>
+                      <p class="eyebrow">Limits</p>
+                      <h3>What the current window cannot support yet</h3>
+                    </div>
+                    <div id="professional-limits-list" class="review-insight-list"></div>
+                  </article>
+                </section>
+
+                <section class="review-grid">
+                  <article class="timeline-card">
+                    <div>
+                      <p class="eyebrow">Timeline</p>
+                      <h3>Chronology of the case</h3>
+                    </div>
+                    <div id="professional-timeline" class="review-timeline-list"></div>
+                  </article>
+                  <article class="timeline-card">
+                    <div>
+                      <p class="eyebrow">Response to change</p>
+                      <h3>Before/after review anchored to logged events</h3>
+                    </div>
+                    <div id="professional-response" class="response-list"></div>
+                  </article>
+                </section>
+
+                <section class="review-output-grid">
+                  <article class="review-output-card">
+                    <div>
+                      <p class="eyebrow">Professional companion</p>
+                      <h3>Latest professional-facing output</h3>
+                    </div>
+                    <div id="professional-companion-output"></div>
+                  </article>
+                  <article class="review-output-card">
+                    <div>
+                      <p class="eyebrow">Patient return</p>
+                      <h3>Latest participant-facing output</h3>
+                    </div>
+                    <div id="professional-patient-output"></div>
+                  </article>
+                </section>
               </div>
-              <div id="selected-uploads" class="admin-stack"><div class="empty-state">Select a participant to review or upload wearable exports.</div></div>
-              <form id="wearable-upload-form" class="admin-stack hidden">
-                <div class="field">
-                  <label for="wearable-file">Apple Health export file</label>
-                  <input id="wearable-file" type="file" accept=".zip,.xml,.json,.csv,.gz,.tar,.tar.gz,.txt,application/zip,application/xml,text/xml,application/json,text/csv">
-                </div>
-                <div class="actions">
-                  <button class="button" type="submit">Upload export</button>
-                </div>
-                <div id="wearable-upload-status" class="status"></div>
-              </form>
-            </article>
+            </section>
           </section>
         </section>
       </div>
@@ -924,6 +1185,7 @@
       uploads: [],
       selectedParticipantId: null,
       search: "",
+      activeAdminTab: "overview",
       lastRefreshAt: null,
     };
 
@@ -931,8 +1193,11 @@
     const adminDashboard = document.getElementById("admin-dashboard");
     const adminContent = document.getElementById("admin-content");
     const adminNotAuthorized = document.getElementById("admin-not-authorized");
+    const adminSummary = document.getElementById("admin-summary");
     const publicTopbarLinks = document.getElementById("public-topbar-links");
     const dashboardTopbarLinks = document.getElementById("dashboard-topbar-links");
+    const adminTabButtons = Array.from(document.querySelectorAll("[data-admin-tab-target]"));
+    const adminTabPanels = Array.from(document.querySelectorAll("[data-admin-tab-panel]"));
     const authEmailInput = document.getElementById("auth_email");
     const authPasswordInput = document.getElementById("auth_password");
     const authStatus = document.getElementById("auth-status");
@@ -959,13 +1224,29 @@
     const wearableUploadForm = document.getElementById("wearable-upload-form");
     const wearableUploadStatus = document.getElementById("wearable-upload-status");
     const wearableFileInput = document.getElementById("wearable-file");
+    const overviewSelectedBody = document.getElementById("overview-selected-body");
+    const professionalReviewEmpty = document.getElementById("professional-review-empty");
+    const professionalReviewShell = document.getElementById("professional-review-shell");
+    const professionalReviewTitle = document.getElementById("professional-review-title");
+    const professionalReviewCopy = document.getElementById("professional-review-copy");
+    const professionalKpis = document.getElementById("professional-kpis");
+    const professionalReadiness = document.getElementById("professional-readiness");
+    const professionalPatternList = document.getElementById("professional-pattern-list");
+    const professionalContextList = document.getElementById("professional-context-list");
+    const professionalLimitsList = document.getElementById("professional-limits-list");
+    const professionalTimeline = document.getElementById("professional-timeline");
+    const professionalResponse = document.getElementById("professional-response");
+    const professionalCompanionOutput = document.getElementById("professional-companion-output");
+    const professionalPatientOutput = document.getElementById("professional-patient-output");
 
     function ensureSupabaseClient() {
       const supabaseLib = window.supabase;
       if (supabaseClient) return true;
       if (!supabaseLib || typeof supabaseLib.createClient !== "function") {
         showAuthShell();
-        authSummary.textContent = "The secure admin client did not initialize, so authentication and data access are temporarily unavailable.";
+        if (adminSummary) {
+          adminSummary.textContent = "The secure admin client did not initialize, so authentication and data access are temporarily unavailable.";
+        }
         setStatus(authStatus, "Secure admin client could not load. Refresh once. If it persists, contact the study operator.", "danger");
         [signInButton, resetPasswordButton, topbarSignOutButton, topbarRefreshButton].forEach((button) => {
           if (button) button.disabled = true;
@@ -1005,6 +1286,130 @@
       return () => {
         button.disabled = false;
         button.textContent = originalLabel;
+      };
+    }
+
+    function mean(values) {
+      if (!values.length) return null;
+      return values.reduce((sum, value) => sum + value, 0) / values.length;
+    }
+
+    function numericValues(entries, field) {
+      return entries
+        .map((entry) => entry[field])
+        .map((value) => Number(value))
+        .filter((value) => Number.isFinite(value));
+    }
+
+    function averageField(entries, field) {
+      return mean(numericValues(entries, field));
+    }
+
+    function formatScore(value) {
+      return Number.isFinite(value) ? value.toFixed(1) : "—";
+    }
+
+    function countTrue(entries, field) {
+      return entries.filter((entry) => entry[field] === true).length;
+    }
+
+    function sortByLocalDate(entries, field = "report_date_local") {
+      return [...entries].sort((a, b) => {
+        const aValue = a[field] || "";
+        const bValue = b[field] || "";
+        return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+      });
+    }
+
+    function formatSignedDelta(value) {
+      if (!Number.isFinite(value)) return "—";
+      return `${value > 0 ? "+" : ""}${value.toFixed(1)}`;
+    }
+
+    function formatCountLabel(count, singular, plural) {
+      return `${count} ${count === 1 ? singular : plural}`;
+    }
+
+    function computeRecentDelta(entries, field) {
+      const ordered = sortByLocalDate(entries);
+      if (ordered.length < 6) return null;
+      const recent = ordered.slice(-3);
+      const previous = ordered.slice(-6, -3);
+      const recentAverage = averageField(recent, field);
+      const previousAverage = averageField(previous, field);
+      if (!Number.isFinite(recentAverage) || !Number.isFinite(previousAverage)) return null;
+      return recentAverage - previousAverage;
+    }
+
+    function describeDirectionalChange(delta, higherIsBetter) {
+      if (!Number.isFinite(delta) || Math.abs(delta) < 0.35) return "roughly stable";
+      const improved = higherIsBetter ? delta > 0 : delta < 0;
+      return improved ? "moved in the clinically helpful direction" : "moved against the clinically helpful direction";
+    }
+
+    function reviewWindowLabel(record) {
+      const dates = uniqueDates(record.checkins);
+      if (!dates.length) return "No saved nightly window yet.";
+      return `${formatDisplayDate(dates[0])} to ${formatDisplayDate(dates[dates.length - 1])}`;
+    }
+
+    function checkinsBetween(entries, startDate, endDate) {
+      return entries.filter((entry) => {
+        const date = entry.report_date_local || "";
+        return date >= startDate && date <= endDate;
+      });
+    }
+
+    function buildResponseReview(eventEntry, checkins) {
+      const preWindowDays = Number(eventEntry.pre_window_days) || 14;
+      const postWindowDays = Number(eventEntry.post_window_days) || 14;
+      const anchorDate = eventEntry.event_date_local;
+      const preStart = addDays(anchorDate, -preWindowDays);
+      const preEnd = addDays(anchorDate, -1);
+      const postStart = anchorDate;
+      const postEnd = addDays(anchorDate, postWindowDays - 1);
+      const preEntries = checkinsBetween(checkins, preStart, preEnd);
+      const postEntries = checkinsBetween(checkins, postStart, postEnd);
+      const metrics = [
+        { field: "sleep_quality_0_10", label: "sleep", higherIsBetter: true },
+        { field: "stress_0_10", label: "stress", higherIsBetter: false },
+        { field: "anxiety_0_10", label: "anxiety", higherIsBetter: false },
+        { field: "fatigue_0_10", label: "fatigue", higherIsBetter: false },
+      ];
+      const deltas = metrics.map((metric) => {
+        const preAverage = averageField(preEntries, metric.field);
+        const postAverage = averageField(postEntries, metric.field);
+        const delta = Number.isFinite(preAverage) && Number.isFinite(postAverage) ? postAverage - preAverage : null;
+        return { ...metric, preAverage, postAverage, delta };
+      });
+      if (preEntries.length < 3 || postEntries.length < 3) {
+        return {
+          tone: "warn",
+          heading: "Insufficient window",
+          body: `Only ${preEntries.length} pre-event and ${postEntries.length} post-event check-ins are available. Keep collecting before reading response to change seriously.`,
+          metrics: deltas,
+        };
+      }
+      const directionalHits = deltas.filter((metric) => Number.isFinite(metric.delta) && describeDirectionalChange(metric.delta, metric.higherIsBetter) === "moved in the clinically helpful direction").length;
+      const directionalMisses = deltas.filter((metric) => Number.isFinite(metric.delta) && describeDirectionalChange(metric.delta, metric.higherIsBetter) === "moved against the clinically helpful direction").length;
+      let tone = "ok";
+      let heading = "Mixed signal";
+      if (directionalHits >= 3 && directionalHits > directionalMisses) {
+        heading = "Signal moved in the expected direction";
+      } else if (directionalMisses >= 3 && directionalMisses > directionalHits) {
+        tone = "danger";
+        heading = "Signal moved against the expected direction";
+      } else {
+        tone = "warn";
+      }
+      const summaryParts = deltas
+        .filter((metric) => Number.isFinite(metric.delta))
+        .map((metric) => `${metric.label} ${formatSignedDelta(metric.delta)}`);
+      return {
+        tone,
+        heading,
+        body: `${preEntries.length} pre-event and ${postEntries.length} post-event check-ins are available. ${summaryParts.join(" · ") || "No readable deltas yet."}`,
+        metrics: deltas,
       };
     }
 
@@ -1253,6 +1658,222 @@
       }).join("");
     }
 
+    function setActiveAdminTab(tabName, options = {}) {
+      state.activeAdminTab = tabName;
+      adminTabButtons.forEach((button) => {
+        const active = button.getAttribute("data-admin-tab-target") === tabName;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      adminTabPanels.forEach((panel) => {
+        panel.classList.toggle("is-active", panel.getAttribute("data-admin-tab-panel") === tabName);
+      });
+      if (options.scrollToTop) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    function renderOverviewSelected(record) {
+      if (!record) {
+        overviewSelectedBody.className = "empty-state";
+        overviewSelectedBody.textContent = "Select a participant from the Participants tab to surface adherence, outputs, and review readiness here.";
+        return;
+      }
+
+      const companion = [...record.reports].find((item) => item.report_kind === "professional_companion") || null;
+      const patientReview = [...record.reports].find((item) => item.report_kind === "participant_monthly") || null;
+      const latestEvent = latestByTimestamp(record.events, ["event_date_local", "created_at"]);
+      const latestUpload = record.latestUpload;
+      overviewSelectedBody.className = "summary-grid";
+      overviewSelectedBody.innerHTML = `
+        <div class="summary-line">
+          <strong>${escapeHtml(record.participant.participant_code)}</strong>
+          <span>${escapeHtml(record.participant.display_label || record.contact?.full_name || "No display label")} · ${escapeHtml(record.participant.status || "active")}</span>
+        </div>
+        <div class="summary-line">
+          <strong>Readiness</strong>
+          <span>${record.window28}/28 nights saved · ${record.events.length} event${record.events.length === 1 ? "" : "s"} · ${record.reports.length} output${record.reports.length === 1 ? "" : "s"}</span>
+        </div>
+        <div class="summary-line">
+          <strong>Latest change</strong>
+          <span>${latestEvent ? `${escapeHtml(latestEvent.event_label || latestEvent.event_kind)} on ${escapeHtml(formatDisplayDate(latestEvent.event_date_local))}` : "No event anchor registered yet."}</span>
+        </div>
+        <div class="summary-line">
+          <strong>Next useful move</strong>
+          <span>${record.window28 < 14 ? "Keep collecting nightly follow-up before trying to read the case." : companion ? "Open Professional review and read the current case summary." : patientReview ? "Professional review is ready even if a professional companion is not registered yet." : latestUpload ? "Wearable export is in place; professional review can start now." : "Keep follow-up moving and upload the wearable export when the window closes."}</span>
+        </div>
+      `;
+    }
+
+    function renderProfessionalReview(record) {
+      if (!record) {
+        professionalReviewEmpty.classList.remove("hidden");
+        professionalReviewShell.classList.add("hidden");
+        return;
+      }
+
+      professionalReviewEmpty.classList.add("hidden");
+      professionalReviewShell.classList.remove("hidden");
+
+      const orderedCheckins = sortByLocalDate(record.checkins);
+      const averageSleep = averageField(record.checkins, "sleep_quality_0_10");
+      const averageStress = averageField(record.checkins, "stress_0_10");
+      const averageAnxiety = averageField(record.checkins, "anxiety_0_10");
+      const averageFatigue = averageField(record.checkins, "fatigue_0_10");
+      const lowSleepCount = record.checkins.filter((entry) => Number(entry.sleep_quality_0_10) <= 4).length;
+      const elevatedStressCount = record.checkins.filter((entry) => Number(entry.stress_0_10) >= 6).length;
+      const elevatedAnxietyCount = record.checkins.filter((entry) => Number(entry.anxiety_0_10) >= 6).length;
+      const elevatedFatigueCount = record.checkins.filter((entry) => Number(entry.fatigue_0_10) >= 6).length;
+      const lateCaffeineCount = countTrue(record.checkins, "caffeine_late_flag");
+      const alcoholCount = countTrue(record.checkins, "alcohol_evening_flag");
+      const napCount = record.checkins.filter((entry) => Number(entry.nap_minutes || 0) > 0 || entry.nap_flag === true).length;
+      const lateExerciseCount = countTrue(record.checkins, "exercise_late_flag");
+      const illnessCount = countTrue(record.checkins, "acute_illness_flag");
+      const disruptionCount = countTrue(record.checkins, "major_schedule_disruption_flag");
+      const medicationChangeCount = countTrue(record.checkins, "medication_change_flag");
+      const travelCount = countTrue(record.checkins, "travel_flag");
+      const sleepDelta = computeRecentDelta(record.checkins, "sleep_quality_0_10");
+      const stressDelta = computeRecentDelta(record.checkins, "stress_0_10");
+      const anxietyDelta = computeRecentDelta(record.checkins, "anxiety_0_10");
+      const fatigueDelta = computeRecentDelta(record.checkins, "fatigue_0_10");
+      const companion = [...record.reports].sort((a, b) => (a.created_at < b.created_at ? 1 : -1)).find((item) => item.report_kind === "professional_companion") || null;
+      const patientReview = [...record.reports].sort((a, b) => (a.created_at < b.created_at ? 1 : -1)).find((item) => item.report_kind === "participant_monthly") || null;
+
+      professionalReviewTitle.textContent = `${record.participant.participant_code} · ${record.participant.display_label || record.contact?.full_name || "Selected participant"}`;
+      professionalReviewCopy.textContent = `${record.window28}/28 nights saved across ${reviewWindowLabel(record)}. This tab is for longitudinal reading of the case, not for operational data entry.`;
+      professionalKpis.innerHTML = `
+        <div class="review-kpi"><strong>${record.window28}/28</strong><span>nights saved in the visible window</span></div>
+        <div class="review-kpi"><strong>${formatScore(averageSleep)}</strong><span>average sleep quality</span></div>
+        <div class="review-kpi"><strong>${formatScore(averageStress)}</strong><span>average stress burden</span></div>
+        <div class="review-kpi"><strong>${formatScore(averageAnxiety)}</strong><span>average anxiety burden</span></div>
+      `;
+      professionalReadiness.innerHTML = `
+        <div class="callout"><strong>Review readiness</strong><span>${record.window28 >= 21 ? "The window is long enough for a serious first professional read." : record.window28 >= 14 ? "There is enough signal for a preliminary professional read, but the window is still short." : "Too little nightly coverage for a strong professional read yet."}</span></div>
+        <div class="callout"><strong>Outputs already registered</strong><span>${companion ? "A professional companion is already registered." : patientReview ? "A participant review exists, but no professional companion is registered yet." : "No generated professional output is registered yet."}</span></div>
+        <div class="callout"><strong>Wearable readiness</strong><span>${record.latestUpload ? `${escapeHtml(record.latestUpload.upload_status || "uploaded")} wearable file recorded on ${escapeHtml(formatDisplayTimestamp(record.latestUpload.created_at))}.` : "No wearable export registered yet."}</span></div>
+      `;
+
+      professionalPatternList.innerHTML = [
+        {
+          title: "Sleep signal",
+          body: `Average sleep quality is ${formatScore(averageSleep)}/10 across ${record.checkins.length} check-ins. ${lowSleepCount ? `${formatCountLabel(lowSleepCount, "night", "nights")} landed at 4/10 or lower.` : "No nights landed at 4/10 or lower yet."}`,
+        },
+        {
+          title: "Burden signal",
+          body: `Stress averaged ${formatScore(averageStress)}/10, anxiety ${formatScore(averageAnxiety)}/10, and fatigue ${formatScore(averageFatigue)}/10. Elevated days currently appear as ${formatCountLabel(elevatedStressCount, "stress-heavy day", "stress-heavy days")}, ${formatCountLabel(elevatedAnxietyCount, "anxiety-heavy day", "anxiety-heavy days")}, and ${formatCountLabel(elevatedFatigueCount, "fatigue-heavy day", "fatigue-heavy days")}.`,
+        },
+        {
+          title: "Recent movement",
+          body: `Across the latest six saved nights, sleep ${formatSignedDelta(sleepDelta)}, stress ${formatSignedDelta(stressDelta)}, anxiety ${formatSignedDelta(anxietyDelta)}, fatigue ${formatSignedDelta(fatigueDelta)}. Read this as directional only, not as a definitive trend.`,
+        },
+      ].map((item) => `<div class="review-insight-item"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.body)}</span></div>`).join("");
+
+      const contextItems = [
+        lateCaffeineCount ? `${formatCountLabel(lateCaffeineCount, "late-caffeine night", "late-caffeine nights")}` : null,
+        alcoholCount ? `${formatCountLabel(alcoholCount, "alcohol evening", "alcohol evenings")}` : null,
+        napCount ? `${formatCountLabel(napCount, "day with a nap", "days with a nap")}` : null,
+        lateExerciseCount ? `${formatCountLabel(lateExerciseCount, "late-exercise day", "late-exercise days")}` : null,
+        illnessCount ? `${formatCountLabel(illnessCount, "illness-affected day", "illness-affected days")}` : null,
+        disruptionCount ? `${formatCountLabel(disruptionCount, "schedule disruption", "schedule disruptions")}` : null,
+        medicationChangeCount ? `${formatCountLabel(medicationChangeCount, "medication change day", "medication change days")}` : null,
+        travelCount ? `${formatCountLabel(travelCount, "travel day", "travel days")}` : null,
+      ].filter(Boolean);
+      professionalContextList.innerHTML = [
+        {
+          title: "Repeated context",
+          body: contextItems.length ? contextItems.join(" · ") : "No repeated contextual contributor stands out yet from the current check-ins.",
+        },
+        {
+          title: "Event anchors",
+          body: record.events.length ? `${record.events.length} change event${record.events.length === 1 ? "" : "s"} logged, which means before/after reading is possible where coverage is sufficient.` : "No event anchors are registered yet, so response-to-change cannot be read seriously.",
+        },
+        {
+          title: "Free text",
+          body: record.checkins.some((entry) => entry.free_text_note) ? "There are free-text notes in the nightly record that can add case context." : "No nightly free-text note is currently available, so context stays mostly structured.",
+        },
+      ].map((item) => `<div class="review-insight-item"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.body)}</span></div>`).join("");
+
+      const limitItems = [
+        record.window28 < 14 ? "The saved window is still too short for a strong longitudinal read." : null,
+        !record.events.length ? "No explicit event anchors are logged yet, so response-to-change remains limited." : null,
+        !record.latestUpload ? "No wearable export is registered yet, so this is still a check-in-first reading." : null,
+        orderedCheckins.length < 6 ? "There are fewer than six nightly check-ins, so recent directional change is weak." : null,
+      ].filter(Boolean);
+      professionalLimitsList.innerHTML = (limitItems.length ? limitItems : ["Current limits are moderate: continue collecting and keep event logging disciplined."])
+        .map((item) => `<div class="review-insight-item"><strong>Limit</strong><span>${escapeHtml(item)}</span></div>`)
+        .join("");
+
+      const timelineItems = [
+        ...record.checkins.map((entry) => ({
+          stamp: entry.checkin_completed_at || entry.report_date_local,
+          title: `Check-in · ${formatDisplayDate(entry.report_date_local)}`,
+          body: `sleep ${entry.sleep_quality_0_10 ?? "—"} · stress ${entry.stress_0_10 ?? "—"} · anxiety ${entry.anxiety_0_10 ?? "—"} · fatigue ${entry.fatigue_0_10 ?? "—"}`,
+          meta: formatDisplayTimestamp(entry.checkin_completed_at || entry.report_date_local),
+        })),
+        ...record.events.map((entry) => ({
+          stamp: entry.created_at || entry.event_date_local,
+          title: `Event · ${entry.event_label || entry.event_kind}`,
+          body: `${entry.event_kind || "event"} on ${formatDisplayDate(entry.event_date_local)}${entry.expected_direction ? ` · expected ${entry.expected_direction}` : ""}`,
+          meta: formatDisplayTimestamp(entry.created_at || entry.event_date_local),
+        })),
+        ...record.reports.map((entry) => ({
+          stamp: entry.created_at,
+          title: `Output · ${reportKindLabel(entry.report_kind)}`,
+          body: `${formatDisplayDate(entry.coverage_date_from)} to ${formatDisplayDate(entry.coverage_date_to)}`,
+          meta: formatDisplayTimestamp(entry.created_at),
+        })),
+        ...record.uploads.map((entry) => ({
+          stamp: entry.created_at,
+          title: `Wearable · ${entry.original_filename || fileLabelFromPath(entry.storage_path)}`,
+          body: `${entry.upload_status || "uploaded"} · ${formatBytes(entry.byte_size)}`,
+          meta: formatDisplayTimestamp(entry.created_at),
+        })),
+      ].sort((a, b) => (a.stamp < b.stamp ? 1 : -1)).slice(0, 10);
+      professionalTimeline.innerHTML = timelineItems.length
+        ? timelineItems.map((item) => `
+            <div class="review-timeline-item">
+              <strong>${escapeHtml(item.title)}</strong>
+              <div class="review-inline-meta"><span>${escapeHtml(item.meta)}</span></div>
+              <span>${escapeHtml(item.body)}</span>
+            </div>
+          `).join("")
+        : '<div class="empty-state">No timeline activity is available yet for this participant.</div>';
+
+      const responseItems = [...record.events].sort((a, b) => (a.event_date_local < b.event_date_local ? 1 : -1)).slice(0, 6);
+      professionalResponse.innerHTML = responseItems.length
+        ? responseItems.map((entry) => {
+            const response = buildResponseReview(entry, record.checkins);
+            return `
+              <div class="response-item">
+                <strong>${escapeHtml(entry.event_label || entry.event_kind || "Event")}</strong>
+                <div class="review-inline-meta">
+                  <span>${escapeHtml(formatDisplayDate(entry.event_date_local))}</span>
+                  <span>${escapeHtml(entry.response_target || "general response window")}</span>
+                  ${entry.expected_direction ? `<span>${escapeHtml(entry.expected_direction)}</span>` : ""}
+                </div>
+                <div class="tag ${response.tone}">${escapeHtml(response.heading)}</div>
+                <span>${escapeHtml(response.body)}</span>
+              </div>
+            `;
+          }).join("")
+        : '<div class="empty-state">No event anchors are registered yet, so response-to-change review cannot start.</div>';
+
+      const buildOutputCard = (report, emptyText) => {
+        if (!report) return `<div class="empty-state">${escapeHtml(emptyText)}</div>`;
+        return `
+          <div class="callout">
+            <strong>${escapeHtml(reportKindLabel(report.report_kind))}</strong>
+            <span>Coverage ${escapeHtml(formatDisplayDate(report.coverage_date_from))} to ${escapeHtml(formatDisplayDate(report.coverage_date_to))}. Registered ${escapeHtml(formatDisplayTimestamp(report.created_at))}.</span>
+          </div>
+          <div class="inline-actions">
+            <button class="mini-button" type="button" data-open-report="${escapeHtml(report.id)}">Open report</button>
+          </div>
+        `;
+      };
+      professionalCompanionOutput.innerHTML = buildOutputCard(companion, "No professional companion is registered yet.");
+      professionalPatientOutput.innerHTML = buildOutputCard(patientReview, "No participant-facing review is registered yet.");
+    }
+
     function renderSelectedParticipant() {
       const record = selectedRecord();
       if (!record) {
@@ -1263,6 +1884,8 @@
         selectedEvents.innerHTML = '<div class="empty-state">Select a participant to review change events.</div>';
         selectedReports.innerHTML = '<div class="empty-state">Select a participant to review generated outputs.</div>';
         selectedUploads.innerHTML = '<div class="empty-state">Select a participant to review or upload wearable exports.</div>';
+        renderOverviewSelected(null);
+        renderProfessionalReview(null);
         return;
       }
 
@@ -1368,6 +1991,9 @@
           </article>
         `).join("");
       }
+
+      renderOverviewSelected(record);
+      renderProfessionalReview(record);
     }
 
     function renderDashboard() {
@@ -1375,6 +2001,7 @@
       renderMetrics();
       renderParticipantsTable();
       renderSelectedParticipant();
+      setActiveAdminTab(state.activeAdminTab || "overview");
     }
 
     async function loadAdminRow() {
@@ -1391,8 +2018,8 @@
       const [participantsRes, contactsRes, checkinsRes, eventsRes, reportsRes, uploadsRes] = await Promise.all([
         supabaseClient.from("study_participants").select("id, participant_code, auth_user_id, display_label, study_label, timezone, note, status, created_at, updated_at").order("created_at", { ascending: false }),
         supabaseClient.from("study_participant_contacts").select("participant_id, full_name, email, phone, preferred_contact_channel, created_at, updated_at"),
-        supabaseClient.from("study_daily_checkins").select("id, participant_id, report_date_local, checkin_completed_at, sleep_quality_0_10, stress_0_10, anxiety_0_10, fatigue_0_10, free_text_note").order("report_date_local", { ascending: false }),
-        supabaseClient.from("study_intervention_events").select("id, participant_id, event_date_local, event_kind, event_label, response_target, expected_direction, note, created_at").order("event_date_local", { ascending: false }),
+        supabaseClient.from("study_daily_checkins").select("id, participant_id, report_date_local, checkin_completed_at, sleep_quality_0_10, stress_0_10, anxiety_0_10, depression_0_10, mood_valence_0_10, positive_affect_0_10, negative_affect_0_10, fatigue_0_10, energy_0_10, pain_0_10, muscle_tension_0_10, caffeine_late_flag, alcohol_evening_flag, nap_flag, exercise_late_flag, major_stressor_flag, travel_flag, dream_recall_flag, acute_illness_flag, medication_change_flag, major_schedule_disruption_flag, caffeine_mg, alcohol_units, nap_minutes, exercise_minutes, menstrual_cycle_phase, free_text_note, source, created_at, updated_at").order("report_date_local", { ascending: false }),
+        supabaseClient.from("study_intervention_events").select("id, participant_id, event_date_local, event_end_date_local, event_kind, event_label, domain, response_target, expected_direction, intensity_0_10, pre_window_days, post_window_days, note, created_at").order("event_date_local", { ascending: false }),
         supabaseClient.from("study_generated_reports").select("id, participant_id, report_kind, storage_bucket, storage_path, coverage_date_from, coverage_date_to, created_at").order("created_at", { ascending: false }),
         supabaseClient.from("study_wearable_uploads").select("id, participant_id, storage_bucket, storage_path, original_filename, content_type, byte_size, upload_status, created_at").order("created_at", { ascending: false }),
       ]);
@@ -1485,6 +2112,7 @@
       state.reports = [];
       state.uploads = [];
       state.selectedParticipantId = null;
+      state.activeAdminTab = "overview";
       showAuthShell();
       setStatus(authStatus, "Signed out.", "ok");
     }
@@ -1671,18 +2299,32 @@
       wearableUploadStatus.textContent = "";
     });
 
-    selectedReports.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-open-report]");
-      if (!button) return;
-      const report = state.reports.find((item) => item.id === button.getAttribute("data-open-report"));
-      if (report) openStorageAsset(report.storage_bucket, report.storage_path, reportsStatus);
+    adminDashboard.addEventListener("click", (event) => {
+      const reportButton = event.target.closest("[data-open-report]");
+      if (reportButton) {
+        const report = state.reports.find((item) => item.id === reportButton.getAttribute("data-open-report"));
+        if (report) openStorageAsset(report.storage_bucket, report.storage_path, reportsStatus);
+        return;
+      }
+
+      const uploadButton = event.target.closest("[data-open-upload]");
+      if (uploadButton) {
+        const upload = state.uploads.find((item) => item.id === uploadButton.getAttribute("data-open-upload"));
+        if (upload) openStorageAsset(upload.storage_bucket, upload.storage_path, wearableUploadStatus);
+        return;
+      }
+
+      const tabLink = event.target.closest("[data-admin-tab-link]");
+      if (tabLink) {
+        setActiveAdminTab(tabLink.getAttribute("data-admin-tab-link"), { scrollToTop: true });
+        return;
+      }
     });
 
-    selectedUploads.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-open-upload]");
-      if (!button) return;
-      const upload = state.uploads.find((item) => item.id === button.getAttribute("data-open-upload"));
-      if (upload) openStorageAsset(upload.storage_bucket, upload.storage_path, wearableUploadStatus);
+    adminTabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        setActiveAdminTab(button.getAttribute("data-admin-tab-target"));
+      });
     });
 
     participantSearchInput.addEventListener("input", () => {
