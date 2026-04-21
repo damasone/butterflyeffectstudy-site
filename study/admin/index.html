@@ -481,6 +481,57 @@
       border: 1px solid rgba(74, 64, 56, 0.54);
       background: rgba(24, 20, 18, 0.5);
     }
+    .review-summary-stack {
+      display: grid;
+      gap: 12px;
+    }
+    .review-draft-list {
+      display: grid;
+      gap: 10px;
+    }
+    .review-note {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .response-metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .response-metric {
+      display: grid;
+      gap: 6px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(74, 64, 56, 0.5);
+      background: rgba(18, 14, 12, 0.44);
+    }
+    .response-metric-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .response-metric strong {
+      margin: 0;
+    }
+    .response-metric-values {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .response-metric-values span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 0 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(74, 64, 56, 0.46);
+      background: rgba(28, 24, 21, 0.7);
+    }
     .review-readiness {
       display: grid;
       gap: 10px;
@@ -520,7 +571,8 @@
       .review-grid,
       .review-pattern-grid,
       .review-output-grid,
-      .review-kpi-grid { grid-template-columns: 1fr; }
+      .review-kpi-grid,
+      .response-metric-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 720px) {
       .topbar {
@@ -1142,14 +1194,14 @@
                   <article class="review-output-card">
                     <div>
                       <p class="eyebrow">Professional companion</p>
-                      <h3>Latest professional-facing output</h3>
+                      <h3>Structured draft and registered output</h3>
                     </div>
                     <div id="professional-companion-output"></div>
                   </article>
                   <article class="review-output-card">
                     <div>
                       <p class="eyebrow">Patient return</p>
-                      <h3>Latest participant-facing output</h3>
+                      <h3>Patient-facing framing and registered output</h3>
                     </div>
                     <div id="professional-patient-output"></div>
                   </article>
@@ -1360,6 +1412,218 @@
       });
     }
 
+    function metricCatalog() {
+      return [
+        { field: "sleep_quality_0_10", label: "sleep quality", higherIsBetter: true, targets: ["sleep", "night", "insomnia", "rest"] },
+        { field: "stress_0_10", label: "stress burden", higherIsBetter: false, targets: ["stress", "pressure", "load"] },
+        { field: "anxiety_0_10", label: "anxiety burden", higherIsBetter: false, targets: ["anxiety", "worry", "arousal"] },
+        { field: "fatigue_0_10", label: "fatigue", higherIsBetter: false, targets: ["fatigue", "energy", "daytime", "burden"] },
+        { field: "mood_valence_0_10", label: "overall mood", higherIsBetter: true, targets: ["mood", "depression", "affect"] },
+        { field: "positive_affect_0_10", label: "positive affect", higherIsBetter: true, targets: ["positive", "affect", "mood"] },
+        { field: "negative_affect_0_10", label: "negative affect", higherIsBetter: false, targets: ["negative", "affect", "mood"] },
+        { field: "energy_0_10", label: "energy", higherIsBetter: true, targets: ["energy", "fatigue", "daytime"] },
+        { field: "pain_0_10", label: "pain", higherIsBetter: false, targets: ["pain", "tension", "somatic"] },
+        { field: "muscle_tension_0_10", label: "muscle tension", higherIsBetter: false, targets: ["tension", "pain", "somatic"] },
+      ];
+    }
+
+    function metricsForEvent(eventEntry) {
+      const target = `${eventEntry.response_target || ""} ${eventEntry.domain || ""} ${eventEntry.event_label || ""}`.toLowerCase();
+      const catalog = metricCatalog();
+      const priorityFields = [];
+      const addPriority = (...fields) => fields.forEach((field) => {
+        if (!priorityFields.includes(field)) priorityFields.push(field);
+      });
+
+      if (target.includes("sleep") || target.includes("night") || target.includes("insomnia") || target.includes("rest")) {
+        addPriority("sleep_quality_0_10", "fatigue_0_10", "energy_0_10", "stress_0_10");
+      }
+      if (target.includes("stress") || target.includes("anxiety") || target.includes("worry") || target.includes("arousal")) {
+        addPriority("stress_0_10", "anxiety_0_10", "negative_affect_0_10", "sleep_quality_0_10");
+      }
+      if (target.includes("fatigue") || target.includes("energy") || target.includes("daytime") || target.includes("burden")) {
+        addPriority("fatigue_0_10", "energy_0_10", "sleep_quality_0_10", "stress_0_10");
+      }
+      if (target.includes("mood") || target.includes("depression") || target.includes("affect")) {
+        addPriority("mood_valence_0_10", "positive_affect_0_10", "negative_affect_0_10", "sleep_quality_0_10");
+      }
+      if (target.includes("pain") || target.includes("tension") || target.includes("somatic")) {
+        addPriority("pain_0_10", "muscle_tension_0_10", "sleep_quality_0_10", "fatigue_0_10");
+      }
+
+      const matches = catalog.filter((metric) => metric.targets.some((token) => target.includes(token)));
+      const orderedFields = [
+        ...priorityFields,
+        ...matches.map((metric) => metric.field),
+        "sleep_quality_0_10",
+        "stress_0_10",
+        "anxiety_0_10",
+        "fatigue_0_10",
+      ];
+
+      return orderedFields
+        .map((field) => catalog.find((metric) => metric.field === field))
+        .filter((metric, index, list) => metric && list.findIndex((candidate) => candidate.field === metric.field) === index)
+        .slice(0, 4);
+    }
+
+    function responseExpectation(metric, expectedDirection) {
+      if (!expectedDirection || expectedDirection === "unknown" || expectedDirection === "observe") return "observe";
+      if (expectedDirection === "improve") return metric.higherIsBetter ? "increase" : "decrease";
+      if (expectedDirection === "worsen") return metric.higherIsBetter ? "decrease" : "increase";
+      return "observe";
+    }
+
+    function classifyMetricResponse(metric, expectedDirection, delta) {
+      if (!Number.isFinite(delta)) return "insufficient";
+      if (Math.abs(delta) < 0.35) return "stable";
+      const expectation = responseExpectation(metric, expectedDirection);
+      if (expectation === "observe") return delta > 0 ? "increase" : "decrease";
+      if (expectation === "increase") return delta > 0 ? "helpful" : "against";
+      if (expectation === "decrease") return delta < 0 ? "helpful" : "against";
+      return "stable";
+    }
+
+    function responseMetricTone(classification) {
+      if (classification === "helpful") return "ok";
+      if (classification === "against") return "danger";
+      if (classification === "increase" || classification === "decrease") return "warn";
+      return "warn";
+    }
+
+    function responseMetricLabel(classification) {
+      if (classification === "helpful") return "moved as expected";
+      if (classification === "against") return "moved against expectation";
+      if (classification === "increase") return "higher post-event";
+      if (classification === "decrease") return "lower post-event";
+      if (classification === "stable") return "roughly stable";
+      return "insufficient signal";
+    }
+
+    function buildWindowDescriptor(preEntries, postEntries, preStart, preEnd, postStart, postEnd) {
+      return `Pre ${formatDisplayDate(preStart)} to ${formatDisplayDate(preEnd)} (${preEntries.length} check-ins) vs post ${formatDisplayDate(postStart)} to ${formatDisplayDate(postEnd)} (${postEntries.length} check-ins).`;
+    }
+
+    function buildResponseVerdict(readableMetrics, expectedDirection) {
+      const helpfulCount = readableMetrics.filter((metric) => metric.classification === "helpful").length;
+      const againstCount = readableMetrics.filter((metric) => metric.classification === "against").length;
+      const stableCount = readableMetrics.filter((metric) => metric.classification === "stable").length;
+      const movementCount = readableMetrics.filter((metric) => metric.classification === "increase" || metric.classification === "decrease").length;
+
+      if (expectedDirection === "observe" || expectedDirection === "unknown" || !expectedDirection) {
+        if (movementCount >= 2) {
+          return { tone: "ok", heading: "Observable movement across the window" };
+        }
+        return {
+          tone: stableCount >= Math.max(2, readableMetrics.length - 1) ? "warn" : "ok",
+          heading: stableCount >= Math.max(2, readableMetrics.length - 1) ? "Window looks mostly stable" : "Observation window available",
+        };
+      }
+
+      if (helpfulCount >= 2 && helpfulCount > againstCount) {
+        return { tone: "ok", heading: "Signal moved in the expected direction" };
+      }
+      if (againstCount >= 2 && againstCount >= helpfulCount) {
+        return { tone: "danger", heading: "Signal moved against the expected direction" };
+      }
+      if (stableCount >= Math.max(2, readableMetrics.length - 1)) {
+        return { tone: "warn", heading: "Little clear movement" };
+      }
+      return { tone: "warn", heading: "Mixed signal across the window" };
+    }
+
+    function latestResponseSummary(responseAnalyses) {
+      const meaningful = responseAnalyses.find((item) => item.response.heading !== "Insufficient window");
+      if (!meaningful) return "No event currently has enough pre/post coverage for a serious response read.";
+      return `${meaningful.entry.event_label || meaningful.entry.event_kind || "Most recent event"}: ${meaningful.response.heading.toLowerCase()}.`;
+    }
+
+    function buildCompanionDraft(record, responseAnalyses) {
+      const averageSleep = averageField(record.checkins, "sleep_quality_0_10");
+      const averageStress = averageField(record.checkins, "stress_0_10");
+      const averageAnxiety = averageField(record.checkins, "anxiety_0_10");
+      const averageFatigue = averageField(record.checkins, "fatigue_0_10");
+      const lateCaffeineCount = countTrue(record.checkins, "caffeine_late_flag");
+      const alcoholCount = countTrue(record.checkins, "alcohol_evening_flag");
+      const eventCount = record.events.length;
+      const hasWearable = Boolean(record.latestUpload);
+
+      const dominantPattern = averageSleep <= 4.5
+        ? "Sleep quality is carrying most of the visible burden in the current window."
+        : averageStress >= 6 || averageAnxiety >= 6
+          ? "Stress or anxiety burden is the dominant repeated signal in the current window."
+          : averageFatigue >= 6
+            ? "Daytime fatigue is the strongest repeated problem in the current window."
+            : "The current window looks mixed rather than dominated by one single severe pattern.";
+
+      const workingRead = [
+        `Coverage spans ${record.window28}/28 nights across ${reviewWindowLabel(record)}.`,
+        Number.isFinite(averageSleep) ? `Mean sleep quality is ${formatScore(averageSleep)}/10.` : null,
+        Number.isFinite(averageStress) ? `Mean stress burden is ${formatScore(averageStress)}/10.` : null,
+        Number.isFinite(averageAnxiety) ? `Mean anxiety burden is ${formatScore(averageAnxiety)}/10.` : null,
+        Number.isFinite(averageFatigue) ? `Mean fatigue is ${formatScore(averageFatigue)}/10.` : null,
+      ].filter(Boolean).join(" ");
+
+      const contextRead = [
+        lateCaffeineCount ? `${formatCountLabel(lateCaffeineCount, "late-caffeine night", "late-caffeine nights")} are already recorded.` : null,
+        alcoholCount ? `${formatCountLabel(alcoholCount, "alcohol evening", "alcohol evenings")} are present in the current window.` : null,
+        eventCount ? `${formatCountLabel(eventCount, "event anchor", "event anchors")} support before/after review.` : "No explicit event anchor is logged yet.",
+        hasWearable ? "A wearable export is registered, so multimodal review can be aligned to the same case." : "No wearable export is registered yet, so this is still a check-in-first read.",
+      ].filter(Boolean).join(" ");
+
+      const nextStep = record.window28 < 14
+        ? "Extend the nightly window before making any strong professional claim."
+        : !eventCount
+          ? "Log at least one meaningful intervention or disruption so response-to-change can be reviewed."
+          : !hasWearable
+            ? "Register the wearable export when the window closes to strengthen the case beyond self-report."
+            : "Open the registered output and compare it against this live summary before discussing the case clinically.";
+
+      const currentLimit = record.window28 < 14
+        ? "The longitudinal window is still short."
+        : !eventCount
+          ? "There is no explicit event anchor yet."
+          : !hasWearable
+            ? "The current read still lacks wearable corroboration."
+            : "The case is readable, but any conclusion should stay framed as longitudinal interpretation rather than diagnosis.";
+
+      return {
+        summary: dominantPattern,
+        items: [
+          { title: "Working interpretation", body: workingRead },
+          { title: "Context worth carrying into review", body: contextRead },
+          { title: "Response to change", body: latestResponseSummary(responseAnalyses) },
+          { title: "Next review step", body: nextStep },
+        ],
+        limit: currentLimit,
+      };
+    }
+
+    function buildPatientReturnDraft(record, responseAnalyses) {
+      const averageSleep = averageField(record.checkins, "sleep_quality_0_10");
+      const averageStress = averageField(record.checkins, "stress_0_10");
+      const averageAnxiety = averageField(record.checkins, "anxiety_0_10");
+      const message = averageSleep <= 4.5
+        ? "The current window suggests that sleep has not felt consistently restorative, so that should stay central in the next review."
+        : averageStress >= 6 || averageAnxiety >= 6
+          ? "The current window suggests that daytime burden may be weighing heavily, so the next review should keep night and day together."
+          : "The current window does not yet point to one overwhelming pattern, so continued tracking is still useful before over-interpreting it.";
+      const visibleNow = `${record.window28}/28 nights are currently saved${record.events.length ? ` and ${formatCountLabel(record.events.length, "change event", "change events")} are logged.` : ", but no change event is logged yet."}`;
+      const responseRead = latestResponseSummary(responseAnalyses);
+      const limits = record.window28 < 14
+        ? "This is still an early window and should be read as preliminary."
+        : "This is a guided summary of the current window, not a diagnosis.";
+      return {
+        message,
+        items: [
+          { title: "What is visible right now", body: visibleNow },
+          { title: "Current data read", body: `Average sleep is ${formatScore(averageSleep)}/10, stress ${formatScore(averageStress)}/10, and anxiety ${formatScore(averageAnxiety)}/10 in the saved window.` },
+          { title: "Change tracking", body: responseRead },
+        ],
+        limits,
+      };
+    }
+
     function buildResponseReview(eventEntry, checkins) {
       const preWindowDays = Number(eventEntry.pre_window_days) || 14;
       const postWindowDays = Number(eventEntry.post_window_days) || 14;
@@ -1370,45 +1634,29 @@
       const postEnd = addDays(anchorDate, postWindowDays - 1);
       const preEntries = checkinsBetween(checkins, preStart, preEnd);
       const postEntries = checkinsBetween(checkins, postStart, postEnd);
-      const metrics = [
-        { field: "sleep_quality_0_10", label: "sleep", higherIsBetter: true },
-        { field: "stress_0_10", label: "stress", higherIsBetter: false },
-        { field: "anxiety_0_10", label: "anxiety", higherIsBetter: false },
-        { field: "fatigue_0_10", label: "fatigue", higherIsBetter: false },
-      ];
+      const metrics = metricsForEvent(eventEntry);
       const deltas = metrics.map((metric) => {
         const preAverage = averageField(preEntries, metric.field);
         const postAverage = averageField(postEntries, metric.field);
         const delta = Number.isFinite(preAverage) && Number.isFinite(postAverage) ? postAverage - preAverage : null;
-        return { ...metric, preAverage, postAverage, delta };
+        const classification = classifyMetricResponse(metric, eventEntry.expected_direction, delta);
+        return { ...metric, preAverage, postAverage, delta, classification };
       });
-      if (preEntries.length < 3 || postEntries.length < 3) {
+      const readableMetrics = deltas.filter((metric) => Number.isFinite(metric.delta));
+      if (preEntries.length < 3 || postEntries.length < 3 || readableMetrics.length < 2) {
         return {
           tone: "warn",
           heading: "Insufficient window",
-          body: `Only ${preEntries.length} pre-event and ${postEntries.length} post-event check-ins are available. Keep collecting before reading response to change seriously.`,
+          body: `${buildWindowDescriptor(preEntries, postEntries, preStart, preEnd, postStart, postEnd)} Keep collecting before reading ${eventEntry.response_target || eventEntry.event_label || "this event"} as response to change.`,
           metrics: deltas,
         };
       }
-      const directionalHits = deltas.filter((metric) => Number.isFinite(metric.delta) && describeDirectionalChange(metric.delta, metric.higherIsBetter) === "moved in the clinically helpful direction").length;
-      const directionalMisses = deltas.filter((metric) => Number.isFinite(metric.delta) && describeDirectionalChange(metric.delta, metric.higherIsBetter) === "moved against the clinically helpful direction").length;
-      let tone = "ok";
-      let heading = "Mixed signal";
-      if (directionalHits >= 3 && directionalHits > directionalMisses) {
-        heading = "Signal moved in the expected direction";
-      } else if (directionalMisses >= 3 && directionalMisses > directionalHits) {
-        tone = "danger";
-        heading = "Signal moved against the expected direction";
-      } else {
-        tone = "warn";
-      }
-      const summaryParts = deltas
-        .filter((metric) => Number.isFinite(metric.delta))
-        .map((metric) => `${metric.label} ${formatSignedDelta(metric.delta)}`);
+      const verdict = buildResponseVerdict(readableMetrics, eventEntry.expected_direction);
+      const summaryParts = readableMetrics.map((metric) => `${metric.label} ${formatSignedDelta(metric.delta)}`);
       return {
-        tone,
-        heading,
-        body: `${preEntries.length} pre-event and ${postEntries.length} post-event check-ins are available. ${summaryParts.join(" · ") || "No readable deltas yet."}`,
+        tone: verdict.tone,
+        heading: verdict.heading,
+        body: `${buildWindowDescriptor(preEntries, postEntries, preStart, preEnd, postStart, postEnd)} ${summaryParts.join(" · ") || "No readable deltas yet."}`,
         metrics: deltas,
       };
     }
@@ -1738,6 +1986,10 @@
       const fatigueDelta = computeRecentDelta(record.checkins, "fatigue_0_10");
       const companion = [...record.reports].sort((a, b) => (a.created_at < b.created_at ? 1 : -1)).find((item) => item.report_kind === "professional_companion") || null;
       const patientReview = [...record.reports].sort((a, b) => (a.created_at < b.created_at ? 1 : -1)).find((item) => item.report_kind === "participant_monthly") || null;
+      const responseItems = [...record.events].sort((a, b) => (a.event_date_local < b.event_date_local ? 1 : -1)).slice(0, 6);
+      const responseAnalyses = responseItems.map((entry) => ({ entry, response: buildResponseReview(entry, record.checkins) }));
+      const companionDraft = buildCompanionDraft(record, responseAnalyses);
+      const patientDraft = buildPatientReturnDraft(record, responseAnalyses);
 
       professionalReviewTitle.textContent = `${record.participant.participant_code} · ${record.participant.display_label || record.contact?.full_name || "Selected participant"}`;
       professionalReviewCopy.textContent = `${record.window28}/28 nights saved across ${reviewWindowLabel(record)}. This tab is for longitudinal reading of the case, not for operational data entry.`;
@@ -1839,10 +2091,23 @@
           `).join("")
         : '<div class="empty-state">No timeline activity is available yet for this participant.</div>';
 
-      const responseItems = [...record.events].sort((a, b) => (a.event_date_local < b.event_date_local ? 1 : -1)).slice(0, 6);
-      professionalResponse.innerHTML = responseItems.length
-        ? responseItems.map((entry) => {
-            const response = buildResponseReview(entry, record.checkins);
+      professionalResponse.innerHTML = responseAnalyses.length
+        ? responseAnalyses.map(({ entry, response }) => {
+            const metricCards = response.metrics.length
+              ? response.metrics.map((metric) => `
+                  <div class="response-metric">
+                    <div class="response-metric-head">
+                      <strong>${escapeHtml(metric.label)}</strong>
+                      <span class="tag ${responseMetricTone(metric.classification)}">${escapeHtml(responseMetricLabel(metric.classification))}</span>
+                    </div>
+                    <div class="response-metric-values">
+                      <span>pre ${escapeHtml(formatScore(metric.preAverage))}</span>
+                      <span>post ${escapeHtml(formatScore(metric.postAverage))}</span>
+                      <span>delta ${escapeHtml(formatSignedDelta(metric.delta))}</span>
+                    </div>
+                  </div>
+                `).join("")
+              : "";
             return `
               <div class="response-item">
                 <strong>${escapeHtml(entry.event_label || entry.event_kind || "Event")}</strong>
@@ -1853,13 +2118,14 @@
                 </div>
                 <div class="tag ${response.tone}">${escapeHtml(response.heading)}</div>
                 <span>${escapeHtml(response.body)}</span>
+                ${metricCards ? `<div class="response-metric-grid">${metricCards}</div>` : ""}
               </div>
             `;
           }).join("")
         : '<div class="empty-state">No event anchors are registered yet, so response-to-change review cannot start.</div>';
 
-      const buildOutputCard = (report, emptyText) => {
-        if (!report) return `<div class="empty-state">${escapeHtml(emptyText)}</div>`;
+      const buildRegisteredOutputCard = (report, emptyText) => {
+        if (!report) return `<div class="review-note">${escapeHtml(emptyText)}</div>`;
         return `
           <div class="callout">
             <strong>${escapeHtml(reportKindLabel(report.report_kind))}</strong>
@@ -1870,8 +2136,48 @@
           </div>
         `;
       };
-      professionalCompanionOutput.innerHTML = buildOutputCard(companion, "No professional companion is registered yet.");
-      professionalPatientOutput.innerHTML = buildOutputCard(patientReview, "No participant-facing review is registered yet.");
+      professionalCompanionOutput.innerHTML = `
+        <div class="review-summary-stack">
+          <div class="callout">
+            <strong>Draft professional synthesis</strong>
+            <span>${escapeHtml(companionDraft.summary)}</span>
+          </div>
+          <div class="review-draft-list">
+            ${companionDraft.items.map((item) => `
+              <div class="review-insight-item">
+                <strong>${escapeHtml(item.title)}</strong>
+                <span>${escapeHtml(item.body)}</span>
+              </div>
+            `).join("")}
+          </div>
+          <div class="callout">
+            <strong>Current limit</strong>
+            <span>${escapeHtml(companionDraft.limit)}</span>
+          </div>
+          ${buildRegisteredOutputCard(companion, "No professional companion is registered yet. The draft above is the live structured read for now.")}
+        </div>
+      `;
+      professionalPatientOutput.innerHTML = `
+        <div class="review-summary-stack">
+          <div class="callout">
+            <strong>Draft patient-facing framing</strong>
+            <span>${escapeHtml(patientDraft.message)}</span>
+          </div>
+          <div class="review-draft-list">
+            ${patientDraft.items.map((item) => `
+              <div class="review-insight-item">
+                <strong>${escapeHtml(item.title)}</strong>
+                <span>${escapeHtml(item.body)}</span>
+              </div>
+            `).join("")}
+          </div>
+          <div class="callout">
+            <strong>Boundary</strong>
+            <span>${escapeHtml(patientDraft.limits)}</span>
+          </div>
+          ${buildRegisteredOutputCard(patientReview, "No participant-facing review is registered yet. The framing above can still guide the conversation with the participant.")}
+        </div>
+      `;
     }
 
     function renderSelectedParticipant() {
