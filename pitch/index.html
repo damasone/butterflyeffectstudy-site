@@ -71,6 +71,7 @@
       font-size: 0.92rem;
     }
     .nav-links a { color: var(--muted); }
+    .nav-links a.active { color: var(--ink); }
     .nav-links a:hover { color: var(--ink); text-decoration: none; }
     .wrap {
       max-width: 1240px;
@@ -311,8 +312,8 @@
 <body>
   <div class="page-shell">
     <nav class="topbar">
-      <a class="mark" href="/overview/" aria-label="Butterfly Effect"><span>Butterfly Effect</span></a>
-      <div class="nav-links"><a href="/overview/">Overview</a><a href="/system/">System</a><a href="/validation/">Validation</a><a href="/evidence/">Evidence</a><a href="/participant/">Participant</a><a href="/views/">Views</a><a href="/study/">Study</a></div>
+      <a class="mark" href="/overview/" aria-label="Butterfly Effect"><img src="/assets/brand-mark-tight.png" alt="" style="width:34px;height:auto;display:block;"></a>
+      <div class="nav-links"><a href="/overview/">Overview</a><a class="active" href="/pitch/" aria-current="page">Pitch</a><a href="/system/">System</a><a href="/built/">Built</a><a href="/validation/">Validation</a><a href="/evidence/">Evidence</a><a href="/participant/">Participant</a><a href="/views/">Views</a><a href="/study/">Study</a></div>
     </nav>
 
     <main class="wrap">
