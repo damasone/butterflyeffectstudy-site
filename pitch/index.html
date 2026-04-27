@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A compact scientific pitch for Butterfly Effect, a research system for longitudinal sleep and physiology interpretation.">
+  <title>Butterfly Effect · Scientific Pitch</title>
+  <style>
+    :root {
+      --bg: #161311;
+      --bg-deep: #1d1916;
+      --panel: rgba(28, 24, 21, 0.88);
+      --panel-soft: rgba(36, 32, 28, 0.84);
+      --ink: #f3ede7;
+      --muted: #b8ada1;
+      --line: #342c26;
+      --line-strong: #4a4038;
+      --accent: #c39a79;
+      --accent-deep: #eadbce;
+      --ok: #9ecab3;
+      --warn: #d0a177;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+      --sans: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+      font-family: var(--sans);
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(195, 154, 121, 0.07), transparent 28%),
+        radial-gradient(circle at 84% 8%, rgba(126, 165, 174, 0.045), transparent 24%);
+    }
+    a { color: var(--accent-deep); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .page-shell { position: relative; z-index: 1; min-height: 100vh; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 24px;
+      backdrop-filter: blur(16px);
+      background: rgba(22, 19, 17, 0.84);
+      border-bottom: 1px solid rgba(74, 64, 56, 0.72);
+    }
+    .mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--ink);
+      border: 0;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 0.92rem;
+    }
+    .nav-links a { color: var(--muted); }
+    .nav-links a:hover { color: var(--ink); text-decoration: none; }
+    .wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 44px 28px 92px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+      gap: 28px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+    .hero-card,
+    .panel,
+    .pitch-card,
+    .script-card {
+      background: var(--panel);
+      border: 1px solid rgba(74, 64, 56, 0.7);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+    .hero-card { padding: 34px; }
+    .panel { padding: 28px; display: grid; gap: 18px; }
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.02em; }
+    h1 { max-width: 13ch; font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.02; }
+    h2 { font-size: clamp(1.55rem, 3vw, 2.15rem); line-height: 1.08; }
+    h3 { font-size: 1.05rem; }
+    p { margin: 0; color: var(--muted); line-height: 1.68; }
+    .lede {
+      margin-top: 18px;
+      max-width: 64ch;
+      color: var(--accent-deep);
+      font-size: 1.05rem;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .button,
+    .ghost-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+    .button {
+      background: var(--accent);
+      color: #1a1411;
+    }
+    .ghost-button {
+      border-color: rgba(195, 154, 121, 0.5);
+      color: var(--accent-deep);
+      background: rgba(35, 29, 25, 0.54);
+    }
+    .button:hover,
+    .ghost-button:hover {
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+    .brand-symbol {
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+    }
+    .status-list {
+      display: grid;
+      gap: 12px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .status-list li {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: var(--panel-soft);
+      border: 1px solid rgba(74, 64, 56, 0.5);
+      color: var(--muted);
+      line-height: 1.58;
+    }
+    .status-list strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+    .section {
+      margin-top: 24px;
+      display: grid;
+      gap: 18px;
+    }
+    .section-header {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.75fr);
+      gap: 24px;
+      align-items: end;
+    }
+    .pitch-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .pitch-card {
+      padding: 22px;
+      display: grid;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .pitch-card span {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      font-size: 0.74rem;
+      font-weight: 600;
+    }
+    .script-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
+      gap: 18px;
+      align-items: start;
+    }
+    .script-card {
+      padding: 24px;
+      display: grid;
+      gap: 16px;
+    }
+    .script-line {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(74, 64, 56, 0.62);
+    }
+    .script-line:first-child { padding-top: 0; border-top: 0; }
+    .script-line strong {
+      color: var(--accent-deep);
+      font-size: 0.92rem;
+    }
+    .claim-panel {
+      display: grid;
+      gap: 12px;
+    }
+    .claim {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: var(--panel-soft);
+      border: 1px solid rgba(74, 64, 56, 0.52);
+    }
+    .claim.ok { border-color: rgba(158, 202, 179, 0.32); }
+    .claim.warn { border-color: rgba(208, 161, 119, 0.32); }
+    .claim strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+    .footer {
+      margin-top: 34px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(74, 64, 56, 0.55);
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      justify-content: space-between;
+      font-size: 0.92rem;
+    }
+    @media (max-width: 960px) {
+      .hero,
+      .section-header,
+      .script-grid,
+      .pitch-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .wrap { padding-inline: 16px; }
+      .topbar {
+        padding: 16px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .nav-links {
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 10px;
+        padding-bottom: 2px;
+      }
+      .nav-links a {
+        flex: 0 0 auto;
+        min-height: 38px;
+        padding: 9px 12px;
+        border: 1px solid rgba(74, 64, 56, 0.62);
+        border-radius: 999px;
+        background: rgba(36, 32, 28, 0.78);
+      }
+      .hero-card,
+      .panel,
+      .pitch-card,
+      .script-card { padding: 22px; }
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .hero-actions a { width: 100%; }
+      .script-line { grid-template-columns: 1fr; gap: 6px; }
+    }
+  </style>
+  <link rel="canonical" href="https://butterflyeffectstudy.com/pitch/">
+  <meta property="og:site_name" content="Butterfly Effect">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Butterfly Effect · Scientific Pitch">
+  <meta property="og:description" content="A compact scientific pitch for Butterfly Effect, a research system for longitudinal sleep and physiology interpretation.">
+  <meta property="og:url" content="https://butterflyeffectstudy.com/pitch/">
+  <meta property="og:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Butterfly Effect · Scientific Pitch">
+  <meta name="twitter:description" content="A compact scientific pitch for Butterfly Effect, a research system for longitudinal sleep and physiology interpretation.">
+  <meta name="twitter:image" content="https://butterflyeffectstudy.com/assets/og-card.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+</head>
+<body>
+  <div class="page-shell">
+    <nav class="topbar">
+      <a class="mark" href="/overview/" aria-label="Butterfly Effect"><span>Butterfly Effect</span></a>
+      <div class="nav-links"><a href="/overview/">Overview</a><a href="/system/">System</a><a href="/validation/">Validation</a><a href="/evidence/">Evidence</a><a href="/participant/">Participant</a><a href="/views/">Views</a><a href="/study/">Study</a></div>
+    </nav>
+
+    <main class="wrap">
+      <section class="hero">
+        <article class="hero-card">
+          <p class="eyebrow">Scientific pitch</p>
+          <h1>A compact case for longitudinal sleep interpretation.</h1>
+          <p class="lede">Butterfly Effect studies whether repeated sleep and overnight physiology can reveal small, early signals that relate to next-day stress, symptoms, and daily burden. The project is built as a research system: useful only when the signal, limits, evidence, and return pathway stay visible together.</p>
+          <div class="hero-actions">
+            <a class="button" href="/validation/">Read validation</a>
+            <a class="ghost-button" href="/views/">Open live surfaces</a>
+            <a class="ghost-button" href="/study/">Study workflow</a>
+          </div>
+        </article>
+        <aside class="panel">
+          <img class="brand-symbol" src="/assets/brand-mark-tight.png" alt="">
+          <div>
+            <p class="eyebrow">Current posture</p>
+            <h2>Research-only, structured, and intentionally bounded.</h2>
+          </div>
+          <ul class="status-list">
+            <li><strong>What is public.</strong> The implemented layers, evidence frame, validation boundaries, participant-return contract, and institutional workflow.</li>
+            <li><strong>What is in process.</strong> Prospective participant studies are underway and stay reserved until their data quality and interpretation limits can be reported responsibly.</li>
+            <li><strong>What is not claimed.</strong> No diagnosis, no medical advice, no single-night score, and no claim that one portable model already explains every cohort.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Core story</p>
+            <h2>The project is strongest when it is presented as a governed signal system.</h2>
+          </div>
+          <p>The important message is not that sleep predicts everything. The important message is that repeated night-to-day patterns can be studied, bounded, validated, and returned without pretending they are a finished clinical product.</p>
+        </div>
+        <div class="pitch-grid">
+          <article class="pitch-card">
+            <span>01</span>
+            <h3>The scientific question</h3>
+            <p>Can subtle changes in sleep timing, continuity, cardiovascular load, movement, and daily labels reveal interpretable shifts before the person experiences the next-day burden?</p>
+          </article>
+          <article class="pitch-card">
+            <span>02</span>
+            <h3>The system answer</h3>
+            <p>The site separates nightly routes, event stress, daily challenge layers, non-stress support, participant return, and institutional pilots so each claim keeps its own evidence standard.</p>
+          </article>
+          <article class="pitch-card">
+            <span>03</span>
+            <h3>The practical return</h3>
+            <p>When data quality is sufficient, the output is not a consumer score. It is a longitudinal pattern review with confidence, missingness, provenance, and professional context kept close.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="script-grid">
+          <article class="script-card">
+            <div class="script-line">
+              <strong>Opening</strong>
+              <p>Butterfly Effect is a research platform for reading repeated sleep and overnight physiology as early, bounded signals of next-day burden.</p>
+            </div>
+            <div class="script-line">
+              <strong>Problem</strong>
+              <p>Most wearable sleep products either stay descriptive or overstate the clinical meaning of a single night. This project focuses on longitudinal patterns and keeps the claim boundary explicit.</p>
+            </div>
+            <div class="script-line">
+              <strong>Method</strong>
+              <p>The system links night data, daily labels, validation metrics, evidence references, and participant-facing reports through separate layers rather than forcing everything into one model.</p>
+            </div>
+            <div class="script-line">
+              <strong>Evidence</strong>
+              <p>Some within-cohort and event-stress routes already show defendable signal. Cross-cohort transport remains treated cautiously, which is why the public surface says what holds and what remains research-only.</p>
+            </div>
+            <div class="script-line">
+              <strong>Direction</strong>
+              <p>Prospective studies are in process. Until those readouts are ready, the project keeps public claims attached to the validated layers and uses new data to strengthen the scientific spine.</p>
+            </div>
+          </article>
+          <aside class="panel claim-panel">
+            <div>
+              <p class="eyebrow">Claim discipline</p>
+              <h2>What makes it credible is restraint.</h2>
+            </div>
+            <div class="claim ok">
+              <strong>Strong claim</strong>
+              <p>Repeated sleep and physiology can be interpreted as bounded longitudinal research signals when quality, validation, and provenance are visible.</p>
+            </div>
+            <div class="claim warn">
+              <strong>Protected claim</strong>
+              <p>Ongoing participant work is described only as in process until the collection, wearable linkage, and quality review are mature enough to report.</p>
+            </div>
+            <div class="claim">
+              <strong>Public promise</strong>
+              <p>The project returns understandable research interpretation without hiding uncertainty or turning early evidence into diagnosis.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Butterfly Effect · Scientific pitch</span>
+      <span>Research only · Not diagnostic · Studies in process</span>
+    </footer>
+  </div>
+</body>
+</html>
