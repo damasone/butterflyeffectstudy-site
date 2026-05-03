@@ -1422,6 +1422,11 @@
         { field: "positive_affect_0_10", label: "positive affect", higherIsBetter: true, targets: ["positive", "affect", "mood"] },
         { field: "negative_affect_0_10", label: "negative affect", higherIsBetter: false, targets: ["negative", "affect", "mood"] },
         { field: "energy_0_10", label: "energy", higherIsBetter: true, targets: ["energy", "fatigue", "daytime"] },
+        { field: "mental_clarity_0_10", label: "mental clarity", higherIsBetter: true, targets: ["clarity", "cognitive", "brain", "attention", "focus"] },
+        { field: "concentration_0_10", label: "concentration", higherIsBetter: true, targets: ["concentration", "attention", "focus", "cognitive"] },
+        { field: "memory_confidence_0_10", label: "memory confidence", higherIsBetter: true, targets: ["memory", "recall", "cognitive", "brain"] },
+        { field: "brain_fog_0_10", label: "brain fog", higherIsBetter: false, targets: ["brain fog", "fog", "cognitive", "clarity"] },
+        { field: "cognitive_fatigue_0_10", label: "mental fatigue", higherIsBetter: false, targets: ["mental fatigue", "cognitive fatigue", "cognitive", "brain", "fatigue"] },
         { field: "pain_0_10", label: "pain", higherIsBetter: false, targets: ["pain", "tension", "somatic"] },
         { field: "muscle_tension_0_10", label: "muscle tension", higherIsBetter: false, targets: ["tension", "pain", "somatic"] },
       ];
@@ -1436,6 +1441,7 @@
       if (target.includes("illness") || target.includes("sick") || target.includes("infection")) return { type: "illness", text: target };
       if (target.includes("medication") || target.includes("pharma") || target.includes("dose")) return { type: "medication", text: target };
       if (target.includes("stress") || target.includes("anxiety") || target.includes("worry") || target.includes("arousal")) return { type: "stress", text: target };
+      if (target.includes("cognitive") || target.includes("brain") || target.includes("clarity") || target.includes("concentration") || target.includes("focus") || target.includes("memory") || target.includes("fog")) return { type: "cognitive", text: target };
       if (target.includes("pain") || target.includes("tension") || target.includes("somatic")) return { type: "somatic", text: target };
       if (target.includes("fatigue") || target.includes("energy") || target.includes("daytime") || target.includes("burden")) return { type: "fatigue", text: target };
       if (target.includes("mood") || target.includes("depression") || target.includes("affect")) return { type: "mood", text: target };
@@ -1455,6 +1461,7 @@
       if (profile.type === "stress") addPriority("stress_0_10", "anxiety_0_10", "negative_affect_0_10", "sleep_quality_0_10");
       if (profile.type === "fatigue") addPriority("fatigue_0_10", "energy_0_10", "sleep_quality_0_10", "stress_0_10");
       if (profile.type === "mood") addPriority("mood_valence_0_10", "positive_affect_0_10", "negative_affect_0_10", "sleep_quality_0_10");
+      if (profile.type === "cognitive") addPriority("mental_clarity_0_10", "concentration_0_10", "brain_fog_0_10", "cognitive_fatigue_0_10");
       if (profile.type === "somatic" || profile.type === "illness") addPriority("pain_0_10", "muscle_tension_0_10", "fatigue_0_10", "sleep_quality_0_10");
       if (profile.type === "caffeine") addPriority("sleep_quality_0_10", "anxiety_0_10", "stress_0_10", "fatigue_0_10");
       if (profile.type === "alcohol") addPriority("sleep_quality_0_10", "fatigue_0_10", "stress_0_10", "anxiety_0_10");
@@ -2149,6 +2156,8 @@
       const averageStress = averageField(record.checkins, "stress_0_10");
       const averageAnxiety = averageField(record.checkins, "anxiety_0_10");
       const averageFatigue = averageField(record.checkins, "fatigue_0_10");
+      const averageClarity = averageField(record.checkins, "mental_clarity_0_10");
+      const averageBrainFog = averageField(record.checkins, "brain_fog_0_10");
       const lowSleepCount = record.checkins.filter((entry) => Number(entry.sleep_quality_0_10) <= 4).length;
       const elevatedStressCount = record.checkins.filter((entry) => Number(entry.stress_0_10) >= 6).length;
       const elevatedAnxietyCount = record.checkins.filter((entry) => Number(entry.anxiety_0_10) >= 6).length;
@@ -2165,6 +2174,8 @@
       const stressDelta = computeRecentDelta(record.checkins, "stress_0_10");
       const anxietyDelta = computeRecentDelta(record.checkins, "anxiety_0_10");
       const fatigueDelta = computeRecentDelta(record.checkins, "fatigue_0_10");
+      const clarityDelta = computeRecentDelta(record.checkins, "mental_clarity_0_10");
+      const brainFogDelta = computeRecentDelta(record.checkins, "brain_fog_0_10");
       const companion = [...record.reports].sort((a, b) => (a.created_at < b.created_at ? 1 : -1)).find((item) => item.report_kind === "professional_companion") || null;
       const patientReview = [...record.reports].sort((a, b) => (a.created_at < b.created_at ? 1 : -1)).find((item) => item.report_kind === "participant_monthly") || null;
       const responseItems = [...record.events].sort((a, b) => (a.event_date_local < b.event_date_local ? 1 : -1)).slice(0, 6);
@@ -2198,6 +2209,12 @@
         {
           title: "Recent movement",
           body: `Across the latest six saved nights, sleep ${formatSignedDelta(sleepDelta)}, stress ${formatSignedDelta(stressDelta)}, anxiety ${formatSignedDelta(anxietyDelta)}, fatigue ${formatSignedDelta(fatigueDelta)}. Read this as directional only, not as a definitive trend.`,
+        },
+        {
+          title: "Cognitive state",
+          body: Number.isFinite(averageClarity) || Number.isFinite(averageBrainFog)
+            ? `Mental clarity averages ${formatScore(averageClarity)}/10 and brain fog averages ${formatScore(averageBrainFog)}/10. Recent clarity ${formatSignedDelta(clarityDelta)} and brain fog ${formatSignedDelta(brainFogDelta)}. Treat this as subjective brain health context only, not as cognitive screening.`
+            : "No cognitive state entries are available yet. Once collected, this layer should be read as subjective brain health context only, not as cognitive screening.",
         },
       ].map((item) => `<div class="review-insight-item"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.body)}</span></div>`).join("");
 
@@ -2412,6 +2429,8 @@
                 <span class="pill">stress ${escapeHtml(entry.stress_0_10 ?? "-")}</span>
                 <span class="pill">anxiety ${escapeHtml(entry.anxiety_0_10 ?? "-")}</span>
                 <span class="pill">fatigue ${escapeHtml(entry.fatigue_0_10 ?? "-")}</span>
+                <span class="pill">clarity ${escapeHtml(entry.mental_clarity_0_10 ?? "-")}</span>
+                <span class="pill">fog ${escapeHtml(entry.brain_fog_0_10 ?? "-")}</span>
               </div>
             </div>
             <p>${escapeHtml(entry.free_text_note || "No free-text note attached to this day.")}</p>
@@ -2505,7 +2524,7 @@
       const [participantsRes, contactsRes, checkinsRes, eventsRes, reportsRes, uploadsRes] = await Promise.all([
         supabaseClient.from("study_participants").select("id, participant_code, auth_user_id, display_label, study_label, timezone, note, status, created_at, updated_at").order("created_at", { ascending: false }),
         supabaseClient.from("study_participant_contacts").select("participant_id, full_name, email, phone, preferred_contact_channel, created_at, updated_at"),
-        supabaseClient.from("study_daily_checkins").select("id, participant_id, report_date_local, checkin_completed_at, sleep_quality_0_10, stress_0_10, anxiety_0_10, depression_0_10, mood_valence_0_10, positive_affect_0_10, negative_affect_0_10, fatigue_0_10, energy_0_10, pain_0_10, muscle_tension_0_10, caffeine_late_flag, alcohol_evening_flag, nap_flag, exercise_late_flag, major_stressor_flag, travel_flag, dream_recall_flag, acute_illness_flag, medication_change_flag, major_schedule_disruption_flag, caffeine_mg, alcohol_units, nap_minutes, exercise_minutes, menstrual_cycle_phase, free_text_note, source, created_at, updated_at").order("report_date_local", { ascending: false }),
+        supabaseClient.from("study_daily_checkins").select("*").order("report_date_local", { ascending: false }),
         supabaseClient.from("study_intervention_events").select("id, participant_id, event_date_local, event_end_date_local, event_kind, event_label, domain, response_target, expected_direction, intensity_0_10, pre_window_days, post_window_days, note, created_at").order("event_date_local", { ascending: false }),
         supabaseClient.from("study_generated_reports").select("id, participant_id, report_kind, storage_bucket, storage_path, coverage_date_from, coverage_date_to, created_at").order("created_at", { ascending: false }),
         supabaseClient.from("study_wearable_uploads").select("id, participant_id, storage_bucket, storage_path, original_filename, content_type, byte_size, upload_status, created_at").order("created_at", { ascending: false }),

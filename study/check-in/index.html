@@ -893,6 +893,27 @@
     .boolean-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .field { display: flex; flex-direction: column; gap: 6px; }
     .field.wide { grid-column: 1 / -1; }
+    .form-subsection {
+      grid-column: 1 / -1;
+      display: grid;
+      gap: 4px;
+      margin-top: 4px;
+      padding-top: 8px;
+    }
+    .form-subsection h3 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 0.98rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .form-subsection p {
+      margin: 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
     #checkin-form > .field-grid:first-child {
       margin-top: 12px;
     }
@@ -1883,6 +1904,15 @@
               <div class="field"><div class="label-row"><label for="mood_valence_0_10">Overall mood valence</label><details class="field-help"><summary aria-label="What does overall mood valence mean?">i</summary><div class="field-help-card">Think of this as the overall emotional tone of the day. Lower means more negative overall, higher means more positive overall.</div></details></div><div class="range-row"><input id="mood_valence_0_10" name="mood_valence_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="mood_valence_0_10">5</span></div></div>
               <div class="field"><div class="label-row"><label for="fatigue_0_10">Fatigue</label><details class="field-help"><summary aria-label="What does fatigue mean?">i</summary><div class="field-help-card">Use this for heaviness, exhaustion, or feeling drained. Higher means more tired and harder to keep going.</div></details></div><div class="range-row"><input id="fatigue_0_10" name="fatigue_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="fatigue_0_10">5</span></div></div>
               <div class="field"><div class="label-row"><label for="energy_0_10">Energy</label><details class="field-help"><summary aria-label="What does energy mean?">i</summary><div class="field-help-card">This is the opposite side of fatigue: how much usable energy, momentum, or drive you felt through the day. Higher means more energy.</div></details></div><div class="range-row"><input id="energy_0_10" name="energy_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="energy_0_10">5</span></div></div>
+              <div class="form-subsection">
+                <h3>Cognitive state</h3>
+                <p>Research only daily markers for clarity, attention and mental load. These are subjective daily entries, not cognitive tests or clinical screening.</p>
+              </div>
+              <div class="field"><div class="label-row"><label for="mental_clarity_0_10">Mental clarity</label><details class="field-help"><summary aria-label="What does mental clarity mean?">i</summary><div class="field-help-card">How clear, organized, and easy your thinking felt today. Lower means foggy or scattered, higher means clear and easy to follow.</div></details></div><div class="range-row"><input id="mental_clarity_0_10" name="mental_clarity_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="mental_clarity_0_10">5</span></div></div>
+              <div class="field"><div class="label-row"><label for="concentration_0_10">Concentration</label><details class="field-help"><summary aria-label="What does concentration mean?">i</summary><div class="field-help-card">How well you could stay with tasks, conversations, or reading without losing track. Higher means steadier attention.</div></details></div><div class="range-row"><input id="concentration_0_10" name="concentration_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="concentration_0_10">5</span></div></div>
+              <div class="field"><div class="label-row"><label for="memory_confidence_0_10">Memory confidence</label><details class="field-help"><summary aria-label="What does memory confidence mean?">i</summary><div class="field-help-card">Your confidence in remembering recent tasks, conversations, or things you meant to do. This is a subjective impression, not a memory test.</div></details></div><div class="range-row"><input id="memory_confidence_0_10" name="memory_confidence_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="memory_confidence_0_10">5</span></div></div>
+              <div class="field"><div class="label-row"><label for="brain_fog_0_10">Brain fog</label><details class="field-help"><summary aria-label="What does brain fog mean?">i</summary><div class="field-help-card">Use this for mental haze, slowness, difficulty finding words, or feeling cognitively cloudy. Higher means more brain fog.</div></details></div><div class="range-row"><input id="brain_fog_0_10" name="brain_fog_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="brain_fog_0_10">5</span></div></div>
+              <div class="field"><div class="label-row"><label for="cognitive_fatigue_0_10">Mental fatigue</label><details class="field-help"><summary aria-label="What does mental fatigue mean?">i</summary><div class="field-help-card">How mentally drained or effortful thinking felt, even if your body was not tired. Higher means more cognitive fatigue.</div></details></div><div class="range-row"><input id="cognitive_fatigue_0_10" name="cognitive_fatigue_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="cognitive_fatigue_0_10">5</span></div></div>
               <div class="field"><div class="label-row"><label for="pain_0_10">Pain</label><details class="field-help"><summary aria-label="What does pain mean?">i</summary><div class="field-help-card">Use this for physical pain overall, even if it was mild or in one area only. Higher means pain was more noticeable or disruptive.</div></details></div><div class="range-row"><input id="pain_0_10" name="pain_0_10" type="range" min="0" max="10" step="1" value="0"><span class="range-value" data-range-value="pain_0_10">0</span></div></div>
               <div class="field"><div class="label-row"><label for="muscle_tension_0_10">Muscle tension</label><details class="field-help"><summary aria-label="What does muscle tension mean?">i</summary><div class="field-help-card">Use this for bodily tightness or holding tension, for example jaw, shoulders, chest, neck, or back. Higher means the body felt more tense or braced.</div></details></div><div class="range-row"><input id="muscle_tension_0_10" name="muscle_tension_0_10" type="range" min="0" max="10" step="1" value="0"><span class="range-value" data-range-value="muscle_tension_0_10">0</span></div></div>
               <div class="field"><div class="label-row"><label for="positive_affect_0_10">Positive affect</label><details class="field-help"><summary aria-label="What does positive affect mean?">i</summary><div class="field-help-card">How much positive emotional tone you felt overall: for example calm, hopeful, interested, content, or motivated. Higher means more positive emotional tone.</div></details></div><div class="range-row"><input id="positive_affect_0_10" name="positive_affect_0_10" type="range" min="0" max="10" step="1" value="5"><span class="range-value" data-range-value="positive_affect_0_10">5</span></div></div>
@@ -2220,6 +2250,7 @@
     const FIELD_ORDER = [
       "participant_uid","report_date_local","checkin_completed_ts_local","sleep_quality_0_10","stress_0_10","anxiety_0_10",
       "depression_0_10","mood_valence_0_10","positive_affect_0_10","negative_affect_0_10","fatigue_0_10","energy_0_10",
+      "mental_clarity_0_10","concentration_0_10","memory_confidence_0_10","brain_fog_0_10","cognitive_fatigue_0_10",
       "pain_0_10","muscle_tension_0_10","major_stressor_flag","dream_recall_flag","caffeine_mg","caffeine_late_flag",
       "alcohol_units","alcohol_evening_flag","nap_minutes","exercise_minutes","exercise_late_flag","acute_illness_flag",
       "medication_change_flag","travel_flag","major_schedule_disruption_flag","menstrual_cycle_phase","free_text_note"
@@ -2230,7 +2261,8 @@
     ]);
     const RANGE_FIELDS = [
       "sleep_quality_0_10","stress_0_10","anxiety_0_10","depression_0_10","mood_valence_0_10","positive_affect_0_10",
-      "negative_affect_0_10","fatigue_0_10","energy_0_10","pain_0_10","muscle_tension_0_10"
+      "negative_affect_0_10","fatigue_0_10","energy_0_10","mental_clarity_0_10","concentration_0_10",
+      "memory_confidence_0_10","brain_fog_0_10","cognitive_fatigue_0_10","pain_0_10","muscle_tension_0_10"
     ];
     const RANGE_FIELD_SET = new Set(RANGE_FIELDS);
 
@@ -2949,6 +2981,11 @@
         negative_affect_0_10: row.negative_affect_0_10 ?? "",
         fatigue_0_10: row.fatigue_0_10 ?? "",
         energy_0_10: row.energy_0_10 ?? "",
+        mental_clarity_0_10: row.mental_clarity_0_10 ?? "",
+        concentration_0_10: row.concentration_0_10 ?? "",
+        memory_confidence_0_10: row.memory_confidence_0_10 ?? "",
+        brain_fog_0_10: row.brain_fog_0_10 ?? "",
+        cognitive_fatigue_0_10: row.cognitive_fatigue_0_10 ?? "",
         pain_0_10: row.pain_0_10 ?? "",
         muscle_tension_0_10: row.muscle_tension_0_10 ?? "",
         major_stressor_flag: triStateString(row.major_stressor_flag),
@@ -3041,6 +3078,11 @@
         negative_affect_0_10: toOptionalInt(entry.negative_affect_0_10),
         fatigue_0_10: toOptionalInt(entry.fatigue_0_10),
         energy_0_10: toOptionalInt(entry.energy_0_10),
+        mental_clarity_0_10: toOptionalInt(entry.mental_clarity_0_10),
+        concentration_0_10: toOptionalInt(entry.concentration_0_10),
+        memory_confidence_0_10: toOptionalInt(entry.memory_confidence_0_10),
+        brain_fog_0_10: toOptionalInt(entry.brain_fog_0_10),
+        cognitive_fatigue_0_10: toOptionalInt(entry.cognitive_fatigue_0_10),
         pain_0_10: pain,
         muscle_tension_0_10: tension,
         pain_tension_0_10: mergedPainTension,
@@ -3156,6 +3198,14 @@
         historyChip("Tension", entry.muscle_tension_0_10),
       ].join("");
 
+      const cognitive = [
+        historyChip("Clarity", entry.mental_clarity_0_10),
+        historyChip("Concentration", entry.concentration_0_10),
+        historyChip("Memory confidence", entry.memory_confidence_0_10),
+        historyChip("Brain fog", entry.brain_fog_0_10),
+        historyChip("Mental fatigue", entry.cognitive_fatigue_0_10),
+      ].join("");
+
       const quantities = [
         historyChip("Caffeine", hasDisplayValue(entry.caffeine_mg) ? `${entry.caffeine_mg} mg` : ""),
         historyChip("Alcohol", hasDisplayValue(entry.alcohol_units) ? `${entry.alcohol_units} units` : ""),
@@ -3183,6 +3233,10 @@
           <div class="history-section">
             <div class="history-section-label">Ratings</div>
             <div class="history-chip-grid">${scales}</div>
+          </div>
+          <div class="history-section">
+            <div class="history-section-label">Cognitive state</div>
+            <div class="history-chip-grid">${cognitive}</div>
           </div>
           <div class="history-section">
             <div class="history-section-label">Quantities and context</div>
