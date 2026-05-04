@@ -1361,6 +1361,10 @@
       return Number.isFinite(value) ? value.toFixed(1) : "—";
     }
 
+    function formatEntryScore(value) {
+      return value === null || value === undefined || value === "" ? "—" : String(value);
+    }
+
     function countTrue(entries, field) {
       return entries.filter((entry) => entry[field] === true).length;
     }
@@ -2157,7 +2161,10 @@
       const averageAnxiety = averageField(record.checkins, "anxiety_0_10");
       const averageFatigue = averageField(record.checkins, "fatigue_0_10");
       const averageClarity = averageField(record.checkins, "mental_clarity_0_10");
+      const averageConcentration = averageField(record.checkins, "concentration_0_10");
+      const averageMemoryConfidence = averageField(record.checkins, "memory_confidence_0_10");
       const averageBrainFog = averageField(record.checkins, "brain_fog_0_10");
+      const averageCognitiveFatigue = averageField(record.checkins, "cognitive_fatigue_0_10");
       const lowSleepCount = record.checkins.filter((entry) => Number(entry.sleep_quality_0_10) <= 4).length;
       const elevatedStressCount = record.checkins.filter((entry) => Number(entry.stress_0_10) >= 6).length;
       const elevatedAnxietyCount = record.checkins.filter((entry) => Number(entry.anxiety_0_10) >= 6).length;
@@ -2175,7 +2182,10 @@
       const anxietyDelta = computeRecentDelta(record.checkins, "anxiety_0_10");
       const fatigueDelta = computeRecentDelta(record.checkins, "fatigue_0_10");
       const clarityDelta = computeRecentDelta(record.checkins, "mental_clarity_0_10");
+      const concentrationDelta = computeRecentDelta(record.checkins, "concentration_0_10");
+      const memoryConfidenceDelta = computeRecentDelta(record.checkins, "memory_confidence_0_10");
       const brainFogDelta = computeRecentDelta(record.checkins, "brain_fog_0_10");
+      const cognitiveFatigueDelta = computeRecentDelta(record.checkins, "cognitive_fatigue_0_10");
       const companion = [...record.reports].sort((a, b) => (a.created_at < b.created_at ? 1 : -1)).find((item) => item.report_kind === "professional_companion") || null;
       const patientReview = [...record.reports].sort((a, b) => (a.created_at < b.created_at ? 1 : -1)).find((item) => item.report_kind === "participant_monthly") || null;
       const responseItems = [...record.events].sort((a, b) => (a.event_date_local < b.event_date_local ? 1 : -1)).slice(0, 6);
@@ -2212,8 +2222,8 @@
         },
         {
           title: "Cognitive state",
-          body: Number.isFinite(averageClarity) || Number.isFinite(averageBrainFog)
-            ? `Mental clarity averages ${formatScore(averageClarity)}/10 and brain fog averages ${formatScore(averageBrainFog)}/10. Recent clarity ${formatSignedDelta(clarityDelta)} and brain fog ${formatSignedDelta(brainFogDelta)}. Treat this as subjective brain health context only, not as cognitive screening.`
+          body: [averageClarity, averageConcentration, averageMemoryConfidence, averageBrainFog, averageCognitiveFatigue].some(Number.isFinite)
+            ? `Mental clarity averages ${formatScore(averageClarity)}/10, concentration ${formatScore(averageConcentration)}/10, memory confidence ${formatScore(averageMemoryConfidence)}/10, brain fog ${formatScore(averageBrainFog)}/10, and mental fatigue ${formatScore(averageCognitiveFatigue)}/10. Recent movement: clarity ${formatSignedDelta(clarityDelta)}, concentration ${formatSignedDelta(concentrationDelta)}, memory confidence ${formatSignedDelta(memoryConfidenceDelta)}, brain fog ${formatSignedDelta(brainFogDelta)}, mental fatigue ${formatSignedDelta(cognitiveFatigueDelta)}. Treat this as subjective brain health context only, not as cognitive screening.`
             : "No cognitive state entries are available yet. Once collected, this layer should be read as subjective brain health context only, not as cognitive screening.",
         },
       ].map((item) => `<div class="review-insight-item"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.body)}</span></div>`).join("");
@@ -2429,8 +2439,11 @@
                 <span class="pill">stress ${escapeHtml(entry.stress_0_10 ?? "-")}</span>
                 <span class="pill">anxiety ${escapeHtml(entry.anxiety_0_10 ?? "-")}</span>
                 <span class="pill">fatigue ${escapeHtml(entry.fatigue_0_10 ?? "-")}</span>
-                <span class="pill">clarity ${escapeHtml(entry.mental_clarity_0_10 ?? "-")}</span>
-                <span class="pill">fog ${escapeHtml(entry.brain_fog_0_10 ?? "-")}</span>
+                <span class="pill">clarity ${escapeHtml(formatEntryScore(entry.mental_clarity_0_10))}</span>
+                <span class="pill">concentration ${escapeHtml(formatEntryScore(entry.concentration_0_10))}</span>
+                <span class="pill">memory ${escapeHtml(formatEntryScore(entry.memory_confidence_0_10))}</span>
+                <span class="pill">fog ${escapeHtml(formatEntryScore(entry.brain_fog_0_10))}</span>
+                <span class="pill">mental fatigue ${escapeHtml(formatEntryScore(entry.cognitive_fatigue_0_10))}</span>
               </div>
             </div>
             <p>${escapeHtml(entry.free_text_note || "No free-text note attached to this day.")}</p>
