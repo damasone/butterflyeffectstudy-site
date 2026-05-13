@@ -89,6 +89,40 @@
     .nav-links a:hover {
       color: var(--ink);
     }
+    .nav-links a.active {
+      color: var(--ink);
+    }
+    .layer-strip {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 10px 24px;
+      border-bottom: 1px solid rgba(74, 64, 56, 0.72);
+      background: rgba(22, 19, 17, 0.76);
+      backdrop-filter: blur(16px);
+      scrollbar-width: none;
+    }
+    .layer-strip::-webkit-scrollbar { display: none; }
+    .layer-strip a {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 7px 12px;
+      border: 1px solid rgba(74, 64, 56, 0.7);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.025);
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1;
+    }
+    .layer-strip a:hover,
+    .layer-strip a.active {
+      color: var(--ink);
+      border-color: rgba(126, 165, 174, 0.42);
+      background: rgba(126, 165, 174, 0.12);
+      text-decoration: none;
+    }
     .wrap {
       max-width: 1240px;
       margin: 0 auto;
@@ -268,6 +302,7 @@
       .wrap { padding-inline: 16px; }
       .topbar { padding: 16px; align-items: flex-start; }
       .nav-links { gap: 12px; }
+      .layer-strip { padding: 10px 16px; }
       .grid { grid-template-columns: 1fr; }
       .card-head { flex-direction: column; }
       .head-chips { justify-content: flex-start; }
@@ -622,14 +657,26 @@
 </head>
 <body>
   <nav class="topbar">
-    <span class="mark" aria-label="Butterfly Effect"></span>
+    <a class="mark" href="/overview/" aria-label="Butterfly Effect"></a>
     <div class="nav-links">
       <a href="/overview/">Overview</a>
+      <a href="/pitch/">Pitch</a>
       <a href="/system/">System</a>
+      <a href="/built/">Built</a>
       <a href="/validation/">Validation</a>
       <a href="/evidence/">Evidence</a>
-      <a href="/views/">Views</a>
+      <a href="/participant/">Participant</a>
+      <a class="active" href="/views/">Views</a>
+      <a href="/study/">Study</a>
     </div>
+  </nav>
+  <nav class="layer-strip" aria-label="Layer dashboards">
+    <a href="/views/">Layer index</a>
+    <a class="active" href="/nightly/">Night</a>
+    <a href="/events/">Event</a>
+    <a href="/daily/">Daily</a>
+    <a href="/nonstress-daily/">Non-stress daily</a>
+    <a href="/nonstress-families/">Portable families</a>
   </nav>
   <main class="wrap">
     <header class="hero">
