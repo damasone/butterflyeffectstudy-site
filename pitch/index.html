@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A compact scientific pitch for Butterfly Effect, a research only system for longitudinal health signals and professional review.">
   <title>Butterfly Effect · Scientific Pitch</title>
+  <link rel="stylesheet" href="/shared/surface_enhancer.css">
+  <script src="/shared/surface_enhancer.js" defer></script>
   <style>
     :root {
       --bg: #161311;
@@ -18,28 +20,31 @@
       --accent: #c39a79;
       --accent-deep: #eadbce;
       --ok: #9ecab3;
+      --ok-soft: rgba(158, 202, 179, 0.13);
+      --steel: #8fb1ba;
+      --steel-soft: rgba(143, 177, 186, 0.12);
       --warn: #d0a177;
+      --warn-soft: rgba(208, 161, 119, 0.13);
+      --danger: #d69a8f;
+      --danger-soft: rgba(214, 154, 143, 0.12);
       --shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
       --sans: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       color: var(--ink);
-      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
-      font-family: var(--sans);
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
       background:
-        radial-gradient(circle at 18% 12%, rgba(195, 154, 121, 0.07), transparent 28%),
-        radial-gradient(circle at 84% 8%, rgba(126, 165, 174, 0.045), transparent 24%);
+        linear-gradient(90deg, rgba(255,255,255,0.026) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.022) 1px, transparent 1px),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+      background-size: 92px 92px, 92px 92px, auto;
+      font-family: var(--sans);
     }
     a { color: var(--accent-deep); text-decoration: none; }
     a:hover { text-decoration: underline; }
+    button { font: inherit; }
     .page-shell { position: relative; z-index: 1; min-height: 100vh; }
     .topbar {
       position: sticky;
@@ -76,11 +81,11 @@
     .wrap {
       max-width: 1240px;
       margin: 0 auto;
-      padding: 44px 28px 92px;
+      padding: 42px 28px 92px;
     }
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+      grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
       gap: 28px;
       align-items: stretch;
       margin-bottom: 28px;
@@ -88,13 +93,23 @@
     .hero-card,
     .panel,
     .pitch-card,
-    .script-card {
+    .script-card,
+    .path-card,
+    .tab-panel,
+    .matrix-card,
+    .signal-map {
       background: var(--panel);
       border: 1px solid rgba(74, 64, 56, 0.7);
-      border-radius: 22px;
+      border-radius: 8px;
       box-shadow: var(--shadow);
     }
-    .hero-card { padding: 34px; }
+    .hero-card {
+      display: grid;
+      align-content: start;
+      padding: 36px;
+      min-height: 520px;
+      border-left: 3px solid rgba(195, 154, 121, 0.82);
+    }
     .panel { padding: 28px; display: grid; gap: 18px; }
     .eyebrow {
       margin: 0 0 10px;
@@ -104,9 +119,9 @@
       font-size: 0.78rem;
       font-weight: 500;
     }
-    h1, h2, h3 { margin: 0; font-weight: 500; letter-spacing: -0.016em; }
-    h1 { max-width: 13ch; font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.02; }
-    h2 { font-size: clamp(1.55rem, 3vw, 2.15rem); line-height: 1.08; }
+    h1, h2, h3 { margin: 0; font-weight: 500; letter-spacing: 0; }
+    h1 { max-width: 14ch; font-size: 3.65rem; line-height: 1.02; }
+    h2 { font-size: 2.05rem; line-height: 1.1; }
     h3 { font-size: 1.05rem; }
     p { margin: 0; color: var(--muted); line-height: 1.68; }
     .lede {
@@ -121,6 +136,32 @@
       flex-wrap: wrap;
       margin-top: 24px;
     }
+    .hero-proof {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 28px;
+    }
+    .proof-tile {
+      min-height: 92px;
+      padding: 14px;
+      border: 1px solid rgba(74, 64, 56, 0.66);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.025);
+    }
+    .proof-tile strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--ink);
+      font-size: 1.18rem;
+      font-weight: 500;
+    }
+    .proof-tile span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
     .button,
     .ghost-button {
       display: inline-flex;
@@ -128,7 +169,7 @@
       justify-content: center;
       min-height: 46px;
       padding: 0 18px;
-      border-radius: 999px;
+      border-radius: 8px;
       font-weight: 500;
       border: 1px solid transparent;
       transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
@@ -147,10 +188,94 @@
       transform: translateY(-1px);
       text-decoration: none;
     }
-    .brand-symbol {
-      width: 76px;
-      height: 76px;
-      object-fit: contain;
+    .signal-map {
+      position: relative;
+      display: grid;
+      gap: 18px;
+      padding: 24px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.042), rgba(255, 255, 255, 0.014)),
+        rgba(28, 24, 21, 0.92);
+      overflow: hidden;
+    }
+    .signal-map::before {
+      content: "";
+      position: absolute;
+      inset: 24px;
+      border: 1px solid rgba(74, 64, 56, 0.42);
+      pointer-events: none;
+    }
+    .map-topline {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(74, 64, 56, 0.62);
+    }
+    .map-topline strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .map-topline span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+    .signal-rail {
+      position: relative;
+      display: grid;
+      gap: 12px;
+      padding-left: 18px;
+    }
+    .signal-rail::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      bottom: 10px;
+      left: 5px;
+      width: 1px;
+      background: linear-gradient(180deg, var(--accent), var(--steel), var(--ok));
+    }
+    .signal-node {
+      position: relative;
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 16px;
+      padding: 14px;
+      border: 1px solid rgba(74, 64, 56, 0.58);
+      border-radius: 8px;
+      background: rgba(22, 19, 17, 0.62);
+    }
+    .signal-node::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: -17px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(195, 154, 121, 0.12);
+    }
+    .signal-node span {
+      color: var(--accent-deep);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .signal-node strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .status-panel {
+      display: grid;
+      gap: 18px;
+      padding: 22px;
+      border: 1px solid rgba(74, 64, 56, 0.7);
+      border-radius: 8px;
+      background: rgba(28, 24, 21, 0.82);
     }
     .status-list {
       display: grid;
@@ -161,7 +286,7 @@
     }
     .status-list li {
       padding: 14px 16px;
-      border-radius: 16px;
+      border-radius: 8px;
       background: var(--panel-soft);
       border: 1px solid rgba(74, 64, 56, 0.5);
       color: var(--muted);
@@ -194,6 +319,17 @@
       display: grid;
       gap: 10px;
       min-height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .pitch-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent);
     }
     .pitch-card span {
       color: var(--accent);
@@ -201,6 +337,43 @@
       letter-spacing: 0.13em;
       font-size: 0.74rem;
       font-weight: 500;
+    }
+    .path-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      counter-reset: path;
+    }
+    .path-card {
+      position: relative;
+      min-height: 230px;
+      padding: 20px;
+      display: grid;
+      align-content: start;
+      gap: 12px;
+      background: rgba(28, 24, 21, 0.86);
+    }
+    .path-card::before {
+      counter-increment: path;
+      content: "0" counter(path);
+      color: var(--accent);
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
+    }
+    .path-card::after {
+      content: "";
+      position: absolute;
+      top: 40px;
+      right: -12px;
+      width: 12px;
+      height: 1px;
+      background: rgba(195, 154, 121, 0.54);
+    }
+    .path-card:last-child::after { display: none; }
+    .path-card strong {
+      color: var(--ink);
+      font-weight: 500;
+      line-height: 1.35;
     }
     .script-grid {
       display: grid;
@@ -232,7 +405,7 @@
     }
     .claim {
       padding: 14px 16px;
-      border-radius: 16px;
+      border-radius: 8px;
       background: var(--panel-soft);
       border: 1px solid rgba(74, 64, 56, 0.52);
     }
@@ -243,6 +416,96 @@
       margin-bottom: 4px;
       color: var(--ink);
       font-weight: 500;
+    }
+    .collab-shell {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.38fr) minmax(0, 0.62fr);
+      gap: 18px;
+      align-items: start;
+    }
+    .collab-intro {
+      padding: 26px;
+      border: 1px solid rgba(74, 64, 56, 0.7);
+      border-radius: 8px;
+      background: rgba(28, 24, 21, 0.78);
+    }
+    .collab-intro h2 { margin-bottom: 12px; }
+    .audience-switcher {
+      padding: 24px;
+      border: 1px solid rgba(74, 64, 56, 0.7);
+      border-radius: 8px;
+      background: rgba(28, 24, 21, 0.78);
+    }
+    .tab-controls {
+      border-bottom: 1px solid rgba(74, 64, 56, 0.64);
+      padding-bottom: 14px;
+    }
+    .tab-button {
+      border-radius: 8px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.025);
+    }
+    .tab-button.is-active {
+      color: var(--ink);
+      background: rgba(195,154,121,0.13);
+    }
+    .tab-panel {
+      padding: 20px;
+      box-shadow: none;
+      background: rgba(22, 19, 17, 0.44);
+    }
+    .tab-panel h3 { margin-bottom: 10px; }
+    .tab-panel ul,
+    .matrix-card ul {
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+    .tab-panel li,
+    .matrix-card li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.58;
+    }
+    .tab-panel li::before,
+    .matrix-card li::before {
+      content: "";
+      position: absolute;
+      top: 0.72em;
+      left: 0;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .claim-matrix {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .matrix-card {
+      padding: 22px;
+      min-height: 100%;
+    }
+    .matrix-card.allowed { background: linear-gradient(180deg, var(--ok-soft), rgba(28, 24, 21, 0.86)); }
+    .matrix-card.reserved { background: linear-gradient(180deg, var(--warn-soft), rgba(28, 24, 21, 0.86)); }
+    .matrix-card.blocked { background: linear-gradient(180deg, var(--danger-soft), rgba(28, 24, 21, 0.86)); }
+    .matrix-card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .matrix-card .label {
+      display: inline-flex;
+      margin-bottom: 14px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      font-size: 0.72rem;
     }
     .footer {
       display: block;
@@ -272,7 +535,7 @@
       color: var(--ink);
       font-size: 0.98rem;
       font-weight: 500;
-      letter-spacing: -0.01em;
+      letter-spacing: 0;
     }
     .footer .be-footer-brand span {
       color: var(--muted);
@@ -303,10 +566,18 @@
       .hero,
       .section-header,
       .script-grid,
-      .pitch-grid { grid-template-columns: 1fr; }
+      .pitch-grid,
+      .path-grid,
+      .collab-shell,
+      .claim-matrix { grid-template-columns: 1fr; }
+      .hero-card { min-height: auto; }
+      .path-card { min-height: auto; }
+      .path-card::after { display: none; }
     }
     @media (max-width: 720px) {
       .wrap { padding-inline: 16px; }
+      h1 { font-size: 2.55rem; }
+      h2 { font-size: 1.62rem; }
       .topbar {
         padding: 16px;
         align-items: flex-start;
@@ -330,7 +601,14 @@
       .hero-card,
       .panel,
       .pitch-card,
-      .script-card { padding: 22px; }
+      .script-card,
+      .signal-map,
+      .status-panel,
+      .audience-switcher,
+      .collab-intro,
+      .matrix-card { padding: 20px; }
+      .hero-proof { grid-template-columns: 1fr; }
+      .signal-node { grid-template-columns: 1fr; gap: 6px; }
       .hero-actions {
         flex-direction: column;
         align-items: stretch;
@@ -384,26 +662,54 @@
             <a class="ghost-button" href="/views/">Open live surfaces</a>
             <a class="ghost-button" href="/study/">Study workflow</a>
           </div>
-        </article>
-        <aside class="panel">
-          <img class="brand-symbol" src="/assets/brand-mark-tight.png" alt="">
-          <div>
-            <p class="eyebrow">Current posture</p>
-            <h2>Research only, structured, and intentionally bounded.</h2>
+          <div class="hero-proof" aria-label="Current research posture summary">
+            <div class="proof-tile"><strong>Research only</strong><span>No diagnosis, medical advice, or disease risk claim.</span></div>
+            <div class="proof-tile"><strong>Longitudinal</strong><span>Signals are interpreted relative to each person's baseline.</span></div>
+            <div class="proof-tile"><strong>Professional review</strong><span>Outputs are designed for bounded interpretation, not consumer scoring.</span></div>
           </div>
-          <ul class="status-list">
-            <li><strong>What is public.</strong> The implemented layers, evidence frame, validation boundaries, participant return contract, and institutional workflow.</li>
-            <li><strong>What is in process.</strong> Prospective participant studies are underway and stay reserved until their data quality and interpretation limits can be reported responsibly.</li>
-            <li><strong>What is not claimed.</strong> No diagnosis, no medical advice, no disease risk statement, no single night score, and no claim that one portable model already explains every cohort.</li>
-          </ul>
+        </article>
+        <aside class="signal-map" aria-label="Research signal pathway">
+          <div class="map-topline">
+            <strong>Signal architecture</strong>
+            <span>From repeated daily evidence to bounded professional review.</span>
+          </div>
+          <div class="signal-rail">
+            <div class="signal-node">
+              <span>Inputs</span>
+              <p><strong>Sleep, physiology, movement, context, self report.</strong> The project treats each stream as partial evidence, not as a standalone answer.</p>
+            </div>
+            <div class="signal-node">
+              <span>Control</span>
+              <p><strong>Missingness, provenance, timing, and quality gates.</strong> Weak data stay visible before any interpretation is returned.</p>
+            </div>
+            <div class="signal-node">
+              <span>Baseline</span>
+              <p><strong>Within person change over time.</strong> The research question is about deviation from personal patterns, not population labels.</p>
+            </div>
+            <div class="signal-node">
+              <span>Return</span>
+              <p><strong>Participant and professional companion surfaces.</strong> Outputs remain bounded, reviewable, and explicitly non diagnostic.</p>
+            </div>
+          </div>
+          <div class="status-panel">
+            <div>
+              <p class="eyebrow">Current posture</p>
+              <h2>Structured, cautious, and built for validation.</h2>
+            </div>
+            <ul class="status-list">
+              <li><strong>Public now.</strong> Implemented layers, evidence frame, validation boundaries, participant return contract, and institutional workflow.</li>
+              <li><strong>In process.</strong> Prospective participant studies remain reserved until data quality and interpretation limits can be reported responsibly.</li>
+              <li><strong>Not claimed.</strong> No diagnosis, medical advice, disease risk statement, single night score, or universal portable model claim.</li>
+            </ul>
+          </div>
         </aside>
       </section>
 
-      <section class="section">
+      <section class="section" id="core-story">
         <div class="section-header">
           <div>
             <p class="eyebrow">Core story</p>
-            <h2>The project is strongest when it is presented as a governed signal system.</h2>
+            <h2>A governed signal system.</h2>
           </div>
           <p>The important message is not that sleep predicts everything. The important message is that repeated night to day patterns can be studied, bounded, validated, and returned for professional review without pretending they are ready for clinical use.</p>
         </div>
@@ -426,7 +732,102 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" id="research-pathway">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Research pathway</p>
+            <h2>From feasibility to supervised validation.</h2>
+          </div>
+          <p>The pitch should make the development path legible: first prove that the participant workflow and signal quality hold, then move into a small supervised pilot with predefined outcomes and clear ethics.</p>
+        </div>
+        <div class="path-grid" aria-label="Research development pathway">
+          <article class="path-card">
+            <strong>Prospective daily collection</strong>
+            <p>Daily ratings capture sleep quality, stress, anxiety, mood, fatigue, energy, context, and subjective cognitive state.</p>
+          </article>
+          <article class="path-card">
+            <strong>Wearable derived linkage</strong>
+            <p>Non invasive wrist worn sensing is treated as consumer grade longitudinal physiology, with timing and quality checks.</p>
+          </article>
+          <article class="path-card">
+            <strong>Quality first analysis</strong>
+            <p>Missingness, outlier nights, schedule disruption, alcohol, caffeine, illness, and notes are handled before modeling.</p>
+          </article>
+          <article class="path-card">
+            <strong>N-of-1 feasibility readout</strong>
+            <p>The first participant case tests adherence, interpretability, variable stability, and whether signals deserve expansion.</p>
+          </article>
+          <article class="path-card">
+            <strong>Small supervised pilot</strong>
+            <p>The next phase is a bounded N=10-30 study with academic review, predefined endpoints, and no diagnostic claims.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="collaboration-fit">
+        <div class="collab-shell">
+          <article class="collab-intro">
+            <p class="eyebrow">Collaboration fit</p>
+            <h2>Specific academic collaboration.</h2>
+            <p>The project is not looking for generic endorsement. It needs methodological pressure, domain supervision, validation standards, and a responsible path toward a pilot that can survive scientific review.</p>
+          </article>
+          <div class="audience-switcher" data-tabs>
+            <div class="tab-controls" role="tablist" aria-label="Scientific collaboration areas">
+              <button class="tab-button is-active" type="button" role="tab" aria-selected="true" data-tab-target="methods">Methods</button>
+              <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab-target="sleep">Sleep and physiology</button>
+              <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab-target="data">Data science</button>
+              <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab-target="ethics">Ethics and pilot</button>
+            </div>
+            <div class="tab-panels">
+              <article class="tab-panel is-active" data-tab-panel="methods">
+                <h3>Methodological review</h3>
+                <p>Help define the study contract before scale: variables, endpoints, missing-data rules, participant burden, and what counts as a valid readout.</p>
+                <ul>
+                  <li>Prospective N-of-1 design review.</li>
+                  <li>Criteria for moving from one participant to a supervised small cohort.</li>
+                  <li>Predefined interpretation limits for participant-facing outputs.</li>
+                </ul>
+              </article>
+              <article class="tab-panel" data-tab-panel="sleep" hidden>
+                <h3>Sleep and physiology supervision</h3>
+                <p>The sensor layer needs domain interpretation: what can be trusted, what is noisy, and what requires careful language.</p>
+                <ul>
+                  <li>Sleep timing, duration, continuity, movement, and overnight cardiovascular summaries.</li>
+                  <li>Handling of disrupted nights, late schedules, alcohol, caffeine, illness, and naps.</li>
+                  <li>Clear separation between sleep research signals and clinical sleep diagnosis.</li>
+                </ul>
+              </article>
+              <article class="tab-panel" data-tab-panel="data" hidden>
+                <h3>Longitudinal data science</h3>
+                <p>The technical value is not one model. It is a governed pipeline that keeps quality, provenance, baseline, and uncertainty attached to every signal.</p>
+                <ul>
+                  <li>Within-person baselines and deviation features.</li>
+                  <li>Transparent models before black-box complexity.</li>
+                  <li>Quality gates that block weak inference instead of decorating it.</li>
+                </ul>
+              </article>
+              <article class="tab-panel" data-tab-panel="ethics" hidden>
+                <h3>Ethics and pilot pathway</h3>
+                <p>The project needs a conservative route for consent, privacy, participant return, and non diagnostic interpretation before broader collection.</p>
+                <ul>
+                  <li>Pseudonymisation, access control, and minimal public exposure.</li>
+                  <li>Participant-facing language that avoids medical claims.</li>
+                  <li>Ethics-ready design for a future small cohort pilot.</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pitch-script">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Pitch script</p>
+            <h2>One-minute scientific pitch.</h2>
+          </div>
+          <p>A compact version for researchers, industrial liaison offices, and clinical or data science teams: ambitious enough to be worth a meeting, restrained enough to be credible.</p>
+        </div>
         <div class="script-grid">
           <article class="script-card">
             <div class="script-line">
@@ -468,6 +869,45 @@
               <p>The project returns understandable research interpretation for participants and professionals without hiding uncertainty or turning early evidence into diagnosis.</p>
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section class="section" id="claim-boundary">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Claim boundary</p>
+            <h2>Ambitious, but bounded.</h2>
+          </div>
+          <p>This is the line that protects the project when universities, clinicians, and data scientists read it: the page can be ambitious without sounding like a diagnostic product.</p>
+        </div>
+        <div class="claim-matrix">
+          <article class="matrix-card allowed">
+            <span class="label">Allowed</span>
+            <strong>Research signal language</strong>
+            <ul>
+              <li>Longitudinal patterns relative to baseline.</li>
+              <li>Sleep, physiology, movement, context, and self report as partial evidence streams.</li>
+              <li>Professional review surfaces with uncertainty attached.</li>
+            </ul>
+          </article>
+          <article class="matrix-card reserved">
+            <span class="label">Reserved</span>
+            <strong>Under study</strong>
+            <ul>
+              <li>Prospective participant readouts until data quality is reviewed.</li>
+              <li>Wearable linkage until timing, coverage, and signal reliability are audited.</li>
+              <li>Small cohort conclusions until a supervised pilot exists.</li>
+            </ul>
+          </article>
+          <article class="matrix-card blocked">
+            <span class="label">Blocked</span>
+            <strong>Not part of the claim</strong>
+            <ul>
+              <li>No diagnosis, treatment, prevention, or disease risk statement.</li>
+              <li>No cognitive impairment, Alzheimer, or neurological prediction claim.</li>
+              <li>No replacement for clinical evaluation or medical decision making.</li>
+            </ul>
+          </article>
         </div>
       </section>
     </main>
