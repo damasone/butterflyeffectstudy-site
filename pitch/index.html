@@ -191,26 +191,21 @@
     .signal-map {
       position: relative;
       display: grid;
-      gap: 18px;
+      gap: 16px;
       padding: 24px;
       background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.042), rgba(255, 255, 255, 0.014)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.032), rgba(255, 255, 255, 0.012)),
         rgba(28, 24, 21, 0.92);
       overflow: hidden;
-    }
-    .signal-map::before {
-      content: "";
-      position: absolute;
-      inset: 24px;
-      border: 1px solid rgba(74, 64, 56, 0.42);
-      pointer-events: none;
     }
     .map-topline {
       display: flex;
       justify-content: space-between;
       gap: 16px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(74, 64, 56, 0.62);
+      padding: 14px;
+      border: 1px solid rgba(74, 64, 56, 0.58);
+      border-radius: 8px;
+      background: rgba(22, 19, 17, 0.42);
     }
     .map-topline strong {
       color: var(--ink);
@@ -222,42 +217,25 @@
       line-height: 1.5;
     }
     .signal-rail {
-      position: relative;
       display: grid;
       gap: 12px;
-      padding-left: 18px;
-    }
-    .signal-rail::before {
-      content: "";
-      position: absolute;
-      top: 10px;
-      bottom: 10px;
-      left: 5px;
-      width: 1px;
-      background: linear-gradient(180deg, var(--accent), var(--steel), var(--ok));
     }
     .signal-node {
       position: relative;
       display: grid;
-      grid-template-columns: 92px minmax(0, 1fr);
-      gap: 16px;
-      padding: 14px;
+      gap: 9px;
+      padding: 16px;
       border: 1px solid rgba(74, 64, 56, 0.58);
       border-radius: 8px;
       background: rgba(22, 19, 17, 0.62);
     }
-    .signal-node::before {
-      content: "";
-      position: absolute;
-      top: 18px;
-      left: -17px;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(195, 154, 121, 0.12);
-    }
     .signal-node span {
+      display: inline-flex;
+      width: fit-content;
+      padding: 4px 8px;
+      border: 1px solid rgba(195, 154, 121, 0.28);
+      border-radius: 6px;
+      background: rgba(195, 154, 121, 0.08);
       color: var(--accent-deep);
       font-size: 0.78rem;
       text-transform: uppercase;
