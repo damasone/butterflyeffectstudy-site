@@ -277,15 +277,22 @@
       font-weight: 500;
     }
     .section {
-      margin-top: 24px;
+      margin-top: 32px;
       display: grid;
-      gap: 18px;
+      gap: 24px;
+    }
+    .section + .section {
+      margin-top: 48px;
     }
     .section-header {
       display: grid;
       grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.75fr);
-      gap: 24px;
-      align-items: end;
+      gap: 32px;
+      align-items: start;
+    }
+    .section-header > p {
+      max-width: 62ch;
+      padding-top: 32px;
     }
     .pitch-grid {
       display: grid;
@@ -548,6 +555,7 @@
       .path-grid,
       .collab-shell,
       .claim-matrix { grid-template-columns: 1fr; }
+      .section-header > p { padding-top: 0; }
       .hero-card { min-height: auto; }
       .path-card { min-height: auto; }
       .path-card::after { display: none; }
