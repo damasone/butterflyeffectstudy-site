@@ -325,7 +325,7 @@
     }
     .path-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
       counter-reset: path;
     }
@@ -676,6 +676,10 @@
               <span>Return</span>
               <p><strong>Participant and professional companion surfaces.</strong> Outputs remain bounded, reviewable, and explicitly non diagnostic in the current research phase.</p>
             </div>
+            <div class="signal-node">
+              <span>Readiness</span>
+              <p><strong>Diagnostic readiness without diagnostic claim.</strong> Internal gates now classify whether a signal is blocked, exploratory, ready for review, or suitable for pilot planning.</p>
+            </div>
           </div>
           <div class="status-panel">
             <div>
@@ -684,6 +688,7 @@
             </div>
             <ul class="status-list">
               <li><strong>Public now.</strong> Implemented layers, evidence frame, validation boundaries, participant return contract, and institutional workflow.</li>
+              <li><strong>Internal now.</strong> Diagnostic readiness, ground truth planning, and professional review packets exist as research only validation infrastructure.</li>
               <li><strong>In process.</strong> Prospective participant studies remain reserved until data quality and interpretation limits can be reported responsibly.</li>
               <li><strong>Not claimed today.</strong> No current diagnosis, medical advice, disease risk statement, single night score, or universal portable model claim.</li>
             </ul>
@@ -708,12 +713,54 @@
           <article class="pitch-card">
             <span>02</span>
             <h3>The system answer</h3>
-            <p>The site separates nightly routes, event stress, daily challenge layers, non-stress support, participant return, and institutional pilots so each claim keeps its own evidence standard.</p>
+            <p>The site separates nightly routes, event stress, daily challenge layers, non stress support, participant return, and institutional pilots so each claim keeps its own evidence standard.</p>
           </article>
           <article class="pitch-card">
             <span>03</span>
             <h3>The practical return</h3>
             <p>When data quality is sufficient, the output is not a consumer score. It is a longitudinal pattern review with confidence, missingness, provenance, and professional context kept close.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="interpretation-engine">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Interpretation engine</p>
+            <h2>What sits under the public surface.</h2>
+          </div>
+          <p>The motor is a layered interpretation stack: collection, feature contracts, quality gates, route specific inference, baseline comparison, evidence attachment, governance, participant return, professional review, and now clinical validation planning.</p>
+        </div>
+        <div class="pitch-grid">
+          <article class="pitch-card">
+            <span>Data</span>
+            <h3>Prospective longitudinal intake</h3>
+            <p>Daily self reports, context, subjective cognitive state, intervention events, and later sleep and physiology linkage are kept as a time-aligned participant record.</p>
+          </article>
+          <article class="pitch-card">
+            <span>Control</span>
+            <h3>Quality and feature contracts</h3>
+            <p>Missingness, timing, signal quality, preprocessing contracts, leakage controls, and route eligibility are checked before any interpretation is trusted.</p>
+          </article>
+          <article class="pitch-card">
+            <span>Inference</span>
+            <h3>Route specific interpretation</h3>
+            <p>The engine does not collapse everything into one model. Nightly, event, daily, non stress, and portable family routes keep their own target, horizon, and evidence standard.</p>
+          </article>
+          <article class="pitch-card">
+            <span>Explanation</span>
+            <h3>Baselines, drivers, and evidence</h3>
+            <p>Outputs carry personal or cohort baselines, local drivers, domain findings, confidence, interval logic, provenance, and linked literature where available.</p>
+          </article>
+          <article class="pitch-card">
+            <span>Review</span>
+            <h3>Participant and professional surfaces</h3>
+            <p>The same structured payload can become a participant research return or a professional companion without changing the underlying claim boundary.</p>
+          </article>
+          <article class="pitch-card">
+            <span>Validation</span>
+            <h3>Diagnostic readiness layer</h3>
+            <p>New internal gates map signals to phenotype candidates and required ground truth anchors while keeping diagnostic claims blocked in the current phase.</p>
           </article>
         </div>
       </section>
@@ -740,12 +787,16 @@
             <p>Missingness, outlier nights, schedule disruption, alcohol, caffeine, illness, and notes are handled before modeling.</p>
           </article>
           <article class="path-card">
-            <strong>N-of-1 feasibility readout</strong>
+            <strong>N of 1 feasibility readout</strong>
             <p>The first participant case tests adherence, interpretability, variable stability, and whether signals deserve expansion.</p>
           </article>
           <article class="path-card">
             <strong>Small supervised pilot</strong>
             <p>The next phase is a bounded N=10-30 study with academic review, predefined endpoints, and no current diagnostic claims.</p>
+          </article>
+          <article class="path-card">
+            <strong>Ground truth review</strong>
+            <p>Clinical or professional anchors can be added later to test whether research phenotypes have meaning beyond self report.</p>
           </article>
         </div>
       </section>
@@ -769,7 +820,7 @@
                 <h3>Methodological review</h3>
                 <p>Help define the study contract before scale: variables, endpoints, missing-data rules, participant burden, and what counts as a valid readout.</p>
                 <ul>
-                  <li>Prospective N-of-1 design review.</li>
+                  <li>Prospective N of 1 design review.</li>
                   <li>Criteria for moving from one participant to a supervised small cohort.</li>
                   <li>Predefined interpretation limits for participant-facing outputs.</li>
                 </ul>
@@ -826,7 +877,7 @@
             </div>
             <div class="script-line">
               <strong>Method</strong>
-              <p>The system links night data, daily labels, validation metrics, evidence references, participant reports, and professional companions through separate layers rather than forcing everything into one model.</p>
+              <p>The system links night data, daily labels, validation metrics, evidence references, participant reports, professional companions, and internal diagnostic readiness gates through separate layers rather than forcing everything into one model.</p>
             </div>
             <div class="script-line">
               <strong>Evidence</strong>
@@ -834,7 +885,7 @@
             </div>
             <div class="script-line">
               <strong>Direction</strong>
-              <p>Prospective studies are in process. Until those readouts are ready, the project keeps public claims attached to validated layers and uses new data to strengthen the pathway toward professional review.</p>
+              <p>Prospective studies are in process. Until those readouts are ready, the project keeps public claims attached to validated layers and uses new data to strengthen the pathway toward professional review and later supervised validation.</p>
             </div>
           </article>
           <aside class="panel claim-panel">
@@ -874,6 +925,7 @@
               <li>Longitudinal patterns relative to baseline.</li>
               <li>Sleep, physiology, movement, context, and self report as partial evidence streams.</li>
               <li>Professional review surfaces with uncertainty attached.</li>
+              <li>Diagnostic readiness language when it clearly means validation planning, not diagnosis.</li>
             </ul>
           </article>
           <article class="matrix-card reserved">
@@ -883,6 +935,7 @@
               <li>Prospective participant readouts until data quality is reviewed.</li>
               <li>Wearable linkage until timing, coverage, and signal reliability are audited.</li>
               <li>Small cohort conclusions until a supervised pilot exists.</li>
+              <li>Clinical ground truth and review packets until a protocol defines who can assess them and how.</li>
             </ul>
           </article>
           <article class="matrix-card blocked">
