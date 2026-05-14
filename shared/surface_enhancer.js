@@ -171,7 +171,6 @@
   function init() {
     document.body.classList.add("has-surface-enhancer");
     ensureProgressBar();
-    buildPageMap();
     enhanceTabs();
     enhanceFilters();
     enhanceCollapsibleLists();

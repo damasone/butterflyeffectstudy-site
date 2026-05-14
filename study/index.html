@@ -605,6 +605,118 @@
     }
   }
   </style>
+  <style id="be-study-harmony">
+    body {
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%) !important;
+    }
+    .wrap {
+      max-width: 1280px !important;
+      padding: 44px 28px 92px !important;
+    }
+    .hero {
+      grid-template-columns: 1fr !important;
+      gap: 24px !important;
+      align-items: start !important;
+      padding: 54px 0 28px !important;
+      margin-bottom: 0 !important;
+    }
+    .hero-card {
+      max-width: 62rem !important;
+      min-height: auto !important;
+      padding: 0 !important;
+      border: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+    .hero h1 {
+      max-width: 18ch !important;
+      font-size: clamp(2.4rem, 5vw, 4.2rem) !important;
+      line-height: 1.02 !important;
+      letter-spacing: -0.035em !important;
+      font-weight: 500 !important;
+    }
+    .panel {
+      padding: 24px !important;
+      border-radius: 20px !important;
+      background: rgba(28, 24, 21, 0.62) !important;
+      border: 1px solid rgba(74, 64, 56, 0.7) !important;
+      box-shadow: var(--shadow-soft) !important;
+    }
+    .button,
+    .ghost-button {
+      font-weight: 500 !important;
+    }
+    .panel h3,
+    .section-card h2,
+    .section-card h3,
+    .stat strong {
+      font-weight: 500 !important;
+      letter-spacing: -0.016em !important;
+    }
+    .panel h3 {
+      font-size: 1.18rem !important;
+      margin-bottom: 0 !important;
+    }
+    .stat-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: 12px !important;
+    }
+    .stat {
+      border-radius: 14px !important;
+      background: rgba(22, 19, 17, 0.46) !important;
+      border: 1px solid rgba(74, 64, 56, 0.58) !important;
+      padding: 16px !important;
+    }
+    .section-grid,
+    .section-stack {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 18px !important;
+      margin-top: 38px !important;
+    }
+    .section-card {
+      border-radius: 20px !important;
+      background: var(--panel) !important;
+      border: 1px solid var(--line) !important;
+      box-shadow: var(--shadow-soft) !important;
+      padding: 24px !important;
+    }
+    .section-card.wide {
+      grid-column: 1 / -1 !important;
+    }
+    .section-card h2 {
+      font-size: clamp(1.35rem, 2vw, 1.75rem) !important;
+      line-height: 1.15 !important;
+    }
+    .list {
+      gap: 0 !important;
+    }
+    .list li {
+      padding: 14px 0 0 !important;
+      margin-top: 14px !important;
+      border: 0 !important;
+      border-top: 1px solid rgba(74, 64, 56, 0.62) !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      color: var(--muted) !important;
+    }
+    .list li strong {
+      color: var(--accent-deep) !important;
+      font-weight: 500 !important;
+    }
+    @media (max-width: 960px) {
+      .stat-grid,
+      .section-grid,
+      .section-stack {
+        grid-template-columns: 1fr !important;
+      }
+    }
+    @media (max-width: 720px) {
+      .wrap { padding-inline: 16px !important; }
+      .hero { padding-top: 28px !important; }
+      .hero h1 { max-width: none !important; }
+    }
+  </style>
 </head>
 <body>
   <div class="page-shell">
@@ -617,7 +729,7 @@
       <section class="hero">
         <article class="hero-card">
           <p class="eyebrow">Participant Study</p>
-          <h1>A practical entry point for real longitudinal follow-up.</h1>
+          <h1>A practical entry point for longitudinal follow-up.</h1>
           <p class="lede">This page explains the study workflow used for selected participants around sleep, overnight physiology, next-day burden, and repeated daily self-report. It is a governed pilot surface, not an open self-serve sign-up.</p>
           <div class="hero-actions">
             <a class="button" href="/participant/">Open participant return</a>
@@ -641,7 +753,7 @@
             </div>
             <div class="stat">
               <strong>At the end</strong>
-              <span>Apple Health or wearable export is linked back to the same participant and dates, then used to build governed participant and professional outputs.</span>
+              <span>A consumer wearable export is linked back to the same participant and dates, then used to build governed participant and professional outputs.</span>
             </div>
           </div>
         </aside>
@@ -672,7 +784,7 @@
         <article class="section-card wide">
           <p class="eyebrow">Current pilot timeline</p>
           <h2>The scientific value comes from keeping the dates and labels aligned.</h2>
-          <p>The live pilot should stay simple until the wearable export is available. The important asset is not one impressive dashboard now; it is a clean longitudinal table that can later be fused with Apple Health or watch-derived nights without ambiguity.</p>
+          <p>The live pilot should stay simple until the wearable export is available. The important asset is not one impressive dashboard now; it is a clean longitudinal table that can later be fused with wearable-derived nights without ambiguity.</p>
           <ul class="list">
             <li><strong>Collection window.</strong> Daily check-ins continue during the follow-up window so symptoms, sleep quality, stress, fatigue, pain, and context are captured repeatedly.</li>
             <li><strong>Wearable merge.</strong> After export, sleep and physiology are joined by participant code and date before any interpretation is generated.</li>
