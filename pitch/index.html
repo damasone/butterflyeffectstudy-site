@@ -629,12 +629,60 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <style id="be-brand-lockup">
+  .topbar .mark,
+  .topbar .brand,
+  .topbar-inner .brand {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    color: #f3ede7 !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+    letter-spacing: -0.01em !important;
+    text-decoration: none !important;
+  }
+  .topbar .mark::before,
+  .topbar .brand::before,
+  .topbar-inner .brand::before {
+    content: "" !important;
+    width: 40px !important;
+    height: 40px !important;
+    flex: 0 0 40px !important;
+    display: inline-block !important;
+    background: url("/assets/brand-mark-tight.png") center / contain no-repeat !important;
+    transform: translateY(-1px) !important;
+  }
+  .topbar .mark span,
+  .topbar .brand span,
+  .topbar-inner .brand span {
+    display: inline-block;
+    transform: none;
+    line-height: 1.02;
+  }
+  @media (max-width: 720px) {
+    .topbar .mark,
+    .topbar .brand,
+    .topbar-inner .brand {
+      font-size: 1.03rem !important;
+      gap: 12px !important;
+    }
+    .topbar .mark::before,
+    .topbar .brand::before,
+    .topbar-inner .brand::before {
+      width: 32px !important;
+      height: 32px !important;
+      flex-basis: 32px !important;
+    }
+  }
+  </style>
 </head>
 <body>
   <div class="page-shell">
     <nav class="topbar">
-      <a class="mark" href="/overview/" aria-label="Butterfly Effect"><img src="/assets/brand-mark-tight.png" alt="" style="width:34px;height:auto;display:block;"></a>
-      <div class="nav-links"><a href="/overview/">Overview</a><a class="active" href="/pitch/" aria-current="page">Pitch</a><a href="/system/">System</a><a href="/built/">Built</a><a href="/validation/">Validation</a><a href="/evidence/">Evidence</a><a href="/participant/">Participant</a><a href="/views/">Views</a><a href="/study/">Study</a></div>
+      <span class="mark" aria-label="Butterfly Effect"></span>
+      <div class="nav-links"><a href="/overview/">Overview</a><a class="active" href="/pitch/" aria-current="page">Pitch</a><a href="/system/">System</a><a href="/validation/">Validation</a><a href="/evidence/">Evidence</a><a href="/study/">Study</a></div>
     </nav>
 
     <main class="wrap">
@@ -960,9 +1008,15 @@
           </div>
           <div class="be-footer-links">
             <a href="/overview/">Overview</a>
+            <a href="/pitch/">Pitch</a>
+            <a href="/system/">System</a>
+            <a href="/built/">Built</a>
+            <a href="/validation/">Validation</a>
+            <a href="/evidence/">Evidence</a>
             <a href="/participant/">Participant</a>
-            <a href="/institution/">Institution</a>
+            <a href="/views/">Views</a>
             <a href="/study/">Study</a>
+            <a href="/institution/">Institution</a>
           </div>
         </div>
         <div class="be-footer-meta">Research only today · Not diagnostic at this stage · 2026</div>
