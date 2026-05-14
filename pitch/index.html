@@ -222,11 +222,14 @@
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 12px;
+      align-items: stretch;
     }
     .signal-node {
       position: relative;
       display: grid;
+      grid-template-rows: auto 1fr;
       gap: 9px;
+      min-height: 230px;
       padding: 16px;
       border: 1px solid rgba(74, 64, 56, 0.58);
       border-radius: 14px;
@@ -234,7 +237,10 @@
     }
     .signal-node span {
       display: inline-flex;
-      width: fit-content;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 30px;
       padding: 4px 8px;
       border: 1px solid rgba(195, 154, 121, 0.28);
       border-radius: 6px;
@@ -244,11 +250,20 @@
       text-transform: uppercase;
       letter-spacing: 0.12em;
     }
+    .signal-node p {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 8px;
+      margin: 0;
+    }
     .signal-node strong {
-      display: block;
-      margin-bottom: 4px;
+      display: flex;
+      align-items: flex-start;
+      min-height: 5.8em;
+      margin-bottom: 0;
       color: var(--ink);
       font-weight: 500;
+      line-height: 1.45;
     }
     .status-panel {
       display: grid;
@@ -561,6 +576,8 @@
       .claim-matrix { grid-template-columns: 1fr; }
       .section-header > p { padding-top: 0; }
       .hero-card { min-height: auto; }
+      .signal-node { min-height: auto; }
+      .signal-node strong { min-height: auto; }
       .path-card { min-height: auto; }
       .path-card::after { display: none; }
     }
