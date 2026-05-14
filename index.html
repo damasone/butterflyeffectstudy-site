@@ -585,20 +585,34 @@
     }
     @keyframes intro-signal-line {
       0%, 100% {
-        opacity: 0.24;
-        transform: scaleX(0.16);
+        opacity: 0.28;
+        transform: scaleX(0.34);
       }
       22% {
-        opacity: 0.9;
+        opacity: 0.92;
         transform: scaleX(0.98);
       }
       52% {
-        opacity: 0.46;
-        transform: scaleX(0.56);
+        opacity: 0.5;
+        transform: scaleX(0.62);
       }
       74% {
-        opacity: 0.72;
-        transform: scaleX(0.84);
+        opacity: 0.78;
+        transform: scaleX(0.86);
+      }
+    }
+    @keyframes intro-node-pulse {
+      0%, 100% {
+        opacity: 0.5;
+        transform: translateX(-50%) scale(0.8);
+      }
+      22% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.18);
+      }
+      56% {
+        opacity: 0.68;
+        transform: translateX(-50%) scale(0.94);
       }
     }
     @keyframes butterfly-float {
@@ -727,58 +741,48 @@
       line-height: 1.72;
       animation: intro-note-breath 15.8s cubic-bezier(0.4, 0.06, 0.22, 1) infinite;
     }
-    .intro-pulses {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1px;
-      width: min(680px, 100%);
-      margin: 22px auto 0;
-      border: 1px solid rgba(195, 154, 121, 0.18);
-      background: rgba(195, 154, 121, 0.16);
-    }
-    .intro-pulse {
+    .intro-signal-line {
       position: relative;
-      min-height: 92px;
-      padding: 16px;
-      overflow: hidden;
-      background: rgba(22, 19, 17, 0.78);
-      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(18px, 4vw, 54px);
+      width: min(760px, 100%);
+      margin: 28px auto 0;
+      padding: 18px 0 2px;
     }
-    .intro-pulse::before {
+    .intro-signal-line::before {
       content: "";
       position: absolute;
-      left: 18px;
-      right: 18px;
-      top: 20px;
+      left: 4%;
+      right: 4%;
+      top: 0;
       height: 1px;
-      background: linear-gradient(90deg, rgba(195, 154, 121, 0.75), transparent);
-      transform: scaleX(0);
+      background: linear-gradient(90deg, transparent, rgba(195, 154, 121, 0.76), rgba(234, 219, 206, 0.24), transparent);
       transform-origin: left;
       animation: intro-signal-line 9.6s ease-in-out infinite;
-      animation-delay: var(--pulse-delay, 0s);
     }
-    .intro-pulse span {
-      display: block;
-      margin: 18px 0 7px;
-      color: var(--accent);
-      font-size: 0.7rem;
+    .intro-signal-line span {
+      position: relative;
+      color: rgba(234, 219, 206, 0.78);
+      font-size: clamp(0.76rem, 1vw, 0.92rem);
       font-weight: 700;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
     }
-    .intro-pulse strong {
-      display: block;
-      color: var(--ink);
-      font-size: 1.04rem;
-      font-weight: 500;
-      line-height: 1.3;
-    }
-    .intro-pulse small {
-      display: block;
-      margin-top: 8px;
-      color: rgba(178, 168, 157, 0.84);
-      font-size: 0.78rem;
-      line-height: 1.45;
+    .intro-signal-line span::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -21px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 22px rgba(195, 154, 121, 0.34);
+      transform: translateX(-50%);
+      animation: intro-node-pulse 9.6s ease-in-out infinite;
+      animation-delay: var(--node-delay, 0s);
     }
     .intro-actions {
       display: flex;
@@ -1402,7 +1406,8 @@
       .intro-copy::before,
       .intro-title,
       .intro-note,
-      .intro-pulse::before,
+      .intro-signal-line::before,
+      .intro-signal-line span::before,
       .intro-butterfly .butterfly-layer,
       .intro-butterfly .butterfly-layer img { transition: none; animation: none; }
     }
@@ -1440,13 +1445,10 @@
       .page-logo { width: 52px; }
       .nav-logo { width: 20px; }
       .intro-title { font-size: clamp(2.1rem, 10vw, 3.3rem); line-height: 1.12; }
-      .intro-pulses {
-        grid-template-columns: 1fr;
-        margin-top: 22px;
-      }
-      .intro-pulse {
-        min-height: auto;
-        padding: 16px;
+      .intro-signal-line {
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-top: 24px;
       }
       .figure-row {
         grid-template-columns: 1fr;
@@ -1628,13 +1630,10 @@
       font-size: 0.98rem !important;
       line-height: 1.64 !important;
     }
-    .intro-pulses {
-      grid-template-columns: 1fr !important;
+    .intro-signal-line {
+      flex-wrap: wrap !important;
+      gap: 14px 18px !important;
       margin-top: 22px !important;
-    }
-    .intro-pulse {
-      min-height: auto !important;
-      padding: 16px !important;
     }
     .hero-actions {
       flex-direction: column !important;
@@ -1857,22 +1856,10 @@
         </div>
         <p class="intro-label">Longitudinal signal research</p>
         <h1 class="intro-title">Small changes become visible over time.</h1>
-        <div class="intro-pulses" aria-label="Butterfly Effect signal flow">
-          <div class="intro-pulse" style="--pulse-delay: 0s;">
-            <span>01</span>
-            <strong>Observe the quiet shift.</strong>
-            <small>Sleep, physiology, movement, context, and daily state are followed as repeated signals.</small>
-          </div>
-          <div class="intro-pulse" style="--pulse-delay: 0.9s;">
-            <span>02</span>
-            <strong>Read it across time.</strong>
-            <small>Patterns are interpreted relative to baseline, quality, route, and uncertainty.</small>
-          </div>
-          <div class="intro-pulse" style="--pulse-delay: 1.8s;">
-            <span>03</span>
-            <strong>Make it reviewable.</strong>
-            <small>Outputs stay research only, bounded, and designed for future professional validation.</small>
-          </div>
+        <div class="intro-signal-line" aria-label="Butterfly Effect signal flow">
+          <span style="--node-delay: 0s;">Observe</span>
+          <span style="--node-delay: 0.9s;">Across time</span>
+          <span style="--node-delay: 1.8s;">Reviewable</span>
         </div>
         <p class="intro-note">Butterfly Effect studies how subtle night-to-day changes can become structured, reviewable signals without turning early evidence into diagnostic claims.</p>
         <div class="intro-actions">
