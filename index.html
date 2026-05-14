@@ -898,6 +898,32 @@
     }
     .hero-quote { color: var(--accent-deep); margin-top: 20px; }
     .lede { margin-top: 20px; }
+    .hero-signal-preview {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      max-width: 48rem;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+    }
+    .hero-signal-preview span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-top: 1px solid rgba(195, 154, 121, 0.42);
+      border-bottom: 1px solid rgba(74, 64, 56, 0.78);
+      background: rgba(255, 255, 255, 0.018);
+    }
+    .hero-signal-preview i {
+      width: clamp(22px, 4vw, 44px);
+      height: 1px;
+      background: linear-gradient(90deg, rgba(195, 154, 121, 0.18), rgba(195, 154, 121, 0.72));
+    }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
     .hero-panel,
     .metric-card,
@@ -1244,6 +1270,151 @@
       gap: 8px;
       align-items: center;
     }
+    .signal-flow {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.72fr) minmax(540px, 1.28fr);
+      gap: clamp(24px, 4vw, 44px);
+      align-items: center;
+      margin-top: 6px;
+    }
+    .signal-flow-copy {
+      display: grid;
+      gap: 18px;
+    }
+    .signal-flow-copy h3 {
+      margin: 0;
+      max-width: 12ch;
+      font-size: clamp(1.75rem, 3vw, 2.35rem);
+      line-height: 1.04;
+      letter-spacing: -0.026em;
+      font-weight: 500;
+      text-wrap: balance;
+    }
+    .signal-flow-copy p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.72;
+    }
+    .signal-legend {
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+    .signal-legend span {
+      display: grid;
+      grid-template-columns: 14px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+    .signal-legend i {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(195, 154, 121, 0.08);
+    }
+    .signal-legend span:nth-child(2) i { background: var(--ok); }
+    .signal-legend span:nth-child(3) i { background: var(--warn); }
+    .signal-map {
+      margin: 0;
+      padding: clamp(14px, 2.2vw, 24px);
+      border: 1px solid rgba(74, 64, 56, 0.66);
+      border-radius: 24px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.006)),
+        rgba(28, 24, 21, 0.38);
+      box-shadow: var(--shadow-soft);
+    }
+    .signal-map-scroll {
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .signal-map-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .signal-map-svg {
+      display: block;
+      width: 100%;
+      min-width: 720px;
+      height: auto;
+    }
+    .signal-map-card {
+      fill: rgba(22, 19, 17, 0.78);
+      stroke: rgba(74, 64, 56, 0.86);
+      stroke-width: 1;
+    }
+    .signal-map-soft {
+      fill: rgba(255, 255, 255, 0.026);
+      stroke: rgba(74, 64, 56, 0.54);
+      stroke-width: 1;
+    }
+    .signal-map-gate {
+      fill: rgba(24, 40, 34, 0.58);
+      stroke: rgba(158, 202, 179, 0.5);
+      stroke-width: 1;
+    }
+    .signal-map-engine {
+      fill: rgba(48, 35, 25, 0.5);
+      stroke: rgba(195, 154, 121, 0.52);
+      stroke-width: 1;
+    }
+    .signal-map-review {
+      fill: rgba(30, 27, 24, 0.84);
+      stroke: rgba(234, 219, 206, 0.24);
+      stroke-width: 1;
+    }
+    .signal-map-path {
+      fill: none;
+      stroke: url(#signalPathGradient);
+      stroke-width: 2.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.84;
+    }
+    .signal-map-path-muted {
+      fill: none;
+      stroke: rgba(195, 154, 121, 0.28);
+      stroke-width: 1.35;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .signal-map-dot {
+      fill: var(--accent);
+    }
+    .signal-map-dot-ok {
+      fill: var(--ok);
+    }
+    .signal-map-dot-warn {
+      fill: var(--warn);
+    }
+    .signal-map-title {
+      fill: var(--ink);
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .signal-map-label {
+      fill: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+    }
+    .signal-map-small {
+      fill: var(--muted);
+      font-size: 12px;
+    }
+    .signal-map-chip-text {
+      fill: var(--accent-deep);
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .signal-map-caption {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
     .evidence-row,
     .index-row,
     .build-row,
@@ -1457,6 +1628,7 @@
       .atlas-axis,
       .atlas-timescale,
       .atlas-row,
+      .signal-flow,
       .overview-row,
       .evidence-row,
       .index-row,
@@ -1470,6 +1642,16 @@
       .figure-meta-tight {
         justify-content: flex-start;
         justify-items: start;
+      }
+      .signal-flow-copy h3 {
+        max-width: none;
+      }
+      .signal-map {
+        padding: 14px;
+        border-radius: 18px;
+      }
+      .signal-map-svg {
+        min-width: 660px;
       }
     }
     </style>
@@ -1881,6 +2063,15 @@
           <h2>Small changes, repeated over time, can become reviewable signals.</h2>
           <p class="hero-quote">The flap of a butterfly’s wings can be felt on the other side of the world.</p>
           <p class="lede">Butterfly Effect explores how changes within a person’s sleep, overnight physiology, movement, context, and daily self reported state may relate to later burden. The public surface turns that idea into a governed interpretation system: quality gates, route specific evidence, participant return, professional review, and a future validation pathway.</p>
+          <div class="hero-signal-preview" aria-label="Project signal path">
+            <span>Observe</span>
+            <i aria-hidden="true"></i>
+            <span>Quality gate</span>
+            <i aria-hidden="true"></i>
+            <span>Engine</span>
+            <i aria-hidden="true"></i>
+            <span>Review</span>
+          </div>
           <div class="hero-actions">
             <a class="button" href="/pitch/">Read the scientific pitch</a>
             <a class="ghost-button" href="/views/">Open the live surfaces</a>
@@ -1926,18 +2117,102 @@
             <p class="section-eyebrow">From Signal To Surface</p>
             <h2>The project is easier to understand when it is read as a flow, not as a stack of technical labels.</h2>
           </div>
-          <p>These three blocks are the simplest entry into the system: what is observed, what is built from it, and what the public surface actually gives back.</p>
+          <p>This visual map is the simplest entry into the system: what is observed, how quality is controlled, how the engine routes interpretation, and what the public surface returns for review.</p>
         </div>
-        <div class="principles-grid"><article class="principle-card">
-          <h3>What it watches</h3>
-          <p>Longitudinal sleep timing, continuity, nocturnal cardiovascular load, movement, context, and repeated self-report signals.</p>
-        </article><article class="principle-card">
-          <h3>What it builds</h3>
-          <p>Nightly interpretation routes, event stress models, daily challenge layers, professional review companions, and portable research families with explicit governance.</p>
-        </article><article class="principle-card">
-          <h3>What it returns</h3>
-          <p>A professional review oriented surface for institutions, participants, and collaborators: signal, limits, validation posture, and evidence links kept visible at the same time.</p>
-        </article></div>
+        <div class="signal-flow">
+          <div class="signal-flow-copy">
+            <div>
+              <p class="section-eyebrow">Visual Map</p>
+              <h3>One movement from daily life to reviewable signal.</h3>
+            </div>
+            <p>The project is not a single score. It is a controlled interpretation path: repeated observations are cleaned, routed through the right layer, and returned with their limits still attached.</p>
+            <div class="signal-legend" aria-label="Signal map legend">
+              <span><i aria-hidden="true"></i>Observed streams remain separate until quality is checked.</span>
+              <span><i aria-hidden="true"></i>Only usable segments move into interpretation.</span>
+              <span><i aria-hidden="true"></i>Outputs stay research only unless future validation supports more.</span>
+            </div>
+          </div>
+          <figure class="signal-map" aria-label="Signal flow from observation to review">
+            <div class="signal-map-scroll">
+              <svg class="signal-map-svg" viewBox="0 0 920 410" role="img" aria-labelledby="signal-map-title signal-map-desc">
+                <title id="signal-map-title">From observed streams to governed review</title>
+                <desc id="signal-map-desc">Sleep, physiology, movement, context, and self report pass through quality gates, then through separated engine layers, before participant, professional, and institutional review.</desc>
+                <defs>
+                  <linearGradient id="signalPathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#c39a79" stop-opacity="0.68"/>
+                    <stop offset="52%" stop-color="#9ecab3" stop-opacity="0.88"/>
+                    <stop offset="100%" stop-color="#eadbce" stop-opacity="0.7"/>
+                  </linearGradient>
+                  <marker id="signalArrow" markerWidth="8" markerHeight="8" refX="5.5" refY="3" orient="auto">
+                    <path d="M0,0 L6,3 L0,6 Z" fill="#c39a79" opacity="0.76"/>
+                  </marker>
+                </defs>
+
+                <rect class="signal-map-card" x="18" y="38" width="176" height="320" rx="28"/>
+                <text class="signal-map-label" x="40" y="72">OBSERVED STREAMS</text>
+                <rect class="signal-map-soft" x="40" y="94" width="126" height="32" rx="16"/>
+                <text class="signal-map-chip-text" x="57" y="115">Sleep timing</text>
+                <rect class="signal-map-soft" x="40" y="140" width="142" height="32" rx="16"/>
+                <text class="signal-map-chip-text" x="57" y="161">Night physiology</text>
+                <rect class="signal-map-soft" x="40" y="186" width="116" height="32" rx="16"/>
+                <text class="signal-map-chip-text" x="57" y="207">Movement</text>
+                <rect class="signal-map-soft" x="40" y="232" width="104" height="32" rx="16"/>
+                <text class="signal-map-chip-text" x="57" y="253">Context</text>
+                <rect class="signal-map-soft" x="40" y="278" width="124" height="32" rx="16"/>
+                <text class="signal-map-chip-text" x="57" y="299">Self report</text>
+
+                <rect class="signal-map-gate" x="258" y="112" width="158" height="174" rx="30"/>
+                <text class="signal-map-label" x="282" y="146">QUALITY GATE</text>
+                <circle class="signal-map-dot-ok" cx="287" cy="178" r="5"/>
+                <text class="signal-map-small" x="306" y="182">missingness</text>
+                <circle class="signal-map-dot" cx="287" cy="214" r="5"/>
+                <text class="signal-map-small" x="306" y="218">timing</text>
+                <circle class="signal-map-dot-warn" cx="287" cy="250" r="5"/>
+                <text class="signal-map-small" x="306" y="254">confidence</text>
+
+                <rect class="signal-map-engine" x="486" y="62" width="196" height="278" rx="32"/>
+                <text class="signal-map-label" x="512" y="96">LAYER ROUTER</text>
+                <text class="signal-map-title" x="512" y="126">Interpretation engine</text>
+                <rect class="signal-map-soft" x="512" y="154" width="126" height="30" rx="15"/>
+                <text class="signal-map-chip-text" x="530" y="174">Night layer</text>
+                <rect class="signal-map-soft" x="512" y="196" width="126" height="30" rx="15"/>
+                <text class="signal-map-chip-text" x="530" y="216">Event layer</text>
+                <rect class="signal-map-soft" x="512" y="238" width="126" height="30" rx="15"/>
+                <text class="signal-map-chip-text" x="530" y="258">Daily layer</text>
+                <text class="signal-map-small" x="512" y="303">Claims stay separated</text>
+
+                <rect class="signal-map-review" x="742" y="96" width="160" height="216" rx="30"/>
+                <text class="signal-map-label" x="766" y="130">REVIEW SURFACES</text>
+                <rect class="signal-map-soft" x="766" y="156" width="108" height="30" rx="15"/>
+                <text class="signal-map-chip-text" x="782" y="176">Participant</text>
+                <rect class="signal-map-soft" x="766" y="198" width="112" height="30" rx="15"/>
+                <text class="signal-map-chip-text" x="782" y="218">Professional</text>
+                <rect class="signal-map-soft" x="766" y="240" width="108" height="30" rx="15"/>
+                <text class="signal-map-chip-text" x="782" y="260">Institution</text>
+
+                <path class="signal-map-path-muted" marker-end="url(#signalArrow)" d="M166 110 C218 108 224 146 258 158"/>
+                <path class="signal-map-path-muted" marker-end="url(#signalArrow)" d="M182 156 C222 156 228 176 258 188"/>
+                <path class="signal-map-path-muted" marker-end="url(#signalArrow)" d="M156 202 C214 204 224 202 258 206"/>
+                <path class="signal-map-path-muted" marker-end="url(#signalArrow)" d="M144 248 C212 250 224 230 258 224"/>
+                <path class="signal-map-path-muted" marker-end="url(#signalArrow)" d="M164 294 C220 292 228 260 258 244"/>
+                <path class="signal-map-path" marker-end="url(#signalArrow)" d="M416 198 C456 154 458 132 486 126"/>
+                <path class="signal-map-path" marker-end="url(#signalArrow)" d="M416 198 C454 196 460 204 486 210"/>
+                <path class="signal-map-path" marker-end="url(#signalArrow)" d="M416 198 C456 246 462 270 486 280"/>
+                <path class="signal-map-path" marker-end="url(#signalArrow)" d="M682 172 C714 150 720 146 742 150"/>
+                <path class="signal-map-path" marker-end="url(#signalArrow)" d="M682 212 C714 210 720 210 742 212"/>
+                <path class="signal-map-path" marker-end="url(#signalArrow)" d="M682 254 C714 278 720 282 742 278"/>
+
+                <circle class="signal-map-dot" cx="215" cy="202" r="4"/>
+                <circle class="signal-map-dot-ok" cx="448" cy="198" r="4"/>
+                <circle class="signal-map-dot-warn" cx="704" cy="212" r="4"/>
+                <text class="signal-map-label" x="324" y="346">QUALITY FIRST</text>
+                <text class="signal-map-label" x="546" y="374">NO SINGLE FALSE SCORE</text>
+                <text class="signal-map-label" x="746" y="346">EVIDENCE + LIMITS</text>
+              </svg>
+            </div>
+            <figcaption class="signal-map-caption">The useful idea is not prediction in isolation. It is a governed interpretation engine where each output keeps its quality status, evidence base, and claim boundary visible.</figcaption>
+          </figure>
+        </div>
       </section>
 
       <section class="metric-grid"><article class="metric-card">
