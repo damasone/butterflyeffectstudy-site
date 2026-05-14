@@ -102,6 +102,7 @@
       position: relative;
       z-index: 1;
       max-width: 980px;
+      transform: translateY(-4.5vh);
     }
     .brand-lockup,
     .hero-brand {
@@ -582,6 +583,24 @@
         opacity: 0.985;
       }
     }
+    @keyframes intro-signal-line {
+      0%, 100% {
+        opacity: 0.24;
+        transform: scaleX(0.16);
+      }
+      22% {
+        opacity: 0.9;
+        transform: scaleX(0.98);
+      }
+      52% {
+        opacity: 0.46;
+        transform: scaleX(0.56);
+      }
+      74% {
+        opacity: 0.72;
+        transform: scaleX(0.84);
+      }
+    }
     @keyframes butterfly-float {
       0%, 100% {
         transform: translateY(0) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
@@ -692,8 +711,8 @@
     }
     .intro-title {
       margin: 0 auto;
-      max-width: 16ch;
-      font-size: clamp(2.5rem, 5.8vw, 4.9rem);
+      max-width: 14ch;
+      font-size: clamp(2.55rem, 5.6vw, 4.8rem);
       line-height: 1.08;
       letter-spacing: -0.025em;
       font-weight: 500;
@@ -701,18 +720,71 @@
       animation: intro-title-breath 15.8s cubic-bezier(0.4, 0.06, 0.22, 1) infinite;
     }
     .intro-note {
-      margin: 20px auto 0;
-      max-width: 44rem;
+      margin: 18px auto 0;
+      max-width: 52rem;
       color: var(--muted);
       font-size: 1rem;
       line-height: 1.72;
       animation: intro-note-breath 15.8s cubic-bezier(0.4, 0.06, 0.22, 1) infinite;
     }
+    .intro-pulses {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      width: min(680px, 100%);
+      margin: 22px auto 0;
+      border: 1px solid rgba(195, 154, 121, 0.18);
+      background: rgba(195, 154, 121, 0.16);
+    }
+    .intro-pulse {
+      position: relative;
+      min-height: 92px;
+      padding: 16px;
+      overflow: hidden;
+      background: rgba(22, 19, 17, 0.78);
+      text-align: left;
+    }
+    .intro-pulse::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      top: 20px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(195, 154, 121, 0.75), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: intro-signal-line 9.6s ease-in-out infinite;
+      animation-delay: var(--pulse-delay, 0s);
+    }
+    .intro-pulse span {
+      display: block;
+      margin: 18px 0 7px;
+      color: var(--accent);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .intro-pulse strong {
+      display: block;
+      color: var(--ink);
+      font-size: 1.04rem;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    .intro-pulse small {
+      display: block;
+      margin-top: 8px;
+      color: rgba(178, 168, 157, 0.84);
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
     .intro-actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 22px;
+      margin-top: 18px;
       justify-content: center;
     }
     .intro-enter { min-width: 118px; }
@@ -1330,6 +1402,7 @@
       .intro-copy::before,
       .intro-title,
       .intro-note,
+      .intro-pulse::before,
       .intro-butterfly .butterfly-layer,
       .intro-butterfly .butterfly-layer img { transition: none; animation: none; }
     }
@@ -1342,6 +1415,7 @@
       .topbar { padding: 16px; align-items: flex-start; }
       .nav-links { gap: 12px; }
       .intro-copy { padding: 20px; }
+      .intro-copy-inner { transform: translateY(0); }
       .intro-logo {
         width: clamp(108px, 26vw, 132px);
       }
@@ -1366,6 +1440,14 @@
       .page-logo { width: 52px; }
       .nav-logo { width: 20px; }
       .intro-title { font-size: clamp(2.1rem, 10vw, 3.3rem); line-height: 1.12; }
+      .intro-pulses {
+        grid-template-columns: 1fr;
+        margin-top: 22px;
+      }
+      .intro-pulse {
+        min-height: auto;
+        padding: 16px;
+      }
       .figure-row {
         grid-template-columns: 1fr;
         gap: 10px;
@@ -1545,6 +1627,14 @@
     .intro-subtitle {
       font-size: 0.98rem !important;
       line-height: 1.64 !important;
+    }
+    .intro-pulses {
+      grid-template-columns: 1fr !important;
+      margin-top: 22px !important;
+    }
+    .intro-pulse {
+      min-height: auto !important;
+      padding: 16px !important;
     }
     .hero-actions {
       flex-direction: column !important;
@@ -1765,10 +1855,28 @@
       </span>
     </span>
         </div>
-        <h1 class="intro-title">The flap of a butterfly’s wings can be felt on the other side of the world.</h1>
-        <p class="intro-note">A research only longitudinal framework for studying changes relative to baseline in sleep, physiology, movement, and daily state for future professional review.</p>
+        <p class="intro-label">Longitudinal signal research</p>
+        <h1 class="intro-title">Small changes become visible over time.</h1>
+        <div class="intro-pulses" aria-label="Butterfly Effect signal flow">
+          <div class="intro-pulse" style="--pulse-delay: 0s;">
+            <span>01</span>
+            <strong>Observe the quiet shift.</strong>
+            <small>Sleep, physiology, movement, context, and daily state are followed as repeated signals.</small>
+          </div>
+          <div class="intro-pulse" style="--pulse-delay: 0.9s;">
+            <span>02</span>
+            <strong>Read it across time.</strong>
+            <small>Patterns are interpreted relative to baseline, quality, route, and uncertainty.</small>
+          </div>
+          <div class="intro-pulse" style="--pulse-delay: 1.8s;">
+            <span>03</span>
+            <strong>Make it reviewable.</strong>
+            <small>Outputs stay research only, bounded, and designed for future professional validation.</small>
+          </div>
+        </div>
+        <p class="intro-note">Butterfly Effect studies how subtle night-to-day changes can become structured, reviewable signals without turning early evidence into diagnostic claims.</p>
         <div class="intro-actions">
-          <button class="button intro-enter" id="enter-surface">Enter</button>
+          <button class="button intro-enter" id="enter-surface">Enter the system</button>
         </div>
       </div>
     </div>
@@ -1783,9 +1891,9 @@
       <section class="hero" id="overview">
         <div>
           <p class="eyebrow">Longitudinal Health Signals</p>
-          <h2>Studying how sleep, physiology, movement, and daily state can become reviewable signals.</h2>
+          <h2>Small changes, repeated over time, can become reviewable signals.</h2>
           <p class="hero-quote">The flap of a butterfly’s wings can be felt on the other side of the world.</p>
-          <p class="lede">Butterfly Effect explores how changes within a person’s sleep, overnight physiology, movement, context, and daily self reported state may relate to later burden. The public surface keeps the long term professional review direction visible while keeping current claims research only and bounded.</p>
+          <p class="lede">Butterfly Effect explores how changes within a person’s sleep, overnight physiology, movement, context, and daily self reported state may relate to later burden. The public surface turns that idea into a governed interpretation system: quality gates, route specific evidence, participant return, professional review, and a future validation pathway.</p>
           <div class="hero-actions">
             <a class="button" href="/pitch/">Read the scientific pitch</a>
             <a class="ghost-button" href="/views/">Open the live surfaces</a>
