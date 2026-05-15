@@ -1025,6 +1025,27 @@
     .validation-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
     .layer-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
     .figure-grid { grid-template-columns: 1fr; }
+    .metric-card {
+      display: grid;
+      grid-template-rows: auto minmax(58px, auto) 1fr;
+      align-content: start;
+      min-height: 212px;
+    }
+    .metric-card strong {
+      display: flex;
+      align-items: center;
+      min-height: 58px;
+    }
+    .page-card {
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      align-content: start;
+    }
+    .page-card a {
+      align-self: end;
+      justify-self: start;
+      margin-top: 12px;
+    }
     .section {
       padding: 34px 0 38px;
       border-top: 1px solid rgba(74, 64, 56, 0.72);
@@ -1326,9 +1347,10 @@
         linear-gradient(145deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.006)),
         rgba(28, 24, 21, 0.38);
       box-shadow: var(--shadow-soft);
+      overflow: hidden;
     }
     .signal-map-scroll {
-      overflow-x: auto;
+      overflow: hidden;
       scrollbar-width: none;
     }
     .signal-map-scroll::-webkit-scrollbar {
@@ -1337,8 +1359,11 @@
     .signal-map-svg {
       display: block;
       width: 100%;
-      min-width: 720px;
+      min-width: 0;
       height: auto;
+    }
+    .signal-map-mobile {
+      display: none;
     }
     .signal-map-card {
       fill: rgba(22, 19, 17, 0.78);
@@ -1414,6 +1439,52 @@
       color: var(--muted);
       font-size: 0.88rem;
       line-height: 1.55;
+    }
+    .mobile-signal-step {
+      position: relative;
+      display: grid;
+      gap: 8px;
+      padding: 16px 16px 16px 48px;
+      border: 1px solid rgba(74, 64, 56, 0.72);
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.008)),
+        rgba(22, 19, 17, 0.54);
+    }
+    .mobile-signal-step::before {
+      content: attr(data-step);
+      position: absolute;
+      left: 14px;
+      top: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(195, 154, 121, 0.45);
+      color: var(--accent-deep);
+      font-size: 0.66rem;
+      background: rgba(22, 19, 17, 0.92);
+    }
+    .mobile-signal-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 24px;
+      top: 42px;
+      bottom: -18px;
+      width: 1px;
+      background: linear-gradient(180deg, rgba(195,154,121,0.65), rgba(158,202,179,0.3));
+    }
+    .mobile-signal-step strong {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: -0.012em;
+    }
+    .mobile-signal-step span {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.9rem;
     }
     .evidence-row,
     .index-row,
@@ -1650,8 +1721,15 @@
         padding: 14px;
         border-radius: 18px;
       }
+      .signal-map-scroll {
+        display: none;
+      }
+      .signal-map-mobile {
+        display: grid;
+        gap: 12px;
+      }
       .signal-map-svg {
-        min-width: 660px;
+        min-width: 0;
       }
     }
     </style>
@@ -2211,6 +2289,24 @@
               </svg>
             </div>
             <figcaption class="signal-map-caption">The useful idea is not prediction in isolation. It is a governed interpretation engine where each output keeps its quality status, evidence base, and claim boundary visible.</figcaption>
+            <div class="signal-map-mobile" aria-label="Mobile signal flow">
+              <article class="mobile-signal-step" data-step="01">
+                <strong>Observed streams</strong>
+                <span>Sleep, night physiology, movement, context, and daily self report stay separated.</span>
+              </article>
+              <article class="mobile-signal-step" data-step="02">
+                <strong>Quality gate</strong>
+                <span>Missingness, timing, and confidence decide whether a segment can move forward.</span>
+              </article>
+              <article class="mobile-signal-step" data-step="03">
+                <strong>Interpretation engine</strong>
+                <span>Night, event, daily, and portable layers route claims without collapsing them into one score.</span>
+              </article>
+              <article class="mobile-signal-step" data-step="04">
+                <strong>Review surfaces</strong>
+                <span>Participant, professional, and institutional views keep evidence and limits attached.</span>
+              </article>
+            </div>
           </figure>
         </div>
       </section>
