@@ -389,27 +389,57 @@
   }
   </style>
   <style id="be-footer-institutional-style">
-    .footer .be-footer-brand span { max-width: 420px; }
-    .footer .be-footer-links.be-footer-institutional {
+    .footer .be-footer { padding-top: clamp(10px, 2vw, 24px); }
+    .footer .be-footer-top.be-footer-institutional-top {
       display: grid;
-      grid-template-columns: repeat(3, minmax(138px, 1fr));
-      gap: 12px 18px;
-      width: min(720px, 100%);
+      grid-template-columns: minmax(260px, 0.86fr) minmax(560px, 1.14fr);
+      gap: clamp(42px, 7vw, 96px);
+      align-items: start;
     }
-    .footer .be-footer-links.be-footer-institutional a {
+    .footer .be-footer-brand { gap: 14px; }
+    .footer .be-footer-brand strong { font-size: 1rem; letter-spacing: -0.01em; }
+    .footer .be-footer-brand span { max-width: 460px; line-height: 1.72; }
+    .footer .be-footer-directory {
       display: grid;
-      gap: 4px;
-      align-content: start;
-      padding-top: 10px;
-      border-top: 1px solid rgba(74, 64, 56, 0.7);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(26px, 4vw, 54px);
+    }
+    .footer .be-footer-column { display: grid; align-content: start; gap: 14px; }
+    .footer .be-footer-column-title {
+      margin: 0 0 2px;
+      color: var(--accent, #c39a79);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+    .footer .be-footer-column a {
+      display: grid;
+      gap: 5px;
+      padding: 13px 0 15px;
+      border-top: 1px solid rgba(74, 64, 56, 0.68);
       border-bottom: 0 !important;
       line-height: 1.35;
+      text-decoration: none;
     }
-    .footer .be-footer-links.be-footer-institutional a:hover { border-top-color: rgba(195,154,121,0.48); }
-    .footer .be-footer-links.be-footer-institutional span { color: var(--ink, #f3ede7); font-size: 0.88rem; }
-    .footer .be-footer-links.be-footer-institutional small { color: var(--muted, #b2a89d); font-size: 0.76rem; line-height: 1.42; }
+    .footer .be-footer-column a:hover { border-top-color: rgba(195,154,121,0.5); }
+    .footer .be-footer-column a span { color: var(--ink, #f3ede7); font-size: 0.94rem; }
+    .footer .be-footer-column a small { color: var(--muted, #b2a89d); font-size: 0.78rem; line-height: 1.5; }
+    .footer .be-footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 22px;
+      margin-top: clamp(34px, 5vw, 54px);
+      padding-top: 20px;
+      border-top: 1px solid rgba(74, 64, 56, 0.62);
+      color: var(--muted, #b2a89d);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
     @media (max-width: 720px) {
-      .footer .be-footer-links.be-footer-institutional { grid-template-columns: 1fr; width: 100%; }
+      .footer .be-footer-top.be-footer-institutional-top { grid-template-columns: 1fr; }
+      .footer .be-footer-directory { grid-template-columns: 1fr; gap: 22px; width: 100%; }
+      .footer .be-footer-bottom { flex-direction: column; }
     }
   </style>
 </head>
@@ -659,22 +689,34 @@
   </main>
     <footer class="footer">
       <div class="be-footer">
-        <div class="be-footer-top">
+        <div class="be-footer-top be-footer-institutional-top">
           <div class="be-footer-brand">
             <strong>Butterfly Effect</strong>
             <span>Independent research initiative for longitudinal sleep and health signal interpretation. Research only; not diagnostic.</span>
           </div>
-          <div class="be-footer-links be-footer-institutional" aria-label="Project and legal information">
-            <a href="/about/"><span>About</span><small>Project status and purpose</small></a>
-            <a href="/research-scope/"><span>Research scope</span><small>What is and is not claimed</small></a>
-            <a href="/validation/"><span>Validation</span><small>Reliability and limits</small></a>
-            <a href="/evidence/"><span>Evidence</span><small>Scientific anchors</small></a>
-            <a href="/privacy/"><span>Privacy</span><small>Data handling principles</small></a>
-            <a href="/terms/"><span>Terms</span><small>Research-only use notice</small></a>
-            <a href="/contact/"><span>Contact</span><small>Academic and professional enquiries</small></a>
-          </div>
+          <nav class="be-footer-directory" aria-label="Project, science, and legal information">
+            <div class="be-footer-column">
+              <p class="be-footer-column-title">Project</p>
+              <a href="/about/"><span>About</span><small>Project status, purpose, and current posture.</small></a>
+              <a href="/research-scope/"><span>Research scope</span><small>What the project studies, and what it does not claim.</small></a>
+              <a href="/contact/"><span>Contact</span><small>Academic, clinical, and professional enquiries.</small></a>
+            </div>
+            <div class="be-footer-column">
+              <p class="be-footer-column-title">Science</p>
+              <a href="/validation/"><span>Validation</span><small>Reliability controls, limits, and signal boundaries.</small></a>
+              <a href="/evidence/"><span>Evidence</span><small>Scientific anchors and model evidence.</small></a>
+            </div>
+            <div class="be-footer-column">
+              <p class="be-footer-column-title">Legal</p>
+              <a href="/privacy/"><span>Privacy</span><small>Data handling and participant information principles.</small></a>
+              <a href="/terms/"><span>Terms</span><small>Research-only use notice and medical disclaimer.</small></a>
+            </div>
+          </nav>
         </div>
-        <div class="be-footer-meta">Research only · Not diagnostic · No medical advice · 2026</div>
+        <div class="be-footer-bottom">
+          <span>Research only · Not diagnostic · No medical advice · 2026</span>
+          <span>Future clinical claims would require ethics review, external validation, and the appropriate regulatory pathway.</span>
+        </div>
       </div>
     </footer>
 </body>
