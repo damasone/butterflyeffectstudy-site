@@ -1349,6 +1349,10 @@
       font-size: 11px;
       letter-spacing: 0.1em;
     }
+    .signal-map-label-centered {
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
     .signal-map-small {
       fill: var(--muted);
       font-size: 12px;
@@ -2184,9 +2188,9 @@
                 <circle class="signal-map-dot" cx="215" cy="202" r="4"/>
                 <circle class="signal-map-dot-ok" cx="448" cy="198" r="4"/>
                 <circle class="signal-map-dot-warn" cx="704" cy="212" r="4"/>
-                <text class="signal-map-label" x="324" y="346">QUALITY FIRST</text>
-                <text class="signal-map-label" x="546" y="374">NO SINGLE FALSE SCORE</text>
-                <text class="signal-map-label" x="746" y="346">EVIDENCE + LIMITS</text>
+                <text class="signal-map-label signal-map-label-centered" x="337" y="318">QUALITY FIRST</text>
+                <text class="signal-map-label signal-map-label-centered" x="584" y="374">NO SINGLE FALSE SCORE</text>
+                <text class="signal-map-label signal-map-label-centered" x="822" y="346">EVIDENCE + LIMITS</text>
               </svg>
             </div>
             <figcaption class="signal-map-caption">The useful idea is not prediction in isolation. It is a governed interpretation engine where each output keeps its quality status, confidence, evidence base, dependency profile, and claim boundary visible.</figcaption>
