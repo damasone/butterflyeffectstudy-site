@@ -1350,7 +1350,7 @@
       <section class="page-intro">
         <p class="eyebrow">Built</p>
         <h1>The public face has to explain the work, not just announce it.</h1>
-        <p>This project already has operational nightly routes, portable event stress, daily challenge layers, governance, support cohorts, and evidence linkage. The page should make that visible without compressing it into one claim.</p>
+        <p>This project already has operational nightly routes, portable event stress, daily challenge layers, governance, support cohorts, evidence linkage, route stability checks, feature dependency audits, and research confidence scoring. The page should make that visible without compressing it into one claim.</p>
       </section>
 
       <section class="section">
@@ -1359,7 +1359,7 @@
             <p class="section-eyebrow">Current stack</p>
             <h2>What already exists underneath the landing.</h2>
           </div>
-          <p>The work is already materialized. This page just exposes the stack in a way that is easier to read than a single dense home.</p>
+          <p>The work is already materialized. This page exposes the stack in a way that is easier to read than a single dense home, including the checks that keep the engine from over-reading weak outputs.</p>
         </div>
         <div class="principles-grid"><article class="principle-card">
           <h3>Nightly operational routes</h3>
@@ -1372,7 +1372,10 @@
           <p>8 daily challenge cards and 11 non-stress daily cards show where temporal memory helps within cohort, especially for anxiety and depression, without pretending those signals already transport cleanly across cohorts.</p>
         </article><article class="principle-card">
           <h3>Governance, evidence, and support</h3>
-          <p>3 non-stress family cards sit on top of support cohorts, transport probes, route cards, and evidence-linked reporting. The landing is only the visible layer of a deeper validation stack.</p>
+          <p>3 non-stress family cards sit on top of support cohorts, transport probes, route cards, evidence-linked reporting, and confidence governance. The landing is only the visible layer of a deeper validation stack.</p>
+        </article><article class="principle-card">
+          <h3>Reliability controls</h3>
+          <p>Route stability, feature ablation, and dependency checks are now part of the engine contract. Outputs can be downgraded when the signal is unstable, too dependent on one domain, or not strong enough for interpretation.</p>
         </article></div>
       </section>
 
@@ -1448,7 +1451,7 @@
             <p class="section-eyebrow">Materialized layers</p>
             <h2>What exists is already mapped to a visible analytical surface.</h2>
           </div>
-          <p>This is the build map of the public site: each layer already corresponds to a live dashboard, a role in the system, and a concrete implementation footprint.</p>
+          <p>This is the build map of the public site: each layer already corresponds to a live dashboard, a role in the system, a concrete implementation footprint, and a review boundary for how far the output can be trusted.</p>
         </div>
         <article class="figure-panel overview-panel"><article class="build-row" tabindex="0" data-filter-tags="stress">
               <div class="build-copy">
@@ -1456,7 +1459,7 @@
                 <span>Routes, governance, held-out evaluation, interval calibration, and release gates.</span>
               </div>
               <div class="overview-chips">
-                <span class="chip chip-ok">governed routes</span><span class="chip chip-ok">calibrated</span><span class="chip chip-warn">portable nightly</span>
+                <span class="chip chip-ok">governed routes</span><span class="chip chip-ok">calibrated</span><span class="chip chip-warn">stability audit</span>
               </div>
               <a class="index-link" href="/nightly/">Open layer</a>
             </article><article class="build-row" tabindex="0" data-filter-tags="stress portable">
@@ -1465,7 +1468,7 @@
                 <span>Portable event families, challenge cohorts, and binary/continuous acute stress models.</span>
               </div>
               <div class="overview-chips">
-                <span class="chip chip-ok">portable event</span><span class="chip chip-ok">acute stress</span><span class="chip chip-muted">separate stack</span>
+                <span class="chip chip-ok">portable event</span><span class="chip chip-ok">acute stress</span><span class="chip chip-muted">dependency check</span>
               </div>
               <a class="index-link" href="/events/">Open layer</a>
             </article><article class="build-row" tabindex="0" data-filter-tags="stress">
@@ -1474,7 +1477,7 @@
                 <span>Daily self-report challenge cohorts, temporal probes, and within-cohort gains.</span>
               </div>
               <div class="overview-chips">
-                <span class="chip chip-warn">temporal probes</span><span class="chip chip-warn">daily challenge</span><span class="chip chip-ok">within cohort</span>
+                <span class="chip chip-warn">temporal probes</span><span class="chip chip-warn">daily challenge</span><span class="chip chip-ok">confidence gated</span>
               </div>
               <a class="index-link" href="/daily/">Open layer</a>
             </article><article class="build-row" tabindex="0" data-filter-tags="nonstress">
@@ -1496,6 +1499,34 @@
               </div>
               <a class="index-link" href="/nonstress-families/">Open layer</a>
             </article></article>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="section-eyebrow">Reliability layer</p>
+            <h2>The engine now carries its own caution system.</h2>
+          </div>
+          <p>These additions make the motor more defensible because they do not simply ask whether a model predicts. They ask whether the route remains stable, what it depends on, and how much confidence should be attached to the output.</p>
+        </div>
+        <div class="page-grid">
+          <article class="validation-card">
+            <h3>What is now built</h3>
+            <ul class="view-list">
+              <li><strong>Route stability suite</strong><span>Compares replay behavior across route variants so fragile gains can be marked as support rather than treated as strong signal.</span></li>
+              <li><strong>Feature ablation suite</strong><span>Removes feature domains to test whether the model is broadly supported or overly dependent on one narrow input family.</span></li>
+              <li><strong>Research confidence score</strong><span>Combines data quality, validation strength, personal history, uncertainty, stability, and dependency into an interpretable trust layer.</span></li>
+            </ul>
+          </article>
+          <article class="validation-card">
+            <h3>What it protects against</h3>
+            <ul class="view-list">
+              <li><strong>Overclaiming</strong><span>Low-signal and portable routes can be capped even when they produce a numeric output.</span></li>
+              <li><strong>Hidden fragility</strong><span>A route that only works under one split, one feature family, or one cohort context becomes visible before it reaches a public-facing interpretation.</span></li>
+              <li><strong>Diagnostic drift</strong><span>The system can prepare future clinical pathways while keeping the current public surface research only and not diagnostic.</span></li>
+            </ul>
+          </article>
+        </div>
       </section>
 
       <section class="section">

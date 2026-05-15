@@ -1368,7 +1368,7 @@
             <p class="section-eyebrow">Engine</p>
             <h2>The motor is an interpretation stack, not one model.</h2>
           </div>
-          <p>The system now covers the full chain from data collection to review planning: intake, feature contracts, quality gates, route specific inference, evidence attachment, governance, participant return, professional companion, diagnostic readiness, validation ladder, and clinical ground truth planning.</p>
+          <p>The system now covers the full chain from data collection to review planning: intake, feature contracts, quality gates, route specific inference, route stability, feature dependency audit, confidence scoring, evidence attachment, governance, participant return, professional companion, diagnostic readiness, validation ladder, and clinical ground truth planning.</p>
         </div>
         <div class="system-grid">
           <article class="system-card">
@@ -1399,9 +1399,36 @@
             </div>
           </article>
           <article class="system-card">
-            <p class="section-eyebrow">04 · Governance</p>
+            <p class="section-eyebrow">04 · Stability</p>
+            <h3>Route stability suite</h3>
+            <p>Registered routes are audited across validation signal, missingness, participant spread, interval coverage, feature complexity, and temporal segments before they are treated as dependable.</p>
+            <div class="system-meta">
+              <span class="chip chip-ok">route audit</span>
+              <span class="chip chip-muted">stability score</span>
+            </div>
+          </article>
+          <article class="system-card">
+            <p class="section-eyebrow">05 · Dependency</p>
+            <h3>Feature and domain ablation</h3>
+            <p>The motor tests which domains each model depends on, separating sleep, activity, physiology, self report context, portable domains, and measurement quality without turning dependency into causal claims.</p>
+            <div class="system-meta">
+              <span class="chip chip-ok">domain audit</span>
+              <span class="chip chip-warn">not causal</span>
+            </div>
+          </article>
+          <article class="system-card">
+            <p class="section-eyebrow">06 · Confidence</p>
+            <h3>Engine confidence score</h3>
+            <p>Each route and report can carry a research confidence score that combines data quality, model validation, personal history, uncertainty, stability, and domain dependency.</p>
+            <div class="system-meta">
+              <span class="chip chip-ok">0-100 score</span>
+              <span class="chip chip-muted">research only</span>
+            </div>
+          </article>
+          <article class="system-card">
+            <p class="section-eyebrow">07 · Governance</p>
             <h3>Evidence rank and release gates</h3>
-            <p>Route cards, held-out replay, calibration, robustness audits, transport status, and release gates decide whether a signal stays experimental or can be used in a bounded surface.</p>
+            <p>Route cards, held-out replay, calibration, robustness audits, transport status, and release gates decide whether a signal stays experimental, support only, or can be used in a bounded surface.</p>
             <div class="system-meta">
               <span class="chip chip-ok">accepted</span>
               <span class="chip chip-warn">experimental</span>
@@ -1409,7 +1436,7 @@
             </div>
           </article>
           <article class="system-card">
-            <p class="section-eyebrow">05 · Return</p>
+            <p class="section-eyebrow">08 · Return</p>
             <h3>Participant and professional outputs</h3>
             <p>The same governed payload can become a participant research return or a professional companion, while preserving limits and avoiding consumer scoring.</p>
             <div class="system-meta">
@@ -1418,7 +1445,7 @@
             </div>
           </article>
           <article class="system-card">
-            <p class="section-eyebrow">06 · Validation</p>
+            <p class="section-eyebrow">09 · Validation</p>
             <h3>Diagnostic readiness and validation ladder</h3>
             <p>Internal gates now classify review readiness, map signals to research phenotypes including neurocognitive, neurological, and rehabilitation contexts, and identify external anchors needed before any future clinical claim.</p>
             <div class="system-meta">

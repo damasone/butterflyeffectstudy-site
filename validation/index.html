@@ -1364,7 +1364,7 @@
         <div class="validation-grid">
           <article class="validation-card">
             <h3>Claims we can defend</h3>
-            <ul><li>Nightly sleep routes are usable within cohort on selected stress, fatigue, and pain-like targets when governance marks them accepted.</li><li>Portable event stress is real and reproducible across open challenge cohorts.</li><li>Daily temporal memory improves anxiety and depression within cohort.</li><li>Anxiety is the strongest non-stress portable family, but it remains research-only.</li></ul>
+            <ul><li>Nightly sleep routes are usable within cohort on selected stress, fatigue, and pain-like targets when governance and confidence checks mark them suitable.</li><li>Route stability and feature dependency can now be audited before a route is treated as dependable.</li><li>Portable event stress is real and reproducible across open challenge cohorts.</li><li>Anxiety is the strongest non-stress portable family, but it remains research-only.</li></ul>
           </article>
           <article class="validation-card">
             <h3>Claims we should not make</h3>
@@ -1372,7 +1372,31 @@
           </article>
           <article class="validation-card">
             <h3>Main bottlenecks</h3>
-            <ul><li>Nightly cross-cohort transport remains the main bottleneck.</li><li>Non-stress families are limited more by transport and outcome equivalence than by infrastructure.</li><li>Event and nightly layers must stay separated in communication and governance.</li></ul>
+            <ul><li>Nightly cross-cohort transport remains the main bottleneck.</li><li>Low-signal routes stay support-only even when their internal mechanics are inspectable.</li><li>Non-stress families are limited more by transport and outcome equivalence than by infrastructure.</li><li>Event, nightly, daily, and portable layers must stay separated in communication and governance.</li></ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="section-eyebrow">Reliability controls</p>
+            <h2>The engine now evaluates whether a route deserves confidence.</h2>
+          </div>
+          <p>Validation is no longer only a metric table. The system now checks route stability, feature dependency, and research confidence before a model output is treated as interpretable.</p>
+        </div>
+        <div class="validation-grid">
+          <article class="validation-card">
+            <h3>Route stability suite</h3>
+            <ul><li>Audits validation signal, missingness, participant spread, interval coverage, temporal windows, and feature complexity.</li><li>Marks routes as stable research candidates, watch-item candidates, support only, or archive candidates.</li></ul>
+          </article>
+          <article class="validation-card">
+            <h3>Feature ablation suite</h3>
+            <ul><li>Tests which domains the model depends on: sleep, activity, physiology, self report context, portable domains, and measurement quality.</li><li>Dependency is treated as explanation support, not causal proof.</li></ul>
+          </article>
+          <article class="validation-card">
+            <h3>Engine confidence score</h3>
+            <ul><li>Combines data quality, validation strength, personal history, uncertainty, route stability, and feature dependency into a research confidence score.</li><li>Portable and low-signal routes are deliberately capped so the system does not overstate them.</li></ul>
           </article>
         </div>
       </section>
