@@ -66,8 +66,8 @@
       inset: 0;
       z-index: 20;
       background:
-        radial-gradient(circle at 50% 34%, rgba(195,154,121,0.08), transparent 24%),
-        linear-gradient(180deg, #14110f 0%, #1b1714 100%);
+        radial-gradient(circle at 50% 28%, rgba(195,154,121,0.08), transparent 22%),
+        linear-gradient(180deg, #030303 0%, #080706 46%, #15110f 100%);
       transition: opacity 900ms ease, visibility 900ms ease;
     }
     body.surface-live .intro {
@@ -88,6 +88,7 @@
       content: "";
       position: absolute;
       inset: 10% 18% 22%;
+      display: none;
       pointer-events: none;
       border-radius: 50%;
       background:
@@ -102,7 +103,7 @@
       position: relative;
       z-index: 1;
       max-width: 980px;
-      transform: translateY(-4.5vh);
+      transform: translateY(-5vh);
     }
     .brand-lockup,
     .hero-brand {
@@ -130,9 +131,43 @@
       image-rendering: auto;
     }
     .intro-logo {
-      width: clamp(112px, 10.4vw, 148px);
+      width: clamp(220px, 28vw, 380px);
       animation: intro-butterfly-ambient 27.8s cubic-bezier(0.42, 0.08, 0.24, 1) infinite;
       will-change: transform, filter;
+    }
+    .intro-cinematic-butterfly {
+      position: relative;
+      display: block;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 0;
+      isolation: isolate;
+      background: transparent;
+      filter: drop-shadow(0 30px 52px rgba(0, 0, 0, 0.5));
+      transform: translateZ(0);
+    }
+    .intro-cinematic-butterfly::before {
+      content: "";
+      position: absolute;
+      inset: 18% 9% 12%;
+      z-index: 1;
+      background: linear-gradient(90deg, transparent, rgba(234, 169, 91, 0.24), transparent);
+      opacity: 0.64;
+      filter: blur(18px);
+      transform: translateY(4%);
+      animation: intro-moth-halo 10.8s ease-in-out infinite;
+    }
+    .intro-cinematic-butterfly img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 48%;
+      transform: scale(1.02);
+      mix-blend-mode: normal;
+      filter: saturate(1.12) contrast(1.08) brightness(1.02);
+      animation: intro-moth-presence 12.4s cubic-bezier(0.4, 0.06, 0.22, 1) infinite;
     }
     .intro-butterfly {
       position: relative;
@@ -525,6 +560,34 @@
         filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.045));
       }
     }
+    @keyframes intro-moth-presence {
+      0%, 100% {
+        transform: scale(1.02) translateY(0);
+        filter: saturate(1.08) contrast(1.06) brightness(1);
+      }
+      34% {
+        transform: scale(1.045) translateY(-0.8%);
+        filter: saturate(1.18) contrast(1.1) brightness(1.05);
+      }
+      66% {
+        transform: scale(1.03) translateY(0.4%);
+        filter: saturate(1.12) contrast(1.08) brightness(1.02);
+      }
+    }
+    @keyframes intro-moth-halo {
+      0%, 100% {
+        opacity: 0.5;
+        transform: translateY(5%) scaleX(0.96);
+      }
+      42% {
+        opacity: 0.82;
+        transform: translateY(2%) scaleX(1.04);
+      }
+      70% {
+        opacity: 0.58;
+        transform: translateY(7%) scaleX(1);
+      }
+    }
     @keyframes intro-atmosphere {
       0%, 100% {
         opacity: 0.76;
@@ -604,15 +667,71 @@
     @keyframes intro-node-pulse {
       0%, 100% {
         opacity: 0.5;
-        transform: translateX(-50%) scale(0.8);
+        transform: translate(-50%, -50%) scale(0.8);
       }
       22% {
         opacity: 1;
-        transform: translateX(-50%) scale(1.18);
+        transform: translate(-50%, -50%) scale(1.18);
       }
       56% {
         opacity: 0.68;
-        transform: translateX(-50%) scale(0.94);
+        transform: translate(-50%, -50%) scale(0.94);
+      }
+    }
+    @keyframes intro-signal-drift {
+      0%, 100% {
+        opacity: calc(var(--o, 0.72) * 0.58);
+        transform: translateX(-1.2%) rotate(var(--r, 0deg)) scaleX(0.92);
+      }
+      38% {
+        opacity: var(--o, 0.72);
+        transform: translateX(1.4%) rotate(var(--r, 0deg)) scaleX(1.05);
+      }
+      72% {
+        opacity: calc(var(--o, 0.72) * 0.74);
+        transform: translateX(0.2%) rotate(var(--r, 0deg)) scaleX(0.98);
+      }
+    }
+    @keyframes intro-signal-draw {
+      0% {
+        stroke-dashoffset: 760;
+        opacity: 0.28;
+      }
+      24% {
+        stroke-dashoffset: 0;
+        opacity: 0.94;
+      }
+      100% {
+        stroke-dashoffset: 0;
+        opacity: 0.72;
+      }
+    }
+    @keyframes intro-signal-scan {
+      0%, 100% {
+        opacity: 0.34;
+        transform: translateX(-1.5%);
+      }
+      42% {
+        opacity: 0.82;
+        transform: translateX(1.5%);
+      }
+      74% {
+        opacity: 0.54;
+        transform: translateX(0.4%);
+      }
+    }
+    @keyframes intro-signal-node-breathe {
+      0%, 100% {
+        opacity: 0.56;
+        transform: scale(0.86);
+      }
+      38% {
+        opacity: 1;
+        transform: scale(1.16);
+      }
+      70% {
+        opacity: 0.68;
+        transform: scale(0.96);
       }
     }
     @keyframes butterfly-float {
@@ -726,7 +845,7 @@
     .intro-title {
       margin: 0 auto;
       max-width: 14ch;
-      font-size: clamp(2.55rem, 5.6vw, 4.8rem);
+      font-size: clamp(2.35rem, 4.8vw, 4.08rem);
       line-height: 1.08;
       letter-spacing: -0.025em;
       font-weight: 500;
@@ -743,52 +862,119 @@
     }
     .intro-signal-line {
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: clamp(18px, 4vw, 54px);
-      width: min(760px, 100%);
-      margin: 28px auto 0;
-      padding: 18px 0 2px;
+      display: block;
+      width: min(760px, 88vw);
+      height: 112px;
+      margin: 8px auto 0;
+      padding: 0;
+      overflow: visible;
     }
     .intro-signal-line::before {
       content: "";
       position: absolute;
-      left: 4%;
-      right: 4%;
-      top: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(195, 154, 121, 0.76), rgba(234, 219, 206, 0.24), transparent);
-      transform-origin: left;
-      animation: intro-signal-line 9.6s ease-in-out infinite;
+      inset: 18% 6% 30%;
+      pointer-events: none;
+      background: radial-gradient(ellipse at 50% 50%, rgba(195, 154, 121, 0.12), transparent 70%);
+      filter: blur(18px);
+      opacity: 0.72;
+      animation: intro-signal-scan 12.6s ease-in-out infinite;
     }
-    .intro-signal-line span {
+    .intro-signal-line::after {
+      content: none;
+    }
+    .intro-signal-visual {
       position: relative;
-      color: rgba(234, 219, 206, 0.78);
-      font-size: clamp(0.76rem, 1vw, 0.92rem);
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.2));
+    }
+    .intro-signal-band {
+      fill: rgba(195, 154, 121, 0.055);
+      stroke: rgba(195, 154, 121, 0.17);
+      stroke-width: 1;
+    }
+    .intro-signal-grid line {
+      stroke: rgba(234, 219, 206, 0.075);
+      stroke-width: 1;
+    }
+    .intro-signal-grid .major {
+      stroke: rgba(195, 154, 121, 0.14);
+    }
+    .intro-signal-path-shadow {
+      fill: none;
+      stroke: rgba(234, 219, 206, 0.12);
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .intro-signal-path-main {
+      fill: none;
+      stroke: url(#introSignalGradient);
+      stroke-width: 2.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 760;
+      stroke-dashoffset: 760;
+      animation: intro-signal-draw 8.8s cubic-bezier(0.42, 0.06, 0.18, 1) infinite;
+    }
+    .intro-signal-path-secondary {
+      fill: none;
+      stroke: rgba(234, 219, 206, 0.18);
+      stroke-width: 1.1;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 5 12;
+      opacity: 0.72;
+    }
+    .intro-signal-observation {
+      fill: rgba(234, 219, 206, 0.86);
+      stroke: rgba(8, 7, 6, 0.82);
+      stroke-width: 2.4;
+      filter: drop-shadow(0 0 10px rgba(195, 154, 121, 0.36));
+    }
+    .intro-signal-node line {
+      display: none;
+    }
+    .intro-signal-node circle {
+      fill: rgba(8, 7, 6, 0.92);
+      stroke: rgba(195, 154, 121, 0.62);
+      stroke-width: 1.35;
+    }
+    .intro-signal-node .node-pulse {
+      fill: rgba(195, 154, 121, 0.18);
+      stroke: none;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: intro-signal-node-breathe 8.8s ease-in-out infinite;
+      animation-delay: var(--node-delay, 0s);
+    }
+    .intro-signal-node text {
+      fill: rgba(234, 219, 206, 0.72);
+      font-family: var(--sans);
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
     }
-    .intro-signal-line span::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: -21px;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 22px rgba(195, 154, 121, 0.34);
-      transform: translateX(-50%);
-      animation: intro-node-pulse 9.6s ease-in-out infinite;
-      animation-delay: var(--node-delay, 0s);
+    .intro-signal-baseline {
+      stroke: rgba(195, 154, 121, 0.34);
+      stroke-width: 1;
+      stroke-linecap: round;
+    }
+    .intro-signal-micro {
+      fill: rgba(178, 168, 157, 0.62);
+      font-family: var(--sans);
+      font-size: 10px;
+      letter-spacing: 0.13em;
     }
     .intro-actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 18px;
+      margin-top: 14px;
       justify-content: center;
     }
     .intro-enter { min-width: 118px; }
@@ -1659,6 +1845,12 @@
       .intro-note,
       .intro-signal-line::before,
       .intro-signal-line span::before,
+      .intro-signal-line span,
+      .intro-signal-line::after,
+      .intro-signal-path-main,
+      .intro-signal-node .node-pulse,
+      .intro-cinematic-butterfly::before,
+      .intro-cinematic-butterfly img,
       .intro-butterfly .butterfly-layer,
       .intro-butterfly .butterfly-layer img { transition: none; animation: none; }
     }
@@ -1673,7 +1865,10 @@
       .intro-copy { padding: 20px; }
       .intro-copy-inner { transform: translateY(0); }
       .intro-logo {
-        width: clamp(108px, 26vw, 132px);
+        width: clamp(220px, 76vw, 340px);
+      }
+      .intro-cinematic-butterfly {
+        border-radius: 999px;
       }
       .intro-butterfly {
         perspective: none;
@@ -1697,9 +1892,9 @@
       .nav-logo { width: 20px; }
       .intro-title { font-size: clamp(2.1rem, 10vw, 3.3rem); line-height: 1.12; }
       .intro-signal-line {
-        gap: 16px;
-        flex-wrap: wrap;
-        margin-top: 24px;
+        width: min(100%, 94vw);
+        height: 112px;
+        margin-top: 18px;
       }
       .figure-row {
         grid-template-columns: 1fr;
@@ -2103,33 +2298,52 @@
     <div class="intro-copy">
       <div class="intro-copy-inner">
         <div class="brand-lockup">
-          <span class="brand-mark intro-logo intro-butterfly" aria-hidden="true">
-      <span class="butterfly-layer butterfly-foundation">
-        <img src="/assets/butterfly-mark-accent.png" alt="">
-      </span>
-      <span class="butterfly-layer butterfly-wing wing-upper-left">
-        <img src="/assets/butterfly-piece-upper-left.png" alt="">
-      </span>
-      <span class="butterfly-layer butterfly-wing wing-upper-right">
-        <img src="/assets/butterfly-piece-upper-right.png" alt="">
-      </span>
-      <span class="butterfly-layer butterfly-wing wing-lower-left">
-        <img src="/assets/butterfly-piece-lower-left.png" alt="">
-      </span>
-      <span class="butterfly-layer butterfly-wing wing-lower-right">
-        <img src="/assets/butterfly-piece-lower-right.png" alt="">
-      </span>
-      <span class="butterfly-layer butterfly-body">
-        <img src="/assets/butterfly-piece-body.png" alt="">
-      </span>
-    </span>
+          <span class="brand-mark intro-logo intro-cinematic-butterfly" aria-hidden="true">
+            <img src="/assets/intro-butterfly-cinematic-cutout.png" alt="">
+          </span>
         </div>
         <p class="intro-label">Longitudinal signal research</p>
         <h1 class="intro-title">Small changes become visible over time.</h1>
-        <div class="intro-signal-line" aria-label="Butterfly Effect signal flow">
-          <span style="--node-delay: 0s;">Observe</span>
-          <span style="--node-delay: 0.9s;">Across time</span>
-          <span style="--node-delay: 1.8s;">Reviewable</span>
+        <div class="intro-signal-line" aria-label="Observed data becoming a reviewable longitudinal signal">
+          <svg class="intro-signal-visual" viewBox="0 0 760 126" role="img" aria-labelledby="intro-signal-title intro-signal-desc">
+            <title id="intro-signal-title">Observed data becomes a reviewable longitudinal signal</title>
+            <desc id="intro-signal-desc">A longitudinal signal path moves through observation, time, and review with uncertainty visible.</desc>
+            <defs>
+              <linearGradient id="introSignalGradient" x1="40" y1="0" x2="720" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#5c4335" stop-opacity="0.12"/>
+                <stop offset="20%" stop-color="#c39a79" stop-opacity="0.72"/>
+                <stop offset="56%" stop-color="#eadbce" stop-opacity="0.82"/>
+                <stop offset="82%" stop-color="#c39a79" stop-opacity="0.74"/>
+                <stop offset="100%" stop-color="#5c4335" stop-opacity="0.12"/>
+              </linearGradient>
+            </defs>
+            <path class="intro-signal-path-shadow" d="M42 74 C118 58 178 76 250 60 C318 45 362 67 430 50 C506 31 568 58 718 38"/>
+            <path class="intro-signal-path-main" d="M42 74 C118 58 178 76 250 60 C318 45 362 67 430 50 C506 31 568 58 718 38"/>
+            <line class="intro-signal-baseline" x1="82" y1="94" x2="678" y2="94"/>
+            <g aria-hidden="true">
+              <circle class="intro-signal-observation" cx="42" cy="74" r="3.6"/>
+              <circle class="intro-signal-observation" cx="205" cy="70" r="3.4"/>
+              <circle class="intro-signal-observation" cx="368" cy="61" r="3.6"/>
+              <circle class="intro-signal-observation" cx="538" cy="43" r="3.4"/>
+              <circle class="intro-signal-observation" cx="718" cy="38" r="3.6"/>
+            </g>
+            <g class="intro-signal-node" style="--node-delay: 0s;">
+              <circle class="node-pulse" cx="82" cy="94" r="16"/>
+              <circle cx="82" cy="94" r="6.5"/>
+              <text x="82" y="118" text-anchor="middle">Observe</text>
+            </g>
+            <g class="intro-signal-node" style="--node-delay: .9s;">
+              <circle class="node-pulse" cx="382" cy="94" r="16"/>
+              <circle cx="382" cy="94" r="6.5"/>
+              <text x="382" y="118" text-anchor="middle">Across time</text>
+            </g>
+            <g class="intro-signal-node" style="--node-delay: 1.8s;">
+              <circle class="node-pulse" cx="678" cy="94" r="16"/>
+              <circle cx="678" cy="94" r="6.5"/>
+              <text x="678" y="118" text-anchor="middle">Reviewable</text>
+            </g>
+            <text class="intro-signal-micro" x="380" y="14" text-anchor="middle">quality checked · uncertainty visible</text>
+          </svg>
         </div>
         <p class="intro-note">Butterfly Effect studies how subtle night-to-day changes can become structured, reviewable signals without turning early evidence into diagnostic claims.</p>
         <div class="intro-actions">
