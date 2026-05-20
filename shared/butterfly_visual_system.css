@@ -90,11 +90,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  overflow: visible;
+  padding: clamp(12px, 1.8vw, 18px);
+  border: 1px solid rgba(74, 64, 56, 0.66);
+  border-radius: 24px;
+  background:
+    linear-gradient(rgba(234, 219, 206, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(234, 219, 206, 0.024) 1px, transparent 1px),
+    rgba(18, 16, 14, 0.28);
+  background-size: 58px 58px;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
 }
 
 .bv-signal-svg,
