@@ -1264,17 +1264,16 @@
     .signal-legend span:nth-child(3) i { background: var(--warn); }
     .signal-map {
       margin: 0;
-      padding: clamp(14px, 2.2vw, 24px);
-      border: 1px solid rgba(74, 64, 56, 0.66);
-      border-radius: 24px;
-      background:
-        linear-gradient(145deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.006)),
-        rgba(28, 24, 21, 0.38);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      overflow: visible;
     }
     .signal-map-scroll {
-      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      overflow: visible;
       scrollbar-width: none;
     }
     .signal-map-scroll::-webkit-scrollbar {
@@ -1283,6 +1282,7 @@
     .signal-map-svg {
       display: block;
       width: 100%;
+      max-width: 880px;
       min-width: 0;
       height: auto;
     }
@@ -1366,6 +1366,8 @@
       fill: var(--accent-deep);
       font-size: 12px;
       font-weight: 500;
+      text-anchor: middle;
+      dominant-baseline: middle;
     }
     .signal-map-caption {
       margin: 12px 0 0;
@@ -1643,8 +1645,8 @@
         max-width: none;
       }
       .signal-map {
-        padding: 14px;
-        border-radius: 18px;
+        padding: 0;
+        border-radius: 0;
       }
       .signal-map-scroll {
         display: none;
@@ -1659,6 +1661,7 @@
     }
     </style>
   <link rel="stylesheet" href="/shared/surface_enhancer.css?v=20260514-harmony">
+  <link rel="stylesheet" href="/shared/butterfly_visual_system.css?v=20260520-visual-kit">
   <script src="/shared/surface_enhancer.js?v=20260514-harmony" defer></script>
   <link rel="canonical" href="https://butterflyeffectstudy.com/overview/">
   <meta property="og:site_name" content="Butterfly Effect">
@@ -2099,6 +2102,132 @@
         </aside>
       </section>
 
+      <section class="section bv-visual-grammar" id="signal-grammar">
+        <div class="section-header">
+          <div>
+            <p class="section-eyebrow">Visual System</p>
+            <h2>The project now has a clearer visual language for signal, quality, uncertainty, and review.</h2>
+          </div>
+          <p>Each visual element has a job: separate what is observed, show where quality constrains interpretation, and keep the output tied to evidence instead of turning it into a single score.</p>
+        </div>
+        <div class="bv-token-grid" aria-label="Butterfly Effect visual signal tokens">
+          <article class="bv-token">
+            <div class="bv-token-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none">
+                <path d="M42 12C34 14 28 21 28 30C28 40 36 48 46 48C48 48 51 47 53 47C49 52 42 56 34 56C21 56 10 45 10 32C10 19 21 8 34 8C37 8 40 9 42 12Z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="M18 43C22 38 28 36 35 38" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <p class="bv-token-kicker">Sleep</p>
+            <strong>Night structure</strong>
+            <span>Timing, continuity, and recovery context stay visible before any interpretation is attempted.</span>
+          </article>
+          <article class="bv-token">
+            <div class="bv-token-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none">
+                <path d="M7 34H18L23 21L31 48L38 16L45 34H57" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 48H52" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".42"/>
+              </svg>
+            </div>
+            <p class="bv-token-kicker">Physiology</p>
+            <strong>Overnight load</strong>
+            <span>Physiological traces are treated as signal candidates, not explanations on their own.</span>
+          </article>
+          <article class="bv-token">
+            <div class="bv-token-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none">
+                <path d="M10 43C18 43 18 25 26 25C34 25 34 43 42 43C50 43 50 25 58 25" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                <path d="M12 53H52" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".44"/>
+                <circle cx="26" cy="25" r="3" fill="currentColor"/>
+                <circle cx="42" cy="43" r="3" fill="currentColor"/>
+              </svg>
+            </div>
+            <p class="bv-token-kicker">Movement</p>
+            <strong>Daily rhythm</strong>
+            <span>Movement patterns help locate context and burden, especially when compared against the same person.</span>
+          </article>
+          <article class="bv-token">
+            <div class="bv-token-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none">
+                <rect x="13" y="10" width="38" height="44" rx="8" stroke="currentColor" stroke-width="2.2"/>
+                <path d="M22 25H42M22 34H36M22 43H40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="44" cy="34" r="3" fill="currentColor"/>
+              </svg>
+            </div>
+            <p class="bv-token-kicker">Self report</p>
+            <strong>Daily state</strong>
+            <span>Subjective labels give the engine a human anchor for stress, clarity, burden, and recovery.</span>
+          </article>
+        </div>
+        <div class="bv-longitudinal">
+          <figure class="bv-signal-canvas" aria-label="Longitudinal signal timeline with quality gates">
+            <svg class="bv-signal-svg" viewBox="0 0 880 372" role="img" aria-labelledby="bv-signal-title bv-signal-desc">
+              <title id="bv-signal-title">Within-person signal timeline</title>
+              <desc id="bv-signal-desc">A visual timeline showing repeated observations, a personal baseline, quality gates, and bounded review outputs.</desc>
+              <line class="bv-signal-axis" x1="78" y1="312" x2="806" y2="312"/>
+              <line class="bv-signal-axis" x1="78" y1="106" x2="78" y2="312"/>
+              <rect class="bv-signal-band" x="112" y="156" width="606" height="76" rx="38"/>
+              <text class="bv-signal-label" x="116" y="137">Personal baseline band</text>
+              <path class="bv-signal-line bv-signal-trace" d="M100 244C142 228 161 216 199 228C237 240 250 196 290 188C330 180 358 227 394 220C430 213 455 154 493 166C531 178 552 238 594 230C636 222 654 172 694 184C734 196 752 249 798 226"/>
+              <path class="bv-signal-line-secondary" d="M100 278C146 276 172 260 211 268C250 276 273 250 311 251C349 252 371 274 412 264C453 254 470 232 512 238C554 244 579 279 624 270C669 261 694 238 734 248C774 258 786 271 806 268"/>
+              <circle class="bv-signal-node" cx="290" cy="188" r="9"/>
+              <circle class="bv-signal-node bv-signal-node-muted" cx="493" cy="166" r="9"/>
+              <circle class="bv-signal-node" cx="694" cy="184" r="9"/>
+              <rect class="bv-signal-callout" x="248" y="70" width="178" height="44" rx="22"/>
+              <text class="bv-signal-callout-text" x="337" y="92">quality checked</text>
+              <rect class="bv-signal-callout" x="470" y="282" width="174" height="44" rx="22"/>
+              <text class="bv-signal-callout-text" x="557" y="304">uncertainty visible</text>
+              <rect class="bv-signal-callout" x="640" y="86" width="156" height="44" rx="22"/>
+              <text class="bv-signal-callout-text" x="718" y="108">review only</text>
+              <text class="bv-signal-label" x="96" y="350">Daily observations</text>
+              <text class="bv-signal-label" x="608" y="350">Bounded signal</text>
+            </svg>
+          </figure>
+          <div class="bv-rail" aria-label="Visual interpretation rules">
+            <article class="bv-rail-item">
+              <div class="bv-rail-icon" aria-hidden="true">
+                <svg viewBox="0 0 44 44" fill="none">
+                  <path d="M8 22H36M22 8V36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="22" cy="22" r="12" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </div>
+              <div>
+                <p class="bv-rail-kicker">Rule 01</p>
+                <strong>Repeated beats matter</strong>
+                <span>The visual system should make longitudinal change easier to read than isolated values.</span>
+              </div>
+            </article>
+            <article class="bv-rail-item">
+              <div class="bv-rail-icon" aria-hidden="true">
+                <svg viewBox="0 0 44 44" fill="none">
+                  <path d="M10 14H34M10 22H28M10 30H22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="32" cy="30" r="4" fill="currentColor"/>
+                </svg>
+              </div>
+              <div>
+                <p class="bv-rail-kicker">Rule 02</p>
+                <strong>Quality is part of the message</strong>
+                <span>A signal is not shown as meaningful unless its quality state is carried with it.</span>
+              </div>
+            </article>
+            <article class="bv-rail-item">
+              <div class="bv-rail-icon" aria-hidden="true">
+                <svg viewBox="0 0 44 44" fill="none">
+                  <path d="M12 33L22 11L32 33H12Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  <path d="M22 19V25" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="22" cy="29" r="1.8" fill="currentColor"/>
+                </svg>
+              </div>
+              <div>
+                <p class="bv-rail-kicker">Rule 03</p>
+                <strong>Limits stay attached</strong>
+                <span>Research-only outputs remain useful only if uncertainty and evidence limits stay visible.</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="section">
         <div class="section-header">
           <div>
@@ -2139,15 +2268,15 @@
                 <rect class="signal-map-card" x="18" y="38" width="176" height="320" rx="28"/>
                 <text class="signal-map-label" x="40" y="72">OBSERVED STREAMS</text>
                 <rect class="signal-map-soft" x="40" y="94" width="126" height="32" rx="16"/>
-                <text class="signal-map-chip-text" x="57" y="115">Sleep timing</text>
+                <text class="signal-map-chip-text" x="103" y="110">Sleep timing</text>
                 <rect class="signal-map-soft" x="40" y="140" width="142" height="32" rx="16"/>
-                <text class="signal-map-chip-text" x="57" y="161">Night physiology</text>
+                <text class="signal-map-chip-text" x="111" y="156">Night physiology</text>
                 <rect class="signal-map-soft" x="40" y="186" width="116" height="32" rx="16"/>
-                <text class="signal-map-chip-text" x="57" y="207">Movement</text>
+                <text class="signal-map-chip-text" x="98" y="202">Movement</text>
                 <rect class="signal-map-soft" x="40" y="232" width="104" height="32" rx="16"/>
-                <text class="signal-map-chip-text" x="57" y="253">Context</text>
+                <text class="signal-map-chip-text" x="92" y="248">Context</text>
                 <rect class="signal-map-soft" x="40" y="278" width="124" height="32" rx="16"/>
-                <text class="signal-map-chip-text" x="57" y="299">Self report</text>
+                <text class="signal-map-chip-text" x="102" y="294">Self report</text>
 
                 <rect class="signal-map-gate" x="258" y="112" width="158" height="174" rx="30"/>
                 <text class="signal-map-label" x="282" y="146">QUALITY GATE</text>
@@ -2162,21 +2291,21 @@
                 <text class="signal-map-label" x="512" y="96">LAYER ROUTER</text>
                 <text class="signal-map-title" x="512" y="126">Interpretation engine</text>
                 <rect class="signal-map-soft" x="512" y="154" width="126" height="30" rx="15"/>
-                <text class="signal-map-chip-text" x="530" y="174">Night layer</text>
+                <text class="signal-map-chip-text" x="575" y="169">Night layer</text>
                 <rect class="signal-map-soft" x="512" y="196" width="126" height="30" rx="15"/>
-                <text class="signal-map-chip-text" x="530" y="216">Event layer</text>
+                <text class="signal-map-chip-text" x="575" y="211">Event layer</text>
                 <rect class="signal-map-soft" x="512" y="238" width="126" height="30" rx="15"/>
-                <text class="signal-map-chip-text" x="530" y="258">Daily layer</text>
+                <text class="signal-map-chip-text" x="575" y="253">Daily layer</text>
                 <text class="signal-map-small" x="512" y="303">Claims stay separated</text>
 
                 <rect class="signal-map-review" x="742" y="96" width="160" height="216" rx="30"/>
                 <text class="signal-map-label" x="766" y="130">REVIEW SURFACES</text>
                 <rect class="signal-map-soft" x="766" y="156" width="108" height="30" rx="15"/>
-                <text class="signal-map-chip-text" x="782" y="176">Participant</text>
+                <text class="signal-map-chip-text" x="820" y="171">Participant</text>
                 <rect class="signal-map-soft" x="766" y="198" width="112" height="30" rx="15"/>
-                <text class="signal-map-chip-text" x="782" y="218">Professional</text>
+                <text class="signal-map-chip-text" x="822" y="213">Professional</text>
                 <rect class="signal-map-soft" x="766" y="240" width="108" height="30" rx="15"/>
-                <text class="signal-map-chip-text" x="782" y="260">Institution</text>
+                <text class="signal-map-chip-text" x="820" y="255">Institution</text>
 
                 <path class="signal-map-path-muted" marker-end="url(#signalArrow)" d="M166 110 C218 108 224 146 258 158"/>
                 <path class="signal-map-path-muted" marker-end="url(#signalArrow)" d="M182 156 C222 156 228 176 258 188"/>
