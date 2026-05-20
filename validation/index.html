@@ -960,6 +960,7 @@
     }
     </style>
   <link rel="stylesheet" href="/shared/surface_enhancer.css?v=20260514-harmony">
+  <link rel="stylesheet" href="/shared/butterfly_visual_system.css?v=20260520-uikit1">
   <script src="/shared/surface_enhancer.js?v=20260514-harmony" defer></script>
   <link rel="canonical" href="https://butterflyeffectstudy.com/validation/">
   <meta property="og:site_name" content="Butterfly Effect">
@@ -1399,6 +1400,60 @@
             <ul><li>Combines data quality, validation strength, personal history, uncertainty, route stability, and feature dependency into a research confidence score.</li><li>Portable and low-signal routes are deliberately capped so the system does not overstate them.</li></ul>
           </article>
         </div>
+      </section>
+
+      <section class="section bv-ui-kit-section" id="validation-cockpit">
+        <div class="section-header">
+          <div>
+            <p class="section-eyebrow">Validation Cockpit</p>
+            <h2>The validation layer should show status before it shows ambition.</h2>
+          </div>
+          <p>These controls keep the project honest: a route can look promising and still be held back if the quality gate, transport, uncertainty or dependency pattern is not strong enough.</p>
+        </div>
+        <article class="bv-ui-board" aria-label="Validation cockpit">
+          <div class="bv-ui-grid">
+            <article class="bv-ui-card" data-tone="control">
+              <div class="bv-ui-card-head">
+                <span class="bv-ui-index">QC</span>
+                <span class="bv-ui-status is-live">active</span>
+              </div>
+              <strong>Quality can silence a route</strong>
+              <p>Participant history, missingness and timing decide whether the engine can report, defer or hold the interpretation for review.</p>
+              <div class="bv-ui-chipline"><span>report</span><span>defer</span><span>hold</span></div>
+              <div class="bv-ui-meter"><i style="width: 88%"></i><span>priority</span></div>
+            </article>
+            <article class="bv-ui-card" data-tone="engine">
+              <div class="bv-ui-card-head">
+                <span class="bv-ui-index">RS</span>
+                <span class="bv-ui-status is-watch">watched</span>
+              </div>
+              <strong>Route stability is audited</strong>
+              <p>Validation signal, participant spread, interval behavior, missingness sensitivity and temporal windows are checked together.</p>
+              <div class="bv-ui-chipline"><span>spread</span><span>windows</span><span>coverage</span></div>
+              <div class="bv-ui-meter"><i style="width: 71%"></i><span>route</span></div>
+            </article>
+            <article class="bv-ui-card">
+              <div class="bv-ui-card-head">
+                <span class="bv-ui-index">DA</span>
+                <span class="bv-ui-status">transparent</span>
+              </div>
+              <strong>Dependency is visible</strong>
+              <p>Ablation separates sleep, movement, physiology, self report, context and quality signals so the route can be questioned.</p>
+              <div class="bv-ui-chipline"><span>sleep</span><span>context</span><span>quality</span></div>
+              <div class="bv-ui-meter"><i style="width: 79%"></i><span>mapped</span></div>
+            </article>
+            <article class="bv-ui-card" data-tone="review">
+              <div class="bv-ui-card-head">
+                <span class="bv-ui-index">CB</span>
+                <span class="bv-ui-status is-live">bounded</span>
+              </div>
+              <strong>Claim boundary travels with output</strong>
+              <p>The result keeps its evidence level, uncertainty, audience and current use boundary attached, including when future diagnostic paths are explored.</p>
+              <div class="bv-ui-chipline"><span>uncertainty</span><span>evidence</span><span>use</span></div>
+              <div class="bv-ui-meter"><i style="width: 93%"></i><span>visible</span></div>
+            </article>
+          </div>
+        </article>
       </section>
 
       <div class="filter-shell" data-filter-group>
