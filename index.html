@@ -114,6 +114,9 @@
       justify-items: center;
       margin-bottom: 18px;
     }
+    .intro .brand-lockup {
+      margin-bottom: 4px;
+    }
     .hero-brand {
       justify-items: start;
       margin-bottom: 10px;
@@ -123,7 +126,8 @@
       line-height: 0;
       flex-shrink: 0;
     }
-    .brand-mark img {
+    .brand-mark img,
+    .brand-mark video {
       display: block;
       width: 100%;
       height: auto;
@@ -131,8 +135,9 @@
       image-rendering: auto;
     }
     .intro-logo {
-      width: clamp(220px, 28vw, 380px);
-      animation: intro-butterfly-ambient 27.8s cubic-bezier(0.42, 0.08, 0.24, 1) infinite;
+      width: clamp(240px, 27vw, 380px);
+      transform-origin: 50% 46%;
+      animation: intro-butterfly-ambient 13.8s cubic-bezier(0.42, 0.08, 0.24, 1) infinite;
       will-change: transform, filter;
     }
     .intro-cinematic-butterfly {
@@ -143,30 +148,34 @@
       border-radius: 0;
       isolation: isolate;
       background: transparent;
-      filter: drop-shadow(0 30px 52px rgba(0, 0, 0, 0.5));
+      filter: drop-shadow(0 26px 48px rgba(0, 0, 0, 0.48));
       transform: translateZ(0);
     }
     .intro-cinematic-butterfly::before {
       content: "";
       position: absolute;
-      inset: 18% 9% 12%;
+      inset: 19% 13% 16%;
       z-index: 1;
-      background: linear-gradient(90deg, transparent, rgba(234, 169, 91, 0.24), transparent);
-      opacity: 0.64;
-      filter: blur(18px);
+      background: radial-gradient(circle at 50% 48%, rgba(234, 169, 91, 0.22), transparent 68%);
+      opacity: 0.68;
+      filter: blur(16px);
       transform: translateY(4%);
       animation: intro-moth-halo 10.8s ease-in-out infinite;
     }
-    .intro-cinematic-butterfly img {
+    .intro-cinematic-butterfly img,
+    .intro-cinematic-butterfly video {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 48%;
-      transform: scale(1.02);
-      mix-blend-mode: normal;
-      filter: saturate(1.12) contrast(1.08) brightness(1.02);
+      object-position: center center;
+      transform-origin: 50% 46%;
+      transform: scale(1.08);
+      mix-blend-mode: screen;
+      filter: saturate(1.08) contrast(1.08) brightness(1.02);
+      -webkit-mask-image: radial-gradient(circle at 50% 47%, #000 0%, #000 48%, rgba(0, 0, 0, 0.78) 61%, transparent 78%);
+      mask-image: radial-gradient(circle at 50% 47%, #000 0%, #000 48%, rgba(0, 0, 0, 0.78) 61%, transparent 78%);
       animation: intro-moth-presence 12.4s cubic-bezier(0.4, 0.06, 0.22, 1) infinite;
     }
     .intro-butterfly {
@@ -540,37 +549,41 @@
     }
     @keyframes intro-butterfly-ambient {
       0%, 100% {
-        transform: translateX(0) translateY(0) rotateZ(0deg) scale(1);
+        transform: translate3d(0, 0, 0) rotateZ(-1.2deg) scale(1);
         filter: none;
       }
-      18% {
-        transform: translateX(0.08%) translateY(-0.22%) rotateZ(-0.08deg) scale(1.005);
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06));
+      16% {
+        transform: translate3d(8px, -6px, 0) rotateZ(2.8deg) scale(1.012);
+        filter: drop-shadow(0 8px 13px rgba(0, 0, 0, 0.14));
       }
-      41% {
-        transform: translateX(-0.12%) translateY(0.12%) rotateZ(0.06deg) scale(0.998);
-        filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.05));
+      37% {
+        transform: translate3d(-7px, -1px, 0) rotateZ(-3.4deg) scale(1.004);
+        filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.16));
       }
-      63% {
-        transform: translateX(0.05%) translateY(-0.16%) rotateZ(-0.04deg) scale(1.003);
-        filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.065));
+      58% {
+        transform: translate3d(9px, 4px, 0) rotateZ(2deg) scale(1.01);
+        filter: drop-shadow(0 7px 12px rgba(0, 0, 0, 0.13));
       }
-      81% {
-        transform: translateX(0.12%) translateY(0.06%) rotateZ(0.05deg) scale(1);
-        filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.045));
+      79% {
+        transform: translate3d(-4px, 6px, 0) rotateZ(-1.8deg) scale(0.998);
+        filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.11));
       }
     }
     @keyframes intro-moth-presence {
       0%, 100% {
-        transform: scale(1.02) translateY(0);
+        transform: scale(1.08) translate3d(0, 0, 0) rotateZ(0deg);
         filter: saturate(1.08) contrast(1.06) brightness(1);
       }
-      34% {
-        transform: scale(1.045) translateY(-0.8%);
+      24% {
+        transform: scale(1.115) translate3d(1.8%, -1.2%, 0) rotateZ(-1.4deg);
+        filter: saturate(1.16) contrast(1.1) brightness(1.04);
+      }
+      52% {
+        transform: scale(1.095) translate3d(-1.4%, 0.8%, 0) rotateZ(1.1deg);
         filter: saturate(1.18) contrast(1.1) brightness(1.05);
       }
-      66% {
-        transform: scale(1.03) translateY(0.4%);
+      76% {
+        transform: scale(1.105) translate3d(0.7%, 1.4%, 0) rotateZ(0.7deg);
         filter: saturate(1.12) contrast(1.08) brightness(1.02);
       }
     }
@@ -1851,6 +1864,7 @@
       .intro-signal-node .node-pulse,
       .intro-cinematic-butterfly::before,
       .intro-cinematic-butterfly img,
+      .intro-cinematic-butterfly video,
       .intro-butterfly .butterfly-layer,
       .intro-butterfly .butterfly-layer img { transition: none; animation: none; }
     }
@@ -2299,7 +2313,11 @@
       <div class="intro-copy-inner">
         <div class="brand-lockup">
           <span class="brand-mark intro-logo intro-cinematic-butterfly" aria-hidden="true">
-            <img src="/assets/intro-butterfly-cinematic-cutout.png" alt="">
+            <video data-intro-video autoplay muted loop playsinline preload="metadata" poster="/assets/intro-butterfly-loop-warm-poster.jpg">
+              <source src="/assets/intro-butterfly-loop-warm.webm" type="video/webm">
+              <source src="/assets/intro-butterfly-loop-warm.mp4" type="video/mp4">
+              <img src="/assets/intro-butterfly-loop-warm-poster.jpg" alt="">
+            </video>
           </span>
         </div>
         <p class="intro-label">Longitudinal signal research</p>
@@ -2916,6 +2934,8 @@
     (function () {
       const body = document.body;
       const enterButton = document.getElementById('enter-surface');
+      const introVideo = document.querySelector('[data-intro-video]');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
       function enterSurface() {
         window.location.assign('/overview/');
@@ -2925,10 +2945,26 @@
         body.classList.remove('surface-live');
       }
 
+      function syncIntroMotion() {
+        if (!introVideo) return;
+        if (reducedMotion.matches) {
+          introVideo.pause();
+          introVideo.currentTime = 1.2;
+          return;
+        }
+        introVideo.play().catch(function () {});
+      }
+
       if (enterButton) {
         enterButton.addEventListener('click', enterSurface);
       }
+      if (reducedMotion.addEventListener) {
+        reducedMotion.addEventListener('change', syncIntroMotion);
+      } else if (reducedMotion.addListener) {
+        reducedMotion.addListener(syncIntroMotion);
+      }
       startIntro();
+      syncIntroMotion();
     })();
   </script>
 </body>
