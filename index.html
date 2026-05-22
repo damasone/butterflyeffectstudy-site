@@ -178,6 +178,39 @@
       mask-image: radial-gradient(circle at 50% 47%, #000 0%, #000 48%, rgba(0, 0, 0, 0.78) 61%, transparent 78%);
       animation: intro-moth-presence 12.4s cubic-bezier(0.4, 0.06, 0.22, 1) infinite;
     }
+    .intro-cinematic-butterfly .intro-video-fallback {
+      z-index: 2;
+      opacity: 1;
+      transition: opacity 320ms ease;
+    }
+    .intro-cinematic-butterfly video {
+      z-index: 3;
+      opacity: 0;
+      pointer-events: none;
+      background: transparent;
+      -webkit-appearance: none;
+      appearance: none;
+      transition: opacity 320ms ease;
+    }
+    .intro-cinematic-butterfly.is-video-ready video {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    .intro-cinematic-butterfly.is-video-ready .intro-video-fallback {
+      opacity: 0 !important;
+    }
+    .intro-cinematic-butterfly.is-video-blocked video {
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+    .intro-cinematic-butterfly video::-webkit-media-controls,
+    .intro-cinematic-butterfly video::-webkit-media-controls-panel,
+    .intro-cinematic-butterfly video::-webkit-media-controls-overlay-play-button,
+    .intro-cinematic-butterfly video::-webkit-media-controls-start-playback-button {
+      display: none !important;
+      -webkit-appearance: none;
+      opacity: 0;
+    }
     .intro-butterfly {
       position: relative;
       display: block;
@@ -2313,10 +2346,10 @@
       <div class="intro-copy-inner">
         <div class="brand-lockup">
           <span class="brand-mark intro-logo intro-cinematic-butterfly" aria-hidden="true">
-            <video data-intro-video autoplay muted loop playsinline preload="metadata" poster="/assets/intro-butterfly-loop-warm-poster.jpg">
+            <img class="intro-video-fallback" src="/assets/intro-butterfly-loop-warm-poster.jpg" alt="" loading="eager" decoding="async">
+            <video data-intro-video autoplay muted loop playsinline webkit-playsinline x5-playsinline preload="auto" poster="/assets/intro-butterfly-loop-warm-poster.jpg" disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback">
               <source src="/assets/intro-butterfly-loop-warm.webm" type="video/webm">
               <source src="/assets/intro-butterfly-loop-warm.mp4" type="video/mp4">
-              <img src="/assets/intro-butterfly-loop-warm-poster.jpg" alt="">
             </video>
           </span>
         </div>
@@ -2401,7 +2434,7 @@
         </div>
         <aside class="hero-panel">
           <strong>What already holds</strong>
-          <p>Several routes show useful signal under their own limits: nightly within cohort interpretation, portable event stress, and daily temporal models. Night transport is still the main bottleneck, though the portable stress D+1 family has now improved under a governed blended contract. These are research signals for review, not diagnostic outputs.</p>
+          <p>Several routes show useful signal under their own limits: nightly within-cohort interpretation, portable event stress, and daily temporal models. Night signal portability remains the main bottleneck: night-based patterns still need to prove that they remain meaningful across participants, cohorts, devices, and datasets. These are research signals for review, not diagnostic outputs.</p>
           <ul class="highlight-list"><li>
           <span>Night Layer</span>
           <strong>Novartis D0 fatigue contextual interpretation</strong>
@@ -2696,8 +2729,8 @@
           <span>research layers that remain useful but still fall below deployment or transport thresholds</span>
         </article><article class="metric-card">
           <p class="metric-label">Main bottleneck</p>
-          <strong>Night transport</strong>
-          <span>cross cohort nightly portability still limits the strongest public claim the project can make</span>
+          <strong>Night signal portability</strong>
+          <span>the next scientific challenge is proving that night-based patterns remain meaningful across participants, cohorts, devices, and datasets</span>
         </article></section>
 
       <section class="section">
@@ -2797,7 +2830,7 @@
                 <span class="chip chip-warn">Limited</span>
                 <span class="chip chip-ok">Operational</span>
               </div>
-              <div class="overview-note">Blocked by nightly transport</div>
+              <div class="overview-note">Limited by night signal portability</div>
             </article><article class="overview-row" tabindex="0" data-filter-tags="stress portable">
               <div class="overview-copy">
                 <strong>Event Layer</strong>
@@ -2935,6 +2968,7 @@
       const body = document.body;
       const enterButton = document.getElementById('enter-surface');
       const introVideo = document.querySelector('[data-intro-video]');
+      const introVideoShell = introVideo ? introVideo.closest('.intro-cinematic-butterfly') : null;
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
       function enterSurface() {
@@ -2947,12 +2981,52 @@
 
       function syncIntroMotion() {
         if (!introVideo) return;
+        introVideo.controls = false;
+        introVideo.muted = true;
+        introVideo.defaultMuted = true;
+        introVideo.playsInline = true;
+        introVideo.setAttribute('muted', '');
+        introVideo.setAttribute('playsinline', '');
+        introVideo.setAttribute('webkit-playsinline', '');
+        introVideo.removeAttribute('controls');
         if (reducedMotion.matches) {
           introVideo.pause();
           introVideo.currentTime = 1.2;
+          if (introVideoShell) {
+            introVideoShell.classList.remove('is-video-ready');
+            introVideoShell.classList.add('is-video-blocked');
+          }
           return;
         }
-        introVideo.play().catch(function () {});
+        if (introVideoShell) {
+          introVideoShell.classList.remove('is-video-blocked');
+        }
+        const playAttempt = introVideo.play();
+        if (playAttempt && typeof playAttempt.then === 'function') {
+          playAttempt.then(function () {
+            if (!introVideo.paused && introVideoShell) {
+              introVideoShell.classList.add('is-video-ready');
+              introVideoShell.classList.remove('is-video-blocked');
+            }
+          }).catch(function () {
+            if (introVideoShell) {
+              introVideoShell.classList.remove('is-video-ready');
+              introVideoShell.classList.add('is-video-blocked');
+            }
+          });
+        }
+      }
+
+      if (introVideo) {
+        introVideo.addEventListener('playing', function () {
+          if (!introVideoShell) return;
+          introVideoShell.classList.add('is-video-ready');
+          introVideoShell.classList.remove('is-video-blocked');
+        });
+        introVideo.addEventListener('pause', function () {
+          if (!introVideoShell || reducedMotion.matches) return;
+          introVideoShell.classList.remove('is-video-ready');
+        });
       }
 
       if (enterButton) {
