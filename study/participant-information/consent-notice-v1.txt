@@ -1,0 +1,19 @@
+Butterfly Effect Participant Information and Consent Notice
+Version: be-participant-consent-v1.0-20260721
+Effective date: 21 July 2026
+
+Butterfly Effect is an independent, research-only initiative led by Damaso Mengod Perez. The study examines whether repeated sleep, overnight physiology, movement, daily context and self-reported state data can support careful within-person pattern analysis.
+
+Participation is voluntary. The project may collect participant account identifiers, daily questionnaire answers, free-text notes, sleep and physiology summaries, movement-related measures, relevant context events and derived research features. It does not provide diagnosis, treatment, medical triage or automated clinical decisions.
+
+The purpose of processing is longitudinal research, data-quality assessment, development and validation of transparent research methods, preparation of participant research summaries, and scientific or professional review under the stated claim boundaries. Health-related data are processed only with the participant's explicit consent. Consent may be withdrawn without penalty. Withdrawal prevents new study submissions; requests concerning existing data will be handled according to applicable legal, scientific-integrity and deletion obligations.
+
+Access is limited to the project lead and specifically authorised research, technical, clinical or academic collaborators when required for the stated purpose. Authentication, database, storage and website infrastructure may rely on contracted technical providers. International processing, if any, must use the safeguards required by applicable data-protection law.
+
+Identifiable study data should be kept only for the active study and review period. A deidentified research and audit record may be retained for up to five years after study closure unless a shorter period is required by law, ethics review, withdrawal handling or an institutional agreement.
+
+Participants may request access, correction, restriction, portability or deletion where applicable, object to processing, withdraw consent, and raise a complaint with the competent data-protection authority. Requests can be initiated with the study administrator through the contact channel provided during enrolment.
+
+Foreseeable burdens include the time required for repeated questionnaires and the possibility that reflecting on sleep or daily state may feel uncomfortable. Consumer-device measures can be incomplete or inaccurate. The direct benefit is not guaranteed. Any returned summary is descriptive research information and is not medical advice.
+
+By actively accepting this notice, the participant confirms that they have read and understood it, have had an opportunity to ask questions, are participating voluntarily, and explicitly consent to the processing of the health-related study data described above.

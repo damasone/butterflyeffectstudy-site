@@ -2073,6 +2073,10 @@
                 <input id="participant_label" type="text" placeholder="Optional personal label">
               </div>
             </div>
+            <label class="consent-check" for="study_consent_accept" style="display:flex; gap:10px; align-items:flex-start; margin-top:14px; line-height:1.45;">
+              <input id="study_consent_accept" type="checkbox" style="margin-top:4px;">
+              <span>I have read the <a href="/study/participant-information/" target="_blank" rel="noopener">participant information and consent notice</a> and consent to the research use described there. I understand that this project is research only and that I can withdraw consent.</span>
+            </label>
             <div class="actions">
               <button class="button" type="button" id="save-profile-button">Link participant code</button>
             </div>
@@ -2379,6 +2383,10 @@
     const reportDateInput = document.getElementById("report_date_local");
     const participantUidInput = document.getElementById("participant_uid");
     const participantCodeInput = document.getElementById("participant_code");
+    const studyConsentAcceptInput = document.getElementById("study_consent_accept");
+    const STUDY_CONSENT_VERSION = "be-participant-consent-v1.0-20260721";
+    const STUDY_CONSENT_NOTICE_SHA256 = "c76b4bc46f277e7f30acfe3a3e876ec2708b7fec6fad9a3e5fc5ef18af0182c6";
+    const STUDY_CONSENT_NOTICE_URL = "https://butterflyeffectstudy.com/study/participant-information/consent-notice-v1.txt";
     const participantLabelInput = document.getElementById("participant_label");
     const dashboardGreeting = document.getElementById("dashboard-greeting");
     const dashboardActionTitle = document.getElementById("dashboard-action-title");
@@ -3170,7 +3178,29 @@
         major_schedule_disruption_flag: triStateBool(entry.major_schedule_disruption_flag),
         menstrual_cycle_phase: entry.menstrual_cycle_phase || null,
         free_text_note: entry.free_text_note || null,
+        response_state_json: buildResponseState(entry),
         source: "participant_portal",
+      };
+    }
+
+    function buildResponseState(entry) {
+      const fieldStates = {};
+      for (const name of FIELD_ORDER) {
+        const value = entry[name];
+        if (RANGE_FIELD_SET.has(name)) {
+          fieldStates[name] = value === "" ? "missing" : "explicit_value";
+        } else if (BOOLEAN_FIELDS.has(name)) {
+          fieldStates[name] = String(value) === "1" ? "explicit_yes" : "visible_default_no";
+        } else if (["caffeine_mg", "alcohol_units", "nap_minutes", "exercise_minutes"].includes(name)) {
+          fieldStates[name] = String(value).trim() === "" ? "visible_default_zero" : "explicit_value";
+        } else {
+          fieldStates[name] = String(value || "").trim() === "" ? "not_provided" : "explicit_value";
+        }
+      }
+      return {
+        capture_mode: "participant_portal_field_state_v1",
+        captured_at: localIsoTimestamp(),
+        field_states: fieldStates,
       };
     }
 
@@ -3660,6 +3690,39 @@
       state.participant = data;
       updateProfileSummary();
       renderAuthState();
+      if (state.participant && !hasCurrentStudyConsent()) {
+        setStatus(profileStatus, "Review and accept the current participant information before the next submission.", "warn");
+      }
+    }
+
+    function hasCurrentStudyConsent(participant = state.participant) {
+      return Boolean(participant)
+        && participant.consent_status === "granted"
+        && participant.consent_version === STUDY_CONSENT_VERSION
+        && participant.consent_notice_sha256 === STUDY_CONSENT_NOTICE_SHA256
+        && Boolean(participant.consented_at);
+    }
+
+    async function ensureStudyConsent(statusElement = profileStatus) {
+      if (hasCurrentStudyConsent()) return true;
+      if (!state.participant) return false;
+      if (!studyConsentAcceptInput.checked) {
+        setStatus(statusElement, "Read and accept the participant information before submitting study data.", "danger");
+        return false;
+      }
+      const consentResponse = await supabaseClient.rpc("record_study_consent", {
+        consent_version_arg: STUDY_CONSENT_VERSION,
+        notice_sha256_arg: STUDY_CONSENT_NOTICE_SHA256,
+        notice_url_arg: STUDY_CONSENT_NOTICE_URL,
+      });
+      if (consentResponse.error) {
+        setStatus(statusElement, consentResponse.error.message, "danger");
+        return false;
+      }
+      state.participant = consentResponse.data;
+      updateProfileSummary();
+      renderAuthState();
+      return true;
     }
 
     async function claimParticipant({ silent = false } = {}) {
@@ -3683,9 +3746,10 @@
         return false;
       }
       state.participant = data;
+      if (!await ensureStudyConsent(profileStatus)) return false;
       updateProfileSummary();
       renderAuthState();
-      participantUidInput.value = data.participant_code;
+      participantUidInput.value = state.participant.participant_code;
       if (!silent) setStatus(profileStatus, "Participant code linked securely.", "ok");
       return true;
     }
@@ -3962,6 +4026,7 @@
           return;
         }
       }
+      if (!await ensureStudyConsent(formStatus)) return;
       const entry = readFormEntry();
       const wasEditing = Boolean(state.currentEditId);
       if (!entry.report_date_local) {
@@ -4047,6 +4112,7 @@
           return;
         }
       }
+      if (!await ensureStudyConsent(eventStatus)) return;
       const entry = readEventFormEntry();
       if (!entry.event_date_local || !entry.event_kind || !entry.event_label) {
         setStatus(eventStatus, "Event date, event type, and label are required.", "danger");
