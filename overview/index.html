@@ -2013,6 +2013,9 @@
     }
   }
   </style>
+  <link rel="stylesheet" href="/shared/editorial_reframe.css?v=20260721a">
+  <script src="/shared/editorial_reframe.js?v=20260721a" defer></script>
+  <link rel="stylesheet" href="/shared/research_surface_refine.css?v=20260721a">
 </head>
 <body class="page-index surface-live">
 <div class="page-shell">
@@ -2025,14 +2028,12 @@
       <section class="hero" id="overview">
         <div>
           <p class="eyebrow">Longitudinal Health Signals</p>
-          <h2>Small changes, repeated over time, can become reviewable signals.</h2>
+          <h2>Small changes become visible when repeated over time.</h2>
           <p class="hero-quote">The flap of a butterfly’s wings can be felt on the other side of the world.</p>
-          <p class="lede">Butterfly Effect explores how changes within a person’s sleep, overnight physiology, movement, context, and daily self reported state may relate to later burden. The public surface turns that idea into a governed interpretation system: quality gates, route specific evidence, stability checks, feature dependency audit, confidence scoring, participant return, professional review, and a future validation pathway.</p>
+          <p class="lede">Butterfly Effect studies how sleep, overnight physiology, movement, context, and daily self report change within the same person. Its engine separates observation from interpretation and keeps quality, uncertainty, and evidence attached to every research output.</p>
           <div class="hero-actions">
             <a class="button" href="/pitch/">Read the scientific pitch</a>
             <a class="ghost-button" href="/views/">Open the live surfaces</a>
-            <a class="ghost-button" href="/validation/">Read the validation frame</a>
-            <a class="ghost-button" href="/study/">Open participant study</a>
           </div>
         </div>
         <aside class="hero-panel">
@@ -2071,9 +2072,9 @@
         <div class="section-header">
           <div>
             <p class="section-eyebrow">Visual System</p>
-            <h2>The project now has a clearer visual language for signal, quality, uncertainty, and review.</h2>
+            <h2>How a repeated observation becomes a reviewable signal.</h2>
           </div>
-          <p>Each visual element has a job: separate what is observed, show where quality constrains interpretation, and keep the output tied to evidence instead of turning it into a single score.</p>
+          <p>Observed streams remain separate until quality, timing, and provenance are good enough to interpret.</p>
         </div>
         <div class="bv-token-grid" aria-label="Butterfly Effect visual signal tokens">
           <article class="bv-token">
@@ -2125,28 +2126,16 @@
           </article>
         </div>
         <div class="bv-longitudinal">
-          <figure class="bv-signal-canvas" aria-label="Longitudinal signal timeline with quality gates">
-            <svg class="bv-signal-svg" viewBox="0 0 880 372" role="img" aria-labelledby="bv-signal-title bv-signal-desc">
-              <title id="bv-signal-title">Within-person signal timeline</title>
-              <desc id="bv-signal-desc">A visual timeline showing repeated observations, a personal baseline, quality gates, and bounded review outputs.</desc>
-              <line class="bv-signal-axis" x1="78" y1="312" x2="806" y2="312"/>
-              <line class="bv-signal-axis" x1="78" y1="106" x2="78" y2="312"/>
-              <rect class="bv-signal-band" x="112" y="156" width="606" height="76" rx="38"/>
-              <text class="bv-signal-label" x="136" y="182">Personal baseline band</text>
-              <path class="bv-signal-line bv-signal-trace" d="M100 244C142 228 161 216 199 228C237 240 250 196 290 188C330 180 358 227 394 220C430 213 455 154 493 166C531 178 552 238 594 230C636 222 654 172 694 184C734 196 752 249 798 226"/>
-              <path class="bv-signal-line-secondary" d="M100 278C146 276 172 260 211 268C250 276 273 250 311 251C349 252 371 274 412 264C453 254 470 232 512 238C554 244 579 279 624 270C669 261 694 238 734 248C774 258 786 271 806 268"/>
-              <circle class="bv-signal-node" cx="290" cy="188" r="9"/>
-              <circle class="bv-signal-node bv-signal-node-muted" cx="493" cy="166" r="9"/>
-              <circle class="bv-signal-node" cx="694" cy="184" r="9"/>
-              <rect class="bv-signal-callout" x="228" y="82" width="178" height="44" rx="22"/>
-              <text class="bv-signal-callout-text" x="317" y="104">quality checked</text>
-              <rect class="bv-signal-callout" x="470" y="282" width="174" height="44" rx="22"/>
-              <text class="bv-signal-callout-text" x="557" y="304">uncertainty visible</text>
-              <rect class="bv-signal-callout" x="620" y="92" width="156" height="44" rx="22"/>
-              <text class="bv-signal-callout-text" x="698" y="114">review only</text>
-              <text class="bv-signal-label" x="96" y="350">Daily observations</text>
-              <text class="bv-signal-label" x="608" y="350">Bounded signal</text>
-            </svg>
+          <figure class="bv-signal-canvas be-gate-register" aria-labelledby="be-gate-title">
+            <figcaption id="be-gate-title">
+              <span>Interpretation contract</span>
+              <strong>Every route must clear the same visible controls.</strong>
+            </figcaption>
+            <div class="be-gate-head" aria-hidden="true"><span>Gate</span><span>What is inspected</span><span>Effect on output</span></div>
+            <div class="be-gate-row"><strong>Coverage</strong><span>Usable nights, missingness, and minimum exposure.</span><em>Block when insufficient</em></div>
+            <div class="be-gate-row"><strong>Timing</strong><span>Night windows, next-day labels, and temporal alignment.</span><em>Block or downgrade</em></div>
+            <div class="be-gate-row"><strong>Provenance</strong><span>Source, schema, transforms, and model version.</span><em>Required for review</em></div>
+            <div class="be-gate-row"><strong>Stability</strong><span>Replay behaviour, route dependency, and uncertainty.</span><em>Caps confidence</em></div>
           </figure>
           <div class="bv-rail" aria-label="Visual interpretation rules">
             <article class="bv-rail-item">
@@ -2197,7 +2186,7 @@
         <div class="section-header">
           <div>
             <p class="section-eyebrow">From Signal To Surface</p>
-            <h2>The project is easier to understand when it is read as a flow, not as a stack of technical labels.</h2>
+            <h2>From daily life to a bounded research output.</h2>
           </div>
           <p>This visual map is the simplest entry into the system: what is observed, how quality is controlled, how the engine routes and audits interpretation, and what the public surface returns for review.</p>
         </div>

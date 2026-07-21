@@ -1,4 +1,124 @@
 (function () {
+  function classifySurface() {
+    const path = window.location.pathname.toLowerCase().replace(/\/+$/, "") || "/";
+    const layerRoutes = ["/nightly", "/night_route_cards", "/events", "/event_model_cards", "/daily", "/daily_challenge_cards", "/nonstress-daily", "/nonstress_daily_cards", "/nonstress-families", "/nonstress_family_cards"];
+    if (layerRoutes.includes(path)) document.body.classList.add("be-layer-surface");
+    if (path.startsWith("/institution") || path.startsWith("/institution_")) document.body.classList.add("be-dossier");
+    if (path.startsWith("/participant-layer/examples") || path.startsWith("/participant_facing")) document.body.classList.add("be-report-surface");
+    if (["/about", "/contact", "/privacy", "/terms", "/research-scope"].includes(path)) document.body.classList.add("be-document-surface");
+    if (path.startsWith("/public_research_surface")) document.body.classList.add("be-legacy-surface");
+    if (path === "/") document.body.classList.add("be-intro-surface");
+    if (path.includes("print") || document.title.toLowerCase().includes("print")) document.body.classList.add("be-print-surface");
+  }
+
+  function enhanceNavigation() {
+    if (document.querySelector('script[src*="editorial_reframe"]')) return;
+    const topbar = document.querySelector("body > .topbar, .page-shell > .topbar, header.topbar");
+    if (!topbar || topbar.querySelector(".surface-menu-toggle")) return;
+    const links = topbar.querySelector(".nav-links") || topbar.querySelector(":scope > .nav") || topbar.querySelector(".topbar-inner > .nav");
+    if (!links || links.querySelectorAll("a").length < 3) return;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "surface-menu-toggle";
+    button.setAttribute("aria-label", "Open navigation");
+    button.setAttribute("aria-expanded", "false");
+    button.textContent = "Menu";
+    links.classList.add("surface-menu-links");
+    links.parentNode.insertBefore(button, links);
+    button.addEventListener("click", () => {
+      const open = button.getAttribute("aria-expanded") !== "true";
+      button.setAttribute("aria-expanded", String(open));
+      button.textContent = open ? "Close" : "Menu";
+      links.classList.toggle("is-open", open);
+    });
+  }
+
+  function enhanceResultRegister() {
+    if (!document.body.classList.contains("be-layer-surface")) return;
+    const grid = document.querySelector("main > .grid");
+    if (!grid || grid.dataset.register === "true") return;
+    const cards = Array.from(grid.querySelectorAll(":scope > .card"));
+    if (!cards.length) return;
+    grid.dataset.register = "true";
+
+    const toolbar = document.createElement("div");
+    toolbar.className = "be-result-toolbar";
+    toolbar.innerHTML = '<label><span class="sr-only">Search results</span><input type="search" placeholder="Search route, cohort, or target"></label><label><span class="sr-only">Filter by status</span><select><option value="all">All statuses</option></select></label><span class="be-result-count"></span>';
+    grid.parentNode.insertBefore(toolbar, grid);
+    const search = toolbar.querySelector("input");
+    const select = toolbar.querySelector("select");
+    const count = toolbar.querySelector(".be-result-count");
+    const statuses = new Set();
+
+    cards.forEach((card, index) => {
+      const head = card.querySelector(":scope > .card-head");
+      if (!head) return;
+      const firstChip = head.querySelector(".head-chips .chip");
+      const status = firstChip ? firstChip.textContent.trim().toLowerCase() : "unclassified";
+      statuses.add(status);
+      card.dataset.resultStatus = status;
+      card.dataset.resultText = card.textContent.toLowerCase();
+
+      const metrics = [];
+      card.querySelectorAll("tr").forEach((row) => {
+        const cells = row.querySelectorAll("td");
+        if (cells.length < 2) return;
+        const key = cells[0].textContent.trim().toLowerCase();
+        if (/^(heldout_r2|r2|mean_r2|coverage_pct|heldout_mae)$/.test(key) && metrics.length < 3) {
+          metrics.push([key.replace("heldout_", "").replace("_pct", " %").replaceAll("_", " "), cells[1].textContent.trim()]);
+        }
+      });
+      if (metrics.length) {
+        const metricWrap = document.createElement("div");
+        metricWrap.className = "be-key-metrics";
+        metricWrap.innerHTML = metrics.map((metric) => '<div class="be-key-metric"><span>' + metric[0] + '</span><strong>' + metric[1] + '</strong></div>').join("");
+        head.appendChild(metricWrap);
+      }
+
+      const detail = document.createElement("div");
+      detail.className = "be-result-detail";
+      detail.id = "result-detail-" + index;
+      detail.hidden = true;
+      Array.from(card.children).filter((child) => child !== head).forEach((child) => detail.appendChild(child));
+      card.appendChild(detail);
+
+      const toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "be-result-toggle";
+      toggle.setAttribute("aria-label", "Inspect result details");
+      toggle.setAttribute("aria-controls", detail.id);
+      toggle.setAttribute("aria-expanded", "false");
+      head.appendChild(toggle);
+      toggle.addEventListener("click", () => {
+        const open = toggle.getAttribute("aria-expanded") !== "true";
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.setAttribute("aria-label", open ? "Close result details" : "Inspect result details");
+        detail.hidden = !open;
+      });
+    });
+
+    Array.from(statuses).sort().forEach((status) => {
+      const option = document.createElement("option");
+      option.value = status;
+      option.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+      select.appendChild(option);
+    });
+
+    function filter() {
+      const query = search.value.trim().toLowerCase();
+      const status = select.value;
+      let visible = 0;
+      cards.forEach((card) => {
+        const show = (!query || card.dataset.resultText.includes(query)) && (status === "all" || card.dataset.resultStatus === status);
+        card.hidden = !show;
+        if (show) visible += 1;
+      });
+      count.textContent = visible + " of " + cards.length + " results";
+    }
+    search.addEventListener("input", filter);
+    select.addEventListener("change", filter);
+    filter();
+  }
   function slugify(text) {
     return String(text || "")
       .toLowerCase()
@@ -170,10 +290,13 @@
 
   function init() {
     document.body.classList.add("has-surface-enhancer");
-    ensureProgressBar();
+    classifySurface();
+    if (!document.body.classList.contains("be-print-surface")) ensureProgressBar();
+    enhanceNavigation();
     enhanceTabs();
     enhanceFilters();
     enhanceCollapsibleLists();
+    enhanceResultRegister();
   }
 
   if (document.readyState === "loading") {
